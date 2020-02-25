@@ -1,20 +1,11 @@
 [core]
 	excludesfile = /Users/steinbrueckri/.gitignore_global
-[commit]
-	template = /Users/steinbrueckri/.stCommitMsg
+	pager = diff-so-fancy | less --tabs=4 -RFX
+	editor = code --wait
 [push]
 	default = current
-[merge]
-	tool = p4mergetool
-[mergetool "p4mergetool"]
-	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $PWD/$BASE $PWD/$REMOTE $PWD/$LOCAL $PWD/$MERGED
-	trustExitCode = false
-[mergetool]
-	keepBackup = true
-[diff]
-	tool = p4mergetool
-[difftool "p4mergetool"]
-	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $LOCAL $REMOTE
+[fetch]
+	prune = true
 [credential]
 	helper = osxkeychain
 [filter "lfs"]
@@ -22,5 +13,10 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[fetch]
-	prune = true
+[user]
+	name = Richard Steinbrück
+	email = richard.steinbrueck@googlemail.com
+[includeIf "gitdir:Projects/MediaSaturn/"]
+  path = .gitconfig-work
+[alias]
+	plog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
