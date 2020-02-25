@@ -4,6 +4,7 @@
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/go/bin/:/usr/local/bin:/opt/puppetlabs/pdk/bin/:/opt/puppetlabs/bin/:/Users/steinbrueckri/Library/Python/3.7/bin/:$PATH
+
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/steinbrueckri/.oh-my-zsh
 
@@ -29,6 +30,9 @@ plugins=(
 	iterm2
 	kubectl
 	web-search
+  httpie
+  yarn
+  tmux
 	docker
 	sublime
   zsh-kubectl-prompt
@@ -39,9 +43,6 @@ source $ZSH/oh-my-zsh.sh
 
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# homebrew
-#export HOMEBREW_GITHUB_API_TOKEN="dac215dc1f4d7a6bd3fc1f9f0db509721a8b2243"
 
 # Custom
 ################################################################################
@@ -84,6 +85,7 @@ alias gci="hub ci-status -v"
 # export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES before your Ansible run should clear it up. The code that's causing issues is well below Ansible in the stack.
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
+## Deal with the Corp proxy
 _HTTP_PROXY=$(cat ${HOME}/.proxy/http_proxy)
 _HTTPS_PROXY=$(cat ${HOME}/.proxy/https_proxy)
 _FTP_PROXY=$(cat ${HOME}/.proxy/ftp_proxy)
@@ -95,9 +97,10 @@ alias noproxy="unset http_proxy; unset HTTP_PROXY; unset https_proxy; unset HTTP
 alias curproxy="echo \"HTTP_PROXY=${http_proxy} \nHTTPS_PROXY=${https_proxy} \nFTP_PROXY=${ftp_proxy} \nRSYNC_PROXY=${rsync_proxy} \nNO_PROXY=${no_proxy}\""
 
 function proxy_set {
-  echo "Enter Proxy like http://asdasasdasd:8080"
+  echo "Enter Proxy like http://proxy.corp.int:80"
   read $PROXY
 
+  mkdir -p ~/.proxy/
   echo $PROXY > ~/.proxy/http_proxy
   echo $PROXY > ~/.proxy/https_proxy
   echo $PROXY > ~/.proxy/ftp_proxy
@@ -110,10 +113,10 @@ function proxy_on {
     export https_proxy=${_HTTPS_PROXY}
     export no_proxy=${_NO_PROXY}
     # NPM (Node.js)
-    npm config set proxy http://${_HTTP_PROXY} &!
-    npm config set https-proxy http://${_HTTPS_PROXY} &!
-    yarn config set proxy http://${_HTTP_PROXY} &!
-    yarn config set https-proxy http://${_HTTPS_PROXY} &!
+    npm config set proxy ${_HTTP_PROXY} &!
+    npm config set https-proxy ${_HTTPS_PROXY} &!
+    yarn config set proxy ${_HTTP_PROXY} &!
+    yarn config set https-proxy ${_HTTPS_PROXY} &!
 }
 
 function proxy_off {
@@ -129,15 +132,19 @@ function proxy_off {
 }
 
 function check_env {
-    location="$(networksetup -getcurrentlocation)"
-    if [ $location = "Automatic" ]; then
-      echo -e "\e[32mWelcome in the R8alW0rld!\e[39m"
-      proxy_off
-    fi
-    if [ $location = "Media-Saturn" ]; then
-      echo -e "\e[32mWelcome in the media-saturn environment!\e[39m"
-      proxy_on
-    fi
+  ## Show my if im dirty 
+  cd ~/.config/yadm/repo.git && git diff --quiet || echo '💩💩💩 dotfiles are dirty 💩💩💩' && cd - > /dev/null  
+  
+  ## Network location stuff
+  location="$(networksetup -getcurrentlocation)"
+  if [ $location = "Automatic" ]; then
+    echo -e "\e[32mWelcome in the R8alW0rld!\e[39m"
+    proxy_off
+  fi
+  if [ $location = "Media-Saturn" ]; then
+    echo -e "\e[32mWelcome in the media-saturn environment!\e[39m"
+    proxy_on
+  fi
 }
 
 check_env
