@@ -1,11 +1,13 @@
 [core]
 	excludesfile = /Users/steinbrueckri/.gitignore_global
-	pager = diff-so-fancy | less --tabs=4 -RFX
-	editor = code --wait
+	pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Monokai Extended'
+	editor = nvim
 [push]
 	default = current
 [fetch]
 	prune = true
+[interactive]
+    diffFilter = delta --color-only
 [credential]
 	helper = osxkeychain
 [filter "lfs"]
@@ -15,8 +17,10 @@
 	required = true
 [user]
 	name = Richard Steinbrück
-	email = richard.steinbrueck@googlemail.com
+	email = steinbrueckri@mediamarktsaturn.com
 [includeIf "gitdir:Projects/MediaSaturn/"]
   path = .gitconfig-work
 [alias]
 	plog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+[fetch "origin"]
+	prune = true
