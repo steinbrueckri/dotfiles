@@ -34,6 +34,9 @@ plugins=(
 # Source
 source $ZSH/oh-my-zsh.sh
 
+# TMUX
+ZSH_TMUX_AUTOSTART=true
+
 ## Alias ######################################################################
 
 ## Configs
@@ -49,7 +52,8 @@ alias gcpsshi='gcloud compute ssh --internal-ip'
 alias gcpca='gcloud config configurations activate'
 
 ## Docker
-alias dr="docker run -u root -it --rm --entrypoint /bin/sh"
+alias dr="docker run -it --rm --entrypoint /bin/sh"
+alias drr="docker run -u root -it --rm --entrypoint /bin/sh"
 
 ## Todoist
 alias tl="todoist list"
@@ -159,4 +163,4 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 # export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES before your Ansible run should clear it up. The code that's causing issues is well below Ansible in the stack.
 
 ## init #######################################################################
-check_env
+init
