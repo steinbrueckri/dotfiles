@@ -1,0 +1,17 @@
+name: ci
+on: push
+
+jobs:
+  lint:
+    name: Lint all the stuff
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Gitleaks scan
+        uses: eshork/gitleaks-action@master
+
+      # https://github.com/github/super-linter/blob/master/docs/disabling-linters.md
+      - name: Linter
+        uses: docker://github/super-linter:v3
