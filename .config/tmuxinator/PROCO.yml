@@ -1,0 +1,5 @@
+name: PROCO
+root: ~/Projects/MediaSaturn/PROCO
+
+windows:
+  - shell:

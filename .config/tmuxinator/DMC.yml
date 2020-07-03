@@ -1,0 +1,12 @@
+name: DMC
+root: ~/Projects/MediaSaturn/DMC
+
+windows:
+  - shell:
+      layout: adac,167x50,0,0{115x50,0,0,92,51x50,116,0,93}
+      panes:
+        - clear
+        - todoist sync; todoist list | grep DMC 
+  - terraform: cd dmc-terraform ; clear
+  - gitops: cd dmc-gitops ; clear
+  - docs: cd dmc-docs ; clear

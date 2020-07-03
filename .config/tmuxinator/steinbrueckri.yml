@@ -1,0 +1,5 @@
+name: steinbrueckri
+root: ~/Projects/steinbrueckri
+
+windows:
+  - shell:

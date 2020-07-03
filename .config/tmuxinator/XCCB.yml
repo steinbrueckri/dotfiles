@@ -1,0 +1,5 @@
+name: XCCB
+root: ~/Projects/MediaSaturn/XCCB
+
+windows:
+  - shell:

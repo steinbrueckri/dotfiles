@@ -4,6 +4,7 @@
 
 export PATH=$HOME/bin:$HOME/go/bin/:/usr/local/bin:/opt/puppetlabs/pdk/bin/:/opt/puppetlabs/bin/:/Users/steinbrueckri/Library/Python/3.7/bin/:$PATH
 export ZSH=/Users/steinbrueckri/.oh-my-zsh
+export EDITOR="/usr/bin/vim"
 ZSH_THEME="agnoster"
 DEFAULT_USER=steinbrueckri
 RPROMPT='%{$fg[$color]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
@@ -62,6 +63,10 @@ alias tc="todoist q "
 ## K8s
 export PATH="${PATH}:${HOME}/.krew/bin"
 alias kx='kubectx'
+alias k-debug="kubectl run --namespace default -i --tty debug --image=steinbrueckri/debug --restart=Never --rm=true -- zsh"
+
+## Tmux
+alias tx='tmuxinator'
 
 ## Code
 alias idea='open -na "IntelliJ IDEA.app" --args "$(pwd)"'
@@ -80,6 +85,7 @@ alias cwc="grep -Ev '^(;|#|//|$)'"
 alias git='hub'
 alias top='htop'
 alias cat="bat --paging never "
+alias ls="exa"
 
 ## Functions ##################################################################
 
@@ -164,3 +170,5 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 ## init #######################################################################
 init
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

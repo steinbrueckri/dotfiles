@@ -1,0 +1,5 @@
+name: DWS
+root: ~/Projects/MediaSaturn/DWS
+
+windows:
+  - shell:
