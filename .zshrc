@@ -55,6 +55,8 @@ alias gcpca='gcloud config configurations activate'
 ## Docker
 alias dr="docker run -it --rm --entrypoint /bin/sh"
 alias drr="docker run -u root -it --rm --entrypoint /bin/sh"
+alias rm-container="docker rm -fv $(docker ps -a -q)"
+alias rm-images="docker rmi $(docker images -q)"
 
 ## Todoist
 alias tl="todoist list"
@@ -63,7 +65,8 @@ alias tc="todoist q "
 ## K8s
 export PATH="${PATH}:${HOME}/.krew/bin"
 alias kx='kubectx'
-alias k-debug="kubectl run --namespace default -i --tty debug --image=steinbrueckri/debug --restart=Never --rm=true -- zsh"
+alias k-debug="kubectl run --namespace default -i --tty debug-default --image=steinbrueckri/debug --restart=Never --rm=true -- zsh"
+alias k-debug-app="kubectl run --namespace istio-apps -i --tty debug --image=steinbrueckri/debug --restart=Never --rm=true -- zsh"
 
 ## Tmux
 alias tx='tmuxinator'
@@ -136,16 +139,16 @@ function init {
   ## Show my if im dirty 
   cd ~/.config/yadm/repo.git && git diff --quiet || echo '💩💩💩 dotfiles are dirty 💩💩💩' && cd - > /dev/null  
   
-  ## Network location stuff
-  location="$(networksetup -getcurrentlocation)"
-  if [ $location = "Automatic" ]; then
-    echo -e "\e[32mWelcome in the R8alW0rld!\e[39m"
-    proxy_off
-  fi
-  if [ $location = "Media-Saturn" ]; then
-    echo -e "\e[32mWelcome in the media-saturn environment!\e[39m"
-    proxy_on
-  fi
+#  ## Network location stuff
+#  location="$(networksetup -getcurrentlocation)"
+#  if [ $location = "Automatic" ]; then
+#    echo -e "\e[32mWelcome in the R8alW0rld!\e[39m"
+#    proxy_off
+#  fi
+#  if [ $location = "Media-Saturn" ]; then
+#    echo -e "\e[32mWelcome in the media-saturn environment!\e[39m"
+#    proxy_on
+#  fi
 }
 
 ## autocomplete ################################################################

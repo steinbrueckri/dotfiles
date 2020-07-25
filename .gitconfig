@@ -17,12 +17,17 @@
 	required = true
 [user]
 	name = Richard Steinbrück
-	email = steinbrueckri@mediamarktsaturn.com
+  email = richard.steinbrueck@googlemail.com
+	signingkey = BE33D8C1950E31D3D2DCD6181A8D9CE1E74F05B1
+[includeIf "gitdir:Projects/pixel-combo/"]
+  path = .gitconfig-pixelcombo
 [includeIf "gitdir:Projects/MediaSaturn/"]
-  path = .gitconfig-work
+  path = .gitconfig-mediamarktsaturn
 [alias]
 	plog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 [fetch "origin"]
 	prune = true
 [pull]
 	rebase = true
+[commit]
+	gpgSign = true
