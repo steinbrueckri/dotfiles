@@ -58,15 +58,24 @@ alias drr="docker run -u root -it --rm --entrypoint /bin/sh"
 alias rm-container="docker rm -fv $(docker ps -a -q)"
 alias rm-images="docker rmi $(docker images -q)"
 
-## Todoist
-alias tl="todoist list"
-alias tc="todoist q "
+## Todos
+function todo () {
+  if [[ $# -eq 0 ]]; then
+    open -a "OmniFocus"
+  else
+    osascript <<EOT
+    tell application "OmniFocus"
+      parse tasks into default document with transport text "$@"
+    end tell
+EOT
+  fi
+}
 
 ## K8s
 export PATH="${PATH}:${HOME}/.krew/bin"
 alias kx='kubectx'
-alias k-debug="kubectl run --namespace default -i --tty debug-default --image=steinbrueckri/debug --restart=Never --rm=true -- zsh"
-alias k-debug-app="kubectl run --namespace istio-apps -i --tty debug --image=steinbrueckri/debug --restart=Never --rm=true -- zsh"
+alias k-debug="kubectl run --namespace default -i --tty 'debug-default-${USER}' --image=steinbrueckri/debug --restart=Never --rm=true -- zsh"
+alias k-debug-app="kubectl run --namespace istio-apps -i --tty 'debug-${USER}' --image=steinbrueckri/debug --restart=Never --rm=true -- zsh"
 
 ## Tmux
 alias tx='tmuxinator'
@@ -167,6 +176,11 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+### ruby stuff
+export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
+export PATH="$GEM_HOME/bin:$PATH"
+
 # Source: https://github.com/ansible/ansible/issues/32499
 # This is apparently due to some new security changes made in High Sierra that are breaking lots of Python things that use fork(). Rumor has it that adding
 # export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES before your Ansible run should clear it up. The code that's causing issues is well below Ansible in the stack.
