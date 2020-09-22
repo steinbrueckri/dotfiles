@@ -18,16 +18,19 @@
 [user]
 	name = Richard Steinbrück
   email = richard.steinbrueck@googlemail.com
-	signingkey = BE33D8C1950E31D3D2DCD6181A8D9CE1E74F05B1
+	signingkey = E74F05B1
 [includeIf "gitdir:Projects/pixel-combo/"]
   path = .gitconfig-pixelcombo
 [includeIf "gitdir:Projects/MediaSaturn/"]
   path = .gitconfig-mediamarktsaturn
 [alias]
 	plog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+	yolo = !git add -A && git commit -m \"$(curl --silent --fail http://whatthecommit.com/index.txt)\"
 [fetch "origin"]
 	prune = true
 [pull]
 	rebase = true
 [commit]
-	gpgSign = true
+	gpgsign = false
+[gpg]
+	program = /usr/local/bin/gpg

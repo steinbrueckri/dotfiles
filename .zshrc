@@ -13,7 +13,6 @@ RPROMPT='%{$fg[$color]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
 plugins=(
 	terraform
 	git
-	git-extra-commands
 	gitignore
 	osx
 	npm
@@ -25,15 +24,15 @@ plugins=(
 	iterm2
 	kubectl
 	web-search
-  httpie
-  yarn
+  	httpie
+  	yarn
 	docker
 	sublime
-  zsh-kubectl-prompt
 	)
 
 # Source
 source $ZSH/oh-my-zsh.sh
+source /usr/local/etc/zsh-kubectl-prompt/kubectl.zsh # ZSH plugins installiert via brew
 
 # TMUX
 ZSH_TMUX_AUTOSTART=true
@@ -74,6 +73,7 @@ EOT
 ## K8s
 export PATH="${PATH}:${HOME}/.krew/bin"
 alias kx='kubectx'
+alias kn='kubens'
 alias k-debug="kubectl run --namespace default -i --tty 'debug-default-${USER}' --image=steinbrueckri/debug --restart=Never --rm=true -- zsh"
 alias k-debug-app="kubectl run --namespace istio-apps -i --tty 'debug-${USER}' --image=steinbrueckri/debug --restart=Never --rm=true -- zsh"
 
@@ -172,7 +172,7 @@ source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-14.0.2.jdk/Contents/Home/ 
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES

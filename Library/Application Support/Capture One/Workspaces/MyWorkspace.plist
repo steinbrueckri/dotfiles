@@ -237,7 +237,7 @@
 	<key>com.phaseone.captureone.sessionwindow</key>
 	<dict>
 		<key>browser-display-state</key>
-		<string>Shown</string>
+		<string>Auto</string>
 		<key>browser-height</key>
 		<real>184</real>
 		<key>browser-mode</key>
@@ -259,7 +259,7 @@
 		<key>tools-display-state</key>
 		<string>Shown</string>
 		<key>tools-position</key>
-		<string>Left</string>
+		<string>Right</string>
 		<key>tools-width</key>
 		<real>305</real>
 		<key>viewer-labels</key>
@@ -446,6 +446,7 @@
 				<string>CameraFocus</string>
 			</array>
 			<array>
+				<integer>1</integer>
 				<integer>2</integer>
 			</array>
 			<array>
@@ -525,7 +526,10 @@
 				<string>Histogram</string>
 				<string>LocalAdjustments</string>
 			</array>
-			<array/>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+			</array>
 			<array>
 				<dict>
 					<key>sizeOption</key>
@@ -695,9 +699,7 @@
 				<string>Library</string>
 				<string>MetadataFilters</string>
 			</array>
-			<array>
-				<integer>1</integer>
-			</array>
+			<array/>
 			<array>
 				<dict>
 					<key>sizeOption</key>
@@ -762,7 +764,6 @@
 		<key>tabConfiguration</key>
 		<array>
 			<string>OrganizeToolTab</string>
-			<string>CaptureToolTab</string>
 			<string>LensToolTab</string>
 			<string>ColorToolTab</string>
 			<string>ExposureToolTab</string>
@@ -899,7 +900,7 @@
 			<array>
 				<dict>
 					<key>FocusInspectorToolVariantCenterSetting</key>
-					<string>{-1.8321824939417915e-08, -1.1737523159600385e-07}</string>
+					<string>{-1.9436345954229993e-08, -1.4861997804734304e-07}</string>
 					<key>FocusInspectorToolZoomSetting</key>
 					<real>1</real>
 					<key>sizeOption</key>
