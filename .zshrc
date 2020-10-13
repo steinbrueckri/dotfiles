@@ -169,10 +169,10 @@ source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.in
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
 
 ## exports ####################################################################
-export LANG=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
+export LANG="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-14.0.2.jdk/Contents/Home/ 
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-15.jdk/Contents/Home/"
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
