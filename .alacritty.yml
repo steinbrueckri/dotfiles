@@ -1,3 +1,4 @@
+---
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 
 env:
@@ -149,3 +150,7 @@ key_bindings:
   - { key: 23,      mods: Alt, chars: "[" }
   - { key: 22,      mods: Alt, chars: "]" }
   - { key: Return,   mods: Command,       action: ToggleFullscreen }
+
+  # arrow keys
+  - { key: Left,     mods: Command, chars: "\x1bOH",   mode: AppCursor   } # Home
+  - { key: Right,    mods: Command, chars: "\x1bOF",   mode: AppCursor   } # End
