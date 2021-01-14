@@ -4,6 +4,37 @@
 <dict>
 	<key>Editable</key>
 	<true/>
+	<key>GodModeShortcuts</key>
+	<dict>
+		<key>BlackRecovery</key>
+		<string>f</string>
+		<key>Brightness</key>
+		<string>e</string>
+		<key>Clarity</key>
+		<string>z</string>
+		<key>Contrast</key>
+		<string>w</string>
+		<key>Exposure</key>
+		<string>q</string>
+		<key>HighlightRecovery</key>
+		<string>a</string>
+		<key>LevelsHighlight</key>
+		<string>v</string>
+		<key>LevelsMidtone</key>
+		<string>c</string>
+		<key>LevelsShadow</key>
+		<string>x</string>
+		<key>Saturation</key>
+		<string>r</string>
+		<key>ShadowRecovery</key>
+		<string>s</string>
+		<key>Temperature</key>
+		<string>1</string>
+		<key>Tint</key>
+		<string>2</string>
+		<key>WhiteRecovery</key>
+		<string>d</string>
+	</dict>
 	<key>KeyboardShortcuts</key>
 	<dict>
 		<key>ApplyAdjustments</key>
@@ -266,6 +297,6 @@
 		<string>,</string>
 	</dict>
 	<key>VersionNumber</key>
-	<string>13.1.1.24</string>
+	<string>14.0.0</string>
 </dict>
 </plist>

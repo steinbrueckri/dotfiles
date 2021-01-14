@@ -49,7 +49,11 @@ alias gcpil='gcloud compute instances list'
 alias gcpal='gcloud compute addresses list'
 alias gcpssh='gcloud compute ssh'
 alias gcpsshi='gcloud compute ssh --internal-ip'
+alias gcpsshiap='gcloud compute ssh --tunnel-through-iap'
 alias gcpca='gcloud config configurations activate'
+
+alias gcp04webimt01d='CLOUDSDK_CORE_PROJECT=mms-cif-imtron-web-t-1000 gcpsshiap gcp04webimt01d'
+alias gcp04webimt01p='CLOUDSDK_CORE_PROJECT=mms-cif-imtron-web-p-1000 gcpsshiap gcp04webimt01p'
 
 ## Docker
 alias dr="docker run -it --rm --entrypoint /bin/sh"
@@ -60,22 +64,21 @@ alias rm-images="docker rmi $(docker images -q)"
 ## Todos
 function todo () {
   if [[ $# -eq 0 ]]; then
-    open -a "OmniFocus"
+    open -a "Things3"
   else
-    osascript <<EOT
-    tell application "OmniFocus"
-      parse tasks into default document with transport text "$@"
-    end tell
-EOT
+    open "things:///add?when=today&deadline=today&title=$@"
   fi
 }
+
+## hosts
+alias hosts="hosts --auto-sudo"
 
 ## K8s
 export PATH="${PATH}:${HOME}/.krew/bin"
 alias kx='kubectx'
 alias kn='kubens'
-alias k-debug="kubectl run --namespace default -i --tty 'debug-default-${USER}' --image=steinbrueckri/debug --restart=Never --rm=true -- zsh"
-alias k-debug-app="kubectl run --namespace istio-apps -i --tty 'debug-${USER}' --image=steinbrueckri/debug --restart=Never --rm=true -- zsh"
+alias k-debug="kubectl run --namespace default -i --tty 'debug-default-${USER}' --image=steinbrueckri/debug --restart=Never --rm=true -- bash"
+alias k-debug-app="kubectl run --namespace istio-apps -i --tty 'debug-${USER}' --image=steinbrueckri/debug --restart=Never --rm=true -- bash"
 
 ## Tmux
 alias tx='tmuxinator'
@@ -94,7 +97,6 @@ alias curproxy="echo \"HTTP_PROXY=${http_proxy} \nHTTPS_PROXY=${https_proxy} \nF
 ## Misc
 alias lol="git log --pretty=oneline --abbrev-commit --graph --decorate"
 alias cwc="grep -Ev '^(;|#|//|$)'"
-alias git='hub'
 alias top='htop'
 alias cat="bat --paging never "
 alias ls="exa"
@@ -165,21 +167,28 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/vault vault
 source <(kubectl completion zsh)
 source <(gh completion -s zsh)
+source <(fluxctl completion zsh)
+source <(flux completion zsh)
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+source '/usr/local/share/zsh/site-functions/_hosts'
 
 ## exports ####################################################################
 export LANG="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-15.jdk/Contents/Home/"
+export JAVA_HOME="$(/usr/libexec/java_home)"
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 ### ruby stuff
+eval "$(rbenv init -)"
 export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
 export PATH="$GEM_HOME/bin:$PATH"
+
+### rust stuff
+source $HOME/.cargo/env
 
 # Source: https://github.com/ansible/ansible/issues/32499
 # This is apparently due to some new security changes made in High Sierra that are breaking lots of Python things that use fork(). Rumor has it that adding
@@ -189,3 +198,5 @@ export PATH="$GEM_HOME/bin:$PATH"
 init
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
+export GPG_TTY=$(tty)

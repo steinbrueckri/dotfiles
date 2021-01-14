@@ -10,6 +10,27 @@ system_type=$(uname -s)
 # TODO: #OSX create cronjob for brew packages
 # TODO: #OSX create cronjob for apps from the appstore (mas list)
 # TODO: #OSX change finder sidebar https://github.com/mathiasbynens/dotfiles/issues/693
+# TODO: #OSX cronjob for mas installs and cronjob with mas list
+# TODO: #OSX right lower corner click for left click
+# TODO: #OSX Change things keybinding to prefent collision with inteliij
+## defaults read com.culturedcode.ThingsMac >> things_befor
+## defaults read com.culturedcode.ThingsMac >> things_after
+## diff things_befor things_after
+## 4c4
+## <     LastPreferencePaneIdentifier = general;
+## ---
+## >     LastPreferencePaneIdentifier = quickentry;
+## 12a13,22
+## >     QuickEntryHotkeyAutofill =     {
+## >         characters = "\\U2303\\U2325\\U23b5";
+## >         keyCode = 49;
+## >         keyModifiers = 6144;
+## >     };
+## >     QuickEntryHotkeyEmpty =     {
+## >         characters = "\\U2325\\U23b5";
+## >         keyCode = 49;
+## >         keyModifiers = 2048;
+## >     };
 
 ###############################################################################
 # Notes                                                                       #
@@ -211,7 +232,6 @@ if [ "$system_type" = "Darwin" ]; then
     "Finder" \
     "Google Chrome Canary" \
     "Google Chrome" \
-    "SizeUp" \
     "SystemUIServer" \
     "iCal"; do
     killall "${app}" &> /dev/null

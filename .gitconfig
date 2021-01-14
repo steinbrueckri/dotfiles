@@ -1,5 +1,5 @@
 [core]
-	excludesfile = /Users/steinbrueckri/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Monokai Extended'
 	editor = nvim
 [push]
@@ -16,8 +16,8 @@
 	process = git-lfs filter-process
 	required = true
 [user]
-	name = Richard Steinbrück
-  email = richard.steinbrueck@googlemail.com
+	name = Richard Steinbrück
+	email = richard.steinbrueck@googlemail.com
 	signingkey = E74F05B1
 [includeIf "gitdir:Projects/pixel-combo/"]
   path = .gitconfig-pixelcombo
@@ -31,6 +31,7 @@
 [pull]
 	rebase = true
 [commit]
-	gpgsign = false
+	gpgSign = false
+	template = ~/.gitmessage
 [gpg]
-	program = /usr/local/bin/gpg
+	program = gpg
