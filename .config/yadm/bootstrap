@@ -38,6 +38,12 @@ system_type=$(uname -s)
 # see also https://gist.github.com/vraravam/5e28ca1720c9dddacdc0e6db61e093fe
 # see also https://www.jamf.com/jamf-nation/discussions/20794/enabling-show-battery-percentage-via-script-or-policy
 
+#######################################################################
+#                            general stuff                            #
+#######################################################################
+
+mkdir ${home}/tmp
+
 if [ "$system_type" = "Linux" ]; then
   # TODO: Add some stuff for Linux!
   echo "# TODO: Add some stuff for Linux!"
@@ -118,9 +124,9 @@ if [ "$system_type" = "Darwin" ]; then
   sudo scutil --set LocalHostName "Anubis"
   sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "Anubis"
 
-  # Save screenshots to the desktop
-  mkdir -p "${HOME}/Temp/screenshots"
-  defaults write com.apple.screencapture location -string "${HOME}/Temp/screenshots"
+  # Save screen shots to other location 
+  mkdir -p "${HOME}/tmp/screenshots"
+  defaults write com.apple.screencapture location -string "${HOME}/tmp/screenshots"
 
   # Prevent Photos from opening automatically when devices are plugged in
   defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
