@@ -11,12 +11,11 @@ endif
 call plug#begin(stdpath('data') . '/plugged')
 " file tree - replace later with kyazdani42/nvim-tree.lua
 Plug 'preservim/nerdtree'
-Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 " statusbar
-Plug 'vim-airline/vim-airline'
-Plug 'itchyny/lightline.vim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'glepnir/spaceline.vim'
 Plug 'luochen1990/rainbow'
 " better tag handling
 Plug 'ludovicchabant/vim-gutentags'
@@ -31,10 +30,14 @@ Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }
 "" language server support
 Plug 'neovim/nvim-lspconfig'
+"" A light-weight lsp plugin based on neovim built-in lsp with highly a performant UI.  
+Plug 'glepnir/lspsaga.nvim'
 "" change surrounding
 Plug 'tpope/vim-surround'
-" build systems
+"" build systems
 Plug 'AlxHnr/build.vim'
+"" code formatter
+Plug 'sbdchd/neoformat'
 "" provides automatic closing of quotes, parenthesis, brackets
 Plug 'Raimondi/delimitMate'
 " language specific plugins
@@ -56,6 +59,9 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'kdheepak/lazygit.nvim', { 'branch': 'nvim-v0.4.3' }
 " misc
+"" show spaces and indentlines
+Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
 "" themes
 Plug 'joshdick/onedark.vim'
 "" terminal
@@ -106,4 +112,10 @@ Plug 'xolox/vim-misc'
 Plug 'sotte/presenting.vim'
 "" todos in project
 Plug 'Dimercel/todo-vim'
+"" open line on github
+Plug 'ruanyl/vim-gh-line'
+"" colorschema
+Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
+"" glow preview
+Plug 'npxbr/glow.nvim'
 call plug#end()

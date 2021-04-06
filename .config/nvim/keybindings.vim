@@ -16,6 +16,14 @@ noremap <Tab> :bn<CR>
 " Previous buffer
 noremap <S-Tab> :bp<CR>
 
+" === lsp Key-Bindings ========================================================
+noremap gd :lua vim.lsp.buf.declaration()<CR>
+noremap gD :lua vim.lsp.buf.definition()<CR>
+noremap x :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+
+" <cmd>lua vim.lsp.buf.signature_help()<CR>
+" <cmd>lua vim.lsp.buf.rename()<CR>
+
 " === whichkey settings =======================================================
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
@@ -190,6 +198,7 @@ nnoremap <leader>ghil :Octo issue list<CR>
 nnoremap <leader>ghpl :Octo pr list<CR>
 nnoremap <leader>ghpo :Octo pr open<CR>
 
+nnoremap <leader>gg :GHInteractive<CR>
 nnoremap <leader>gl :Git log<CR>
 nnoremap <leader>gp :Git push<CR>
 nnoremap <leader>gP :Git pull<CR>
@@ -213,6 +222,7 @@ let g:which_key_map.g = {
       \ 'C' : [':Git commit -a --amend'            , 'commit amend'],
       \ 'd' : [':Git diff'                         , 'diff'],
       \ 'D' : [':Gdiffsplit'                       , 'diff split'],
+      \ 'g' : [':GHInteractive'                    , 'show line on github'],
       \ 's' : [':Gstatus'                          , 'status'],
       \ 'l' : [':Git log'                          , 'log'],
       \ 'p' : [':Git push'                         , 'push'],
@@ -234,19 +244,23 @@ let g:which_key_map.t = {
       \ 'name' : '+toggle' ,
       \ 'c' : [':ColorizerToggle'        , 'colorizer'],
       \ 'n' : [':set nonumber!'          , 'line-numbers'],
+      \ 'm' : [':Glow'                   , 'Show Glow preview'],
       \ 'r' : [':set norelativenumber!'  , 'relative line nums'],
       \ 't' : [':TODOToggle'             , 'show tasks'],
       \ 'T' : [':Tags'                   , 'tag viewer'],
       \ 'q' : [':FloatermToggle'         , 'open terminal'],
+      \ 'i' : [':IndentLinesToggle'      , 'Show indentLine'],
       \}  
 
 nnoremap <leader>tc :ColorizerToggle<CR>
 nnoremap <leader>tn :set nonumber!<CR>
+nnoremap <leader>tm :Glow<CR>
 nnoremap <leader>tr :set norelativenumber!<CR>
 nnoremap <leader>tg :GitGutterToggle<CR>
 nnoremap <leader>tt :TODOToggle<CR>
 nnoremap <leader>tT :Tags<CR>
 nnoremap <leader>tq :FloatermToggle<CR>
+nnoremap <leader>ti :IndentLinesToggle<CR>
 
 " p is for presentation
 " =============================================================================

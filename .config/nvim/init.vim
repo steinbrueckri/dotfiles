@@ -17,6 +17,8 @@ source $HOME/.config/nvim/functions.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  settings                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://stackoverflow.com/questions/9701366/vim-backspace-leaves
+noremap! <C-?> <C-h>
 
 set completeopt=menuone,noselect
 let g:compe = {}
@@ -99,8 +101,13 @@ let g:buffet_use_devicons = 1
 let g:limelight_conceal_ctermfg = 'gray'
 let g:limelight_conceal_ctermfg = 240
 
-colorscheme onedark
-let g:airline_theme='onedark'
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+colorscheme spaceduck
 let g:auto_save = 1  " enable AutoSave on Vim startup
 
 " ACK
@@ -133,12 +140,51 @@ let g:UltiSnipsExpandTrigger="<c-c>"
 
 " LSP
 lua << EOF
-vim.lsp.set_log_level("debug")
+
+require('lspconfig').efm.setup({
+ cmd = {"efm-langserver", "-logfile", "/tmp/efm.log", "-loglevel", "1" },
+ filetypes = {"sh","yaml","markdown"},
+ settings = {
+   languages = {
+     sh = {
+         {
+             LintCommand = 'shellcheck -f gcc -x',
+             lintFormats = {'%f:%l:%c: %trror: %m', '%f:%l:%c: %tarning: %m', '%f:%l:%c: %tote: %m'}
+         },
+         {
+           formatCommand = 'shfmt -ci -s -bn',
+           formatStdin = true
+         }
+     },
+     yaml = {
+         {
+            lintCommand = "yamllint -f parsable -",
+            lintStdin = true,
+        }
+     },
+     markdown = {
+         {
+            lintCommand = "mdl -",
+            lintStdin = true,
+        }
+     },
+   }
+ }
+})
+
 require'lspconfig'.pyright.setup{}
 require'lspconfig'.bashls.setup{}
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.terraformls.setup{}
 require'lspconfig'.kotlin_language_server.setup{}
+require'lspconfig'.yamlls.setup{}
+require'lspconfig'.jsonls.setup{}
+require'lspconfig'.html.setup{}
+require'lspconfig'.dockerls.setup{}
+require'lspconfig'.cssls.setup{}
+require'lspconfig'.solargraph.setup{}
+local saga = require 'lspsaga'
+saga.init_lsp_saga()
 EOF
 
 let s:startify_ascii_header = [
@@ -155,3 +201,15 @@ let g:startify_custom_header = map(s:startify_ascii_header +
         \ startify#fortune#quote(), '"   ".v:val')
 
 let g:notes_directories = ['~/OneDrive\ -\ MediaMarktSaturn/VimNotes']
+
+" autoformat on save
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
+
+"
+let g:gh_line_map_default = 0
+let g:gh_line_blame_map_default = 1
+
+let g:spaceline_seperate_style = 'arrow'
