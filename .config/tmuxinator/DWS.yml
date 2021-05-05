@@ -3,3 +3,10 @@ root: ~/Projects/MediaSaturn/DWS
 
 windows:
   - shell:
+  - k8s-PROD: kx DWS-PROD; clear
+  - k8s-STAGING: kx DWS-STAGING; clear
+  - k8s-DEV: kx DWS-DEV; clear
+  - k8s-CICD: kx DWS-CICD; clear
+  - terraform: cd dmc-terraform ; clear
+  - gitops: cd dmc-gitops ; clear
+  - docs: cd dmc-docs ; clear
