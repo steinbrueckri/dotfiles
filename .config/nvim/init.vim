@@ -93,7 +93,7 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
-colorscheme srcery 
+colorscheme tokyonight
 
 "let g:auto_save = 1  " enable AutoSave on Vim startup
 
@@ -120,6 +120,13 @@ let g:UltiSnipsExpandTrigger="<c-c>"
 
 " LUA
 lua << EOF
+
+require('lualine').setup {
+  options = {
+    theme = 'tokyonight'
+  }
+}
+
 require('telescope').setup{
   defaults = {
     file_ignore_patterns = { '.git/', 'node_modules/' },

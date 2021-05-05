@@ -12,7 +12,7 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'kyazdani42/nvim-web-devicons'
 " statusbar
 Plug 'ryanoasis/vim-devicons'
-Plug 'glepnir/spaceline.vim'
+Plug 'hoob3rt/lualine.nvim'
 Plug 'luochen1990/rainbow'
 " toggle numbers for pair programming
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
@@ -63,7 +63,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'Yggdroot/indentLine'
 Plug 'lukas-reineke/indent-blankline.nvim'
 "" themes
-Plug 'joshdick/onedark.vim'
+Plug 'folke/tokyonight.nvim'
 "" smooth scrolling
 Plug 'psliwka/vim-smoothie'
 "" change root to file directory
