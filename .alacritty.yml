@@ -1,9 +1,6 @@
 ---
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 
-env:
-  TERM: xterm-256color
-
 window:
   padding:
     x: 5
@@ -33,16 +30,16 @@ scrolling:
 # Font configuration
 font:
   normal:
-    family: Source Code Pro
+    family: Hack Nerd Font Mono
 
   bold:
-    family: Source Code Pro
+    family: Hack Nerd Font Mono
 
   italic:
-    family: Source Code Pro
+    family: Hack Nerd Font Mono
 
   bold_italic:
-    family: Source Code Pro
+    family: Hack Nerd Font Mono
 
   # Point size
   size: 15.0
@@ -52,39 +49,39 @@ font:
     x: 1
     y: 1
 
-# Colors (Solarized Dark)
+# Colors (Srcery)
 colors:
   # Default colors
   primary:
-    background: '#002b36' # base03
-    foreground: '#839496' # base0
+    background: '#1c1b19'
+    foreground: '#fce8c3'
 
   # Cursor colors
   cursor:
-    text:   '#002b36' # base03
-    cursor: '#839496' # base0
+    text: CellBackground
+    cursor: '#fbb829'
 
   # Normal colors
   normal:
-    black:   '#073642' # base02
-    red:     '#dc322f' # red
-    green:   '#859900' # green
-    yellow:  '#b58900' # yellow
-    blue:    '#268bd2' # blue
-    magenta: '#d33682' # magenta
-    cyan:    '#2aa198' # cyan
-    white:   '#eee8d5' # base2
+    black:   '#1c1b19'
+    red:     '#ef2f27'
+    green:   '#519f50'
+    yellow:  '#fbb829'
+    blue:    '#2c78bf'
+    magenta: '#e02c6d'
+    cyan:    '#0aaeb3'
+    white:   '#d0bfa1'
 
   # Bright colors
   bright:
-    black:   '#586e75' # base01
-    red:     '#cb4b16' # orange
-    green:   '#586e75' # base01
-    yellow:  '#657b83' # base00
-    blue:    '#839496' # base0
-    magenta: '#6c71c4' # violet
-    cyan:    '#93a1a1' # base1
-    white:   '#fdf6e3' # base3
+    black:   '#918175'
+    red:     '#f75341'
+    green:   '#98bc37'
+    yellow:  '#fed06e'
+    blue:    '#68a8e4'
+    magenta: '#ff5c8f'
+    cyan:    '#53fde9'
+    white:   '#fce8c3'
 
 # Background opacity
 background_opacity: 0.95
