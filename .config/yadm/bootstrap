@@ -55,16 +55,16 @@ if [ "$system_type" = "Darwin" ]; then
   if ! command -v brew >/dev/null 2>&1; then
     echo "Installing homebrew"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    else
-      echo "Homebrew is already installed ..."
+  else
+    echo "Homebrew is already installed ..."
   fi
 
   # install oh-my-zsh if it's missing
   if ! ls ${HOME}/.oh-my-zsh >/dev/null 2>&1; then
     echo "Installing Oh-My-ZSH ..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    else
-      echo "Oh-My-ZSH is already installed ..."
+  else
+    echo "Oh-My-ZSH is already installed ..."
   fi
 
   if [ -f "$HOME/.Brewfile" ]; then
@@ -74,7 +74,10 @@ if [ "$system_type" = "Darwin" ]; then
 
   # Create cronjob
   if [ $(crontab -l | grep brew | wc -l) -eq 0 ]; then
-    (crontab -l ; echo "0 */3 * * * brew bundle dump --force --file ~/.Brewfile") | crontab -
+    (
+      crontab -l
+      echo "0 */3 * * * brew bundle dump --force --file ~/.Brewfile"
+    ) | crontab -
   fi
 
   ###############################################################################
@@ -124,7 +127,7 @@ if [ "$system_type" = "Darwin" ]; then
   sudo scutil --set LocalHostName "Anubis"
   sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "Anubis"
 
-  # Save screen shots to other location 
+  # Save screen shots to other location
   mkdir -p "${HOME}/tmp/screenshots"
   defaults write com.apple.screencapture location -string "${HOME}/tmp/screenshots"
 
@@ -136,6 +139,10 @@ if [ "$system_type" = "Darwin" ]; then
   ## Thu 18 Aug 23:46:18 	-> EEE d MMM HH:mm:ss
   ## Thu 18 Aug 11:46:18 pm	-> EEE d MMM h:mm:ss a
   defaults write com.apple.menuextra.clock DateFormat -string "EEE d MMM HH:mm"
+
+  ## make the keys faster
+  defaults write -g InitialKeyRepeat -int 15
+  defaults write -g KeyRepeat -int 2
 
   ###############################################################################
   # ShortCut Settings                                                           #
@@ -240,7 +247,7 @@ if [ "$system_type" = "Darwin" ]; then
     "Google Chrome" \
     "SystemUIServer" \
     "iCal"; do
-    killall "${app}" &> /dev/null
+    killall "${app}" &>/dev/null
   done
 
 fi

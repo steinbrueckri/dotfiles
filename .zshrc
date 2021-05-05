@@ -2,33 +2,22 @@
 ########         zsh conf         #########
 ###########################################
 
-export PATH=$HOME/bin:$HOME/go/bin/:/usr/local/bin:/opt/puppetlabs/pdk/bin/:/opt/puppetlabs/bin/:/Users/steinbrueckri/Library/Python/3.7/bin/:$PATH
+export PATH=$HOME/bin:$HOME/go/bin/:/usr/local/sbin:/usr/local/bin:/opt/puppetlabs/pdk/bin/:/opt/puppetlabs/bin/:/Users/steinbrueckri/Library/Python/3.7/bin/:$PATH
 export ZSH=/Users/steinbrueckri/.oh-my-zsh
-export EDITOR="/usr/bin/vim"
+export EDITOR="/usr/local/bin/nvim"
 ZSH_THEME="agnoster"
 DEFAULT_USER=steinbrueckri
-RPROMPT='%{$fg[$color]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
+#RPROMPT='%{$fg[$color]%}%{$reset_color%}'
+RPROMPT='%{$fg[blue]%}($ZSH_KUBECTL_PROMPT)%{$reset_color%}'
 
 # Plugins (https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins)
 plugins=(
 	terraform
 	git
 	gitignore
-	osx
-	npm
-	nmap
-	mvn
-	mosh
-	man
-	gradle
-	iterm2
 	kubectl
-	web-search
-  	httpie
-  	yarn
 	docker
-	sublime
-	)
+)
 
 # Source
 source $ZSH/oh-my-zsh.sh
@@ -38,9 +27,11 @@ source /usr/local/etc/zsh-kubectl-prompt/kubectl.zsh # ZSH plugins installiert v
 ZSH_TMUX_AUTOSTART=true
 
 ## Alias ######################################################################
+alias vim="nvim"
+alias v="nvim"
 
 ## Configs
-alias vimconfig="vim ~/.vimrc"
+alias vimconfig="vim ~/.config/nvim/init.vim"
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 
@@ -50,10 +41,28 @@ alias gcpal='gcloud compute addresses list'
 alias gcpssh='gcloud compute ssh'
 alias gcpsshi='gcloud compute ssh --internal-ip'
 alias gcpsshiap='gcloud compute ssh --tunnel-through-iap'
+alias gcprdpiap='gcloud compute start-iap-tunnel $1 3389 --local-host-port=localhost:3389 --zone=$2'
 alias gcpca='gcloud config configurations activate'
 
 alias gcp04webimt01d='CLOUDSDK_CORE_PROJECT=mms-cif-imtron-web-t-1000 gcpsshiap gcp04webimt01d'
 alias gcp04webimt01p='CLOUDSDK_CORE_PROJECT=mms-cif-imtron-web-p-1000 gcpsshiap gcp04webimt01p'
+
+function gcp-project() {
+	FILE="$HOME/.gcp-project-list"
+	reload=`gcloud projects list --format="value(PROJECT_ID)" > $FILE`
+	if [ -f $FILE ] 
+	then
+	    if test `find $FILE -mmin +60`
+	    then
+	        echo "source to old .... updateing $FILE"
+	        $reload
+	    fi
+	else
+	    echo "$FIle does not exits - creating...."
+	    $reload
+	fi
+	gcloud config set project $(cat $FILE | fzf)
+}
 
 ## Docker
 alias dr="docker run -it --rm --entrypoint /bin/sh"
@@ -82,9 +91,6 @@ alias k-debug-app="kubectl run --namespace istio-apps -i --tty 'debug-${USER}' -
 
 ## Tmux
 alias tx='tmuxinator'
-
-## Code
-alias idea='open -na "IntelliJ IDEA.app" --args "$(pwd)"'
 
 ## MacOSX Lookscreen
 alias lock="pmset displaysleepnow"
@@ -148,7 +154,7 @@ function proxy_off {
 ## init
 function init {
   ## Show my if im dirty 
-  cd ~/.config/yadm/repo.git && git diff --quiet || echo '💩💩💩 dotfiles are dirty 💩💩💩' && cd - > /dev/null  
+  ## cd ~/.local/share/yadm/repo.git && git diff --quiet || echo '💩💩💩 dotfiles are dirty 💩💩💩' && cd - > /dev/null  
   
 #  ## Network location stuff
 #  location="$(networksetup -getcurrentlocation)"
@@ -164,39 +170,64 @@ function init {
 
 ## autocomplete ################################################################
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/vault vault
-source <(kubectl completion zsh)
+
+function k() {
+    if ! type __start_kubectl >/dev/null 2>&1; then
+        source <(command kubectl completion zsh)
+    fi
+
+    command kubectl "$@"
+}
+
 source <(gh completion -s zsh)
 source <(fluxctl completion zsh)
 source <(flux completion zsh)
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
-source '/usr/local/share/zsh/site-functions/_hosts'
 
 ## exports ####################################################################
+export FLUX_FORWARD_NAMESPACE=gitops
 export LANG="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export JAVA_HOME="$(/usr/libexec/java_home)"
 export SSH_KEY_PATH="~/.ssh/rsa_id"
+export GITHUB_TOKEN=$(cat ~/.github_token)
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""' # Ref.: https://github.com/junegunn/fzf/issues/634
+export FZF_DEFAULT_OPTS="
+--layout=reverse
+--info=inline
+--height=80%
+--multi
+--preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
+--color='hl:148,hl+:154,pointer:032,marker:010,bg+:237,gutter:008'
+--prompt='∼ ' --pointer='▶' --marker='✓'
+--bind 'ctrl-a:select-all'
+--bind 'ctrl-y:execute-silent(echo {+} | pbcopy)'
+--bind 'ctrl-e:execute(echo {+} | xargs -o vim)'
+--bind 'ctrl-v:execute(code {+})'
+"
 
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-
-### ruby stuff
+## ruby stuff #################################################################
 eval "$(rbenv init -)"
 export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
 export PATH="$GEM_HOME/bin:$PATH"
 
-### rust stuff
+## rust stuff #################################################################
 source $HOME/.cargo/env
 
+## ansible stuff ##############################################################
 # Source: https://github.com/ansible/ansible/issues/32499
 # This is apparently due to some new security changes made in High Sierra that are breaking lots of Python things that use fork(). Rumor has it that adding
 # export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES before your Ansible run should clear it up. The code that's causing issues is well below Ansible in the stack.
 
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+## java stuff #################################################################
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
+
+## git stuff ##################################################################
+export GPG_TTY=$(tty)
+
 ## init #######################################################################
 init
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH="/usr/local/opt/openjdk/bin:$PATH"
-export GPG_TTY=$(tty)
