@@ -29,6 +29,8 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }
 Plug 'neovim/nvim-lspconfig'
 "" A light-weight lsp plugin based on neovim built-in lsp with highly a performant UI.  
 Plug 'glepnir/lspsaga.nvim'
+"" A pretty list for showing diagnostics, references, telescope results
+Plug 'folke/lsp-trouble.nvim'
 "" change surrounding
 Plug 'tpope/vim-surround'
 "" build systems
@@ -73,7 +75,7 @@ Plug 'junegunn/goyo.vim'
 "" highlight paragraph
 Plug 'junegunn/limelight.vim'
 "" keymapping helper
-Plug 'liuchengxu/vim-which-key'
+Plug 'folke/which-key.nvim'
 "" powerpoint in vim ;)
 Plug 'sotte/presenting.vim'
 "" better tabs in neovim (required nightly build of neovim)

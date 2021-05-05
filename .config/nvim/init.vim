@@ -66,7 +66,6 @@ set autoread
 set hls is "Making sure search highlights works as we type them"
 set clipboard+=unnamedplus " make the clipboard work again!
 set mouse=a
-set timeoutlen=200
 
 " === luochen1990/rainbow
 let g:rainbow_active = 1
@@ -127,6 +126,8 @@ require('telescope').setup{
     color_devicons = true,
   }
 }
+
+require("trouble").setup{}
 
 require'lspconfig'.pyright.setup{}
 require'lspconfig'.bashls.setup{}
