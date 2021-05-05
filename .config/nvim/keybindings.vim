@@ -84,14 +84,14 @@ let g:which_key_map['-'] = [ '<c-^>'                    , 'go back' ]
 nnoremap <leader>- <c-^><cr>
 
 " show all command
-let g:which_key_map[';'] = [ ':Commands'                  , 'commands' ]
+let g:which_key_map[';'] = [ ':Telescope commands'                  , 'commands' ]
 
 " deleteplit d
-let g:which_key_map['d'] = [ ':bd'                        , 'delete buffer']
+let g:which_key_map['d'] = [ ':bd', 'delete buffer']
 
 " Open file browser
-nnoremap <leader>e :NERDTreeToggle<CR>
-let g:which_key_map['e'] = [ '<Plug>NERDTreeToggle'  , 'fileTree' ]
+nnoremap <leader>e :Telescope file_browser<CR>
+let g:which_key_map['e'] = [ ':Telescope file_browser', 'Explorer' ]
 
 " Q = quit
 nnoremap <leader>q :bd<CR>
@@ -131,63 +131,47 @@ let g:which_key_map.c = {
       \ }
 
 " f is for find ===============================================================
-nnoremap <leader>f/ :History/<CR>
-nnoremap <leader>f; :Commands<CR>
-nnoremap <leader>fa :Ag<CR>
-nnoremap <leader>fb :BLines<CR>
-nnoremap <leader>fB :Buffers<CR>
-nnoremap <leader>fc :Commits<CR>
-nnoremap <leader>fC :BCommits<CR>
-nnoremap <leader>ff :Files<CR>
-nnoremap <leader>fg :GFiles<CR>
-nnoremap <leader>fG :GFiles?<CR>
-nnoremap <leader>fh :History<CR>
-nnoremap <leader>fH :History:<CR>
-nnoremap <leader>fl :Lines<CR>
-nnoremap <leader>fm :Marks<CR>
-nnoremap <leader>fM :Maps<CR>
-nnoremap <leader>fp :Helptags<CR>
-nnoremap <leader>fr :Rg<CR>
-nnoremap <leader>fs :Snippets<CR>
-nnoremap <leader>fS :Colors<CR>
-nnoremap <leader>ft :Tags<CR>
-nnoremap <leader>fT :BTags<CR>
-nnoremap <leader>fw :Windows<CR>
-nnoremap <leader>fy :Filetypes<CR>
+nnoremap <leader>f; :Telescope commands<CR>
+nnoremap <leader>fa :Telescope live_grep<CR>
+nnoremap <leader>fB :Telescope buffers<CR>
+nnoremap <leader>fc :Telescope commits<CR>
+nnoremap <leader>fd :Telescope lsp_workspace_symbols<CR>  
+nnoremap <leader>ff :Telescope files find_command=rg,--files,--hidden,--no-ignore<CR>
+nnoremap <leader>fg :Telescope git_files<CR>
+nnoremap <leader>fG :Telescope git_status<CR>
+nnoremap <leader>fh :Telescope command_history<CR>
+nnoremap <leader>fm :Telescope marks<CR>
+nnoremap <leader>fs :Telescope ultisnips<CR>
+nnoremap <leader>fS :Telescope colorschema<CR>
+nnoremap <leader>fi :Telescope gh issues<CR>
+nnoremap <leader>fp :Telescope gh pull_requests<CR>
+nnoremap <leader>ft :Telescope tags<CR>
 nnoremap <leader>fz :FZF<CR>
 
 let g:which_key_map.f = {
       \ 'name' : '+find' ,
-      \ '/' : [':History/'     , 'history'],
-      \ ';' : [':Commands'     , 'commands'],
-      \ 'a' : [':Ag'           , 'text Ag'],
-      \ 'b' : [':BLines'       , 'current buffer'],
-      \ 'B' : [':Buffers'      , 'open buffers'],
-      \ 'c' : [':Commits'      , 'commits'],
-      \ 'C' : [':BCommits'     , 'buffer commits'],
-      \ 'f' : [':Files'        , 'files'],
-      \ 'g' : [':GFiles'       , 'git files'],
-      \ 'G' : [':GFiles?'      , 'modified git files'],
-      \ 'h' : [':History'      , 'file history'],
-      \ 'H' : [':History:'     , 'command history'],
-      \ 'l' : [':Lines'        , 'lines'] ,
-      \ 'm' : [':Marks'        , 'marks'] ,
-      \ 'M' : [':Maps'         , 'normal maps'] ,
-      \ 'p' : [':Helptags'     , 'help tags'] ,
-      \ 'r' : [':Rg'           , 'text Rg'],
-      \ 's' : [':Snippets'     , 'snippets'],
-      \ 'S' : [':Colors'       , 'color schemes'],
-      \ 't' : [':Tags'         , 'project tags'],
-      \ 'T' : [':BTags'        , 'buffer tags'],
-      \ 'w' : [':Windows'      , 'search windows'],
-      \ 'y' : [':Filetypes'    , 'file types'],
-      \ 'z' : [':FZF'          , 'FZF'],
+      \ ';' : [':Telescope commands'             , 'commands'],
+      \ 'a' : [':Telescope live_grep'            , 'grep over all'],
+      \ 'B' : [':Telescope buffers'              , 'open buffers'],
+      \ 'c' : [':Telescope commits'              , 'commits'],
+      \ 'd' : [':Telescope lsp_workspace_symbols' , 'lsp_workspace_symbols'],
+      \ 'f' : [':Telescope find_files find_command=rg,--files,--hidden,--no-ignore', 'files'],
+      \ 'g' : [':Telescope git_files'            , 'git files'],
+      \ 'G' : [':Telescope git_status'           , 'modified git files'],
+      \ 'h' : [':Telescope command_history'      , 'command history'],
+      \ 'm' : [':Telescope marks'                , 'marks'] ,
+      \ 's' : [':Telescope ultisnips'            , 'snippets'],
+      \ 'S' : [':Telescope colorschema'          , 'color schemes'],
+      \ 't' : [':Telescope tags'                 , 'project tags'],
+      \ 'i' : [':Telescope gh issues'            , 'github issues'],
+      \ 'p' : [':Telescope gh pull_requests'     , 'github PRs'],
+      \ 'z' : [':Telescope'                      , 'Telescope commands'],
       \ }
 
 " g is for git ================================================================
 nnoremap <leader>ga :Git add %<CR>
 nnoremap <leader>gA :Git add .<CR>
-nnoremap <leader>gb :Git blame<CR>
+nnoremap <leader>gb :Telescope git_branches<CR>
 nnoremap <leader>gc :Git commit -a<CR>
 nnoremap <leader>gC :Git commit -a --amend<CR>
 nnoremap <leader>gd :Git diff<CR>
@@ -217,7 +201,7 @@ let g:which_key_map.g = {
       \ 'name' : '+git' ,
       \ 'a' : [':Git add %'                        , 'add current'],
       \ 'A' : [':Git add .'                        , 'add all'],
-      \ 'b' : [':Git blame'                        , 'blame'],
+      \ 'b' : [':Telescope git_branches'             , 'branches'],
       \ 'c' : [':Git commit -a'                    , 'commit all'],
       \ 'C' : [':Git commit -a --amend'            , 'commit amend'],
       \ 'd' : [':Git diff'                         , 'diff'],
@@ -243,7 +227,7 @@ let g:which_key_map.l = {
 let g:which_key_map.t = {
       \ 'name' : '+toggle' ,
       \ 'c' : [':ColorizerToggle'        , 'colorizer'],
-      \ 'n' : [':set nonumber!'          , 'line-numbers'],
+      \ 'n' : [':set relativenumber!'    , 'relative line-numbers'],
       \ 'm' : [':Glow'                   , 'Show Glow preview'],
       \ 'r' : [':set norelativenumber!'  , 'relative line nums'],
       \ 't' : [':TODOToggle'             , 'show tasks'],
@@ -255,7 +239,7 @@ let g:which_key_map.t = {
 nnoremap <leader>tc :ColorizerToggle<CR>
 nnoremap <leader>tn :set nonumber!<CR>
 nnoremap <leader>tm :Glow<CR>
-nnoremap <leader>tr :set norelativenumber!<CR>
+nnoremap <leader>tr :set relativenumber!<CR>
 nnoremap <leader>tg :GitGutterToggle<CR>
 nnoremap <leader>tt :TODOToggle<CR>
 nnoremap <leader>tT :Tags<CR>

@@ -9,16 +9,13 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin(stdpath('data') . '/plugged')
-" file tree - replace later with kyazdani42/nvim-tree.lua
-Plug 'preservim/nerdtree'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 " statusbar
 Plug 'ryanoasis/vim-devicons'
 Plug 'glepnir/spaceline.vim'
 Plug 'luochen1990/rainbow'
-" better tag handling
-Plug 'ludovicchabant/vim-gutentags'
+" toggle numbers for pair programming
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
 " code complition
 "" snippet support
 Plug 'SirVer/ultisnips'
@@ -41,17 +38,16 @@ Plug 'sbdchd/neoformat'
 "" provides automatic closing of quotes, parenthesis, brackets
 Plug 'Raimondi/delimitMate'
 " language specific plugins
-Plug 'pearofducks/ansible-vim'
-Plug 'hashivim/vim-terraform'
 Plug 'towolf/vim-helm'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'bagrat/vim-buffet'
 Plug 'editorconfig/editorconfig-vim'
 " fuzzy search
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
-Plug 'mileszs/ack.vim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'fhill2/telescope-ultisnips.nvim'
+Plug 'nvim-telescope/telescope-github.nvim'
+Plug 'nvim-telescope/telescope-project.nvim'
 " git things
 Plug 'f-person/git-blame.nvim'
 Plug 'vim-scripts/vim-gitgutter'
@@ -59,17 +55,19 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'kdheepak/lazygit.nvim', { 'branch': 'nvim-v0.4.3' }
 " misc
+" editorconfig
+Plug 'editorconfig/editorconfig-vim'
 "" show spaces and indentlines
 Plug 'Yggdroot/indentLine'
 Plug 'lukas-reineke/indent-blankline.nvim'
 "" themes
 Plug 'joshdick/onedark.vim'
-"" terminal
-Plug 'voldikss/vim-floaterm'
 "" smooth scrolling
 Plug 'psliwka/vim-smoothie'
 "" change root to file directory
 Plug 'airblade/vim-rooter'
+"" alignment plugin
+Plug 'junegunn/vim-easy-align'
 "" better writing
 Plug 'junegunn/goyo.vim'
 "" highlight paragraph
@@ -96,8 +94,6 @@ Plug '907th/vim-auto-save'
 Plug 'norcalli/nvim-colorizer.lua'
 "" better buffer and tab managment
 Plug 'markcornick/vim-bats'
-"" make scratch files like in intelij
-Plug 'mtth/scratch.vim'
 "" markdown preview
 Plug 'npxbr/glow.nvim', {'do': ':GlowInstall'}
 "" github things
@@ -105,9 +101,6 @@ Plug 'pwntester/octo.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-"" Notes
-Plug 'xolox/vim-notes'
-Plug 'xolox/vim-misc'
 "" slides for vim
 Plug 'sotte/presenting.vim'
 "" todos in project
@@ -116,6 +109,9 @@ Plug 'Dimercel/todo-vim'
 Plug 'ruanyl/vim-gh-line'
 "" colorschema
 Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
+Plug 'srcery-colors/srcery-vim'
 "" glow preview
 Plug 'npxbr/glow.nvim'
+"" performance check
+Plug 'dstein64/vim-startuptime'
 call plug#end()

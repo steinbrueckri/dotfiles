@@ -1,12 +1,4 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                   TODOs                                    "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" - Terraform format key binding?
-" - Git Checkout binding is missing as key binding
-" - Fix scratchys - can not save, GitHub issue is open
-" - Make use of vimwiki
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   source                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -17,6 +9,7 @@ source $HOME/.config/nvim/functions.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  settings                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " https://stackoverflow.com/questions/9701366/vim-backspace-leaves
 noremap! <C-?> <C-h>
 
@@ -54,9 +47,6 @@ inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
-" == Floting term
-let g:floaterm_autoclose = 1
-
 " == Whishkey
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ','
@@ -76,16 +66,13 @@ set autoread
 set hls is "Making sure search highlights works as we type them"
 set clipboard+=unnamedplus " make the clipboard work again!
 set mouse=a
-set timeoutlen=500
+set timeoutlen=200
+
 " === luochen1990/rainbow
 let g:rainbow_active = 1
+
 " === Git blamer settings
 let g:gitblame_enabled = 1
-" === NEARDTree settings
-let NERDTreeQuitOnOpen = 1 " automatically close NerdTree when you open a file
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-let NERDTreeAutoDeleteBuffer = 1
 
 " === Git gutter settings
 set updatetime=100
@@ -107,17 +94,14 @@ if exists('+termguicolors')
   set termguicolors
 endif
 
-colorscheme spaceduck
-let g:auto_save = 1  " enable AutoSave on Vim startup
+colorscheme srcery 
+
+"let g:auto_save = 1  " enable AutoSave on Vim startup
 
 " ACK
 let g:ackprg = 'ag --vimgrep --smart-case'
 let g:ack_apply_lmappings = 1
 let g:ack_autoclose = 1
-
-" Gutentages
-let g:gutentags_ctags_tagfile = ".tags"
-let g:gutentags_cache_dir = "~/tmp"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Turn persistent undo on 
@@ -131,15 +115,27 @@ endtry
 
 let delimitMate_expand_cr = 1
 
-" mtth/scratch.vim
-let g:scratch_persistence_file = "~/.scratchys/new.txt"
-
 let g:deoplete#enable_at_startup = 1
 
 let g:UltiSnipsExpandTrigger="<c-c>"
 
-" LSP
+" LUA
 lua << EOF
+require('telescope').setup{
+  defaults = {
+    file_ignore_patterns = { '.git/', 'node_modules/' },
+    color_devicons = true,
+  }
+}
+
+require'lspconfig'.pyright.setup{}
+require'lspconfig'.bashls.setup{}
+require'lspconfig'.tsserver.setup{}
+require'lspconfig'.terraformls.setup{}
+require'lspconfig'.html.setup{}
+require'lspconfig'.dockerls.setup{}
+require'lspconfig'.cssls.setup{}
+require'lspconfig'.solargraph.setup{}
 
 require('lspconfig').efm.setup({
  cmd = {"efm-langserver", "-logfile", "/tmp/efm.log", "-loglevel", "1" },
@@ -172,17 +168,77 @@ require('lspconfig').efm.setup({
  }
 })
 
-require'lspconfig'.pyright.setup{}
-require'lspconfig'.bashls.setup{}
-require'lspconfig'.tsserver.setup{}
-require'lspconfig'.terraformls.setup{}
-require'lspconfig'.kotlin_language_server.setup{}
-require'lspconfig'.yamlls.setup{}
-require'lspconfig'.jsonls.setup{}
-require'lspconfig'.html.setup{}
-require'lspconfig'.dockerls.setup{}
-require'lspconfig'.cssls.setup{}
-require'lspconfig'.solargraph.setup{}
+require'lspconfig'.yamlls.setup{
+    settings = {
+      yaml = {
+        -- Schemas https://www.schemastore.org
+        schemas = {
+          ["http://json.schemastore.org/gitlab-ci.json"] = {".gitlab-ci.yml"},
+          ["https://json.schemastore.org/bamboo-spec.json"] = {
+            "bamboo-specs/*.{yml,yaml}"
+          },
+          ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = {
+            "docker-compose*.{yml,yaml}"
+          },
+          ["http://json.schemastore.org/github-workflow.json"] = ".github/workflows/*.{yml,yaml}",
+          ["http://json.schemastore.org/github-action.json"] = ".github/action.{yml,yaml}",
+          ["http://json.schemastore.org/prettierrc.json"] = ".prettierrc.{yml,yaml}",
+          ["http://json.schemastore.org/stylelintrc.json"] = ".stylelintrc.{yml,yaml}",
+          ["http://json.schemastore.org/circleciconfig"] = ".circleci/**/*.{yml,yaml}"
+        }
+      }
+  }
+}
+
+require'lspconfig'.jsonls.setup{
+  settings = {
+    json = {
+      schemas = {
+        {
+          description = 'TypeScript compiler configuration file',
+          fileMatch = {'tsconfig.json', 'tsconfig.*.json'},
+          url = 'http://json.schemastore.org/tsconfig'
+        },
+        {
+          description = 'Lerna config',
+          fileMatch = {'lerna.json'},
+          url = 'http://json.schemastore.org/lerna'
+        },
+        {
+          description = 'Babel configuration',
+          fileMatch = {'.babelrc.json', '.babelrc', 'babel.config.json'},
+          url = 'http://json.schemastore.org/lerna'
+        },
+        {
+          description = 'ESLint config',
+          fileMatch = {'.eslintrc.json', '.eslintrc'},
+          url = 'http://json.schemastore.org/eslintrc'
+        },
+        {
+          description = 'Bucklescript config',
+          fileMatch = {'bsconfig.json'},
+          url = 'https://bucklescript.github.io/bucklescript/docson/build-schema.json'
+        },
+        {
+          description = 'Prettier config',
+          fileMatch = {'.prettierrc', '.prettierrc.json', 'prettier.config.json'},
+          url = 'http://json.schemastore.org/prettierrc'
+        },
+        {
+          description = 'Vercel Now config',
+          fileMatch = {'now.json'},
+          url = 'http://json.schemastore.org/now'
+        },
+        {
+          description = 'Stylelint config',
+          fileMatch = {'.stylelintrc', '.stylelintrc.json', 'stylelint.config.json'},
+          url = 'http://json.schemastore.org/stylelintrc'
+        },
+      }
+    },
+  }
+}
+
 local saga = require 'lspsaga'
 saga.init_lsp_saga()
 EOF
@@ -213,3 +269,6 @@ let g:gh_line_map_default = 0
 let g:gh_line_blame_map_default = 1
 
 let g:spaceline_seperate_style = 'arrow'
+
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
