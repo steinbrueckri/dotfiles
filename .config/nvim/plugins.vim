@@ -43,6 +43,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'towolf/vim-helm'
 Plug 'bagrat/vim-buffet'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'arouene/vim-ansible-vault'
 " fuzzy search
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -56,6 +57,9 @@ Plug 'vim-scripts/vim-gitgutter'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'kdheepak/lazygit.nvim', { 'branch': 'nvim-v0.4.3' }
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'sindrets/diffview.nvim'
 " misc
 " editorconfig
 Plug 'editorconfig/editorconfig-vim'
@@ -116,4 +120,10 @@ Plug 'srcery-colors/srcery-vim'
 Plug 'npxbr/glow.nvim'
 "" performance check
 Plug 'dstein64/vim-startuptime'
+"" base64 support
+Plug 'christianrondeau/vim-base64'
+"" k8s stuff
+Plug 'andrewstuart/vim-kubernetes' 
+"" HTTP client
+Plug 'aquach/vim-http-client'
 call plug#end()

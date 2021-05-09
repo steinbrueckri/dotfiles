@@ -11,9 +11,23 @@ let maplocalleader = ','
 nnoremap <esc> :noh<return><esc>
 
 lua << EOF
-local wk = require("which-key")
+
+--- visual mappings
+
+local wkv = require("which-key")
+
+opts = {
+  	mode = "v", -- VISUAL mode
+	}
+mappings = {
+	["<leader>bu"] = { ":<c-u>call base64#v_atob()<cr>", "base64 crypt"},
+	["<leader>bc"] = { ":<c-u>call base64#v_btoa()<cr>", "base64 decrypt"},
+}
+wkv.register(mappings, opts)
 
 --- single mappings
+
+local wk = require("which-key")
 
 wk.register({
   ["<leader><Up>"] = { ":wincmd k<cr>", "goto split" },
@@ -32,7 +46,8 @@ wk.register({
   ["<leader>S"] = { ":Startify<cr>", "Open Startscreen" },
   ["<leader>v"] = { ":vsplit<cr>", "Split right" },
   ["<leader>h"] = { ":split<cr>", "Split below" },
-  ["<leader>n"] = { ":tabnew new.txt<cr>", "New File" },
+  ["<leader>n"] = { ":new<cr>", "New File" },
+  ["<leader>N"] = { ":tabnew new.txt<cr>", "New File" },
   ["<leader>z"] = { ":Goyo<cr>", "ZenMode" }
 })
 
@@ -40,6 +55,11 @@ wk.register({
 
 wk.register({
   ["<leader>"] = {
+		a = {
+			name = "+ansible",
+			v = {':AnsibleVault<cr>', 'ansible vault'},
+			u = {':AnsibleUnvault<cr>', 'ansible unvault'},
+		},
     c = {
       name = "+config",
       e = {':e! ~/.config/nvim/init.vim<cr>'       , 'edit config'},
@@ -60,8 +80,9 @@ wk.register({
       s = {':Telescope ultisnips<cr>'              , 'snippets'},
       S = {':Telescope colorschema<cr>'            , 'color schemes'},
       t = {':Telescope tags<cr>'                   , 'project tags'},
-      i = {':Telescope gh issues<cr>'              , 'github issues'},
-      p = {':Telescope gh pull_requests<cr>'       , 'github PRs'},
+      I = {':Telescope gh issues<cr>'              , 'github issues'},
+      P = {':Telescope gh pull_requests<cr>'       , 'github PRs'},
+			p = {":lua require'telescope'.extensions.project.project{}<cr>", 'find projects'},
     },
     g = {
       name = "+git",
@@ -70,7 +91,7 @@ wk.register({
       b = {':Telescope git_branches<cr>'           , 'branches'},
       c = {':Git commit -a<cr>'                    , 'commit all'},
       C = {':Git commit -a --amend<cr>'            , 'commit amend'},
-      d = {':Git diff<cr>'                         , 'diff'},
+      d = {':DiffviewOpen<cr>'                     , 'diff'},
       D = {':Gdiffsplit<cr>'                       , 'diff split'},
       g = {':GHInteractive<cr>'                    , 'show line on github'},
       s = {':Gstatus<cr>'                          , 'status'},
@@ -95,8 +116,9 @@ wk.register({
       c = {':ColorizerToggle<cr>'        , 'colorizer'},
       n = {':set relativenumber!<cr>'    , 'relative line-numbers'},
       m = {':Glow<cr>'                   , 'Show Glow preview'},
+      g = {':GitGutterToggle<cr>'        , 'GitGutterToggle'},
       r = {':set norelativenumber!<cr>'  , 'relative line nums'},
-      T = {':TODOToggle<cr>'             , 'show tasks'},
+      T = {':Telescope quickfix'         , 'show tasks'},
       t = {':LspTroubleToggle<cr>'       , 'LSP Issue viewer'},
       q = {':FloatermToggle<cr>'         , 'open terminal'},
       i = {':IndentLinesToggle<cr>'      , 'Show indentLine'},

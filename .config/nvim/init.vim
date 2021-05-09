@@ -13,6 +13,7 @@ source $HOME/.config/nvim/functions.vim
 " https://stackoverflow.com/questions/9701366/vim-backspace-leaves
 noremap! <C-?> <C-h>
 
+" === hrsh7th/nvim-compe
 set completeopt=menuone,noselect
 let g:compe = {}
 let g:compe.enabled = v:true
@@ -40,12 +41,20 @@ let g:compe.source.snippets_nvim = v:true
 let g:compe.source.treesitter = v:true
 
 let g:compe.source.tabnine = v:true
+let g:compe.source.ultisnips = v:true
 
 inoremap <silent><expr> <C-Space> compe#complete()
 inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
+" === aquach/vim-http-client
+" By default requests will verify SSL certificates for HTTPS endpoints. Setting this option to 0 disables SSL verification which allows requests to sites using self-signed certificates, for example.
+let g:http_client_verify_ssl = 1
+
+" By default responses will be written to the output buffer replacing any previous response. Setting this option to 1 will preserve previous responses, adding the latest response to the top of the buffer.
+let g:http_client_preserve_responses = 0
 
 " == Whishkey
 let g:mapleader = "\<Space>"
@@ -66,6 +75,9 @@ set autoread
 set hls is "Making sure search highlights works as we type them"
 set clipboard+=unnamedplus " make the clipboard work again!
 set mouse=a
+
+" === christianrondeau/vim-base64
+let g:vim_base64_disable_default_key_mappings = 1
 
 " === luochen1990/rainbow
 let g:rainbow_active = 1
@@ -120,6 +132,7 @@ let g:UltiSnipsExpandTrigger="<c-c>"
 
 " LUA
 lua << EOF
+require('gitsigns').setup()
 
 require('lualine').setup {
   options = {
@@ -133,6 +146,8 @@ require('telescope').setup{
     color_devicons = true,
   }
 }
+require('telescope').load_extension('ultisnips')
+require('telescope').load_extension('project')
 
 require("trouble").setup{}
 
@@ -263,8 +278,6 @@ let s:startify_ascii_header = [
  \]
 let g:startify_custom_header = map(s:startify_ascii_header +
         \ startify#fortune#quote(), '"   ".v:val')
-
-let g:notes_directories = ['~/OneDrive\ -\ MediaMarktSaturn/VimNotes']
 
 " autoformat on save
 augroup fmt
