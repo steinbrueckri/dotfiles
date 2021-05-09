@@ -65,10 +65,10 @@ end
 alias vim="nvim"
 alias vi="nvim"
 alias v="nvim"
-alias k="kubectl"
 
 # kubernetes stuff
 alias kx="kubectx"
+alias k="kubectl"
 alias kn='kubens'
 alias k-debug="kubectl run --namespace default -i --tty 'debug-default-$USER' --image=steinbrueckri/debug --restart=Never --rm=true -- bash"
 alias k-debug-app="kubectl run --namespace istio-apps -i --tty 'debug-$USER' --image=steinbrueckri/debug --restart=Never --rm=true -- bash"
@@ -98,7 +98,12 @@ alias lock="pmset displaysleepnow"
 #                               exports                               #
 #######################################################################
 
+# kubernetes stuff
+export KUBE_EDITOR="nvim"
 export PATH="$PATH:$HOME/.krew/bin"
+
+# ansible stuff
+export ANSIBLE_VAULT_PASSWORD_FILE="~/.vault-password-file"
 
 #######################################################################
 #                              functions                              #
@@ -112,7 +117,7 @@ function gcp-project
             gcloud projects list --format="value(PROJECT_ID)" >$FILE
         end
     else
-        echo "$FIle does not exits - creating...."
+        echo "$FILE does not exits - creating...."
         gcloud projects list --format="value(PROJECT_ID)" >$FILE
     end
     gcloud config set project (cat $FILE | fzf)
