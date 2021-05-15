@@ -55,7 +55,8 @@ Plug 'nvim-telescope/telescope-project.nvim'
 Plug 'f-person/git-blame.nvim'
 Plug 'vim-scripts/vim-gitgutter'
 Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-fugitive'
+Plug 'TimUntersberger/neogit'
 Plug 'kdheepak/lazygit.nvim', { 'branch': 'nvim-v0.4.3' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
@@ -126,4 +127,6 @@ Plug 'christianrondeau/vim-base64'
 Plug 'andrewstuart/vim-kubernetes' 
 "" HTTP client
 Plug 'aquach/vim-http-client'
+"" USE HJKL
+Plug 'takac/vim-hardtime'
 call plug#end()

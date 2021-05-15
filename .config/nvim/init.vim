@@ -10,8 +10,21 @@ source $HOME/.config/nvim/functions.vim
 "                                  settings                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" indentline
+let g:indentLine_enabled = 1
+let g:indent_blankline_char = "|"
+let g:indent_blankline_filetype_exclude = ["help", "terminal", "dashboard"]
+let g:indent_blankline_buftype_exclude = ["terminal"]
+let g:indent_blankline_show_trailing_blankline_indent = v:false
+let g:indent_blankline_show_first_indent_level = v:false
+let g:indentline_setColors = 0
+
 " https://stackoverflow.com/questions/9701366/vim-backspace-leaves
 noremap! <C-?> <C-h>
+
+" takac/vim-hardtime
+let g:hardtime_default_on = 0
+let g:hardtime_showmsg = 0
 
 " === hrsh7th/nvim-compe
 set completeopt=menuone,noselect
@@ -48,6 +61,49 @@ inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
+lua << EOF
+
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local check_back_space = function()
+    local col = vim.fn.col('.') - 1
+    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+        return true
+    else
+        return false
+    end
+end
+
+-- Use (s-)tab to:
+--- move to prev/next item in completion menuone
+--- jump to prev/next snippet's placeholder
+_G.tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-n>"
+  elseif check_back_space() then
+    return t "<Tab>"
+  else
+    return vim.fn['compe#complete']()
+  end
+end
+_G.s_tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-p>"
+  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+    return t "<Plug>(vsnip-jump-prev)"
+  else
+    return t "<S-Tab>"
+  end
+end
+
+vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+EOF
 
 " === aquach/vim-http-client
 " By default requests will verify SSL certificates for HTTPS endpoints. Setting this option to 0 disables SSL verification which allows requests to sites using self-signed certificates, for example.
@@ -132,6 +188,9 @@ let g:UltiSnipsExpandTrigger="<c-c>"
 
 " LUA
 lua << EOF
+
+require('neogit').setup()
+
 require('gitsigns').setup()
 
 require('lualine').setup {
@@ -149,7 +208,43 @@ require('telescope').setup{
 require('telescope').load_extension('ultisnips')
 require('telescope').load_extension('project')
 
-require("trouble").setup{}
+require("trouble").setup {
+    height = 7, -- height of the trouble list
+    icons = true, -- use devicons for filenames
+    mode = "lsp_workspace_diagnostics", -- "lsp_workspace_diagnostics", "lsp_document_diagnostics", "quickfix", "lsp_references", "loclist"
+    fold_open = "", -- icon used for open folds
+    fold_closed = "", -- icon used for closed folds
+    action_keys = { -- key mappings for actions in the trouble list
+        close = "q", -- close the list
+        cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
+        refresh = "r", -- manually refresh
+        jump = {"<cr>", "<tab>"}, -- jump to the diagnostic or open / close folds
+        jump_close = {"o"}, -- jump to the diagnostic and close the list
+        toggle_mode = "m", -- toggle between "workspace" and "document" diagnostics mode
+        toggle_preview = "P", -- toggle auto_preview
+        hover = "K", -- opens a small poup with the full multiline message
+        preview = "p", -- preview the diagnostic location
+        close_folds = {"zM", "zm"}, -- close all folds
+        open_folds = {"zR", "zr"}, -- open all folds
+        toggle_fold = {"zA", "za"}, -- toggle fold of current file
+        previous = "k", -- preview item
+        next = "j" -- next item
+    },
+    indent_lines = true, -- add an indent guide below the fold icons
+    auto_open = true, -- automatically open the list when you have diagnostics
+    auto_close = true, -- automatically close the list when you have no diagnostics
+    auto_preview = true, -- automatyically preview the location of the diagnostic. <esc> to close preview and go back to last window
+    auto_fold = true, -- automatically fold a file trouble list at creation
+    signs = {
+        -- icons / text used for a diagnostic
+        error = "",
+        warning = "",
+        hint = "",
+        information = "",
+        other = "﫠"
+    },
+    use_lsp_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
+}
 
 require'lspconfig'.pyright.setup{}
 require'lspconfig'.bashls.setup{}
@@ -262,8 +357,12 @@ require'lspconfig'.jsonls.setup{
   }
 }
 
-local saga = require 'lspsaga'
-saga.init_lsp_saga()
+require'lspsaga'.init_lsp_saga{
+    error_sign = "",
+    warn_sign = "",
+    hint_sign = "",
+    infor_sign = ""
+}
 EOF
 
 let s:startify_ascii_header = [

@@ -30,6 +30,7 @@ wkv.register(mappings, opts)
 local wk = require("which-key")
 
 wk.register({
+  ["gF"] = { ":e <cfile><cr>", "create and goto file" },
   ["<leader><Up>"] = { ":wincmd k<cr>", "goto split" },
   ["<leader><Down>"] = { ":wincmd j<cr>", "goto split" },
   ["<leader><Left>"] = { ":wincmd h<cr>", "goto split" },
@@ -38,9 +39,12 @@ wk.register({
   ["<leader>-"] = { ":e#<cr>", "jump to previous file" },
   ["<S-Tab>"] = { ":bp<cr>", "Previous buffer" },
   ["<leader>w"] = { ":Bw<cr>", "Write buffer" },
+  ["<leader>T"] = { ":terminal<cr>", "open terminal" },
   ["<leader>r"] = { ":call VisualSelection('replace', '')<cr>", "replace selected text" },
   ["<leader>;"] = { ":Telescope commands<cr>", "commands" },
   ["<leader>d"] = { ":bd<cr>", "delete buffer" },
+  ["<leader>q"] = { ":bd<cr>", "delete buffer" },
+  ["<leader>Q"] = { ":bd!<cr>", "delete buffer" },
   ["<leader>e"] = { ":Telescope file_browser<cr>", "FileBrowser" },
   ["<leader>q"] = { ":bd<cr>", "buffer delete" },
   ["<leader>S"] = { ":Startify<cr>", "Open Startscreen" },
@@ -100,6 +104,7 @@ wk.register({
       P = {':Git pull<cr>'                         , 'pull'},
       f = {':Git fetch<cr>'                        , 'fetch'},
       Y = {':Git yolo<cr>'                         , 'yolo commit'},
+			n = {':Neogit<cr>'                           , 'Open Neogit'},
       L = {':LazyGit<cr>'                          , 'LazyGit'},
     },
     gh = {
@@ -117,6 +122,7 @@ wk.register({
       n = {':set relativenumber!<cr>'    , 'relative line-numbers'},
       m = {':Glow<cr>'                   , 'Show Glow preview'},
       g = {':GitGutterToggle<cr>'        , 'GitGutterToggle'},
+			h = {':HardTimeToggle<cr>'				 , 'Toggle hjkl'},
       r = {':set norelativenumber!<cr>'  , 'relative line nums'},
       T = {':Telescope quickfix'         , 'show tasks'},
       t = {':LspTroubleToggle<cr>'       , 'LSP Issue viewer'},
