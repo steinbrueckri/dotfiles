@@ -74,6 +74,7 @@ alias k-debug="kubectl run --namespace default -i --tty 'debug-default-$USER' --
 alias k-debug-app="kubectl run --namespace istio-apps -i --tty 'debug-$USER' --image=steinbrueckri/debug --restart=Never --rm=true -- bash"
 
 ## goole cloud stuff
+alias gcpil='gcloud compute instances list'
 alias gcpal='gcloud compute addresses list'
 alias gcpssh='gcloud compute ssh'
 alias gcpsshi='gcloud compute ssh --internal-ip'
