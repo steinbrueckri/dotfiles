@@ -106,6 +106,11 @@ export PATH="$PATH:$HOME/.krew/bin"
 # ansible stuff
 export ANSIBLE_VAULT_PASSWORD_FILE="~/.vault-password-file"
 
+# Source: https://github.com/ansible/ansible/issues/32499
+# This is apparently due to some new security changes made in High Sierra that are breaking lots of Python things that use fork(). Rumor has it that adding
+# export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES before your Ansible run should clear it up. The code that's causing issues is well below Ansible in the stack.
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
 #######################################################################
 #                              functions                              #
 #######################################################################
