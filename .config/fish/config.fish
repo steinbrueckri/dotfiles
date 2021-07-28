@@ -82,6 +82,8 @@ alias gcpsshiap='gcloud compute ssh --tunnel-through-iap'
 alias gcprdpiap='gcloud compute start-iap-tunnel $1 3389 --local-host-port=localhost:3389 --zone=$2'
 alias gcp04webimt01d='CLOUDSDK_CORE_PROJECT=mms-cif-imtron-web-t-1000 gcpsshiap gcp04webimt01d'
 alias gcp04webimt01p='CLOUDSDK_CORE_PROJECT=mms-cif-imtron-web-p-1000 gcpsshiap gcp04webimt01p'
+alias gcp04manans01p='gcloud compute ssh gcp04manans01p --tunnel-through-iap --zone=europe-west4-b --project=mms-cif-config-mgmt-p-1000'
+alias gcp04manans02p='gcloud compute ssh gcp04manans02p --tunnel-through-iap --zone=europe-west4-b --project=mms-cif-config-mgmt-p-1000'
 
 ## docker
 alias dr="docker run -it --rm --entrypoint /bin/sh"
@@ -90,7 +92,7 @@ alias rm-images="docker rmi (docker images -q)"
 ## Misc
 alias pwgen="date +%s | sha256sum | base64 | head -c 32 ; echo"
 alias lol="git log --pretty=oneline --abbrev-commit --graph --decorate"
-alias cat="bat --paging never "
+alias cat="bat "
 alias hosts="hosts --auto-sudo"
 alias tx='tmuxinator'
 alias lock="pmset displaysleepnow"
@@ -117,15 +119,7 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 function gcp-project
     set FILE "$HOME/.gcp-project-list"
-    if [ -f $FILE ]
-        if find $FILE -mmin +60
-            echo "source to old .... updateing $FILE"
-            gcloud projects list --format="value(PROJECT_ID)" >$FILE
-        end
-    else
-        echo "$FILE does not exits - creating...."
-        gcloud projects list --format="value(PROJECT_ID)" >$FILE
-    end
+    gcloud projects list --format="value(PROJECT_ID)" >$FILE
     gcloud config set project (cat $FILE | fzf)
 end
 
@@ -134,4 +128,3 @@ end
 #######################################################################
 
 source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc
-set -x PATH (pwd)"/git-fuzzy/bin:$PATH"
