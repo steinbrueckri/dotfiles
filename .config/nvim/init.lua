@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------
 --                              settings                              --
-------------------------------------------------------------------------
+------------------------------------------------------------------------ 
 
 -- load helper
 af = require('autofunc')
@@ -100,77 +100,20 @@ vim.wo.signcolumn = 'number'
 --                             Completion                             --
 ------------------------------------------------------------------------
 
---- hrsh7th/nvim-compe
-require'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  documentation = true;
-
-  source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    vsnip = true;
-    ultisnips = true;
-    spell = true;
-    tags = true;
-    snippets_nvim = true;
-    treesitter = true;
-    tabnine = true;
-    ultisnips = true;
-  };
+vim.g.coq_settings = {
+  auto_start = 'shut-up',
+  clients = {
+          tabnine = {
+              enabled = true,
+          }
+        }
 }
 
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        return true
-    else
-        return false
-    end
-end
-
--- Use (s-)tab to:
---- move to prev/next item in completion menuone
---- jump to prev/next snippet's placeholder
-_G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-n>"
-  elseif check_back_space() then
-    return t "<Tab>"
-  else
-    return vim.fn['compe#complete']()
-  end
-end
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
-    return t "<Plug>(vsnip-jump-prev)"
-  else
-    return t "<S-Tab>"
-  end
-end
-
-vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+require("coq_3p") {
+  { src = "nvimlua", short_name = "nLUA" },
+  { src = "vimtex", short_name = "vTEX" },
+  { src = "figlet", short_name = "BIG" },
+}
 
 ------------------------------------------------------------------------
 --                                Misc                                --
@@ -682,6 +625,23 @@ wk.register({
 })
 
 ------------------------------------------------------------------------
+--                               other                                --
+------------------------------------------------------------------------
+
+require('code_runner').setup {
+  term = {
+    position = "vert",
+    size = 8
+  },
+  filetype = {
+    map = "<leader>r",
+  },
+  project_context = {
+    map = "<leader>r",
+  }
+}
+
+------------------------------------------------------------------------
 --                              Plugins                               --
 ------------------------------------------------------------------------
 
@@ -708,13 +668,7 @@ return require('packer').startup(function()
   --- toggle numbers for pair programming
   use 'jeffkreeftmeijer/vim-numbertoggle'
   --- code complition
-  ------ snippet support
-  use 'SirVer/ultisnips'
-  use 'honza/vim-snippets'
-  use 'norcalli/snippets.nvim'
   ------ AI auto completion
-  use 'hrsh7th/nvim-compe'
-  use {'tzachar/compe-tabnine', run = './install.sh' }
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   ------ language server support
   use 'neovim/nvim-lspconfig'
@@ -725,12 +679,19 @@ return require('packer').startup(function()
   use 'folke/lsp-trouble.nvim'
   ------ change surrounding
   use 'blackCauldron7/surround.nvim'
-  ------ build systems
-  use 'AlxHnr/build.vim'
   ------ code formatter
   use 'sbdchd/neoformat'
   ------ provides automatic closing of quotes, parenthesis, brackets
   use 'windwp/nvim-autopairs'
+  
+  use 'ms-jpq/coq_nvim'
+  use {'ms-jpq/coq_nvim', branch = 'coq'}
+
+  --- 9000+ Snippets
+  use {'ms-jpq/coq.artifacts', branch = 'artifacts'}
+
+  use {'ms-jpq/coq.thirdparty', branch = '3p'}
+
   --- language specific useins
   use 'towolf/vim-helm'
   use 'bagrat/vim-buffet'
@@ -823,4 +784,6 @@ return require('packer').startup(function()
   use 'famiu/nvim-reload'
   ------ symbols-outline
   use 'simrat39/symbols-outline.nvim'
+  ------ exec builds
+  use 'CRAG666/code_runner.nvim'
 end)
