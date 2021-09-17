@@ -132,13 +132,6 @@ require'compe'.setup {
   };
 }
 
---- TODO - how to do it in lua?
---- inoremap <silent><expr> <C-Space> compe#complete()
---- inoremap <silent><expr> <CR>      compe#confirm('<CR>')
---- inoremap <silent><expr> <C-e>     compe#close('<C-e>')
---- inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
---- inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
-
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -203,7 +196,35 @@ vim.g.vim_base64_disable_default_key_mappings = 1
 require("colorizer").setup()
 
 --- kyazdani42/nvim-tree.lua
-vim.g.vim_tree_auto_close = 1 
+vim.g.nvim_tree_side = 'left'
+vim.g.nvim_tree_width = '240' -- bigger than 100 plz
+vim.g.nvim_tree_ignore = { '.git','node_modules','.cache' }
+vim.g.nvim_tree_gitignore = 1
+vim.g.nvim_tree_auto_open = 0
+vim.g.nvim_tree_auto_close = 1
+vim.g.nvim_tree_auto_ignore_ft = { 'startify', 'dashboard' }
+vim.g.nvim_tree_quit_on_open = 1
+vim.g.nvim_tree_follow = 1
+vim.g.nvim_tree_indent_markers = 1
+vim.g.nvim_tree_hide_dotfiles = 0
+vim.g.nvim_tree_git_hl = 1
+vim.g.nvim_tree_highlight_opened_files = 1
+vim.g.nvim_tree_root_folder_modifier = ':~'
+vim.g.nvim_tree_tab_open = 1
+vim.g.nvim_tree_auto_resize = 0
+vim.g.nvim_tree_disable_netrw = 0
+vim.g.nvim_tree_hijack_netrw = 1
+vim.g.nvim_tree_add_trailing = 1
+vim.g.nvim_tree_group_empty = 1
+vim.g.nvim_tree_lsp_diagnostics = 1
+vim.g.nvim_tree_disable_window_picker = 1
+vim.g.nvim_tree_hijack_cursor = 1
+vim.g.nvim_tree_icon_padding = ' '
+vim.g.nvim_tree_update_cwd = 0
+vim.g.nvim_tree_window_picker_exclude = {
+  'filetype', { 'packer','qf' },
+  'buftype', { 'terminal' },
+}
 
 --- ahmedkhalf/lsp-rooter.nvim
 require("lsp-rooter").setup()
@@ -565,10 +586,9 @@ wk.register({
   ["<leader>r"] = { ":call VisualSelection('replace', '')<cr>", "replace selected text" },
   ["<leader>;"] = { ":Telescope commands<cr>", "commands" },
   ["<leader>d"] = { ":bd<cr>", "delete buffer" },
-  ["<leader>q"] = { ":bd<cr>", "delete buffer" },
+  ["<leader>q"] = { ":BufferClose<cr>", "close buffer" },
   ["<leader>Q"] = { ":bd!<cr>", "delete buffer" },
   ["<leader>e"] = { ":NvimTreeRefresh<cr>:NvimTreeToggle<cr>", "FileBrowser" },
-  ["<leader>q"] = { ":bd<cr>", "buffer delete" },
   ["<leader>S"] = { ":Dashboard<cr>", "Open Dashboard" },
   ["<leader>v"] = { ":vsplit<cr>", "Split right" },
   ["<leader>n"] = { ":new<cr>", "New File" },
