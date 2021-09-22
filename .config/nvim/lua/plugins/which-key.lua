@@ -36,14 +36,15 @@ wk.register({
   ["<leader>r"] = { ":call VisualSelection('replace', '')<cr>", "replace selected text" },
   ["<leader>;"] = { ":Telescope commands<cr>", "commands" },
   ["<leader>d"] = { ":bd<cr>", "delete buffer" },
-  ["<leader>q"] = { ":BufferClose<cr>", "close buffer" },
+  ["<leader>q"] = { ":bdelete<cr>", "close buffer" },
   ["<leader>Q"] = { ":bd!<cr>", "delete buffer" },
   ["<leader>e"] = { ":NvimTreeRefresh<cr>:NvimTreeToggle<cr>", "FileBrowser" },
   ["<leader>S"] = { ":Dashboard<cr>", "Open Dashboard" },
   ["<leader>v"] = { ":vsplit<cr>", "Split right" },
   ["<leader>n"] = { ":new<cr>", "New File" },
   ["<leader>w"] = { ":w<cr>", "Save"},
-  ["<leader>W"] = { ":wq<cr>", "Save and close"}
+  ["<leader>W"] = { ":wq<cr>", "Save and close"},
+  ["zz"]        = { ":Telescope spell_suggest<cr>", "spell suggest"}
 })
 
 --- group mappings
@@ -88,7 +89,7 @@ wk.register({
       d = {':DiffviewOpen<cr>'                     , 'diff'},
       D = {':Gdiffsplit<cr>'                       , 'diff split'},
       g = {':GHInteractive<cr>'                    , 'show line on github'},
-      s = {':Gstatus<cr>'                          , 'status'},
+      s = {':Telescope git_status<cr>'             , 'status'},
       l = {':Git log<cr>'                          , 'log'},
       p = {':Git push<cr>'                         , 'push'},
       P = {':Git pull<cr>'                         , 'pull'},

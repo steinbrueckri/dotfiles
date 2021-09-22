@@ -5,7 +5,7 @@
 # set default username to hide user@host ... see agnoster theme
 set DEFAULT_USER steinbrueckri
 
-# show full path 
+# show full path
 set -U fish_prompt_pwd_dir_length 0
 
 # theme
@@ -61,6 +61,11 @@ end
 #                               aliases                               #
 #######################################################################
 
+# mac stuff
+alias sleepoff="sudo systemsetup -setcomputersleep Never"
+alias sleepon="sudo systemsetup -setcomputersleep 10"
+alias lock="pmset displaysleepnow"
+
 # vim 4 the win!
 alias vim="nvim"
 alias vi="nvim"
@@ -96,10 +101,9 @@ alias rm-images="docker rmi (docker images -q)"
 alias pwgen="date +%s | sha256sum | base64 | head -c 32 ; echo"
 alias lol="git log --pretty=oneline --abbrev-commit --graph --decorate"
 alias cat="bat "
-alias dig="dog"
+alias dig="dog "
 alias hosts="hosts --auto-sudo"
 alias tx='tmuxinator'
-alias lock="pmset displaysleepnow"
 
 #######################################################################
 #                               exports                               #
@@ -111,6 +115,7 @@ export PATH="$PATH:$HOME/.krew/bin"
 
 # ansible stuff
 export ANSIBLE_VAULT_PASSWORD_FILE="~/.vault-password-file"
+export MOLECULE_DRIVER="podman"
 
 # Source: https://github.com/ansible/ansible/issues/32499
 # This is apparently due to some new security changes made in High Sierra that are breaking lots of Python things that use fork(). Rumor has it that adding

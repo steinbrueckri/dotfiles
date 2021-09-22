@@ -31,6 +31,7 @@ return require('packer').startup(function()
   --- code complition
   ------ AI auto completion
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use 'p00f/nvim-ts-rainbow'
   ------ language server support
   use 'neovim/nvim-lspconfig'
   use 'onsails/lspkind-nvim'
@@ -135,7 +136,7 @@ return require('packer').startup(function()
   ------ USE HJKL
   use 'takac/vim-hardtime'
   ------ better bufferline
-  use {'romgrk/barbar.nvim', requires = 'kyazdani42/nvim-web-devicons'}
+  use {'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons'}
   ------ better todos
   use {'folke/todo-comments.nvim', requires = 'nvim-lua/plenary.nvim'}
   use 'gennaro-tedesco/nvim-peekup'
