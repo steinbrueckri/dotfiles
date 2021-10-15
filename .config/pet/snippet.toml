@@ -1,0 +1,4 @@
+[[snippets]]
+  description = "Show expiration date of SSL certificate"
+  command = "echo <hostname=example.com>; echo | openssl s_client -connect <hostname=example.com>:<port=443> 2>/dev/null |openssl x509 -dates -noout"
+  output = "notBefore=Nov  3 00:00:00 2015 GMT\nnotAfter=Nov 28 12:00:00 2018 GMT"
