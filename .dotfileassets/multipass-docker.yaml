@@ -1,0 +1,31 @@
+---
+# Notes:
+# - create new machine
+# multipass launch -c 4 -m 4G -d 50G -n docker 20.04 --cloud-init .dotfileassets/multipass-docker.yaml
+# multipass mount -u 501:1000 /Users/steinbrueckri/ docker:/Users/steinbrueckri
+# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+## create user
+users:
+  - name: steinbrueckri
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_import_id: gh:steinbrueckri
+## Update apt database and upgrade packages on first boot
+package_update: true
+package_upgrade: true
+## install packages
+packages:
+  - vim
+  - docker
+  - avahi-daemon
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+## setup docker
+runcmd:
+  - sudo curl -fsSL https://get.docker.com | sudo bash
+  - sudo systemctl enable docker
+  - sudo systemctl enable -s HUP ssh
+  - sudo groupadd docker
+  - sudo usermod -aG docker steinbrueckri
