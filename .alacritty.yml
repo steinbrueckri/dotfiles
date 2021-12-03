@@ -4,7 +4,7 @@
 window:
   padding:
     x: 5
-    y: 0
+    y: 5
 
   # Window decorations
   decorations: full
@@ -41,12 +41,12 @@ font:
     family: Hack Nerd Font Mono
 
   # Point size
-  size: 15.0
+  size: 17.0
 
   # Offset
   offset:
-    x: 1
-    y: 1
+    x: 0
+    y: 0
 
 colors:
   primary:
@@ -156,10 +156,9 @@ key_bindings:
   - { key: 37,      mods: Alt, chars: "@" }
   - { key: 26,      mods: Alt|Shift, chars: "\\" }
   - { key: 26,      mods: Alt, chars: "|" }
-  - { key: 45,      mods: Alt, chars: "~" }
   - { key: 23,      mods: Alt, chars: "[" }
   - { key: 22,      mods: Alt, chars: "]" }
-  - { key: Return,   mods: Command,       action: ToggleFullscreen }
+  - { key: Return,  mods: Command, action: ToggleFullscreen }
 
   # arrow keys
   - { key: Left,     mods: Command, chars: "\x1bOH",   mode: AppCursor   } # Home

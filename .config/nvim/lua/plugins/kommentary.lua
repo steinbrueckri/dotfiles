@@ -1,9 +1,9 @@
 -----------------------------------------------------------
--- lsp-rooter configuration file
+-- Kommentary configuration file
 -----------------------------------------------------------
 
--- Plugin: lsp-rooter
--- https://github.com/ahmedkhalf/lsp-rooter.nvim
+-- Plugin: kommentary
+-- https://github.com/b3nj5m1n/kommentary
 -----------------------------------------------------------
 
-require("lsp-rooter").setup()
+require('kommentary.config').use_extended_mappings()

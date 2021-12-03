@@ -29,6 +29,7 @@ bind \cf __fzf_reverse_isearch
 
 fundle plugin oh-my-fish/theme-bobthefish
 fundle plugin jethrokuan/fzf
+fundle plugin otms61/fish-pet
 fundle init
 
 #######################################################################
@@ -91,9 +92,9 @@ alias gcp04laliga01d='CLOUDSDK_CORE_PROJECT=mms-lal-laliga-d-1337 gcpsshiap gcp0
 alias gcp04laliga01p='CLOUDSDK_CORE_PROJECT=mms-lal-laliga-p-1337 gcpsshiap gcp04laliga01p'
 alias gcp04manans01p='gcloud compute ssh gcp04manans01p --tunnel-through-iap --zone=europe-west4-b --project=mms-cif-config-mgmt-p-1000'
 alias gcp04manans02p='gcloud compute ssh gcp04manans02p --tunnel-through-iap --zone=europe-west4-b --project=mms-cif-config-mgmt-p-1000'
+alias start_jump="gcloud compute ssh gcp04manans01p --tunnel-through-iap --zone=europe-west4-b --project=mms-cif-config-mgmt-p-1000 -- -NL 2222:ing04manubn01p.media-saturn.com:22"
 
 ## docker
-alias docker="podman"
 alias dr="docker run -it --rm --entrypoint /bin/sh"
 alias rm-images="docker rmi (docker images -q)"
 
@@ -104,10 +105,14 @@ alias cat="bat "
 alias dig="dog "
 alias hosts="hosts --auto-sudo"
 alias tx='tmuxinator'
+alias rm='trash '
 
 #######################################################################
 #                               exports                               #
 #######################################################################
+
+# docker stuff
+export DOCKER_HOST=ssh://docker.local
 
 # kubernetes stuff
 export KUBE_EDITOR="nvim"
@@ -115,7 +120,8 @@ export PATH="$PATH:$HOME/.krew/bin"
 
 # ansible stuff
 export ANSIBLE_VAULT_PASSWORD_FILE="~/.vault-password-file"
-export MOLECULE_DRIVER="podman"
+export PY_COLOR=1
+export ANSIBLE_FORCE_COLOR=1
 
 # Source: https://github.com/ansible/ansible/issues/32499
 # This is apparently due to some new security changes made in High Sierra that are breaking lots of Python things that use fork(). Rumor has it that adding
@@ -132,8 +138,13 @@ function gcp-project
     gcloud config set project (cat $FILE | fzf)
 end
 
+function note
+  nvim "+Note $argv"
+end
+
 #######################################################################
 #                               source                                #
 #######################################################################
 
 source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc
+direnv hook fish | source

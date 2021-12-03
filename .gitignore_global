@@ -8,3 +8,4 @@
 tags
 Makefile
 .config/fish/fundle/**
+.terraform.lock.hcl

@@ -18,7 +18,7 @@
 [user]
 	name = Richard Steinbrück
 	email = richard.steinbrueck@googlemail.com
-	signingkey = E74F05B1
+	signingkey = BE33D8C1950E31D3D2DCD6181A8D9CE1E74F05B1
 [includeIf "gitdir:Projects/pixel-combo/"]
   path = .gitconfig-pixelcombo
 [includeIf "gitdir:Projects/MediaSaturn/"]
@@ -31,10 +31,10 @@
 [pull]
 	rebase = true
 [commit]
-	gpgSign = false
+	gpgsign = false
 	template = ~/.gitmessage
 [gpg]
-	program = gpg
+	program = /usr/local/MacGPG2/bin/gpg2
 [init]
 	defaultBranch = master
 

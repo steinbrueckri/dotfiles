@@ -5,7 +5,13 @@
 -----------------------------------------------------------
 -- Custom Keybindings
 -----------------------------------------------------------
+
+-- jk to exit insert mode, very handy on my iPad :)
 vim.api.nvim_set_keymap("i", "jk", "<esc>", {noremap = true})
+
+-- better indenting
+vim.api.nvim_set_keymap('v', '<', '<gv', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('v', '>', '>gv', {noremap = true, silent = true})
 
 -----------------------------------------------------------
 -- Neovim API aliases
@@ -15,10 +21,15 @@ local exec = vim.api.nvim_exec 	-- execute Vimscript
 local fn = vim.fn       				-- call Vim functions
 local g = vim.g         				-- global variables
 local opt = vim.opt         		-- global/buffer/windows-scoped options
+local wo = vim.wo           		-- TODO:
 
 -----------------------------------------------------------
 -- General
 -----------------------------------------------------------
+
+wo.cursorline = true
+wo.cursorcolumn = true
+opt.shell = "/bin/bash"       -- I use fish on Linux and it slow for running internal commands
 g.mapleader = ' '             -- change leader to a space
 g.maplocalleader = ','        -- change localleader to a comma
 opt.mouse = 'a'               -- enable mouse support

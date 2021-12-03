@@ -46,8 +46,7 @@ return require('packer').startup(function()
   ------ provides automatic closing of quotes, parenthesis, brackets
   use 'windwp/nvim-autopairs'
 
-  use 'ms-jpq/coq_nvim'
-  use {'ms-jpq/coq_nvim', branch = 'coq'}
+  use {'ms-jpq/coq_nvim', branch = 'dev'}
 
   --- 9000+ Snippets
   use {'ms-jpq/coq.artifacts', branch = 'artifacts'}
@@ -64,13 +63,23 @@ return require('packer').startup(function()
   use 'nvim-telescope/telescope.nvim'
   use 'fhill2/telescope-ultisnips.nvim'
   use 'nvim-telescope/telescope-github.nvim'
-  use 'nvim-telescope/telescope-project.nvim'
+  use 'nvim-telescope/telescope-frecency.nvim'
+  --- clipboard manager
+  use {
+    "AckslD/nvim-neoclip.lua",
+    requires = {'tami5/sqlite.lua', module = 'sqlite'},
+    config = function()
+      require('neoclip').setup()
+    end,
+  }
   --- git things
   use 'sheerun/vim-polyglot'
   use 'TimUntersberger/neogit'
   use 'kdheepak/lazygit.nvim'
   use 'lewis6991/gitsigns.nvim'
   use 'sindrets/diffview.nvim'
+  --- note taking
+  use "oberblastmeister/neuron.nvim"
   --- misc
   -- vim-table-mode
   use 'dhruvasagar/vim-table-mode'
@@ -80,8 +89,6 @@ return require('packer').startup(function()
   use {'lukas-reineke/indent-blankline.nvim'}
   ------ smooth scrolling
   use 'psliwka/vim-smoothie'
-  ------ change root to file directory
-  use 'ahmedkhalf/lsp-rooter.nvim'
   ------ alignment usein
   use 'junegunn/vim-easy-align'
   ------ better writing
@@ -105,8 +112,10 @@ return require('packer').startup(function()
   use 'tpope/vim-eunuch'
   ------ better default start screen
   use 'glepnir/dashboard-nvim'
+  ------ project manager
+  use 'ahmedkhalf/project.nvim'
   ------ comment stuff out
-  use 'tpope/vim-commentary'
+  use 'b3nj5m1n/kommentary'
   ------ multi line courser like in sublime
   use 'mg979/vim-visual-multi'
   ------ auto save files
@@ -142,10 +151,20 @@ return require('packer').startup(function()
   use 'gennaro-tedesco/nvim-peekup'
   ------ filetree
   use 'kyazdani42/nvim-tree.lua'
+  use 'ms-jpq/chadtree'
   ------ reload config
   use 'famiu/nvim-reload'
   ------ symbols-outline
   use 'simrat39/symbols-outline.nvim'
   ------ exec builds
   use 'CRAG666/code_runner.nvim'
+  ------ md toc
+  use 'mzlogin/vim-markdown-toc'
+  ------ search panel
+  use 'windwp/nvim-spectre'
+  ------ wiki
+  use 'fmoralesc/vim-pad'
+  use 'ekickx/clipboard-image.nvim'
+  ------ emojis
+  use 'xiyaowong/telescope-emoji.nvim'
 end)
