@@ -9,9 +9,5 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Gitleaks scan
-        uses: eshork/gitleaks-action@master
-
-      # https://github.com/github/super-linter/blob/master/docs/disabling-linters.md
       - name: Linter
         uses: docker://github/super-linter:v3
