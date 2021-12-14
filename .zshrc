@@ -118,7 +118,7 @@ _NO_PROXY=$(cat ${HOME}/.proxy/no_proxy)
 
 function proxy_set {
   echo "Enter Proxy like http://proxy.corp.int:80"
-  read $PROXY
+  read PROXY
 
   mkdir -p ~/.proxy/
   echo $PROXY > ~/.proxy/http_proxy
