@@ -20,14 +20,11 @@ end
 return require('packer').startup(function()
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
-
-  use 'kyazdani42/nvim-web-devicons'
   --- statusbar
-  use 'ryanoasis/vim-devicons'
   use 'hoob3rt/lualine.nvim'
   use 'luochen1990/rainbow'
-  --- toggle numbers for pair programming
-  use 'jeffkreeftmeijer/vim-numbertoggle'
+  --- fancy status page
+  use 'rcarriga/nvim-notify'
   --- code complition
   ------ AI auto completion
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
@@ -36,23 +33,15 @@ return require('packer').startup(function()
   use 'neovim/nvim-lspconfig'
   use 'onsails/lspkind-nvim'
   ------ A light-weight lsp usein based on neovim built-in lsp with highly a performant UI.
-  use 'glepnir/lspsaga.nvim'
+  use 'tami5/lspsaga.nvim'
   ------ A pretty list for showing diagnostics, references, telescope results
   use 'folke/lsp-trouble.nvim'
-  ------ change surrounding
-  use 'blackCauldron7/surround.nvim'
   ------ code formatter
-  use 'sbdchd/neoformat'
-  ------ provides automatic closing of quotes, parenthesis, brackets
-  use 'windwp/nvim-autopairs'
-
+  use 'mhartington/formatter.nvim'
+  ------ code completion
   use {'ms-jpq/coq_nvim', branch = 'dev'}
-
-  --- 9000+ Snippets
   use {'ms-jpq/coq.artifacts', branch = 'artifacts'}
-
   use {'ms-jpq/coq.thirdparty', branch = '3p'}
-
   --- language specific useins
   use 'towolf/vim-helm'
   use 'bagrat/vim-buffet'
@@ -63,87 +52,57 @@ return require('packer').startup(function()
   use 'nvim-telescope/telescope.nvim'
   use 'fhill2/telescope-ultisnips.nvim'
   use 'nvim-telescope/telescope-github.nvim'
-  use 'nvim-telescope/telescope-frecency.nvim'
-  --- clipboard manager
-  use {
-    "AckslD/nvim-neoclip.lua",
-    requires = {'tami5/sqlite.lua', module = 'sqlite'},
-    config = function()
-      require('neoclip').setup()
-    end,
-  }
   --- git things
   use 'sheerun/vim-polyglot'
   use 'TimUntersberger/neogit'
   use 'kdheepak/lazygit.nvim'
   use 'lewis6991/gitsigns.nvim'
   use 'sindrets/diffview.nvim'
-  --- note taking
-  use "oberblastmeister/neuron.nvim"
   --- misc
-  -- vim-table-mode
+  --- markdown
+  use 'iamcco/markdown-preview.nvim'
   use 'dhruvasagar/vim-table-mode'
   --- editorconfig
   use 'editorconfig/editorconfig-vim'
-  ------ show spaces and indentlines
-  use {'lukas-reineke/indent-blankline.nvim'}
-  ------ smooth scrolling
+  ---- show spaces and indentlines
+  use 'lukas-reineke/indent-blankline.nvim'
+  ---- smooth scrolling
   use 'psliwka/vim-smoothie'
-  ------ alignment usein
+  ---- alignment usein
   use 'junegunn/vim-easy-align'
-  ------ better writing
-  use 'junegunn/goyo.vim'
-  ------ highlight paragraph
+  ---- highlight paragraph
   use 'junegunn/limelight.vim'
-  ------ keymapping helper
-  use {
-  "folke/which-key.nvim",
-  config = function()
-    require("which-key").setup {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    }
-  end
-  }
-  ------ powerpoint in vim ;)
+  ---- keymapping helper
+  use 'folke/which-key.nvim'
+  ---- powerpoint in vim ;)
   use 'sotte/presenting.vim'
-  ------ remove, rename - Vim sugar for the UNIX shell commands that need it the most
+  ---- remove, rename - Vim sugar for the UNIX shell commands that need it the most
   use 'tpope/vim-eunuch'
-  ------ better default start screen
+  ---- better default start screen
   use 'glepnir/dashboard-nvim'
-  ------ project manager
+  ---- project manager
   use 'ahmedkhalf/project.nvim'
-  ------ comment stuff out
-  use 'b3nj5m1n/kommentary'
-  ------ multi line courser like in sublime
-  use 'mg979/vim-visual-multi'
-  ------ auto save files
-  use '907th/vim-auto-save'
+  ---- save curser on the place
+  use 'ethanholz/nvim-lastplace'
+  ---- comment stuff out
+  use {
+      'numToStr/Comment.nvim',
+      config = function()
+          require('Comment').setup()
+      end
+  }
   ------ show colors from HTML and CSS
   use 'norcalli/nvim-colorizer.lua'
-  ------ markdown preview
-  use 'iamcco/markdown-preview.nvim'
   ------ github things
   use 'pwntester/octo.nvim'
-  ------ todos in project
-  use 'Dimercel/todo-vim'
   ------ open line on github
   use 'ruanyl/vim-gh-line'
   ------ colorschema
-  use 'arcticicestudio/nord-vim'
-  use {'pineapplegiant/spaceduck', branch = 'main' }
-  use 'srcery-colors/srcery-vim'
+  use {'catppuccin/nvim', as = 'catppuccin'}
   ------ performance check
   use 'dstein64/vim-startuptime'
   ------ base64 support
   use 'christianrondeau/vim-base64'
-  ------ k8s stuff
-  use 'andrewstuart/vim-kubernetes'
-  ------ HTTP client
-  use 'aquach/vim-http-client'
-  ------ USE HJKL
-  use 'takac/vim-hardtime'
   ------ better bufferline
   use {'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons'}
   ------ better todos
@@ -152,12 +111,8 @@ return require('packer').startup(function()
   ------ filetree
   use 'kyazdani42/nvim-tree.lua'
   use 'ms-jpq/chadtree'
-  ------ reload config
-  use 'famiu/nvim-reload'
   ------ symbols-outline
   use 'simrat39/symbols-outline.nvim'
-  ------ exec builds
-  use 'CRAG666/code_runner.nvim'
   ------ md toc
   use 'mzlogin/vim-markdown-toc'
   ------ search panel
@@ -167,4 +122,10 @@ return require('packer').startup(function()
   use 'ekickx/clipboard-image.nvim'
   ------ emojis
   use 'xiyaowong/telescope-emoji.nvim'
+  ------ cheatsheet
+  use 'sudormrfbin/cheatsheet.nvim'
+  ------ zettelkasten
+  use 'renerocksai/telekasten.nvim'
+  ---- Collection of minimal, independent, and fast Lua modules dedicated to improve Neovim
+  use {'echasnovski/mini.nvim', branch = 'stable'}
 end)

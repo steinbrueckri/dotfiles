@@ -2,7 +2,7 @@
 [caps]>[escape]
 [lctrl]>[lwin]
 [rctrl]>[rwin]
-[delete]>[tab]
+[delete]>[space]
 [home]>[escape]
 [end]>[lctrl]
 [pdown]>[lalt]

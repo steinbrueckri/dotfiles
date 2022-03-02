@@ -1,7 +1,10 @@
 [core]
 	excludesfile = ~/.gitignore_global
-	pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Monokai Extended'
+	pager = delta
 	editor = nvim
+[delta]
+	line-numbers = true
+	side-by-side = true
 [push]
 	default = current
 [fetch]
@@ -31,19 +34,20 @@
 [pull]
 	rebase = true
 [commit]
-	gpgsign = false
+	gpgsign = true
 	template = ~/.gitmessage
 [gpg]
 	program = /usr/local/MacGPG2/bin/gpg2
 [init]
 	defaultBranch = master
-
 # define command which will be used when "nvim" is set as a merge tool
 [mergetool "nvim"]
   cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
 # set "nvim" as tool for merging
 [merge]
   tool = nvim
-# automatically launch merge tool without displaying a prompt
+    conflictstyle = diff3
 [mergetool]
   prompt = false
+[diff]
+    colorMoved = default

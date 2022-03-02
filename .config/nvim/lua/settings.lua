@@ -27,8 +27,8 @@ local wo = vim.wo           		-- TODO:
 -- General
 -----------------------------------------------------------
 
-wo.cursorline = true
-wo.cursorcolumn = true
+wo.cursorline = true          -- cursor in line
+wo.cursorcolumn = true        -- cursor in column
 opt.shell = "/bin/bash"       -- I use fish on Linux and it slow for running internal commands
 g.mapleader = ' '             -- change leader to a space
 g.maplocalleader = ','        -- change localleader to a comma
@@ -87,7 +87,7 @@ exec([[
 -- Colorscheme
 -----------------------------------------------------------
 opt.background = "dark"       -- set colorschema
-cmd([[colorscheme nord]])     -- set colorschema
+cmd([[colorscheme catppuccin]])     -- set colorschema
 
 ----------------------------------------------------------------------------------------------------------------------
 -- _ | _|
@@ -118,4 +118,4 @@ opt.expandtab = true
 opt.autoindent = true
 
 -- put numbers and signs in the same column
-opt.signcolumn = 'number'
+opt.signcolumn = 'yes'

@@ -2,6 +2,10 @@
 #                            main settings                            #
 #######################################################################
 
+fish_add_path /usr/local/sbin
+fish_add_path $HOME/bin
+fish_add_path $HOME/.cargo/bin
+
 # set default username to hide user@host ... see agnoster theme
 set DEFAULT_USER steinbrueckri
 
@@ -9,7 +13,7 @@ set DEFAULT_USER steinbrueckri
 set -U fish_prompt_pwd_dir_length 0
 
 # theme
-set theme_color_scheme bobthefish
+set theme_color_scheme catppuccin
 
 # disable fish greeting
 set fish_greeting
@@ -106,6 +110,7 @@ alias dig="dog "
 alias hosts="hosts --auto-sudo"
 alias tx='tmuxinator'
 alias rm='trash '
+alias ls='exa --icons'
 
 #######################################################################
 #                               exports                               #
@@ -138,8 +143,12 @@ function gcp-project
     gcloud config set project (cat $FILE | fzf)
 end
 
-function note
-  nvim "+Note $argv"
+function k-clean
+   for i in (kubectl get pods -A | grep -Ei 'Shutdown|Terminated|Completed' | cut -d ' ' -f1 | sort -u)
+      for p in (kubectl get pods -n $i | grep -Ei 'Shutdown|Terminated|Completed' | cut -d ' ' -f1 )
+        kubectl delete pod -n $i $p
+      end
+   end
 end
 
 #######################################################################

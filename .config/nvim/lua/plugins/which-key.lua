@@ -6,15 +6,19 @@
 -- https://github.com/folke/which-key.nvim
 -----------------------------------------------------------
 
+require("which-key").setup {}
+
 local wkv = require("which-key")
 
 opts = {
-  	mode = "v", -- VISUAL mode
-	}
+  mode = "v", -- VISUAL mode
+}
+
 mappings = {
 	["<leader>bu"] = { ":<c-u>call base64#v_atob()<cr>", "base64 crypt"},
 	["<leader>bc"] = { ":<c-u>call base64#v_btoa()<cr>", "base64 decrypt"},
 }
+
 wkv.register(mappings, opts)
 
 --- single mappings
@@ -79,8 +83,7 @@ wk.register({
       t = {':Telescope tags<cr>'                   , 'project tags'},
       I = {':Telescope gh issues<cr>'              , 'github issues'},
       P = {':Telescope gh pull_requests<cr>'       , 'github PRs'},
-			p = {":Telescope projects<cr>"               , 'find projects'},
-      w = {":lua require('telescope').extensions.vw.live_grep()<cr>" , 'search notes'},
+			p = {':Telescope projects<cr>'               , 'find projects'},
     },
     g = {
       name = "+git",
@@ -104,9 +107,11 @@ wk.register({
     },
     n = {
       name = "+Notes",
-      f = {':lua search_notes()<cr>'              , 'Search for Notes by name'},
-      a = {':lua search_notes_grep()<cr>'         , 'Search for Notes by content'},
-      n = {':Note<cr>'                            , 'Create new Note'}
+      f = {':lua require("telekasten").search_notes()<cr>'            , 'Search for Notes by name'},
+      n = {':lua require("telekasten").new_note()<cr>'                , 'Create new Note'},
+      t = {':lua require("telekasten").goto_today()<cr>'              , 'Create / edit todays Notes'},
+      w = {':lua require("telekasten").goto_thisweek()<cr>'           , 'Create / edit week Notes'},
+      N = {':lua require("telekasten").new_templated_note()<cr>'      , 'Create new Template Note'}
     },
     l = {
       name = "+LSP",
