@@ -21,7 +21,10 @@ return require('packer').startup(function()
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
   --- statusbar
-  use 'hoob3rt/lualine.nvim'
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
   use 'luochen1990/rainbow'
   --- fancy status page
   use 'rcarriga/nvim-notify'
@@ -31,6 +34,7 @@ return require('packer').startup(function()
   use 'p00f/nvim-ts-rainbow'
   ------ language server support
   use 'neovim/nvim-lspconfig'
+  use 'b0o/schemastore.nvim'
   use 'onsails/lspkind-nvim'
   ------ A light-weight lsp usein based on neovim built-in lsp with highly a performant UI.
   use 'tami5/lspsaga.nvim'

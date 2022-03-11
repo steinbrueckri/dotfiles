@@ -138,9 +138,9 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 #######################################################################
 
 function gcp-project
-    set FILE "$HOME/.gcp-project-list"
-    gcloud projects list --format="value(PROJECT_ID)" >$FILE
-    gcloud config set project (cat $FILE | fzf)
+    set FILE "$HOME/.gcp-project-list.json"
+    gcloud projects list --format="json" >$FILE
+    gcloud config set project (cat $FILE | jq -r '.[].projectId' | fzf --print-query --preview "cat $FILE | jq -r '.[] | select( .projectId | contains(\"{1}\"))'" | tr -d '\n')
 end
 
 function k-clean

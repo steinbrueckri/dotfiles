@@ -83,6 +83,8 @@ exec([[
 --af('BufEnter,FocusGained,InsertLeave', '*', function() vim.wo.relativenumber = true end)
 --af('BufLeave,FocusLost,InsertEnter',   '*', function() vim.wo.relativenumber = false end)
 
+g.smoothie_experimental_mappings = true
+
 -----------------------------------------------------------
 -- Colorscheme
 -----------------------------------------------------------
