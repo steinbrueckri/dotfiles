@@ -36,7 +36,7 @@ wk.register({
   ["<S-Tab>"]         = { ":bp<cr>", "Previous buffer" },
   ["<leader>-"]       = { ":e#<cr>", "jump to previous file" },
   ["<leader>T"]       = { ":terminal<cr>", "open terminal" },
-  ["<leader>r"]       = { ":call VisualSelection('replace', '')<cr>", "replace selected text" },
+  ["<leader>R"]       = { ":call VisualSelection('replace', '')<cr>", "replace selected text" },
   ["<leader>;"]       = { ":Telescope commands<cr>", "commands" },
   ["<leader>d"]       = { ":bd<cr>", "delete buffer" },
   ["<leader>q"]       = { ":bdelete<cr>", "close buffer" },
@@ -84,6 +84,11 @@ wk.register({
       I = {':Telescope gh issues<cr>'              , 'github issues'},
       P = {':Telescope gh pull_requests<cr>'       , 'github PRs'},
 			p = {':Telescope projects<cr>'               , 'find projects'},
+    },
+    h = {
+      name = "+http",
+      r  = {'<Plug>RestNvim<cr>'                   , 'run the request under the cursor'},
+      p = {'<Plug>RestNvimPreview<cr>'            , 'preview the request cURL command'},
     },
     g = {
       name = "+git",

@@ -63,7 +63,6 @@ opt.ignorecase = true         -- ignore case letters when search
 opt.smartcase = true          -- ignore lowercase for the whole pattern
 opt.hlsearch = true           -- highlight searches
 opt.termguicolors = true      -- we support termguicolors
-opt.cmdheight = 2             -- more space for coc messages
 opt.updatetime = 300          -- more responsiveness
 opt.scrolloff = 5             -- scrolling "bounding"
 opt.sidescrolloff = 5         -- scrolling "bounding"
@@ -121,3 +120,6 @@ opt.autoindent = true
 
 -- put numbers and signs in the same column
 opt.signcolumn = 'yes'
+
+g.vim_matchtag_enable_by_default = 1
+g.vim_matchtag_files = '*.html,*.xml,*.js,*.jsx,*.vue,*.svelte,*.jsp'

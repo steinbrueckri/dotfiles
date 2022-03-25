@@ -32,15 +32,14 @@ bind \cf __fzf_reverse_isearch
 #######################################################################
 
 fundle plugin oh-my-fish/theme-bobthefish
+fundle plugin catppuccin/fish
 fundle plugin jethrokuan/fzf
-fundle plugin otms61/fish-pet
 fundle init
 
 #######################################################################
 #                               prompt                                #
 #######################################################################
 
-set -g theme_color_scheme terminal2-light-black
 set -g theme_powerline_fonts yes
 set -g theme_display_git_default_branch yes
 set -g theme_title_use_abbreviated_path no
@@ -55,11 +54,31 @@ set -g theme_newline_prompt '$ '
 
 function bobthefish_colors -S -d 'Define a custom bobthefish color scheme'
 
-    # Optionally include a base color scheme
-    __bobthefish_colors default
+  # optionally include a base color scheme...
+  __bobthefish_colors default
 
-    set -x color_k8s black white --bold
+  # --> special
+  set -l foreground dadae8
+  set -l selection 3e4058
 
+  # --> palette
+  set -l teal bee4ed
+  set -l flamingo f2cecf
+  set -l magenta c6aae8
+  set -l pink e5b4e2
+  set -l red e38c8f
+  set -l peach f9c096
+  set -l green b1e3ad
+  set -l yellow ebddaa
+  set -l blue a4b9ef
+  set -l gray 6e6c7e
+
+  # then override everything you want! note that these must be defined with `set -x`
+  set -x color_repo_dirty               $red $gray
+  set -x color_repo                     $green $gray
+  set -x color_repo_work_tree           333333 ffffff --bold
+  set -x color_repo_staged              $yellow $gray
+  set -x color_k8s black white --bold
 end
 
 #######################################################################

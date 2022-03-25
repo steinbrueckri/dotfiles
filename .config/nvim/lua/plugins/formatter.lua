@@ -1,5 +1,3 @@
--- autocmd BufWritePre * undojoin | FormatWrite
--- autocmd for terraform is in ../../ftplugin/tf.lua
 vim.api.nvim_exec([[
 augroup FormatAutogroup
   autocmd!
