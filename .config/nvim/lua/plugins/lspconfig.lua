@@ -6,14 +6,37 @@
 -- https://github.com/neovim/lspconfig
 -----------------------------------------------------------
 
-require'lspconfig'.pyright.setup{}
-require'lspconfig'.bashls.setup{}
+local coq = require "coq"
+
+require'lspconfig'.pyright.setup{
+  coq.lsp_ensure_capabilities{}
+}
+
+require'lspconfig'.bashls.setup{
+  coq.lsp_ensure_capabilities{}
+}
+
 require'lspconfig'.tsserver.setup{}
-require'lspconfig'.terraformls.setup{}
-require'lspconfig'.html.setup{}
-require'lspconfig'.dockerls.setup{}
-require'lspconfig'.cssls.setup{}
-require'lspconfig'.solargraph.setup{}
+
+require'lspconfig'.terraformls.setup{
+  coq.lsp_ensure_capabilities{}
+}
+
+require'lspconfig'.html.setup{
+  coq.lsp_ensure_capabilities{}
+}
+
+require'lspconfig'.dockerls.setup{
+  coq.lsp_ensure_capabilities{}
+}
+
+require'lspconfig'.cssls.setup{
+  coq.lsp_ensure_capabilities{}
+}
+
+require'lspconfig'.solargraph.setup{
+  coq.lsp_ensure_capabilities{}
+}
 
 require('lspconfig').efm.setup({
  cmd = {"efm-langserver", "-logfile", "/tmp/efm.log", "-loglevel", "1" },
@@ -75,4 +98,13 @@ require('lspconfig').jsonls.setup {
       schemas = require('schemastore').json.schemas(),
     },
   },
+  coq.lsp_ensure_capabilities{
+   commands = {
+      Format = {
+        function()
+          vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})
+        end
+      }
+    }
+  }
 }

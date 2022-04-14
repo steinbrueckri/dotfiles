@@ -9,10 +9,10 @@
 vim.g.coq_settings = {
   auto_start = 'shut-up',
   clients = {
-          tabnine = {
-              enabled = true,
-          }
-        }
+    tabnine = {
+        enabled = true,
+    }
+  }
 }
 
 require("coq_3p") {

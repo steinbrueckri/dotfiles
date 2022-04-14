@@ -56,4 +56,4 @@ SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
 SETUVAR fish_prompt_pwd_dir_length:0
-SETUVAR fish_user_paths:/Users/steinbrueckri/bin\x1e/Users/steinbrueckri/\x2ecargo/bin\x1e/usr/local/sbin
+SETUVAR fish_user_paths:/usr/local/opt/mysql\x2dclient/bin\x1e/Users/steinbrueckri/bin\x1e/Users/steinbrueckri/\x2ecargo/bin\x1e/usr/local/sbin

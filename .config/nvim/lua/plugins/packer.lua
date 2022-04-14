@@ -54,7 +54,7 @@ return require('packer').startup(function()
   use 'folke/which-key.nvim'
   use 'sotte/presenting.vim'
   use 'tpope/vim-eunuch' -- remove, rename - Vim sugar for the UNIX shell commands that need it the most
-  use 'glepnir/dashboard-nvim'
+  use 'goolord/alpha-nvim'
   use 'ahmedkhalf/project.nvim'
   use 'ethanholz/nvim-lastplace'
   use {
@@ -82,4 +82,6 @@ return require('packer').startup(function()
   use {'echasnovski/mini.nvim', branch = 'stable'}
   use 'NTBBloodbath/rest.nvim'
   use 'leafOfTree/vim-matchtag'
+  use 'lewis6991/impatient.nvim'
+  use 'gbprod/yanky.nvim'
 end)

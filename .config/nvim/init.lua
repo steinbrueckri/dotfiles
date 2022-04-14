@@ -14,6 +14,8 @@ Neovim init file
 -- Import Lua modules
 -----------------------------------------------------------
 
+require'impatient'.enable_profile()
+
 require('settings')
 require('other/lua')
 require('plugins/packer')
@@ -21,7 +23,7 @@ require('plugins/which-key')
 require('plugins/base64')
 require('plugins/colorizer')
 require('plugins/coq')
-require('plugins/dashboard')
+require('plugins/alpha')
 require('plugins/gitsigns')
 require('plugins/indent-blankline')
 require('plugins/lspconfig')
@@ -42,3 +44,5 @@ require('plugins/formatter')
 require('plugins/lastplace')
 require('plugins/lualine')
 require('plugins/rest')
+require('plugins/diffview')
+require('plugins/yanky')
