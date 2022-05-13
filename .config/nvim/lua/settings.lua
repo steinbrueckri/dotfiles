@@ -26,7 +26,6 @@ local wo = vim.wo           		-- TODO:
 -----------------------------------------------------------
 -- General
 -----------------------------------------------------------
-
 wo.cursorline = true          -- cursor in line
 wo.cursorcolumn = true        -- cursor in column
 opt.shell = "/bin/bash"       -- I use fish on Linux and it slow for running internal commands

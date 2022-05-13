@@ -8,16 +8,13 @@
 
 require('telescope').setup{
   defaults = {
-    file_ignore_patterns = { '.git/', 'node_modules/' },
     color_devicons = true,
-    vimgrep_arguments = {
-       "rg",
-       "--color=never",
-       "--no-heading",
-       "--with-filename",
-       "--line-number",
-       "--column",
-       "--smart-case",
+    preview = {
+        filesize_hook = function(filepath, bufnr, opts)
+            local max_bytes = 10000
+            local cmd = {"head", "-c", max_bytes, filepath}
+            require('telescope.previewers.utils').job_maker(cmd, bufnr, opts)
+        end
     },
     prompt_prefix = "   ",
     selection_caret = "  ",
@@ -56,22 +53,7 @@ require('telescope').setup{
   },
 }
 
-require('telescope').load_extension('ultisnips')
 require('telescope').load_extension('projects')
 require("telescope").load_extension("emoji")
-
---- vim.api.nvim_set_keymap('n','<Leader>trc',":lua require('arpangreat.telescope').search_dotfiles()<CR>",{ noremap = true , silent = false })
-
-search_notes_grep = function()
-    require("telescope.builtin").live_grep({
-        prompt_title = "< Notes >",
-        cwd = "$HOME/notes/",
-    })
-end
-
-search_notes = function()
-    require("telescope.builtin").live_grep({
-        prompt_title = "< Notes >",
-        cwd = "$HOME/notes/",
-    })
-end
+require("telescope").load_extension("packer")
+require("telescope").load_extension("file_browser")

@@ -71,7 +71,7 @@ wk.register({
       B = {':Telescope buffers<cr>'                , 'open buffers'},
       c = {':Telescope commits<cr>'                , 'commits'},
       d = {':Telescope lsp_workspace_symbols<cr>'  , 'lsp_workspace_symbols'},
-      f = {':Telescope find_files find_command=rg,--files,--hidden,--no-ignore<cr>', 'files'},
+      f = {":lua require'telescope.builtin'.find_files({ find_command = {'rg','--files','--hidden','-g','!.git'}})<cr>", 'files'},
       r = {':Telescope frecency<cr>'               , 'any recent files'},
       R = {':lua require("spectre").open()<cr>'    , 'Search and Replace'},
       g = {':Telescope git_files<cr>'              , 'git files'},
@@ -83,6 +83,7 @@ wk.register({
       I = {':Telescope gh issues<cr>'              , 'github issues'},
       P = {':Telescope gh pull_requests<cr>'       , 'github PRs'},
 			p = {':Telescope projects<cr>'               , 'find projects'},
+			y = {':Telescope yank_history<cr>'           , 'find yank history'},
     },
     h = {
       name = "+http",

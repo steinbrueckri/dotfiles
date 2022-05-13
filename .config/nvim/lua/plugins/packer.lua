@@ -39,8 +39,9 @@ return require('packer').startup(function()
   use 'nvim-lua/popup.nvim'
   use 'nvim-lua/plenary.nvim'
   use 'nvim-telescope/telescope.nvim'
-  use 'fhill2/telescope-ultisnips.nvim'
   use 'nvim-telescope/telescope-github.nvim'
+  use 'nvim-telescope/telescope-packer.nvim'
+  use 'nvim-telescope/telescope-file-browser.nvim'
   use 'sheerun/vim-polyglot'
   use 'TimUntersberger/neogit'
   use 'kdheepak/lazygit.nvim'
@@ -84,4 +85,5 @@ return require('packer').startup(function()
   use 'leafOfTree/vim-matchtag'
   use 'lewis6991/impatient.nvim'
   use 'gbprod/yanky.nvim'
+  use 'pianocomposer321/yabs.nvim'
 end)

@@ -30,7 +30,7 @@ local theme = {
   },
   insert = { a = { fg = colors.black, bg = colors.light } },
   visual = { a = { fg = colors.black, bg = colors.orange } },
-  replace = { a = { fg = colors.black, bg = colors.green } },
+  replace = { a = { fg = colors.black, bg = colors.black } },
 }
 
 local empty = require('lualine.component'):extend()
@@ -47,14 +47,14 @@ local function process_sections(sections)
   for name, section in pairs(sections) do
     local left = name:sub(9, 10) < 'x'
     for pos = 1, name ~= 'lualine_z' and #section or #section - 1 do
-      table.insert(section, pos * 2, { empty, color = { fg = colors.white, bg = colors.white } })
+      table.insert(section, pos * 2, { empty, color = { fg = colors.black, bg = colors.black } })
     end
     for id, comp in ipairs(section) do
       if type(comp) ~= 'table' then
         comp = { comp }
         section[id] = comp
       end
-      comp.separator = left and { right = '' } or { left = '' }
+      comp.separator = left and { right = '' } or { left = '' }
     end
   end
   return sections
@@ -85,7 +85,7 @@ require('lualine').setup {
   options = {
     theme = theme,
     component_separators = '',
-    section_separators = { left = '', right = '' },
+    section_separators = { left = '', right = '' },
   },
   sections = process_sections {
     lualine_a = { 'mode' },
@@ -96,13 +96,13 @@ require('lualine').setup {
         'diagnostics',
         source = { 'nvim' },
         sections = { 'error' },
-        diagnostics_color = { error = { bg = colors.red, fg = colors.white } },
+        diagnostics_color = { error = { bg = colors.red, fg = colors.black } },
       },
       {
         'diagnostics',
         source = { 'nvim' },
         sections = { 'warn' },
-        diagnostics_color = { warn = { bg = colors.orange, fg = colors.white } },
+        diagnostics_color = { warn = { bg = colors.orange, fg = colors.black } },
       },
       { 'filename', file_status = false, path = 1 },
       { modified, color = { bg = colors.orange, fg = colors.black } },

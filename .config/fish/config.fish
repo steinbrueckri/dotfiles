@@ -49,6 +49,7 @@ set -g theme_display_k8s_namespace yes
 set -g theme_title_display_process yes
 set -g theme_title_display_path yes
 set -g theme_title_display_user yes
+set -g theme_display_date no
 set -g theme_newline_cursor yes
 set -g theme_newline_prompt '$ '
 
@@ -115,7 +116,11 @@ alias gcp04laliga01d='CLOUDSDK_CORE_PROJECT=mms-lal-laliga-d-1337 gcpsshiap gcp0
 alias gcp04laliga01p='CLOUDSDK_CORE_PROJECT=mms-lal-laliga-p-1337 gcpsshiap gcp04laliga01p'
 alias gcp04manans01p='gcloud compute ssh gcp04manans01p --tunnel-through-iap --zone=europe-west4-b --project=mms-cif-config-mgmt-p-1000'
 alias gcp04manans02p='gcloud compute ssh gcp04manans02p --tunnel-through-iap --zone=europe-west4-b --project=mms-cif-config-mgmt-p-1000'
-alias start_jump="gcloud compute ssh gcp04manans01p --tunnel-through-iap --zone=europe-west4-b --project=mms-cif-config-mgmt-p-1000 -- -NL 2222:ing04manubn01p.media-saturn.com:22"
+
+## digitalocean stuff
+alias do='doctl'
+alias do-new='doctl compute droplet create tmp --region ams3 --size s-2vcpu-2gb --image ubuntu-22-04-x64 --user-data-file .dotfileassets/digitalocean-cloudinit.yaml --ssh-keys "df:17:95:8d:31:56:39:27:d1:04:e3:12:52:36:ed:5b"'
+alias do-new-ssh='ssh $(doctl compute droplet list | grep tmp | awk "{ print $3}")'
 
 ## docker
 alias dr="docker run -it --rm --entrypoint /bin/sh"
@@ -136,11 +141,14 @@ alias ls='exa --icons'
 #######################################################################
 
 # docker stuff
-export DOCKER_HOST=ssh://docker.local
+# export DOCKER_HOST=ssh://docker.local
 
 # kubernetes stuff
 export KUBE_EDITOR="nvim"
 export PATH="$PATH:$HOME/.krew/bin"
+
+# gcloud stuff
+export CLOUDSDK_PYTHON_SITEPACKAGES=1 # pynum is installed
 
 # ansible stuff
 export ANSIBLE_VAULT_PASSWORD_FILE="~/.vault-password-file"

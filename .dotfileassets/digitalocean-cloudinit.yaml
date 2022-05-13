@@ -1,19 +1,16 @@
-# Notes:
-# - create new machine
-# multipass launch -c 4 -m 4G -d 50G -n docker 20.04 --cloud-init .dotfileassets/multipass-docker.yaml
-# multipass mount -u 501:1000 /Users/steinbrueckri/ docker:/Users/steinbrueckri
-# +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-## create user
+#cloud-config
+disable_root: true
 users:
   - name: steinbrueckri
     sudo: ALL=(ALL) NOPASSWD:ALL
     ssh_import_id: gh:steinbrueckri
-## Update apt database and upgrade packages on first boot
+    shell: /bin/fish
 package_update: true
 package_upgrade: true
-## install packages
 packages:
   - vim
+  - neovim
+  - fish
   - docker
   - avahi-daemon
   - apt-transport-https
@@ -21,8 +18,9 @@ packages:
   - curl
   - gnupg
   - lsb-release
-## setup docker
 runcmd:
+  - sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+  - sed -i -e '$aAllowUsers steinbrueckri' /etc/ssh/sshd_config
   - sudo curl -fsSL https://get.docker.com | sudo bash
   - sudo systemctl enable docker
   - sudo systemctl enable -s HUP ssh

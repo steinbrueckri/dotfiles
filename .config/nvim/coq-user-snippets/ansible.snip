@@ -1,0 +1,18 @@
+snippet AnsiblePlaybook
+abbr: AnsiblePlaybook
+  ---
+  - name: ${1:playbook_name}
+    hosts: ${2:all}
+
+    tasks:
+      - name: task
+        debug:
+          msg: "{{ ansible_distribution_major_version }}"
+
+snippet rst
+abbr: raw
+  {% raw %}
+
+snippet red
+abbr: rawend
+  {% endraw %}
