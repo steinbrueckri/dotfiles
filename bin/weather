@@ -1,0 +1,11 @@
+#!/bin/bash
+
+city="gotha"
+ttl="60" # minutes
+file="$HOME/.weather"
+
+if test "$(find $file -mmin +$ttl)"; then
+    curl wttr.in/${city}?format="+%t+%w\n&period=60" > "$file"
+fi
+
+cat $file

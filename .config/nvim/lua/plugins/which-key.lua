@@ -45,6 +45,7 @@ wk.register({
   ["<leader>S"]       = { ":Alpha<cr>", "Open Dashboard" },
   ["<leader>v"]       = { ":vsplit<cr>", "Split right" },
   ["<leader>w"]       = { ":w<cr>", "Save"},
+  ["<leader>N"]       = { ":enew<cr>", "Empty buffer"},
   ["Z"]               = { ":Telescope spell_suggest<cr>", "spell suggest"},
   ["<c-k>"]           = { ":lua vim.lsp.buf.hover()<cr>", "Show LSP Help"},
   ["U"]               = { ":redo<cr>", "Redo"}
@@ -63,6 +64,10 @@ wk.register({
       name = "+config",
       e = {':cd ~/.config/nvim/ | edit init.lua<cr>' , 'edit config'},
       r = {':Reload<cr>'                           , 'reload config'},
+    },
+    s = {
+      name = "+scratch",
+      n = {'',''}
     },
     f = {
       name = "+find",

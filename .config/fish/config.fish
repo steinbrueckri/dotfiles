@@ -135,6 +135,7 @@ alias hosts="hosts --auto-sudo"
 alias tx='tmuxinator'
 alias rm='trash '
 alias ls='exa --icons'
+alias top='btop'
 
 #######################################################################
 #                               exports                               #

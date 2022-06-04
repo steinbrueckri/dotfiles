@@ -47,7 +47,7 @@ return require('packer').startup(function()
   use 'kdheepak/lazygit.nvim'
   use 'lewis6991/gitsigns.nvim'
   use 'sindrets/diffview.nvim'
-  use 'iamcco/markdown-preview.nvim'
+  use({"iamcco/markdown-preview.nvim",run = function() vim.fn["mkdp#util#install"]() end,})
   use 'dhruvasagar/vim-table-mode'
   use 'editorconfig/editorconfig-vim'
   use 'lukas-reineke/indent-blankline.nvim'

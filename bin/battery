@@ -1,0 +1,6 @@
+#!/bin/sh
+
+PERCENTAGE=`pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f1 -d';'`
+CHARGING=`pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f2 -d';'`
+REMAINING=`pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f3 -d';'`
+echo $PERCENTAGE $CHARGING
