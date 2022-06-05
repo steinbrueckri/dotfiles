@@ -1,6 +1,12 @@
 #!/bin/sh
 
-PERCENTAGE=`pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f1 -d';'`
-CHARGING=`pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f2 -d';'`
-REMAINING=`pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f3 -d';'`
+if ! [ -x "$(command -v pmset)" ]; then
+  PERCENTAGE="not"
+  CHARGING="available"
+else
+  PERCENTAGE=`pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f1 -d';'`
+  CHARGING=`pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f2 -d';'`
+  REMAINING=`pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f3 -d';'`
+fi
+
 echo $PERCENTAGE $CHARGING

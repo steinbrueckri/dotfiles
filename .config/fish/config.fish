@@ -87,9 +87,13 @@ end
 #######################################################################
 
 # mac stuff
-alias sleepoff="sudo systemsetup -setcomputersleep Never"
-alias sleepon="sudo systemsetup -setcomputersleep 10"
-alias lock="pmset displaysleepnow"
+if string match -q "Darwin" (uname)
+  alias sleepoff="sudo systemsetup -setcomputersleep Never"
+  alias sleepon="sudo systemsetup -setcomputersleep 10"
+  alias lock="pmset displaysleepnow"
+  alias rm='trash '
+  export GPG_TTY=$(tty)
+end
 
 # vim 4 the win!
 alias vim="nvim"
@@ -133,7 +137,6 @@ alias cat="bat "
 alias dig="dog "
 alias hosts="hosts --auto-sudo"
 alias tx='tmuxinator'
-alias rm='trash '
 alias ls='exa --icons'
 alias top='btop'
 
@@ -182,6 +185,9 @@ end
 #######################################################################
 #                               source                                #
 #######################################################################
+set gcloud "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc"
+if test -e $gcloud
+  source $gcloud
+end
 
-source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc
 direnv hook fish | source

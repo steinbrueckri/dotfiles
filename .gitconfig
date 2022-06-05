@@ -37,7 +37,7 @@
 	gpgsign = true
 	template = ~/.gitmessage
 [gpg]
-	program = /usr/local/MacGPG2/bin/gpg2
+	program = gpg2
 [init]
 	defaultBranch = master
 # define command which will be used when "nvim" is set as a merge tool
@@ -51,3 +51,5 @@
   prompt = false
 [diff]
     colorMoved = default
+[url "git@github.com:"]
+	insteadOf = https://github.com/
