@@ -71,10 +71,13 @@ function bobthefish_colors -S -d 'Define a custom bobthefish color scheme'
   set -l peach f9c096
   set -l green b1e3ad
   set -l yellow ebddaa
-  set -l blue a4b9ef
+  set -l sky 89DCEB
+  set -l blue 96CDFB
   set -l gray 6e6c7e
 
   # then override everything you want! note that these must be defined with `set -x`
+  set -x color_username                 $gray $blue --bold
+  set -x color_hostname                 $gray $sky
   set -x color_repo_dirty               $red $gray
   set -x color_repo                     $green $gray
   set -x color_repo_work_tree           333333 ffffff --bold
@@ -144,15 +147,16 @@ alias top='btop'
 #                               exports                               #
 #######################################################################
 
-# docker stuff
-# export DOCKER_HOST=ssh://docker.local
-
 # kubernetes stuff
 export KUBE_EDITOR="nvim"
 export PATH="$PATH:$HOME/.krew/bin"
 
 # gcloud stuff
 export CLOUDSDK_PYTHON_SITEPACKAGES=1 # pynum is installed
+
+# -> Starting in kubectl v1.25, this plugin will be required for authentication.
+# -> https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # ansible stuff
 export ANSIBLE_VAULT_PASSWORD_FILE="~/.vault-password-file"
@@ -170,6 +174,7 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 function gcp-project
     set FILE "$HOME/.gcp-project-list.json"
+    # TODO: only if the file is older then 1d or if --force is set
     gcloud projects list --format="json" >$FILE
     gcloud config set project (cat $FILE | jq -r '.[].projectId' | fzf --print-query --preview "cat $FILE | jq -r '.[] | select( .projectId | contains(\"{1}\"))'" | tr -d '\n')
 end

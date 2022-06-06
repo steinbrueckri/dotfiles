@@ -4,8 +4,13 @@ city="gotha"
 ttl="60" # minutes
 file="$HOME/.weather"
 
-if test "$(find $file -mmin +$ttl)"; then
+# if $file not exist, created it and set the time date to 01.01.1990
+if [[ ! -f $file ]]; then
+    touch -t 199001010000 "$file"
+fi
+
+if test "$(find "$file" -mmin +$ttl)"; then
     curl wttr.in/${city}?format="+%t+%w\n&period=60" > "$file"
 fi
 
-cat $file
+cat "$file"
