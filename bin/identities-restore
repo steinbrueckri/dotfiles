@@ -95,6 +95,8 @@ secret_exist() {
 # Main
 ###############################################################################
 
+export GPG_TTY=$(tty)
+
 # unlock 1password
 eval $(op signin)
 
@@ -112,7 +114,7 @@ do
 
   info_print "... restore ssh key $item_title with the id $item_id"
 
-  sshkey_privatkey_name="${item_title//"$ssh_item_title_prefix"/}"
+  sshkey_privatkey_name="${item_title//"$ssh_item_title_prefix-"/}"
   sshkey_privatkey_content_raw=$(op read op://Personal/"$item_id"/private_key)
   sshkey_privatkey_content=$(echo "$sshkey_privatkey_content_raw" | base64 -d)
 
@@ -124,6 +126,9 @@ do
 
   echo "$sshkey_privatkey_content" > "$HOME/.ssh/$sshkey_privatkey_name"
   echo "$sshkey_publickey_content" > "$HOME/.ssh/$sshkey_publickey_name"
+
+  chmod 600 "$HOME/.ssh/$sshkey_privatkey_name"
+  chmod 600 "$HOME/.ssh/$sshkey_publickey_name"
 
   # TODO: check if the key is vaild
   # PRIVKEY="$HOME/.ssh/id_rsa"
@@ -167,6 +172,7 @@ info_print "📥 Restore Kubectl Config"
 
 if secret_exist "$kubectl_secret_title"; then
   # TODO: verify that this is a valid config and everything works. because of the pipe we can not use just the error_code :/
+  mkdir -p $HOME/.kube/
   op read "op://Personal/kubectl_config/kubectl_config" | base64 -d > "$kubectl_config_file"
 else
   error_print "cannot find item with the name $github_item_title"
