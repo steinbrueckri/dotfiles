@@ -1,13 +1,4 @@
------------------------------------------------------------
--- Spectre configuration file
------------------------------------------------------------
-
--- Plugin: nvim-spectre
--- https://github.com/windwp/nvim-spectre
------------------------------------------------------------
-
 require('spectre').setup({
-
   color_devicons = true,
   open_cmd = 'vnew',
   live_update = false, -- auto excute search again when you write any file in vim

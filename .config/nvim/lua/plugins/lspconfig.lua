@@ -1,11 +1,3 @@
------------------------------------------------------------
--- lspconfig configuration file
------------------------------------------------------------
-
--- Plugin: lspconfig
--- https://github.com/neovim/lspconfig
------------------------------------------------------------
-
 local coq = require "coq"
 
 require'lspconfig'.pyright.setup{

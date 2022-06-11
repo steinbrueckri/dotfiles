@@ -10,18 +10,13 @@ Neovim init file
 
 --]]
 
------------------------------------------------------------
--- Import Lua modules
------------------------------------------------------------
-
-require'impatient'.enable_profile()
-
+require('plugins/packer')
 require('settings')
 require('other/lua')
-require('plugins/packer')
+require('other/autocmd')
+require'impatient'.enable_profile()
 require('plugins/which-key')
 require('plugins/base64')
-require('plugins/colorizer')
 require('plugins/coq')
 require('plugins/alpha')
 require('plugins/gitsigns')
@@ -29,12 +24,10 @@ require('plugins/indent-blankline')
 require('plugins/lspconfig')
 require('plugins/lspkind')
 require('plugins/lspsaga')
-require('plugins/neogit')
 require('plugins/bufferline')
 require('plugins/symbols-outline')
 require('plugins/telescope')
 require('plugins/project')
-require('plugins/todo-comments')
 require('plugins/trouble')
 require('plugins/spectre')
 require('plugins/zettelkasten')

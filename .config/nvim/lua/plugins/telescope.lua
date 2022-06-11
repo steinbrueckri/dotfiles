@@ -1,11 +1,3 @@
------------------------------------------------------------
--- telescope configuration file
------------------------------------------------------------
-
--- Plugin: telescope
--- https://github.com/nvim-telescope/telescope.nvim
------------------------------------------------------------
-
 require('telescope').setup{
   defaults = {
     color_devicons = true,

@@ -1,11 +1,3 @@
------------------------------------------------------------
--- gitsigns configuration file
------------------------------------------------------------
-
--- Plugin: gitsigns
--- https://github.com/lewis6991/gitsigns.nvim
------------------------------------------------------------
-
 require("gitsigns").setup {
     signs = {
         add = {hl = "DiffAdd", text = "▌", numhl = "GitSignsAddNr"},

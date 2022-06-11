@@ -1,0 +1,321 @@
+#!/bin/bash
+
+set -e
+
+__ScriptVersion="0.2.1"
+
+if [ -z "$OP_SSH_ACCOUNT" ];then
+  echo -e "\e[33m▪▪▪ Warning\e[0m: \$OP_SSH_ACCOUNT is unset"
+fi
+
+op_session_variable="OP_SESSION_${OP_SSH_ACCOUNT}"
+command_name=$(basename "$0")
+entry_prefix="SSHKey-"
+
+op_signin() {
+  if [ -z "${!op_session_variable}" ];then
+    eval $(op signin --account $OP_SSH_ACCOUNT)
+  fi
+}
+
+info_print() {
+  echo -e "\e[32m▪▪▪\e[0m $1"
+}
+
+error_print() {
+  echo -e "\e[31mERROR:\e[0m $1"
+}
+
+prerequisites_check() {
+  if ! type "$1" &> /dev/null;then
+    error_print "Could not find required command '$1', please install."
+    echo
+    usage
+    exit 1
+  fi
+}
+
+# With -d no delimiter read always hits
+# EOF and returns a non 0 exit code.
+# To use set -e we always return true
+read -r -d '' JSON <<EOF || true
+{
+  "category": "LOGIN",
+  "fields": [
+    {
+      "id": "notesPlain",
+      "type": "STRING",
+      "purpose": "NOTES",
+      "label": "notesPlain"
+    },
+    {
+      "id": "private_key",
+      "type": "CONCEALED",
+      "label": "private key",
+      "value": \$private_key
+    },
+    {
+      "type": "STRING",
+      "id": "public_key",
+      "label": "public key",
+      "value": \$public_key
+    },
+    {
+      "type": "STRING",
+      "id": "ssh_agent_timeout",
+      "label": "SSH agent timeout",
+      "value": \$timeout
+    }
+  ]
+}
+EOF
+
+function usage ()
+{
+  echo "Usage :  $command_name [command] [options] [--]
+  Commands:
+    create        Import a ssh key into 1password
+    load          Load a ssh key into ssh-agent from a 1password vault
+    export        Exports a ssh key from 1password to a local file
+    public-key    Print a public key to stdout
+
+  Options:
+    -h            Display this message
+    -v            Display script version
+
+  Run $command_name [COMMAND] -h for more information about a command.
+
+  $command_name requires op (1password cli) and jq to work."
+}
+
+function usage_load() {
+  echo "Usage : $command_name load [options]
+
+  Load a ssh key into ssh-agent from a 1password vault
+
+  Options:
+    -k            Name of key, usually hostname, default: $(hostname)
+    -t            Custom ssh-agent timeout, default is read from 1p entry
+    -h            Print usage"
+}
+
+function usage_create() {
+  echo "Usage : $command_name create [options] PRIVATEKEY PUBLICKEY
+
+  Create a 1password entry from a ssh key
+
+  Options:
+    -k            Name of key, usually hostname, default: $(hostname)
+    -t            Default ssh-agent key timeout, default: 2h
+    -h            Print usage"
+}
+
+function usage_export() {
+  echo "Usage : $command_name export [options] PRIVATEKEY
+
+  Export a 1password ssh key entry to a local file
+
+  Options:
+    -k            Name of key, usually hostname, default: $(hostname)
+    -h            Print usage"
+}
+
+function usage_public-key() {
+  echo "Usage : $command_name public-key [options]
+
+  Print a public key to stdout
+
+  Options:
+    -k            Name of key, usually hostname, default: $(hostname)
+    -h            Print usage"
+}
+
+sub_load() {
+  set -e
+  local key_hostname
+  key_hostname=$(hostname)
+  local agent_timeout
+
+  while getopts "t:hk:" opt
+  do
+    case $opt in
+    k) key_hostname=$OPTARG;;
+    t) agent_timeout=$OPTARG;;
+    h) usage_load; exit 0 ;;
+    *) error_print "unknown flag '$opt'"; usage_load; exit 1 ;;
+    esac
+  done
+  shift $((OPTIND-1))
+
+  entry_title="$entry_prefix$key_hostname"
+
+  op_signin
+  entry=$(op item get "$entry_title" --format json)
+  key_private=$(echo "$entry" | jq -rj '.fields[] | select(.id == "private_key").value')
+
+  timeout_opt=""
+  if [ -z "$agent_timeout" ];then
+    agent_timeout=$(echo "$entry" | jq -rj '.fields[] | select(.id == "ssh_agent_timeout").value')
+  fi
+  if [ -n "$agent_timeout" ];then
+    timeout_opt="-t $agent_timeout "
+  fi
+
+  # TODO: Check if ssh agent is running
+  # TODO: Add verification if hostname is not the same as key name
+  ssh-add $timeout_opt <(echo "$key_private")
+}
+
+sub_create() {
+  set -e
+  local default_timeout="2h"
+  local key_hostname
+  key_hostname=$(hostname)
+
+  while getopts "t:hk:" opt
+  do
+    case $opt in
+    k) key_hostname=$OPTARG;;
+    t) default_timeout=$OPTARG;;
+    h) usage_create; exit 0 ;;
+    *) error_print "unknown flag '$opt'"; usage_create; exit 1 ;;
+    esac
+  done
+  shift $((OPTIND-1))
+
+  local key_private_path=$1
+  local key_public_path=$2
+
+  if [ -z "$key_private_path" ];then
+    error_print "You need to supply a private ssh key"
+    usage_create
+    exit 1
+  fi
+
+  if [ ! -f "$key_private_path" ];then
+    error_print "The private key file you supplied is not found"
+    usage_create
+    exit 1
+  fi
+
+  local key_public
+  if [ -n "$key_public_path" ];then
+    if [ ! -f "$key_public_path" ];then
+      error_print "The public key file supplied is not found"
+      usage_create
+      exit 1
+    fi
+  else
+    if [ ! -f "${key_private_path}.pub" ];then
+      error_print "Failed to load the public key '$key_private_path.pub'"
+      usage_create
+      exit 1
+    fi
+    key_public_path="$key_private_path.pub"
+  fi
+
+  local key_private
+  #key_private=$(cat "$keyjq -sR <(cat "$key_private_path"))
+  key_private=$(cat "$key_private_path")
+  local key_public
+  #key_public=$(jq -sR < "$key_public_path")
+  key_public=$(cat "$key_public_path")
+
+  op_signin
+  entry_title="$entry_prefix$key_hostname"
+  if op item get "$entry_title" &> /dev/null;then
+    error_print "A entry for a ssh key named $entry_title already exists"
+    exit 1
+  else
+    op item create --title "$entry_title" --tags ssh --template=<(jq --null-input --arg public_key "$key_public" --arg private_key "$key_private" --arg timeout "$default_timeout" "$JSON")
+    if [ $? ];then
+      info_print "Created secure note 'SSHKey-$key_hostname' successfully"
+    else
+      error_print "Failed to create the ssh key entry in 1Password"
+      exit 1
+    fi
+  fi
+}
+
+sub_export() {
+  set -e
+  local private_path
+  local key_hostname
+  key_hostname=$(hostname)
+
+  while getopts "hk:" opt
+  do
+    case $opt in
+    k) key_hostname=$OPTARG;;
+    h) usage_export; exit 0 ;;
+    *) error_print "unknown flag '$opt'";usage_export;  exit 1 ;;
+    esac
+  done
+  shift $((OPTIND-1))
+
+  if [ -z "$1" ];then
+    error_print "Please supply a output file name for the key"
+    usage_export
+    exit 1
+  fi
+
+  if [ -f "$1" ];then
+    error_print "There is already a existing file '$1'"
+    exit 1
+  fi
+
+  private_path="$1"
+
+  op_signin
+  entry_title="$entry_prefix$key_hostname"
+  entry=$(op item get "$entry_title" --fields label=private_key,label=public_key --format json)
+  echo "$entry" | jq -r '.[] | select(.id == "private_key").value' > "$private_path"
+  chmod 600 "$private_path"
+  echo "$entry" | jq -r '.[] | select(.id == "public_key").value' > "$private_path".pub
+  chmod 600 "$private_path".pub
+}
+
+sub_public-key() {
+  set -e
+  local key_hostname
+  key_hostname=$(hostname)
+  while getopts "k:h" opt
+  do
+    case $opt in
+    k) key_hostname=$OPTARG;;
+    h) usage_public-key; exit 0;;
+    *) error_print "unknown flag '$opt'"; usage_public-key; exit 1 ;;
+    esac
+  done
+  shift $((OPTIND-1))
+  op_signin
+  entry_title="$entry_prefix$key_hostname"
+  op item get "$entry_title" --fields label=public_key --format json | jq -rj '.value'
+}
+
+prerequisites_check op
+prerequisites_check jq
+
+subcommand=$1
+
+case $subcommand in
+  "" | "-h" )
+    usage
+    exit 1
+    ;;
+  "-v" )
+    echo "version: $__ScriptVersion"
+    exit 1
+    ;;
+  *)
+    shift
+    set +e
+    sub_${subcommand} "$@"
+    if [ $? == 127 ];then
+      error_print "'$subcommand' is not a known subcommand" >&2
+      echo
+      usage
+      exit 1
+    fi
+    ;;
+esac

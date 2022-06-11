@@ -1,10 +1,3 @@
------------------------------------------------------------
--- lspkind configuration file
------------------------------------------------------------
-
--- Plugin: lspkind
--- https://github.com/onsails/lspkind-nvim
------------------------------------------------------------
 require('lspkind').init({
     -- DEPRECATED (use mode instead): enables text annotations
     --

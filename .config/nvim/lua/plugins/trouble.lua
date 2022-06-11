@@ -1,11 +1,3 @@
------------------------------------------------------------
--- trouble configuration file
------------------------------------------------------------
-
--- Plugin: trouble
--- https://github.com/folke/trouble.nvim
------------------------------------------------------------
-
 require("trouble").setup {
     height = 7, -- height of the trouble list
     icons = true, -- use devicons for filenames

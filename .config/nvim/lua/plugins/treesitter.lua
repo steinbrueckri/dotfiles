@@ -1,12 +1,3 @@
------------------------------------------------------------
--- treesitter and extensions configuration file
------------------------------------------------------------
-
--- Plugin: treesitter + extensions
--- https://github.com/nvim-treesitter/nvim-treesitter
--- https://github.com/p00f/nvim-ts-rainbow
------------------------------------------------------------
-
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "all",
   highlight = {

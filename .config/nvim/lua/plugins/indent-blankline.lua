@@ -1,11 +1,3 @@
------------------------------------------------------------
--- indent-blankline configuration file
------------------------------------------------------------
-
--- Plugin: indent-blankline
--- https://github.com/lukas-reineke/indent-blankline.nvim
------------------------------------------------------------
-
 vim.g.indentLine_enabled = 1
 vim.g.indent_blankline_char = "|"
 vim.g.indent_blankline_filetype_exclude = {"help", "terminal", "alpha"}

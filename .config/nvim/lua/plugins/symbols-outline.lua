@@ -1,11 +1,3 @@
------------------------------------------------------------
--- symbols_outline configuration file
------------------------------------------------------------
-
--- Plugin: symbols_outline
--- https://github.com/simrat39/symbols-outline.nvim
------------------------------------------------------------
-
 vim.g.symbols_outline = {
     highlight_hovered_item = true,
     show_guides = true,

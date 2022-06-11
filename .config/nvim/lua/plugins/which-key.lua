@@ -1,11 +1,3 @@
------------------------------------------------------------
--- Which-key configuration file
------------------------------------------------------------
-
--- Plugin: which-key.nvim
--- https://github.com/folke/which-key.nvim
------------------------------------------------------------
-
 require("which-key").setup {}
 
 local wkv = require("which-key")

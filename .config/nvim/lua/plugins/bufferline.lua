@@ -1,10 +1,3 @@
------------------------------------------------------------
--- bufferline configuration file
------------------------------------------------------------
-
--- Plugin: bufferline
--- https://github.com/akinsho/bufferline.nvim
------------------------------------------------------------
 require('bufferline').setup{
     options = {
         buffer_close_icon = 'x',

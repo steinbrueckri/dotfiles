@@ -1,0 +1,173 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2207,SC2046
+set -e
+
+###############################################################################
+# CONFIG
+###############################################################################
+# NOTE: The "*_item_title" is the name of the item in your 1password Vault.
+
+## GPG
+gpg_item_title="gpg"
+
+## GitHub
+github_token_file="$HOME/.github_token"
+github_item_title="github_token"
+
+## Kubectl
+kubectl_secret_title="kubectl_config"
+kubectl_config_file="$HOME/.kube/config"
+
+## SSH
+ssh_item_title_prefix="ssh"
+
+###############################################################################
+# PreCheck
+###############################################################################
+
+if ! command -v jq &> /dev/null; then
+  echo "jq command missing."
+  exit 1;
+fi
+
+if ! command -v base64 &> /dev/null; then
+  echo "base64 command missing."
+  exit 1;
+fi
+
+if ! command -v op &> /dev/null; then
+  echo "1password cli missing: https://1password.com/downloads/command-line/"
+  exit 1;
+fi
+
+###############################################################################
+# Functions
+###############################################################################
+
+op_check() {
+  set -e
+  local status="$1"
+  local message="$2"
+
+  if [ "$status" ];then
+    success_print "$message"
+  else
+    error_print "$message"
+    exit 1
+  fi
+}
+
+info_print() {
+  # white text
+  echo -e "🔃 \e[37m▪▪▪\e[0m $1"
+}
+
+success_print() {
+  # green text
+  echo -e "✅ \e[32m▪▪▪\e[0m $1"
+}
+
+error_print() {
+  # red text
+  echo -e "⛔ \e[31mERROR:\e[0m $1"
+}
+
+secret_exist() {
+  set -e
+  local SECRET_ID
+  local SECRET_NAME="$1"
+
+  if [ "$SECRET_NAME" = "" ]; then
+    echo "ERROR: SECRET_NAME is empty!"
+  fi
+
+  SECRET_ID=$(op item get "$SECRET_NAME" --format json | jq -r .id)
+  if [ "$SECRET_ID" = "" ]; then
+    # TODO: if the SECRET_ID is empty that can mean that op find more then one or none
+    # TODO: check if it really not exist or if just two entrys exist!
+    false
+  else
+    true
+  fi
+}
+
+###############################################################################
+# Main
+###############################################################################
+
+# unlock 1password
+eval $(op signin)
+
+###############################################################################
+# SSH
+###############################################################################
+
+info_print "📥 Restore SSH Keys"
+sshkeys=( $(op item list --cache --tags ssh-key | grep -v "TITLE" | cut -d " " -f1) )
+
+for sshkey in "${sshkeys[@]}";
+do
+  item_id="$sshkey"
+  item_title=$(op item get "$item_id" --format json | jq -r .title)
+
+  info_print "... restore ssh key $item_title with the id $item_id"
+
+  sshkey_privatkey_name="${item_title//"$ssh_item_title_prefix"/}"
+  sshkey_privatkey_content_raw=$(op read op://Personal/"$item_id"/private_key)
+  sshkey_privatkey_content=$(echo "$sshkey_privatkey_content_raw" | base64 -d)
+
+  sshkey_publickey_content_raw=$(op read op://Personal/"$item_id"/public_key)
+  sshkey_publickey_content=$(echo "$sshkey_publickey_content_raw" | base64 -d)
+  sshkey_publickey_name="$sshkey_privatkey_name.pub"
+
+  mkdir -p "$HOME/.ssh/"
+
+  echo "$sshkey_privatkey_content" > "$HOME/.ssh/$sshkey_privatkey_name"
+  echo "$sshkey_publickey_content" > "$HOME/.ssh/$sshkey_publickey_name"
+
+  # TODO: check if the key is vaild
+  # PRIVKEY="$HOME/.ssh/id_rsa"
+  # TESTKEY="$HOME/.ssh/id_rsa.pub"
+  # diff <( ssh-keygen -y -e -f "$PRIVKEY" ) <( ssh-keygen -y -e -f "$TESTKEY" )
+
+ done
+
+###############################################################################
+# GPG
+###############################################################################
+if command -v gpg &> /dev/null; then
+  info_print "📥 Restore GPG Keys"
+
+  if secret_exist "$gpg_item_title"; then
+    op read "op://Personal/$gpg_item_title/pubkeys/asc" | base64 -d | gpg --import
+    op read "op://Personal/$gpg_item_title/privatekeys/asc" | base64 -d | gpg --import
+    op read "op://Personal/$gpg_item_title/trust/txt" | base64 -d | gpg --import-ownertrust
+  else
+    error_print "cannot find item with the name $gpg_item_title"
+  fi
+else
+    info_print "You do not appear to have gpg. skipping."
+fi
+
+###############################################################################
+# GitHub Token
+###############################################################################
+echo "📥 Restore GitHub Token"
+
+if secret_exist "$github_item_title"; then
+  op read "op://Personal/github_token/token" > "$github_token_file"
+else
+  error_print "cannot find item with the name $github_item_title"
+fi
+
+###############################################################################
+# kubectl
+###############################################################################
+info_print "📥 Restore Kubectl Config"
+
+if secret_exist "$kubectl_secret_title"; then
+  # TODO: verify that this is a valid config and everything works. because of the pipe we can not use just the error_code :/
+  op read "op://Personal/kubectl_config/kubectl_config" | base64 -d > "$kubectl_config_file"
+else
+  error_print "cannot find item with the name $github_item_title"
+fi

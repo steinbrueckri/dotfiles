@@ -1,0 +1,214 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2044,SC2046
+set -e
+
+# TODO: make vault configuration possible
+# TODO: make the login better
+
+###############################################################################
+# CONFIG
+###############################################################################
+# NOTE: The "*_item_title" is the name of the item in your 1password Vault.
+
+## GPG
+gpg_item_title="gpg"
+
+## GitHub
+github_token_file="$HOME/.github_token"
+github_item_title="github_token"
+
+## Kubectl
+kubectl_secret_title="kubectl_config"
+kubectl_config_file="$HOME/.kube/config"
+
+## SSH
+ssh_item_title_prefix="ssh"
+
+###############################################################################
+# PreCheck
+###############################################################################
+
+if ! command -v jq &> /dev/null; then
+  echo "jq command missing."
+  exit 1;
+fi
+
+if ! command -v base64 &> /dev/null; then
+  echo "base64 command missing."
+  exit 1;
+fi
+
+if ! command -v op &> /dev/null; then
+  echo "1password cli missing: https://1password.com/downloads/command-line/"
+  exit 1;
+fi
+
+###############################################################################
+# Functions
+###############################################################################
+
+op_check() {
+  set -e
+  local status="$1"
+  local message="$2"
+
+  if [ "$status" ];then
+    success_print "$message"
+  else
+    error_print "$message"
+    exit 1
+  fi
+}
+
+info_print() {
+  # white text
+  echo -e "🔃 \e[37m▪▪▪\e[0m $1"
+}
+
+success_print() {
+  # green text
+  echo -e "✅ \e[32m▪▪▪\e[0m $1"
+}
+
+error_print() {
+  # red text
+  echo -e "⛔ \e[31mERROR:\e[0m $1"
+}
+
+secret_exist() {
+  set -e
+  local SECRET_ID
+  local SECRET_NAME="$1"
+
+  if [ "$SECRET_NAME" = "" ]; then
+    echo "ERROR: SECRET_NAME is empty!"
+  fi
+
+  SECRET_ID=$(op item get "$SECRET_NAME" --format json | jq -r .id)
+  if [ "$SECRET_ID" = "" ]; then
+    # TODO: if the SECRET_ID is empty that can mean that op find more then one or none
+    # TODO: check if it really not exist or if just two entrys exist!
+    false
+  else
+    true
+  fi
+}
+
+###############################################################################
+# Main
+###############################################################################
+
+# unlock 1password
+eval $(op signin)
+
+###############################################################################
+# SSH
+###############################################################################
+
+# get all keys
+for f in $(find "$HOME/.ssh" -name '*.pub'); do
+  public_key=$f
+  private_key=${f//.pub/}
+
+  # check if both public_key and private_key exist
+  if [[ -f $public_key && -f $private_key ]]; then
+
+    echo "found $private_key and $public_key keys"
+
+    public_key_base64=$(base64 < "$public_key")
+    private_key_base64=$(base64 < "$private_key")
+
+    item_title="$ssh_item_title_prefix-$(basename "$private_key")"
+    notesplain="base64 encoded ssh key run 'base64 -d -string-' to decode"
+
+    # check if key already exist
+    if secret_exist "$item_title"; then
+      op item edit "$item_title" \
+        "public_key=$public_key_base64" \
+        "private_key=$private_key_base64" \
+        "notesPlain=$notesplain"
+      op_check "$?" "Update item successfully"
+    else
+      op item create \
+        --category=login \
+        --title="$item_title" \
+        --tags="ssh-key" \
+        "public_key=$public_key_base64" \
+        "private_key=$private_key_base64" \
+        "notesPlain=$notesplain"
+      op_check "$?" "Create item successfully"
+    fi
+  else
+    error_print "cannot find the $private_key to the $public_key, skip!"
+  fi
+done
+
+###############################################################################
+# GPG
+###############################################################################
+if command -v gpg &> /dev/null; then
+  echo "📥 Backup GPG Keys"
+
+  gpg_public_keys=$(gpg -a --export | base64)
+  gpg_private_keys=$(gpg -a --export-secret-keys | base64)
+  gpg_key_trust=$(gpg --export-ownertrust | base64)
+  notesplain="run gpg --import privatekeys.asc && gpg --import pubkeys.asc gpg && --import-ownertrust trust.txt to import the keys again"
+
+  if secret_exist "$gpg_item_title"; then
+    op item edit "$gpg_item_title" \
+      "pubkeys.asc=$gpg_public_keys" \
+      "privatekeys.asc=$gpg_private_keys" \
+      "trust.txt=$gpg_key_trust" \
+      "notesPlain=$notesplain"
+    op_check "$?" "Update item successfully"
+  else
+    op item create \
+      --category=login \
+      --title="$gpg_item_title" \
+      "pubkeys.asc=$gpg_public_keys" \
+      "privatekeys.asc=$gpg_private_keys" \
+      "trust.txt=$gpg_key_trust" \
+      "notesPlain=$notesplain"
+    op_check "$?" "Create item successfully"
+  fi
+else
+    info_print "You do not appear to have gpg. skipping."
+fi
+
+###############################################################################
+# GitHub Token
+###############################################################################
+if test -f "$github_token_file"; then
+  echo "📥 Backup GitHub Token"
+
+  github_token=$(cat "$github_token_file")
+
+  if secret_exist "$github_item_title"; then
+    op item edit "$github_item_title" "token=$github_token"
+    op_check "$?" "Update item successfully"
+  else
+    op item create --category=login --title="$github_item_title" "token=$github_token"
+    op_check "$?" "Create item successfully"
+  fi
+else
+  info_print "Dont find $github_token_file. skipping."
+fi
+
+###############################################################################
+# kubectl
+###############################################################################
+if command -v kubectl &> /dev/null; then
+  echo "📥 Backup Kubectl Config"
+
+  kubectl=$(base64 < "$kubectl_config_file");
+
+  if secret_exist "$kubectl_secret_title"; then
+    op item edit "$kubectl_secret_title" "config=$kubectl"
+    op_check "$?" "Update item successfully"
+  else
+    op item create --category=login --title="$kubectl_secret_title" "kubectl_config=$kubectl" "notesPlain=base64 encoded kubeconfig"
+    op_check "$?" "Create item successfully"
+  fi
+else
+  info_print "You do not appear to have kubectl. skipping."
+fi
