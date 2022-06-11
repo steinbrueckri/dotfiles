@@ -117,12 +117,6 @@ alias gcpssh='gcloud compute ssh'
 alias gcpsshi='gcloud compute ssh --internal-ip'
 alias gcpsshiap='gcloud compute ssh --tunnel-through-iap'
 alias gcprdpiap='gcloud compute start-iap-tunnel $1 3389 --local-host-port=localhost:3389 --zone=$2'
-alias gcp04webimt01d='CLOUDSDK_CORE_PROJECT=mms-cif-imtron-web-t-1000 gcpsshiap gcp04webimt01d'
-alias gcp04webimt01p='CLOUDSDK_CORE_PROJECT=mms-cif-imtron-web-p-1000 gcpsshiap gcp04webimt01p'
-alias gcp04laliga01d='CLOUDSDK_CORE_PROJECT=mms-lal-laliga-d-1337 gcpsshiap gcp04laliga01d'
-alias gcp04laliga01p='CLOUDSDK_CORE_PROJECT=mms-lal-laliga-p-1337 gcpsshiap gcp04laliga01p'
-alias gcp04manans01p='gcloud compute ssh gcp04manans01p --tunnel-through-iap --zone=europe-west4-b --project=mms-cif-config-mgmt-p-1000'
-alias gcp04manans02p='gcloud compute ssh gcp04manans02p --tunnel-through-iap --zone=europe-west4-b --project=mms-cif-config-mgmt-p-1000'
 
 ## digitalocean stuff
 alias do='doctl'
