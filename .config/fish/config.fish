@@ -141,6 +141,9 @@ alias top='btop'
 #                               exports                               #
 #######################################################################
 
+# gpg
+export GPG_TTY=$(tty)
+
 # kubernetes stuff
 export KUBE_EDITOR="nvim"
 export PATH="$PATH:$HOME/.krew/bin"
