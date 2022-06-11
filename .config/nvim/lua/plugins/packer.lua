@@ -61,7 +61,7 @@ return packer.startup(function(use)
   use 'kdheepak/lazygit.nvim'
   use 'lewis6991/gitsigns.nvim'
   use 'sindrets/diffview.nvim'
-  use 'ismcco/markdown-preview.nvim'
+  use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
   use 'dhruvasagar/vim-table-mode'
   use 'editorconfig/editorconfig-vim'
   use 'lukas-reineke/indent-blankline.nvim'

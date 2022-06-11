@@ -9,7 +9,31 @@ It is managed using [yadm](https://github.com/TheLocehiliosan/yadm/), a dotfile
 manager. This makes it simple to set up a new computer with these files. In
 order to set up a new system with these dotfiles, do the following:
 
-## Install YADM
+## Use
+
+First of all you need yadm, this can be installed on macOS via homebrew or on $linux via the package manager.
+
+## macOS
+
+### Install Homebrew
+
+```shell
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
+
+### Install tools with Homebrew on macOS
+
+```shell
+brew bundle install --file=.Brewfile
+```
+
+## Install tools on ArchLinux
+
+```shell
+xargs pacman -S --needed --noconfirm < [.pacmanfile](./.pacmanfile)
+```
+
+## Clone dotfiles with [yadm](https://yadm.io/)
 
 ```shell
 $ yadm clone --bootstrap https://github.com/steinbrueckri/dotfiles
@@ -24,6 +48,10 @@ From https://github.com/steinbrueckri/dotfiles
  * [new branch]      master     -> origin/master
 Executing /steinbrueckri/.config/yadm/bootstrap
 ```
+
+## Apply other OS Settings
+
+My macOS settings can you apply with the [osx_settings.sh](./.dotfileassets/osx_settings.sh)
 
 ## Hardware
 
