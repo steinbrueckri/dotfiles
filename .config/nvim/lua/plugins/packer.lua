@@ -56,6 +56,7 @@ return packer.startup(function(use)
   use 'nvim-telescope/telescope-github.nvim'
   use 'nvim-telescope/telescope-packer.nvim'
   use 'nvim-telescope/telescope-file-browser.nvim'
+  use 'nvim-telescope/telescope-ui-select.nvim'
   use 'sheerun/vim-polyglot'
   use 'TimUntersberger/neogit'
   use 'kdheepak/lazygit.nvim'
