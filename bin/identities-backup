@@ -24,6 +24,9 @@ kubectl_config_file="$HOME/.kube/config"
 ## SSH
 ssh_item_title_prefix="ssh"
 
+## Fish
+fish_history_item_title="fish_history"
+
 ###############################################################################
 # PreCheck
 ###############################################################################
@@ -81,7 +84,7 @@ secret_exist() {
   local SECRET_NAME="$1"
 
   if [ "$SECRET_NAME" = "" ]; then
-    echo "ERROR: SECRET_NAME is empty!"
+    error_print "ERROR: SECRET_NAME is empty!"
   fi
 
   SECRET_ID=$(op item get "$SECRET_NAME" --format json | jq -r .id)
@@ -98,9 +101,27 @@ secret_exist() {
 # Main
 ###############################################################################
 
+export GPG_TTY=$(tty)
+
 # unlock 1password
 eval $(op signin)
 
+###############################################################################
+# Fish shell history
+###############################################################################
+
+# backup
+info_print "📥 Backup Fish history"
+fish -c 'history save'
+if secret_exist "$fish_history_item_title"; then
+  op document edit "$fish_history_item_title" --file-name "fish_history" - < .local/share/fish/fish_history
+  op_check "$?" "Update item successfully"
+else
+  op document create --title "fish_history" --file-name "fish_history" - < .local/share/fish/fish_history
+  op_check "$?" "Create item successfully"
+fi
+
+exit
 ###############################################################################
 # SSH
 ###############################################################################
@@ -113,7 +134,7 @@ for f in $(find "$HOME/.ssh" -name '*.pub'); do
   # check if both public_key and private_key exist
   if [[ -f $public_key && -f $private_key ]]; then
 
-    echo "found $private_key and $public_key keys"
+    info_print "found $private_key and $public_key keys"
 
     public_key_base64=$(base64 < "$public_key")
     private_key_base64=$(base64 < "$private_key")
@@ -147,7 +168,7 @@ done
 # GPG
 ###############################################################################
 if command -v gpg &> /dev/null; then
-  echo "📥 Backup GPG Keys"
+  info_print "📥 Backup GPG Keys"
 
   gpg_public_keys=$(gpg -a --export | base64)
   gpg_private_keys=$(gpg -a --export-secret-keys | base64)
@@ -179,7 +200,7 @@ fi
 # GitHub Token
 ###############################################################################
 if test -f "$github_token_file"; then
-  echo "📥 Backup GitHub Token"
+  info_print "📥 Backup GitHub Token"
 
   github_token=$(cat "$github_token_file")
 
@@ -198,7 +219,7 @@ fi
 # kubectl
 ###############################################################################
 if command -v kubectl &> /dev/null; then
-  echo "📥 Backup Kubectl Config"
+  info_print "📥 Backup Kubectl Config"
 
   kubectl=$(base64 < "$kubectl_config_file");
 

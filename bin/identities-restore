@@ -21,6 +21,9 @@ kubectl_config_file="$HOME/.kube/config"
 ## SSH
 ssh_item_title_prefix="ssh"
 
+## Fish
+fish_history_item_title="fish_history"
+
 ###############################################################################
 # PreCheck
 ###############################################################################
@@ -99,6 +102,20 @@ export GPG_TTY=$(tty)
 
 # unlock 1password
 eval $(op signin)
+
+###############################################################################
+# Fish history
+###############################################################################
+
+info_print "📥 Restore Fish history"
+
+if secret_exist "$fish_history_item_title"; then
+  rm ./local/share/fish/fish_history
+  op document get "$fish_history_item_title" --output=.local/share/fish/fish_history
+  fish -c 'history merge'
+else
+  error_print "cannot find item with the name $fish_history_item_title"
+fi
 
 ###############################################################################
 # SSH

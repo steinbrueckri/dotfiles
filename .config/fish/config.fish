@@ -89,6 +89,9 @@ end
 #                               aliases                               #
 #######################################################################
 
+# gh stuff
+alias mms-repo-find="gh repo-fzf mediamarktsaturn"
+
 # mac stuff
 if string match -q "Darwin" (uname)
   alias sleepoff="sudo systemsetup -setcomputersleep Never"
