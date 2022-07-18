@@ -108,7 +108,10 @@ alias v="nvim"
 
 # kubernetes stuff
 alias kx="kubectx"
+# note: just to try out kubecolor
 alias k="kubectl"
+# alias k="kubecolor"
+alias kc="kubecolor"
 alias kn='kubens'
 alias k-debug="kubectl run --namespace default -i --tty 'debug-default-$USER' --image=steinbrueckri/debug --restart=Never --rm=true -- bash"
 alias k-debug-app="kubectl run --namespace istio-apps -i --tty 'debug-$USER' --image=steinbrueckri/debug --restart=Never --rm=true -- bash"
@@ -180,8 +183,8 @@ function gcp-project
 end
 
 function k-clean
-   for i in (kubectl get pods -A | grep -Ei 'Shutdown|Terminated|Completed' | cut -d ' ' -f1 | sort -u)
-      for p in (kubectl get pods -n $i | grep -Ei 'Shutdown|Terminated|Completed' | cut -d ' ' -f1 )
+   for i in (kubectl get pods -A | grep -Ei 'Shutdown|Error|Terminated|Completed' | cut -d ' ' -f1 | sort -u)
+      for p in (kubectl get pods -n $i | grep -Ei 'Shutdown|Error|Terminated|Completed' | cut -d ' ' -f1 )
         kubectl delete pod -n $i $p
       end
    end

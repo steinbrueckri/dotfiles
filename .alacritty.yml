@@ -26,7 +26,6 @@ window:
     # General application class
     general: Alacritty
 
-
   # Background opacity
   opacity: 0.95
 
@@ -59,39 +58,39 @@ font:
 colors:
   # Default colors
   primary:
-    background: '0x1E1D2F'
-    foreground: '0xD9E0EE'
+    background: "0x1E1D2F"
+    foreground: "0xD9E0EE"
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x1E1D2F'
-    cursor: '0xF5E0DC'
+    text: "0x1E1D2F"
+    cursor: "0xF5E0DC"
 
   # Normal colors
   normal:
-    black:   '0x6E6C7E'
-    red:     '0xF28FAD'
-    green:   '0xABE9B3'
-    yellow:  '0xFAE3B0'
-    blue:    '0x96CDFB'
-    magenta: '0xF5C2E7'
-    cyan:    '0x89DCEB'
-    white:   '0xD9E0EE'
+    black: "0x6E6C7E"
+    red: "0xF28FAD"
+    green: "0xABE9B3"
+    yellow: "0xFAE3B0"
+    blue: "0x96CDFB"
+    magenta: "0xF5C2E7"
+    cyan: "0x89DCEB"
+    white: "0xD9E0EE"
 
   # Bright colors
   bright:
-    black:   '0x988BA2'
-    red:     '0xF28FAD'
-    green:   '0xABE9B3'
-    yellow:  '0xFAE3B0'
-    blue:    '0x96CDFB'
-    magenta: '0xF5C2E7'
-    cyan:    '0x89DCEB'
-    white:   '0xD9E0EE'
+    black: "0x988BA2"
+    red: "0xF28FAD"
+    green: "0xABE9B3"
+    yellow: "0xFAE3B0"
+    blue: "0x96CDFB"
+    magenta: "0xF5C2E7"
+    cyan: "0x89DCEB"
+    white: "0xD9E0EE"
 
   indexed_colors:
-    - { index: 16, color: '0xF8BD96' }
-    - { index: 17, color: '0xF5E0DC' }
+    - { index: 16, color: "0xF8BD96" }
+    - { index: 17, color: "0xF5E0DC" }
 
 selection:
   # When set to `true`, selected text will be copied to the primary clipboard.
@@ -123,33 +122,34 @@ mouse_bindings:
 
 # Key bindings
 key_bindings:
-    # (Windows, Linux, and BSD only)
-  - { key: V,        mods: Control|Shift, action: Paste            }
-  - { key: C,        mods: Control|Shift, action: Copy             }
-  - { key: Insert,   mods: Shift,         action: PasteSelection   }
-  - { key: Key0,     mods: Control,       action: ResetFontSize    }
-  - { key: Equals,   mods: Control,       action: IncreaseFontSize }
-  - { key: Minus,    mods: Control,       action: DecreaseFontSize }
+  # (Windows, Linux, and BSD only)
+  - { key: V, mods: Control|Shift, action: Paste }
+  - { key: C, mods: Control|Shift, action: Copy }
+  - { key: Insert, mods: Shift, action: PasteSelection }
+  - { key: Key0, mods: Control, action: ResetFontSize }
+  - { key: Equals, mods: Control, action: IncreaseFontSize }
+  - { key: Minus, mods: Control, action: DecreaseFontSize }
 
-  - { key: Paste,                    action: Paste                            }
-  - { key: Copy,                     action: Copy                             }
-  - { key: L,         mods: Control, action: ClearLogNotice                   }
-  - { key: L,         mods: Control, chars: "\x0c"                            }
-  - { key: PageUp,    mods: Shift,   action: ScrollPageUp,   mode: ~Alt       }
-  - { key: PageDown,  mods: Shift,   action: ScrollPageDown, mode: ~Alt       }
-  - { key: Home,      mods: Shift,   action: ScrollToTop,    mode: ~Alt       }
-  - { key: End,       mods: Shift,   action: ScrollToBottom, mode: ~Alt       }
+  - { key: Paste, action: Paste }
+  - { key: Copy, action: Copy }
+  - { key: L, mods: Control, action: ClearLogNotice }
+  - { key: L, mods: Control, chars: "\x0c" }
+  - { key: PageUp, mods: Shift, action: ScrollPageUp, mode: ~Alt }
+  - { key: PageDown, mods: Shift, action: ScrollPageDown, mode: ~Alt }
+  - { key: Home, mods: Shift, action: ScrollToTop, mode: ~Alt }
+  - { key: End, mods: Shift, action: ScrollToBottom, mode: ~Alt }
 
     # OSX
-  - { key: 28,      mods: Alt, chars: "{" }
-  - { key: 25,      mods: Alt, chars: "}" }
-  - { key: 37,      mods: Alt, chars: "@" }
-  - { key: 26,      mods: Alt|Shift, chars: "\\" }
-  - { key: 26,      mods: Alt, chars: "|" }
-  - { key: 23,      mods: Alt, chars: "[" }
-  - { key: 22,      mods: Alt, chars: "]" }
-  - { key: Return,  mods: Command, action: ToggleFullscreen }
+  - { key: 28, mods: Alt, chars: "{" }
+  - { key: 25, mods: Alt, chars: "}" }
+  - { key: 37, mods: Alt, chars: "@" }
+  - { key: 26, mods: Alt|Shift, chars: "\\" }
+  - { key: 26, mods: Alt, chars: "|" }
+  - { key: 23, mods: Alt, chars: "[" }
+  - { key: 22, mods: Alt, chars: "]" }
+  - { key: N, mods: Alt, chars: "\x7E" }
+  - { key: Return, mods: Command, action: ToggleFullscreen }
 
   # arrow keys
-  - { key: Left,     mods: Command, chars: "\x1bOH",   mode: AppCursor   } # Home
-  - { key: Right,    mods: Command, chars: "\x1bOF",   mode: AppCursor   } # End
+  - { key: Left, mods: Command, chars: "\x1bOH", mode: AppCursor } # Home
+  - { key: Right, mods: Command, chars: "\x1bOF", mode: AppCursor } # End

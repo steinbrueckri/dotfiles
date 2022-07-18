@@ -96,6 +96,14 @@ return packer.startup(function(use)
   use 'lewis6991/impatient.nvim'
   use 'gbprod/yanky.nvim'
   use 'pianocomposer321/yabs.nvim'
+  use {
+    "cuducos/yaml.nvim",
+    ft = {"yaml"}, -- optional
+    requires = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-telescope/telescope.nvim" -- optional
+    },
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
