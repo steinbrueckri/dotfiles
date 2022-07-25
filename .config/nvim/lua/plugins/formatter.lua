@@ -12,6 +12,7 @@ require("formatter").setup({
                         "--single-quote-to-double-quote",
                         "--no-keep-simple-control-block-one-line",
                         "--no-keep-simple-function-one-line",
+                        "--column-limit=120",
                         "--no-break-after-functioncall-lp"
                     },
                     stdin = true

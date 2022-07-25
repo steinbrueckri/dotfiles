@@ -13,3 +13,20 @@ vim.cmd [[
     autocmd BufWritePost packer.lua source <afile> | PackerSync
   augroup end
 ]]
+
+-- Autocommand that set numbers to relative in normal mode, absolute in insert
+vim.cmd [[
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+augroup END
+]]
+
+-- highlight on yank
+vim.cmd [[
+  augroup YankHighlight
+    autocmd!
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}
+  augroup end
+]]

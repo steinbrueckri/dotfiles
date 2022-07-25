@@ -3,6 +3,11 @@ local catppuccin = require("catppuccin")
 catppuccin.setup{
 	transparent_background = true,
 	term_colors = false,
+	compile = {
+		enabled = false,
+		path = vim.fn.stdpath "cache" .. "/catppuccin",
+		suffix = "_compiled"
+	},
 	styles = {
 		comments = "italic",
 		functions = "italic",
