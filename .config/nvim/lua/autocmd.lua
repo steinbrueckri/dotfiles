@@ -18,12 +18,12 @@ vim.cmd [[
 vim.cmd [[
 augroup numbertoggle
   autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set nornu | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set rnu | endif
 augroup END
 ]]
 
--- highlight on yank
+-- Autocommand that highlight on yank
 vim.cmd [[
   augroup YankHighlight
     autocmd!

@@ -4,8 +4,7 @@ local fn = vim.fn
 local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
     PACKER_BOOTSTRAP = fn.system {
-        "git", "clone", "--depth", "1",
-        "https://github.com/wbthomason/packer.nvim", install_path
+        "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path
     }
     print "Installing packer close and reopen Neovim..."
     vim.cmd [[packadd packer.nvim]]
@@ -17,22 +16,10 @@ if not status_ok then
     return
 end
 
--- Have packer use a popup window
-packer.init {
-    display = {
-        open_fn = function()
-            return require("packer.util").float {border = "rounded"}
-        end
-    }
-}
-
 -- Install your plugins here
 return packer.startup(function(use)
     use "wbthomason/packer.nvim"
-    use {
-        "nvim-lualine/lualine.nvim",
-        requires = {"kyazdani42/nvim-web-devicons", opt = true}
-    }
+    use {"nvim-lualine/lualine.nvim", requires = {"kyazdani42/nvim-web-devicons", opt = true}}
     use "rcarriga/nvim-notify"
     use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
     use "p00f/nvim-ts-rainbow"
@@ -49,11 +36,13 @@ return packer.startup(function(use)
     use "nvim-lua/popup.nvim"
     use "nvim-lua/plenary.nvim"
     use "nvim-telescope/telescope.nvim"
+    use "cljoly/telescope-repo.nvim"
     use "nvim-telescope/telescope-packer.nvim"
-    use "nvim-telescope/telescope-file-browser.nvim"
     use "nvim-telescope/telescope-ui-select.nvim"
     use "nvim-telescope/telescope-github.nvim"
     use "xiyaowong/telescope-emoji.nvim"
+    use {"nvim-telescope/telescope-fzf-native.nvim", run = "make"}
+    use "ahmedkhalf/project.nvim"
     use "sheerun/vim-polyglot"
     use "TimUntersberger/neogit"
     use "kdheepak/lazygit.nvim"
@@ -75,7 +64,6 @@ return packer.startup(function(use)
     use "sotte/presenting.vim"
     use "tpope/vim-eunuch" -- remove, rename - Vim sugar for the UNIX shell commands that need it the most
     use "goolord/alpha-nvim"
-    use "ahmedkhalf/project.nvim"
     use "ethanholz/nvim-lastplace"
     use "numToStr/Comment.nvim"
     use "norcalli/nvim-colorizer.lua"

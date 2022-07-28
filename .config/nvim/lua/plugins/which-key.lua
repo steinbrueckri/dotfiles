@@ -1,7 +1,15 @@
 -----------------------------------------------------------
 -- Custom Keybindings
 -----------------------------------------------------------
---
+-- set leader key to space
+vim.g.mapleader = " "
+-- and also for the local buffer
+-- because thats what `let` does...
+vim.b.mapleader = " "
+
+--- Set localleader to ,
+vim.g.maplocalleader = ","
+
 -- jk to exit insert mode, very handy on my iPad :)
 vim.api.nvim_set_keymap("i", "jk", "<esc>", {noremap = true})
 
@@ -61,26 +69,16 @@ wk.register({
         s = {name = "+scratch", n = {"", ""}},
         f = {
             name = "+find",
-            C = {":Telescope commands<cr>", "commands"},
             a = {":Telescope live_grep<cr>", "grep over all"},
-            B = {":Telescope buffers<cr>", "open buffers"},
             c = {":Telescope git_commits<cr>", "commits"},
-            d = {":Telescope lsp_workspace_symbols<cr>", "lsp_workspace_symbols"},
             f = {
                 ":lua require'telescope.builtin'.find_files({ find_command = {'rg','--files','--hidden','-g','!.git'}})<cr>",
                 "files"
             },
-            r = {":Telescope frecency<cr>", "any recent files"},
-            R = {":lua require(\"spectre\").open()<cr>", "Search and Replace"},
-            g = {":Telescope git_files<cr>", "git files"},
-            G = {":Telescope git_status<cr>", "modified git files"},
-            h = {":Telescope command_history<cr>", "command history"},
-            m = {":Telescope marks<cr>", "marks"},
-            S = {":Telescope colorschema<cr>", "color schemes"},
-            t = {":Telescope tags<cr>", "project tags"},
-            I = {":Telescope gh issues<cr>", "github issues"},
-            P = {":Telescope gh pull_request<cr>", "github PRs"},
-            p = {":Telescope projects<cr>", "find projects"},
+            r = {":lua require(\"spectre\").open()<cr>", "Search and Replace"},
+            g = {":Telescope repo list<cr>", "git repositories"},
+            i = {":Telescope gh issues<cr>", "github issues"},
+            p = {":Telescope gh pull_request<cr>", "github PRs"},
             y = {":Telescope yank_history<cr>", "find yank history"}
         },
         h = {
