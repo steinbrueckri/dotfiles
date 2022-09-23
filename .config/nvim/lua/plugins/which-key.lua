@@ -75,7 +75,7 @@ wk.register({
                 ":lua require'telescope.builtin'.find_files({ find_command = {'rg','--files','--hidden','-g','!.git'}})<cr>",
                 "files"
             },
-            r = {":lua require(\"spectre\").open()<cr>", "Search and Replace"},
+            r = {":lua require('spectre').open()<cr>", "Search and Replace"},
             g = {":Telescope repo list<cr>", "git repositories"},
             i = {":Telescope gh issues<cr>", "github issues"},
             p = {":Telescope gh pull_request<cr>", "github PRs"},

@@ -5,6 +5,8 @@
 fish_add_path /usr/local/sbin
 fish_add_path $HOME/bin
 fish_add_path $HOME/.cargo/bin
+fish_add_path /opt/homebrew/bin
+fish_add_path /opt/homebrew/sbin
 
 # set default username to hide user@host ... see agnoster theme
 set DEFAULT_USER steinbrueckri
@@ -147,6 +149,9 @@ alias top='btop'
 #                               exports                               #
 #######################################################################
 
+# general
+export EDITOR=nvim
+
 # gpg
 export GPG_TTY=$(tty)
 
@@ -162,7 +167,7 @@ export CLOUDSDK_PYTHON_SITEPACKAGES=1 # pynum is installed
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # ansible stuff
-export ANSIBLE_VAULT_PASSWORD_FILE="~/.vault-password-file"
+# export ANSIBLE_VAULT_PASSWORD_FILE="~/.vault-password-file"
 export PY_COLOR=1
 export ANSIBLE_FORCE_COLOR=1
 

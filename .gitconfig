@@ -20,12 +20,12 @@
 	required = true
 [user]
 	name = Richard Steinbrueck
-	email = richard.steinbrueck@googlemail.com
+	email = richard.steinbrueck@userlike.com
 	signingkey = BE33D8C1950E31D3D2DCD6181A8D9CE1E74F05B1
 [includeIf "gitdir:Projects/pixel-combo/"]
   path = .gitconfig-pixelcombo
-[includeIf "gitdir:Projects/MediaSaturn/"]
-  path = .gitconfig-mediamarktsaturn
+[includeIf "gitdir:Projects/"]
+  path = .gitconfig-pivat
 [alias]
 	plog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 	yolo = !git add -A && git commit -m \"$(curl --silent --fail http://whatthecommit.com/index.txt)\"
@@ -51,5 +51,12 @@
   prompt = false
 [diff]
     colorMoved = default
+[diff "ansible-vault"]
+	textconv = ansible-vault view
+	# Do not cache the vault contents
+	cachetextconv = false
+[merge "ansible-vault"]
+	name = ansible-vault merge driver
+	driver = /usr/local/bin/ansible-vault-merge -- %O %A %B %P
 [url "git@github.com:"]
 	insteadOf = https://github.com/

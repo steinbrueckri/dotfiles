@@ -23,13 +23,15 @@ return packer.startup(function(use)
     use "rcarriga/nvim-notify"
     use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
     use "p00f/nvim-ts-rainbow"
+    use "williamboman/mason.nvim"
+    use "williamboman/mason-lspconfig.nvim"
     use "neovim/nvim-lspconfig"
     use "b0o/schemastore.nvim"
     use "onsails/lspkind-nvim"
     use "tami5/lspsaga.nvim"
     use "folke/lsp-trouble.nvim"
     use "mhartington/formatter.nvim"
-    use {"ms-jpq/coq_nvim", branch = "dev"}
+    use {"ms-jpq/coq_nvim", branch = "coq"}
     use {"ms-jpq/coq.artifacts", branch = "artifacts"}
     use {"ms-jpq/coq.thirdparty", branch = "3p"}
     use "arouene/vim-ansible-vault"
@@ -41,7 +43,10 @@ return packer.startup(function(use)
     use "nvim-telescope/telescope-ui-select.nvim"
     use "nvim-telescope/telescope-github.nvim"
     use "xiyaowong/telescope-emoji.nvim"
-    use {"nvim-telescope/telescope-fzf-native.nvim", run = "make"}
+    use {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build"
+    }
     use "ahmedkhalf/project.nvim"
     use "sheerun/vim-polyglot"
     use "TimUntersberger/neogit"
@@ -86,6 +91,7 @@ return packer.startup(function(use)
     use "lewis6991/impatient.nvim"
     use "gbprod/yanky.nvim"
     use "pianocomposer321/yabs.nvim"
+    use "ThePrimeagen/git-worktree.nvim"
     use {
         "cuducos/yaml.nvim",
         ft = {"yaml"}, -- optional
