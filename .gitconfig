@@ -29,6 +29,7 @@
 [alias]
 	plog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 	yolo = !git add -A && git commit -m \"$(curl --silent --fail http://whatthecommit.com/index.txt)\"
+	clone-for-worktrees = "!sh $HOME/bin/git-clone-bare-for-worktrees.sh"
 [fetch "origin"]
 	prune = true
 [pull]

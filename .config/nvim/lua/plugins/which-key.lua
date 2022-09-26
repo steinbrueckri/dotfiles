@@ -11,7 +11,7 @@ vim.b.mapleader = " "
 vim.g.maplocalleader = ","
 
 -- jk to exit insert mode, very handy on my iPad :)
-vim.api.nvim_set_keymap("i", "jk", "<esc>", {noremap = true})
+-- vim.api.nvim_set_keymap("i", "jk", "<esc>", {noremap = true})
 
 -- better indenting
 vim.api.nvim_set_keymap("v", "<", "<gv", {noremap = true, silent = true})
@@ -37,13 +37,11 @@ wk.register({
     ["<Tab>"] = {":bn<cr>", "Next buffer"},
     ["<S-Tab>"] = {":bp<cr>", "Previous buffer"},
     ["<leader>-"] = {":e#<cr>", "jump to previous file"},
-    ["<leader>T"] = {":ToggleTerm<cr>", "open terminal"},
-    ["<leader>;"] = {":Telescope commands<cr>", "commands"},
     ["<leader>d"] = {":bd<cr>", "delete buffer"},
     ["<leader>q"] = {":bdelete<cr>", "close buffer"},
     ["<leader>Q"] = {":bd!<cr>", "delete buffer"},
-    ["<leader>e"] = {":CHADopen<cr>", "Show the file in the tree"},
-    ["<leader>S"] = {":Alpha<cr>", "Open Dashboard"},
+    ["<leader>e"] = {":NvimTreeToggle<cr>", "Show the file in the tree"},
+    ["<leader>D"] = {":Alpha<cr>", "Open Dashboard"},
     ["<leader>v"] = {":vsplit<cr>", "Split right"},
     ["<leader>w"] = {":w<cr>", "Save"},
     ["<leader>N"] = {":enew<cr>", "Empty buffer"},
@@ -76,7 +74,7 @@ wk.register({
                 "files"
             },
             r = {":lua require('spectre').open()<cr>", "Search and Replace"},
-            g = {":Telescope repo list<cr>", "git repositories"},
+            p = {":Telescope projects<cr>", "Project list"},
             i = {":Telescope gh issues<cr>", "github issues"},
             p = {":Telescope gh pull_request<cr>", "github PRs"},
             y = {":Telescope yank_history<cr>", "find yank history"}
@@ -90,12 +88,12 @@ wk.register({
             name = "+git",
             a = {":Git add %<cr>", "add current"},
             A = {":Git add .<cr>", "add all"},
-            B = {":Telescope git_branches<cr>", "branches"},
+            f = {":Telescope git_worktree git_worktrees<cr>", "Show and search all worktrees"},
+            c = {":Telescope git_worktree create_git_worktree<cr>", "Create worktrees"},
             b = {":Gitsigns blame_line<cr>", "blame_line"},
             d = {":DiffviewOpen<cr>", "diff open"},
             D = {":DiffviewClose<cr>", "diff close"},
             g = {":GHInteractive<cr>", "show line on github"},
-            s = {":Telescope git_status<cr>", "status"},
             Y = {":Git yolo<cr>", "yolo commit"},
             n = {":Neogit<cr>", "Open Neogit"},
             l = {":LazyGit<cr>", "LazyGit"}

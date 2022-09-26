@@ -80,7 +80,6 @@ return packer.startup(function(use)
     use {"akinsho/bufferline.nvim", requires = "kyazdani42/nvim-web-devicons"}
     use {"folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim"}
     use "kyazdani42/nvim-tree.lua"
-    use "ms-jpq/chadtree"
     use "simrat39/symbols-outline.nvim"
     use "mzlogin/vim-markdown-toc"
     use "windwp/nvim-spectre"
