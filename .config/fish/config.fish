@@ -131,6 +131,9 @@ alias do='doctl'
 alias do-new='doctl compute droplet create tmp --region ams3 --size s-2vcpu-2gb --image ubuntu-22-04-x64 --user-data-file .dotfileassets/digitalocean-cloudinit.yaml --ssh-keys "df:17:95:8d:31:56:39:27:d1:04:e3:12:52:36:ed:5b"'
 alias do-new-ssh='ssh $(doctl compute droplet list | grep tmp | awk "{ print $3}")'
 
+## multipass
+alias localvm='multipass launch -c 4 -m 4G -d 50G -n localvm 20.04 --cloud-init .dotfileassets/multipass-common.yaml'
+
 ## docker
 alias dr="docker run -it --rm --entrypoint /bin/sh"
 alias rm-images="docker rmi (docker images -q)"
