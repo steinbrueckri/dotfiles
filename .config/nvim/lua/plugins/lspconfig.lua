@@ -9,6 +9,8 @@ require"lspconfig".bashls.setup {coq.lsp_ensure_capabilities {}}
 
 require"lspconfig".tsserver.setup {}
 
+require'lspconfig'.ansiblels.setup{}
+
 require"lspconfig".terraformls.setup {coq.lsp_ensure_capabilities {}}
 
 require"lspconfig".html.setup {coq.lsp_ensure_capabilities {}}

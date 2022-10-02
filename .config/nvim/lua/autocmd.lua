@@ -30,3 +30,11 @@ vim.cmd [[
     autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}
   augroup end
 ]]
+
+-- Autocommand set file type to ansible based on path
+vim.cmd [[
+  augroup AnsiFileType
+    autocmd!
+    autocmd BufRead,BufNewFile */ansible/* set filetype=yaml.ansible
+  augroup end
+]]
