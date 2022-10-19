@@ -1,65 +1,41 @@
-local catppuccin = require("catppuccin")
+vim.g.catppuccin_flavour = "frappe" -- latte, frappe, macchiato, mocha
+require("catppuccin").setup({
+    compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
+    transparent_background = false,
+    term_colors = false,
+    dim_inactive = {enabled = false, shade = "dark", percentage = 0.15},
+    styles = {
+        comments = {"italic"},
+        conditionals = {"italic"},
+        loops = {},
+        functions = {},
+        keywords = {},
+        strings = {},
+        variables = {},
+        numbers = {},
+        booleans = {},
+        properties = {},
+        types = {},
+        operators = {}
+    },
+    integrations = {
+        bufferline = true,
+        cmp = true,
+        gitsigns = true,
+        lsp_saga = true,
+        markdown = true,
+        mini = true,
+        native_lsp = true,
+        nvimtree = true,
+        telescope = true,
+        treesitter = true,
+        lsp_trouble = true,
+        ts_rainbow = true,
+        which_key = true
+        -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+    },
+    color_overrides = {},
+    custom_highlights = {}
+})
 
-catppuccin.setup{
-	transparent_background = true,
-	term_colors = false,
-	compile = {
-		enabled = false,
-		path = vim.fn.stdpath "cache" .. "/catppuccin",
-		suffix = "_compiled"
-	},
-	styles = {
-		comments = "italic",
-		functions = "italic",
-		keywords = "italic",
-		strings = "NONE",
-		variables = "italic",
-	},
-	integrations = {
-		treesitter = true,
-		native_lsp = {
-			enabled = true,
-			virtual_text = {
-				errors = "italic",
-				hints = "italic",
-				warnings = "italic",
-				information = "italic",
-			},
-			underlines = {
-				errors = "underline",
-				hints = "underline",
-				warnings = "underline",
-				information = "underline",
-			},
-		},
-		lsp_trouble = true,
-		cmp = true,
-		lsp_saga = true,
-		gitgutter = false,
-		gitsigns = true,
-		telescope = true,
-		nvimtree = {
-			enabled = false,
-		},
-		neotree = {
-			enabled = false,
-		},
-		which_key = true,
-		indent_blankline = {
-			enabled = true,
-			colored_indent_levels = true,
-		},
-		dashboard = true,
-		neogit = true,
-		vim_sneak = false,
-		fern = false,
-		barbar = false,
-		bufferline = true,
-		markdown = true,
-		lightspeed = false,
-		ts_rainbow = true,
-		hop = false,
-		notify = true,
-		telekasten = true,
-	}
-}
+vim.api.nvim_command "colorscheme catppuccin"

@@ -35,6 +35,6 @@ vim.cmd [[
 vim.cmd [[
   augroup AnsiFileType
     autocmd!
-    autocmd BufRead,BufNewFile */ansible/* set filetype=yaml.ansible
+    autocmd BufRead,BufNewFile */ansible/**.yml set filetype=yaml.ansible
   augroup end
 ]]

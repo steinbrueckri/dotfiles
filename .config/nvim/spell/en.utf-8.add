@@ -80,3 +80,5 @@ vSwitch
 datacenter
 datacenters
 Django
+PostgreSQL
+StorageBox

@@ -68,7 +68,6 @@ cmd [[au BufWritePre * :%s/\s\+$//e]]
 -- Colorscheme
 -----------------------------------------------------------
 opt.background = "dark" -- set colorschema
-cmd([[colorscheme catppuccin]]) -- set colorschema
 
 -----------------------------------------------------------
 -- Other stuff

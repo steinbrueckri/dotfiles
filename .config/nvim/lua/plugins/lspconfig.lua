@@ -1,25 +1,17 @@
 local coq = require "coq"
 
 require("mason").setup()
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup({automatic_installation = false})
 
 require"lspconfig".pyright.setup {coq.lsp_ensure_capabilities {}}
-
 require"lspconfig".bashls.setup {coq.lsp_ensure_capabilities {}}
-
-require"lspconfig".tsserver.setup {}
-
-require'lspconfig'.ansiblels.setup{}
-
+require"lspconfig".tsserver.setup {coq.lsp_ensure_capabilities {}}
+require"lspconfig".ansiblels.setup {coq.lsp_ensure_capabilities {}}
 require"lspconfig".terraformls.setup {coq.lsp_ensure_capabilities {}}
-
+require"lspconfig".marksman.setup {coq.lsp_ensure_capabilities {}}
 require"lspconfig".html.setup {coq.lsp_ensure_capabilities {}}
-
 require"lspconfig".dockerls.setup {coq.lsp_ensure_capabilities {}}
-
 require"lspconfig".cssls.setup {coq.lsp_ensure_capabilities {}}
-
-require"lspconfig".solargraph.setup {coq.lsp_ensure_capabilities {}}
 
 require("lspconfig").efm.setup({
     cmd = {"efm-langserver", "-logfile", "/tmp/efm.log", "-loglevel", "1"},

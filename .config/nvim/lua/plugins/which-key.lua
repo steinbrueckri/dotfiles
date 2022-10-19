@@ -106,11 +106,12 @@ wk.register({
         },
         n = {
             name = "+Notes",
-            f = {":lua require(\"telekasten\").search_notes()<cr>", "Search for Notes by name"},
-            n = {":lua require(\"telekasten\").new_note()<cr>", "Create new Note"},
-            t = {":lua require(\"telekasten\").goto_today()<cr>", "Create / edit todays Notes"},
-            w = {":lua require(\"telekasten\").goto_thisweek()<cr>", "Create / edit week Notes"},
-            N = {":lua require(\"telekasten\").new_templated_note()<cr>", "Create new Template Note"}
+            n = {":lua require('arachne').new()<cr>", "Create new note"},
+            r = {":lua require('arachne').rename()<cr>", "Rename note"},
+            f = {
+                ":lua require('telescope.builtin').live_grep {prompt_title = '<notes::search>', cwd = '~/notes'}<cr>",
+                "Search for notes by content"
+            }
         },
         l = {name = "+LSP"},
         t = {

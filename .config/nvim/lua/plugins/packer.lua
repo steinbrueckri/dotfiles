@@ -53,6 +53,7 @@ return packer.startup(function(use)
     use "kdheepak/lazygit.nvim"
     use "lewis6991/gitsigns.nvim"
     use "sindrets/diffview.nvim"
+    use "oem/arachne.nvim"
     use({
         "iamcco/markdown-preview.nvim",
         run = "cd app && npm install",
@@ -79,11 +80,10 @@ return packer.startup(function(use)
     use "christianrondeau/vim-base64"
     use {"akinsho/bufferline.nvim", requires = "kyazdani42/nvim-web-devicons"}
     use {"folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim"}
-    use "kyazdani42/nvim-tree.lua"
+    use "nvim-tree/nvim-tree.lua"
     use "simrat39/symbols-outline.nvim"
     use "mzlogin/vim-markdown-toc"
     use "windwp/nvim-spectre"
-    use "renerocksai/telekasten.nvim"
     use {"echasnovski/mini.nvim", branch = "stable"}
     use "NTBBloodbath/rest.nvim"
     use "leafOfTree/vim-matchtag"
