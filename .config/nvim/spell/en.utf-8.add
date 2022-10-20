@@ -82,3 +82,7 @@ datacenters
 Django
 PostgreSQL
 StorageBox
+Webstack
+HAProxy
+Nginx
+UWSGI

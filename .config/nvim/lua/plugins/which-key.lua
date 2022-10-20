@@ -11,7 +11,7 @@ vim.b.mapleader = " "
 vim.g.maplocalleader = ","
 
 -- jk to exit insert mode, very handy on my iPad :)
--- vim.api.nvim_set_keymap("i", "jk", "<esc>", {noremap = true})
+vim.api.nvim_set_keymap("i", "jk", "<esc>", {noremap = true})
 
 -- better indenting
 vim.api.nvim_set_keymap("v", "<", "<gv", {noremap = true, silent = true})
@@ -68,10 +68,10 @@ wk.register({
         f = {
             name = "+find",
             a = {":Telescope live_grep<cr>", "grep over all"},
-            c = {":Telescope git_commits<cr>", "commits"},
+            c = {":lua require('telescope.builtin').find_files({cwd = vim.fn.stdpath('config')})<cr>", "search config"},
             f = {
                 ":lua require'telescope.builtin'.find_files({ find_command = {'rg','--files','--hidden','-g','!.git'}})<cr>",
-                "files"
+                "search files"
             },
             r = {":lua require('spectre').open()<cr>", "Search and Replace"},
             p = {":Telescope projects<cr>", "Project list"},

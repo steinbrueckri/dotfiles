@@ -25,13 +25,26 @@ require("catppuccin").setup({
         lsp_saga = true,
         markdown = true,
         mini = true,
-        native_lsp = true,
+        mason = true,
+        neogit = true,
+        notify = true,
+        symbols_outline = true,
         nvimtree = true,
         telescope = true,
         treesitter = true,
         lsp_trouble = true,
         ts_rainbow = true,
-        which_key = true
+        which_key = true,
+        native_lsp = {
+            enabled = true,
+            virtual_text = {errors = {"italic"}, hints = {"italic"}, warnings = {"italic"}, information = {"italic"}},
+            underlines = {
+                errors = {"underline"},
+                hints = {"underline"},
+                warnings = {"underline"},
+                information = {"underline"}
+            }
+        }
         -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
     },
     color_overrides = {},

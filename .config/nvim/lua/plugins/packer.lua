@@ -47,6 +47,7 @@ return packer.startup(function(use)
         "nvim-telescope/telescope-fzf-native.nvim",
         run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build"
     }
+    use {"axkirillov/easypick.nvim", requires = "nvim-telescope/telescope.nvim"}
     use "ahmedkhalf/project.nvim"
     use "sheerun/vim-polyglot"
     use "TimUntersberger/neogit"
