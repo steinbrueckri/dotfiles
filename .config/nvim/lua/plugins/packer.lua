@@ -19,7 +19,7 @@ end
 -- Install your plugins here
 return packer.startup(function(use)
     use "wbthomason/packer.nvim"
-    use {"nvim-lualine/lualine.nvim", requires = {"kyazdani42/nvim-web-devicons", opt = true}}
+    use {"nvim-lualine/lualine.nvim", requires = {"nvim-tree/nvim-web-devicons", opt = true}}
     use "rcarriga/nvim-notify"
     use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
     use "p00f/nvim-ts-rainbow"
@@ -74,12 +74,12 @@ return packer.startup(function(use)
     use "ethanholz/nvim-lastplace"
     use "numToStr/Comment.nvim"
     use "norcalli/nvim-colorizer.lua"
-    use "pwntester/octo.nvim"
     use "ruanyl/vim-gh-line"
     use {"catppuccin/nvim", as = "catppuccin", run = "CatppuccinCompile"}
     use "dstein64/vim-startuptime"
     use "christianrondeau/vim-base64"
-    use {"akinsho/bufferline.nvim", requires = "kyazdani42/nvim-web-devicons"}
+    use "kyazdani42/nvim-web-devicons"
+    use {"akinsho/bufferline.nvim", requires = "nvim-tree/nvim-web-devicons"}
     use {"folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim"}
     use "nvim-tree/nvim-tree.lua"
     use "simrat39/symbols-outline.nvim"
@@ -90,8 +90,6 @@ return packer.startup(function(use)
     use "leafOfTree/vim-matchtag"
     use "lewis6991/impatient.nvim"
     use "gbprod/yanky.nvim"
-    use "pianocomposer321/yabs.nvim"
-    use "ThePrimeagen/git-worktree.nvim"
     use {
         "cuducos/yaml.nvim",
         ft = {"yaml"}, -- optional

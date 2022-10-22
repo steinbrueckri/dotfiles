@@ -26,6 +26,7 @@ vim.api.nvim_set_keymap("v", "<leader>bc", ":<c-u>call base64#v_btoa()<cr>", {no
 -----------------------------------------------------------
 
 local wk = require("which-key")
+
 wk.register({
     ["gW"] = {":!open https://www.google.com/search?q=<cWORD><cr>", "Search for word on cursor"},
     ["gF"] = {":e <cfile><cr>", "create and goto file"},
@@ -36,35 +37,32 @@ wk.register({
     ["<leader><Right>"] = {":wincmd l<cr>", "goto split"},
     ["<Tab>"] = {":bn<cr>", "Next buffer"},
     ["<S-Tab>"] = {":bp<cr>", "Previous buffer"},
-    ["<leader>-"] = {":e#<cr>", "jump to previous file"},
-    ["<leader>d"] = {":bd<cr>", "delete buffer"},
-    ["<leader>q"] = {":bdelete<cr>", "close buffer"},
-    ["<leader>Q"] = {":bd!<cr>", "delete buffer"},
-    ["<leader>e"] = {":NvimTreeToggle<cr>", "Show the file in the tree"},
-    ["<leader>D"] = {":Alpha<cr>", "Open Dashboard"},
-    ["<leader>v"] = {":vsplit<cr>", "Split right"},
-    ["<leader>w"] = {":w<cr>", "Save"},
-    ["<leader>N"] = {":enew<cr>", "Empty buffer"},
     ["Z"] = {":Telescope spell_suggest<cr>", "spell suggest"},
-    ["<c-k>"] = {":lua vim.lsp.buf.hover()<cr>", "Show LSP Help"},
-    ["U"] = {":redo<cr>", "Redo"}
-})
-
---- group mappings
-
-wk.register({
+    ["U"] = {":redo<cr>", "Redo"},
+    l = {
+        name = "+lsp",
+        s = {":Lspsaga show_line_diagnostics<cr>", "Show line diagnostics"},
+        S = {":Lspsaga show_cursor_diagnostics<cr>", "Show cursor diagnostics"},
+        r = {":Lspsaga rename<cr>", "Rename symbole"},
+        d = {":Lspsaga preview_definition<cr>", "Show definition"},
+        h = {":Lspsaga hover_doc<cr>", "Hover Doc"},
+        a = {":Lspsaga rename<cr>", "Code action"}
+    },
+    -- LEADER Mappings
     ["<leader>"] = {
+        d = {":bd<cr>", "delete buffer"},
+        q = {":bdelete<cr>", "close buffer"},
+        Q = {":bd!<cr>", "delete buffer"},
+        e = {":NvimTreeToggle<cr>", "Show the file in the tree"},
+        D = {":Alpha<cr>", "Open Dashboard"},
+        v = {":vsplit<cr>", "Split right"},
+        w = {":w<cr>", "Save"},
+        N = {":enew<cr>", "Empty buffer"},
         a = {
             name = "+ansible",
             v = {":AnsibleVault<cr>", "ansible vault"},
             u = {":AnsibleUnvault<cr>", "ansible unvault"}
         },
-        c = {
-            name = "+config",
-            e = {":cd ~/.config/nvim/ | edit init.lua<cr>", "edit config"},
-            r = {":Reload<cr>", "reload config"}
-        },
-        s = {name = "+scratch", n = {"", ""}},
         f = {
             name = "+find",
             a = {":Telescope live_grep<cr>", "grep over all"},
@@ -75,8 +73,8 @@ wk.register({
             },
             r = {":lua require('spectre').open()<cr>", "Search and Replace"},
             p = {":Telescope projects<cr>", "Project list"},
-            i = {":Telescope gh issues<cr>", "github issues"},
-            p = {":Telescope gh pull_request<cr>", "github PRs"},
+            I = {":Telescope gh issues<cr>", "github issues"},
+            P = {":Telescope gh pull_request<cr>", "github PRs"},
             y = {":Telescope yank_history<cr>", "find yank history"}
         },
         h = {
@@ -88,8 +86,6 @@ wk.register({
             name = "+git",
             a = {":Git add %<cr>", "add current"},
             A = {":Git add .<cr>", "add all"},
-            f = {":Telescope git_worktree git_worktrees<cr>", "Show and search all worktrees"},
-            c = {":Telescope git_worktree create_git_worktree<cr>", "Create worktrees"},
             b = {":Gitsigns blame_line<cr>", "blame_line"},
             d = {":DiffviewOpen<cr>", "diff open"},
             D = {":DiffviewClose<cr>", "diff close"},
@@ -97,12 +93,6 @@ wk.register({
             Y = {":Git yolo<cr>", "yolo commit"},
             n = {":Neogit<cr>", "Open Neogit"},
             l = {":LazyGit<cr>", "LazyGit"}
-        },
-        gh = {
-            name = "+GitHub",
-            il = {":Octo issue list<cr>", "GitHub issue list"},
-            pl = {":Octo pr list<cr>", "GitHub Pull request list"},
-            po = {":Octo pr open<cr>", "GitHub Pull request open"}
         },
         n = {
             name = "+Notes",
@@ -113,7 +103,6 @@ wk.register({
                 "Search for notes by content"
             }
         },
-        l = {name = "+LSP"},
         t = {
             name = "+toggle",
             c = {":ColorizerToggle<cr>", "colorizer"},
@@ -123,7 +112,7 @@ wk.register({
             m = {":MarkdownPreviewToggle<cr>", "Show Markdown preview"},
             R = {":set norelativenumber!<cr>", "relative line nums"},
             T = {":TodoTelescope<cr>", "show tasks"},
-            r = {":LspTroubleToggle<cr>", "LSP Issue viewer"},
+            r = {":TroubleToggle<cr>", "LSP Issue viewer"},
             t = {":TableModeToggle<cr>", "TableModeToggle"}
         },
         p = {

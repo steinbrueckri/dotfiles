@@ -4,3 +4,5 @@ require("neogit").setup()
 require("Comment").setup()
 require("colorizer").setup()
 require("arachne").setup {notes_directory = "~/notes"}
+require("symbols-outline").setup()
+require"lspsaga".init_lsp_saga {error_sign = "", warn_sign = "", hint_sign = "", infor_sign = ""}
