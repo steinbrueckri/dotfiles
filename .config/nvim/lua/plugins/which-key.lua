@@ -21,6 +21,10 @@ vim.api.nvim_set_keymap("v", ">", ">gv", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("v", "<leader>bu", ":<c-u>call base64#v_atob()<cr>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("v", "<leader>bc", ":<c-u>call base64#v_btoa()<cr>", {noremap = true, silent = true})
 
+-- screenshots
+vim.api.nvim_set_keymap("v", "<Leader>s", ":SiliconPb<cr>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("v", "<Leader>S", ":Silicon<cr>", {noremap = true, silent = true})
+
 -----------------------------------------------------------
 -- Which-key Setup
 -----------------------------------------------------------
@@ -28,7 +32,7 @@ vim.api.nvim_set_keymap("v", "<leader>bc", ":<c-u>call base64#v_btoa()<cr>", {no
 local wk = require("which-key")
 
 wk.register({
-    ["gW"] = {":!open https://www.google.com/search?q=<cWORD><cr>", "Search for word on cursor"},
+    ["gW"] = {":BrowserSearch<cr>", "Search for word on cursor"},
     ["gF"] = {":e <cfile><cr>", "create and goto file"},
     ["<esc>"] = {":noh<cr>", "clear search highlight"},
     ["<leader><Up>"] = {":wincmd k<cr>", "goto split"},
@@ -75,7 +79,8 @@ wk.register({
             p = {":Telescope projects<cr>", "Project list"},
             I = {":Telescope gh issues<cr>", "github issues"},
             P = {":Telescope gh pull_request<cr>", "github PRs"},
-            y = {":Telescope yank_history<cr>", "find yank history"}
+            y = {":Telescope yank_history<cr>", "find yank history"},
+            b = {":Telescope git_branches<cr>", "find git branches"}
         },
         h = {
             name = "+http",

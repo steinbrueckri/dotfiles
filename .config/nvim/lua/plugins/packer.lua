@@ -90,6 +90,10 @@ return packer.startup(function(use)
     use "leafOfTree/vim-matchtag"
     use "lewis6991/impatient.nvim"
     use "gbprod/yanky.nvim"
+    use "voldikss/vim-browser-search"
+    use "narutoxy/silicon.lua"
+    use "MunifTanjim/nui.nvim"
+    use "folke/noice.nvim"
     use {
         "cuducos/yaml.nvim",
         ft = {"yaml"}, -- optional

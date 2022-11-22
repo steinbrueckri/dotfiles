@@ -2,8 +2,6 @@
 .DS_Store
 .idea
 *.iml
-*.pem
-*.key
 *.tags
 tags
 .config/fish/fundle/**
