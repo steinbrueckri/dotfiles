@@ -93,7 +93,6 @@ return packer.startup(function(use)
     use "voldikss/vim-browser-search"
     use "narutoxy/silicon.lua"
     use "MunifTanjim/nui.nvim"
-    use "folke/noice.nvim"
     use {
         "cuducos/yaml.nvim",
         ft = {"yaml"}, -- optional
