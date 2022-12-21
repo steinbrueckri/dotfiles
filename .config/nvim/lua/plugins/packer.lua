@@ -23,6 +23,14 @@ return packer.startup(function(use)
     use "rcarriga/nvim-notify"
     use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
     use "p00f/nvim-ts-rainbow"
+    -- completion
+    use "hrsh7th/nvim-cmp"
+    use "hrsh7th/cmp-nvim-lsp"
+    use {"tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp"}
+    use "andersevenrud/cmp-tmux"
+    use "L3MON4D3/LuaSnip"
+    use "saadparwaiz1/cmp_luasnip"
+    use "rafamadriz/friendly-snippets"
     use "williamboman/mason.nvim"
     use "williamboman/mason-lspconfig.nvim"
     use "neovim/nvim-lspconfig"
@@ -31,9 +39,9 @@ return packer.startup(function(use)
     use "tami5/lspsaga.nvim"
     use "folke/lsp-trouble.nvim"
     use "mhartington/formatter.nvim"
-    use {"ms-jpq/coq_nvim", branch = "coq"}
-    use {"ms-jpq/coq.artifacts", branch = "artifacts"}
-    use {"ms-jpq/coq.thirdparty", branch = "3p"}
+    -- use {"ms-jpq/coq_nvim", branch = "coq"}
+    -- use {"ms-jpq/coq.artifacts", branch = "artifacts"}
+    -- use {"ms-jpq/coq.thirdparty", branch = "3p"}
     use "arouene/vim-ansible-vault"
     use "nvim-lua/popup.nvim"
     use "nvim-lua/plenary.nvim"

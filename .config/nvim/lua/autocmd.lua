@@ -2,7 +2,7 @@
 vim.api.nvim_exec([[
 augroup FormatAutogroup
   autocmd!
-  autocmd BufWritePost *.md,*.lua,*.yaml,*.yml,*.go,*.py,*.json,*.tf FormatWrite
+  autocmd BufWritePost *.md,*.yaml,*.yml,*.go,*.py,*.json,*.tf FormatWrite
 augroup END
 ]], true)
 
@@ -10,7 +10,7 @@ augroup END
 vim.cmd [[
   augroup packer_user_config
     autocmd!
-    autocmd BufWritePost packer.lua source <afile> | PackerSync
+    autocmd BufWritePost plugins.lua source <afile> | Lazy sync
   augroup end
 ]]
 

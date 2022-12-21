@@ -5,18 +5,17 @@
 --   ██║██║ ╚████║██║   ██║██╗███████╗╚██████╔╝██║  ██║
 --   ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝
 -- Neovim init file
-require("plugins/packer")
+require("plugins")
 require("settings")
-require("lua")
+-- require("lua") -- check if we need this or not
 require("autocmd")
-require("impatient").enable_profile()
 require("plugins/which-key")
 require("plugins/coq")
 require("plugins/alpha")
 require("plugins/gitsigns")
 require("plugins/indent-blankline")
 require("plugins/project")
-require("plugins/lspconfig")
+require("plugins/lsp")
 require("plugins/lspkind")
 require("plugins/bufferline")
 require("plugins/symbols-outline")
