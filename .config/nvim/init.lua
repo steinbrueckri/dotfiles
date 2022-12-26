@@ -10,7 +10,6 @@ require("settings")
 -- require("lua") -- check if we need this or not
 require("autocmd")
 require("plugins/which-key")
-require("plugins/coq")
 require("plugins/alpha")
 require("plugins/gitsigns")
 require("plugins/indent-blankline")

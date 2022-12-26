@@ -31,33 +31,39 @@ lsp.ensure_installed({
 
 lsp.setup_nvim_cmp({
     sources = {
-        {name = "path"}, {name = "cmp_tabnine"}, {name = "tmux"}, {name = "nvim_lua", keyword_length = 3},
-        {name = "nvim_lsp", keyword_length = 3}, {name = "buffer", keyword_length = 3},
-        {name = "luasnip", keyword_length = 2}
+        {name = "buffer"},
+        {name = "tmux"},
+        {name = "path"},
+        {name = "cmp_tabnine"},
+        {name = "nvim_lsp"},
+        {name = "luasnip"},
+        {name = "nvim_lua"},
+        {name = "emoji"}
     }
 })
 
-lsp.setup_nvim_cmp({
-    formatting = {
-        -- changing the order of fields so the icon is the first
-        fields = {"menu", "abbr", "kind"},
-
-        -- here is where the change happens
-        format = function(entry, item)
-            local menu_icon = {
-                cmp_tabnine = "",
-                nvim_lsp = "λ",
-                luasnip = "⋗",
-                buffer = "Ω",
-                tmux = "Ω",
-                path = "🖫",
-                nvim_lua = "Π"
-            }
-
-            item.menu = menu_icon[entry.source.name]
-            return item
-        end
-    }
-})
+-- TODO: if i turn this on some cmp sources don't work anymore
+-- lsp.setup_nvim_cmp({
+--     formatting = {
+--         -- changing the order of fields so the icon is the first
+--         fields = {"menu", "abbr", "kind"},
+--
+--         -- here is where the change happens
+--         format = function(entry, item)
+--             local menu_icon = {
+--                 buffer = "Ω",
+--                 tmux = "Ω",
+--                 path = "🖫",
+--                 cmp_tabnine = "",
+--                 nvim_lsp = "λ",
+--                 luasnip = "⋗",
+--                 nvim_lua = "Π"
+--             }
+--
+--             item.menu = menu_icon[entry.source.name]
+--             return item
+--         end
+--     }
+-- })
 
 lsp.setup()
