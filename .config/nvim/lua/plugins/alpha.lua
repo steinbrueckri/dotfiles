@@ -17,7 +17,6 @@ dashboard.section.header.val = {
 dashboard.section.footer.val = {
     "simplicity is the ultimate sophistication", "                      - leonardo da vinci"
 }
-
 -- Set menu
 dashboard.section.buttons.val = {
     dashboard.button("e", "🆕 > New file", ":ene <BAR> startinsert <CR>"),

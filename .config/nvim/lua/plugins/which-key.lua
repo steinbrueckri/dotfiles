@@ -43,15 +43,6 @@ wk.register({
     ["<S-Tab>"] = {":bp<cr>", "Previous buffer"},
     ["Z"] = {":Telescope spell_suggest<cr>", "spell suggest"},
     ["U"] = {":redo<cr>", "Redo"},
-    l = {
-        name = "+lsp",
-        s = {":Lspsaga show_line_diagnostics<cr>", "Show line diagnostics"},
-        S = {":Lspsaga show_cursor_diagnostics<cr>", "Show cursor diagnostics"},
-        r = {":Lspsaga rename<cr>", "Rename symbole"},
-        d = {":Lspsaga preview_definition<cr>", "Show definition"},
-        h = {":Lspsaga hover_doc<cr>", "Hover Doc"},
-        a = {":Lspsaga rename<cr>", "Code action"}
-    },
     -- LEADER Mappings
     ["<leader>"] = {
         d = {":bd<cr>", "delete buffer"},
