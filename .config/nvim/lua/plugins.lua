@@ -69,7 +69,7 @@ local plugins = {
     "numToStr/Comment.nvim",
     "norcalli/nvim-colorizer.lua",
     "ruanyl/vim-gh-line",
-    {"catppuccin/nvim", name = "catppuccin", build = "CatppuccinCompile"},
+    {"catppuccin/nvim", name = "catppuccin"},
     "dstein64/vim-startuptime",
     "christianrondeau/vim-base64",
     {"akinsho/bufferline.nvim", dependencies = "nvim-tree/nvim-web-devicons"},

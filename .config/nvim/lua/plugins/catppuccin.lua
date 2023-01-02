@@ -51,4 +51,5 @@ require("catppuccin").setup({
     custom_highlights = {}
 })
 
+require('catppuccin').compile()
 vim.api.nvim_command "colorscheme catppuccin"
