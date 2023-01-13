@@ -88,7 +88,8 @@ wk.register({
             g = {":GHInteractive<cr>", "show line on github"},
             Y = {":Git yolo<cr>", "yolo commit"},
             n = {":Neogit<cr>", "Open Neogit"},
-            l = {":LazyGit<cr>", "LazyGit"}
+            l = {":LazyGit<cr>", "Open LazyGit"},
+            f = {":!fork status $PWD<cr><cr>", "Open Fork"}
         },
         n = {
             name = "+Notes",

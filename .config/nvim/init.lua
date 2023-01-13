@@ -7,7 +7,6 @@
 -- Neovim init file
 require("plugins")
 require("settings")
--- require("lua") -- check if we need this or not
 require("autocmd")
 require("plugins/which-key")
 require("plugins/alpha")

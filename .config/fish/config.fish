@@ -230,3 +230,4 @@ if test -e $gcloud
 end
 
 direnv hook fish | source
+source /Users/richardsteinbrueck/.config/op/plugins.sh
