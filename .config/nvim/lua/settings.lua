@@ -76,3 +76,7 @@ g.smoothie_experimental_mappings = true -- enable g/G mapping for vim-smoothie
 -- matchtag is used because treesitter is not able to do this until now. see -> https://github.com/nvim-treesitter/nvim-treesitter/issues/2565
 g.vim_matchtag_enable_by_default = 1 -- enable matchtag
 g.vim_matchtag_files = "*.html,*.xml,*.js,*.jsx,*.vue,*.svelte,*.jsp" -- set matchtag file filter
+
+g.loaded_node_provider = 0
+g.loaded_ruby_provider = 0
+g.loaded_perl_provider = 0

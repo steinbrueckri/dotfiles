@@ -185,6 +185,9 @@ export GPG_TTY=$(tty)
 export KUBE_EDITOR="nvim"
 export PATH="$PATH:$HOME/.krew/bin"
 
+# rust stuff
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # gcloud stuff
 export CLOUDSDK_PYTHON_SITEPACKAGES=1 # pynum is installed
 

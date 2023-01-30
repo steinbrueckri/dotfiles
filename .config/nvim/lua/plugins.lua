@@ -82,6 +82,7 @@ local plugins = {
     "voldikss/vim-browser-search",
     "narutoxy/silicon.lua", -- It can render your source code into a beautiful image.
     "MunifTanjim/nui.nvim", -- UI Component Library for Neovim.
+    "folke/noice.nvim",
 }
 
 local options = {}

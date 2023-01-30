@@ -71,7 +71,8 @@ wk.register({
             I = {":Telescope gh issues<cr>", "github issues"},
             P = {":Telescope gh pull_request<cr>", "github PRs"},
             y = {":Telescope yank_history<cr>", "find yank history"},
-            b = {":Telescope git_branches<cr>", "find git branches"}
+            b = {":Telescope git_branches<cr>", "find git branches"},
+            o = {":Telescope oldfiles<cr>", "Show recent files"}
         },
         h = {
             name = "+http",
