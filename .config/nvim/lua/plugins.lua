@@ -61,7 +61,16 @@ local plugins = {
     "psliwka/vim-smoothie",
     "folke/which-key.nvim",
     "sotte/presenting.vim",
-    "tpope/vim-eunuch", -- remove, rename - Vim sugar for the UNIX shell commands that need it the most
+    { "chrisgrieser/nvim-genghis", -- remove, rename - Vim sugar for the UNIX shell commands that need it the most
+        dependencies = {
+        "stevearc/dressing.nvim",
+        "hrsh7th/nvim-cmp",
+        "hrsh7th/cmp-omni",
+      },
+      config = function ()
+        require("genghis")
+      end
+    },
     "goolord/alpha-nvim",
     "ethanholz/nvim-lastplace",
     "numToStr/Comment.nvim",
@@ -83,6 +92,7 @@ local plugins = {
     "narutoxy/silicon.lua", -- It can render your source code into a beautiful image.
     "MunifTanjim/nui.nvim", -- UI Component Library for Neovim.
     "folke/noice.nvim",
+    "aserowy/tmux.nvim",
 }
 
 local options = {}
