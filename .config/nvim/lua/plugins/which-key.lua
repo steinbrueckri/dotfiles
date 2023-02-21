@@ -73,7 +73,8 @@ wk.register({
             y = {":Telescope yank_history<cr>", "find yank history"},
             B = {":Telescope git_branches<cr>", "find git branches"},
             o = {":Telescope oldfiles<cr>", "Show recent files"},
-            b = {":Telescope buffers", "Show buffer"}
+            b = {":Telescope buffers<cr>", "Show buffer"},
+            u = {":Telescope undo<cr>", "Show Undo History"},
         },
         h = {
             name = "+http",

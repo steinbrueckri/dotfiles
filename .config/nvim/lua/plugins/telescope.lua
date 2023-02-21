@@ -8,7 +8,10 @@ require("telescope").setup {
                 require("telescope.previewers.utils").job_maker(cmd, bufnr, opts)
             end
         },
-        extensions = {repo = {list = {fd_opts = {"--no-ignore-vcs"}, search_dirs = {"~/Projects/"}}}},
+        extensions = {
+            undo = {side_by_side = true, layout_strategy = "vertical", layout_config = {preview_height = 0.8}},
+            repo = {list = {fd_opts = {"--no-ignore-vcs"}, search_dirs = {"~/Projects/"}}}
+        },
         prompt_prefix = "   ",
         selection_caret = "  ",
         entry_prefix = "  ",
@@ -43,3 +46,4 @@ require("telescope").setup {
 require("telescope").load_extension("emoji")
 require("telescope").load_extension("gh")
 require("telescope").load_extension("projects")
+require("telescope").load_extension("undo")
