@@ -7,6 +7,7 @@ fish_add_path $HOME/bin
 fish_add_path $HOME/.cargo/bin
 fish_add_path /opt/homebrew/bin
 fish_add_path /opt/homebrew/sbin
+fish_add_path $HOME/.local/share/bob/nvim-bin
 
 # set default username to hide user@host ... see agnoster theme
 set DEFAULT_USER steinbrueckri
@@ -129,6 +130,8 @@ end
 alias vim="nvim"
 alias vi="nvim"
 alias v="nvim"
+alias nvim-switch-nightly="bob use nightly"
+alias nvim-switch-stable="bob use stable"
 
 # kubernetes stuff
 alias kx="kubectx"

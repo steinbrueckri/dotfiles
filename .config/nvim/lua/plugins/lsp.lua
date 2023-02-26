@@ -1,7 +1,3 @@
--- schemastore
-local json_schemas = require("schemastore").json.schemas {}
-local yaml_schemas = {}
-
 -- lsp-zero
 local lsp = require("lsp-zero")
 lsp.preset("recommended")
@@ -13,11 +9,19 @@ lsp.ensure_installed({
     "taplo", "sqlls", "cmake"
 })
 
+require("mason-null-ls").setup({
+    automatic_installation = true,
+    automatic_setup = true,
+})
+
+require 'mason-null-ls'.setup_handlers() -- If `automatic_setup` is true.
+
 lsp.setup_nvim_cmp({
     sources = {
         {name = "buffer"},
         {name = "tmux"},
         {name = "path"},
+        {name = "fish"},
         {name = "cmp_tabnine"},
         {name = "nvim_lsp"},
         {name = "luasnip"},
@@ -26,29 +30,25 @@ lsp.setup_nvim_cmp({
     }
 })
 
--- TODO: if i turn this on some cmp sources don't work anymore
--- lsp.setup_nvim_cmp({
---     formatting = {
---         -- changing the order of fields so the icon is the first
---         fields = {"menu", "abbr", "kind"},
---
---         -- here is where the change happens
---         format = function(entry, item)
---             local menu_icon = {
---                 buffer = "Ω",
---                 tmux = "Ω",
---                 path = "🖫",
---                 cmp_tabnine = "",
---                 nvim_lsp = "λ",
---                 luasnip = "⋗",
---                 nvim_lua = "Π"
---             }
---
---             item.menu = menu_icon[entry.source.name]
---             return item
---         end
---     }
--- })
+-- schemastore
+local schemastore = require("schemastore")
+local schemas = schemastore.json.schemas()
+
+lsp.configure("jsonls", {
+	settings = {
+		json = {
+			schemas = schemas,
+		},
+	},
+})
+
+lsp.configure("yamlls", {
+	settings = {
+		yaml = {
+			schemas = schemas,
+		},
+	},
+})
 
 lsp.setup()
 

@@ -8,6 +8,7 @@
 require("plugins")
 require("settings")
 require("autocmd")
+require("functions")
 require("plugins/which-key")
 require("plugins/alpha")
 require("plugins/gitsigns")
@@ -32,3 +33,4 @@ require("plugins/silicon")
 require("plugins/snippets")
 require("plugins/tmux")
 require("plugins/noice")
+

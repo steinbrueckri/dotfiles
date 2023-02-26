@@ -130,7 +130,11 @@ local function footer()
   local plugins_count = vim.fn.len(vim.fn.globpath("~/.local/share/nvim/lazy/", "*", 0, 1))
   local datetime = os.date("  %d-%m-%Y   %H:%M:%S")
   local version = vim.version()
-  local nvim_version_info = "   v" .. version.major .. "." .. version.minor .. "." .. version.patch
+  local prerelease = ""
+  if version.prerelease then
+      prerelease = "-DEV"
+  end
+  local nvim_version_info = "   v" .. version.major .. "." .. version.minor .. "." .. version.patch .. prerelease
   return datetime .. "   Plugins " .. plugins_count .. nvim_version_info
 end
 dashboard.section.footer.val = footer()
