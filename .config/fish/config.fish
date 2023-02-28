@@ -170,6 +170,7 @@ alias hosts="hosts --auto-sudo"
 alias tx='tmuxinator'
 alias ls='exa --icons'
 alias top='btop'
+alias watch='viddy'
 
 #######################################################################
 #                               exports                               #
@@ -235,5 +236,9 @@ if test -e $gcloud
   source $gcloud
 end
 
+set op "~/.config/op/plugins.sh"
+if test -e $op
+  source $op
+end
+
 direnv hook fish | source
-source /Users/richardsteinbrueck/.config/op/plugins.sh
