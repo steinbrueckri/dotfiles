@@ -2,8 +2,8 @@
 
 ![dotfiles](https://dotfiles.github.io/images/dotfiles-logo.png)
 
-Hi! These are my dotfiles that I use every day. If you find something
-interesting, go ahead and take whatever you want from my dotfiles.
+Hi! These are my dotfiles that I use every day, primarily the terminal.
+If you find something interesting, go ahead and take whatever you want from my dotfiles.
 
 It is managed using [yadm](https://github.com/TheLocehiliosan/yadm/), a dotfile
 manager. This makes it simple to set up a new computer with these files. In
@@ -11,7 +11,7 @@ order to set up a new system with these dotfiles, do the following:
 
 ## Use
 
-First of all you need yadm, this can be installed on macOS via homebrew or on $linux via the package manager.
+First of all you need yadm, this can be installed on macOS via homebrew or on Linux via the package manager of your choice.
 
 ## macOS
 
@@ -36,7 +36,7 @@ xargs pacman -S --needed --noconfirm < [.pacmanfile](./.pacmanfile)
 ## Clone dotfiles with [yadm](https://yadm.io/)
 
 ```shell
-$ yadm clone --bootstrap https://github.com/steinbrueckri/dotfiles
+$ yadm clone https://github.com/steinbrueckri/dotfiles
 Initialized empty shared Git repository in /steinbrueckri/.config/yadm/repo.git/
 remote: Enumerating objects: 295, done.
 remote: Counting objects: 100% (283/283), done.
@@ -55,7 +55,7 @@ My macOS settings can you apply with the [osx_settings.sh](./.dotfileassets/osx_
 
 ## Hardware
 
-As my main device i use Macbook Pro 2019 ...
+As my main device i use Macbook Pro 2021 ...
 
 ```shell
 $ system_profiler SPHardwareDataType | grep -v "UDID\|UUID\|Serial"
@@ -64,24 +64,22 @@ Hardware:
     Hardware Overview:
 
       Model Name: MacBook Pro
-      Model Identifier: MacBookPro16,1
-      Processor Name: 6-Core Intel Core i7
-      Processor Speed: 2,6 GHz
-      Number of Processors: 1
-      Total Number of Cores: 6
-      L2 Cache (per Core): 256 KB
-      L3 Cache: 12 MB
-      Hyper-Threading Technology: Enabled
+      Model Identifier: MacBookPro18,4
+      Model Number: Z15K0004WD/A
+      Chip: Apple M1 Max
+      Total Number of Cores: 10 (8 performance and 2 efficiency)
       Memory: 32 GB
-      System Firmware Version: 1554.140.20.0.0 (iBridge: 18.16.14759.0.1,0)
+      System Firmware Version: 8419.80.7
+      OS Loader Version: 8419.80.7
       Activation Lock Status: Disabled
 ```
 
-As Keyboard i use a [Kinesis Advantage2](https://kinesis-ergo.com/shop/advantage2/)
-with the keycaps from [keycap.sh](https://keycap.sh/) and my Keyboard layouts and macros
-for it can be found in [`.dotfileassets/advantage2`](./.dotfileassets/advantage2/).
+As Keyboard i use a [Kinesis Advantage360](https://kinesis-ergo.com/keyboards/advantage360/)
+with the blank keycap set from [Kinesis kc360-bk](https://kinesis-ergo.com/shop/kc360-bk/) and my Keyboard layouts and macros
+for it can be found in [steinbrueckri/Adv360-Pro-ZMK](https://github.com/steinbrueckri/Adv360-Pro-ZMK).
 
 ![Keyboard](./.dotfileassets/keyboard.jpg)
+NOTE: Picture need a update 😆
 
 ## Screenshots
 
