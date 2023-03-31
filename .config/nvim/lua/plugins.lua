@@ -102,6 +102,7 @@ local plugins = {
     "MunifTanjim/nui.nvim", -- UI Component Library for Neovim.
     "folke/noice.nvim",
     "aserowy/tmux.nvim",
+    "shaunsingh/nord.nvim",
 }
 
 local options = {}

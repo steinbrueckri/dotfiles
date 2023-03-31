@@ -27,13 +27,18 @@ set DEFAULT_USER steinbrueckri
 set -U fish_prompt_pwd_dir_length 0
 
 # theme
-set theme_color_scheme "Catppuccin Frappe"
+set theme_color_scheme "nord"
+
+# color
+export CLICOLOR=1
+export LS_COLORS=(vivid generate nord)
 
 # fzf theme
-set -Ux FZF_DEFAULT_OPTS "\
---color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284 \
---color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf \
---color=marker:#f2d5cf,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284"
+set -Ux FZF_DEFAULT_OPTS '\
+  --color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1
+  --color=fg+:#e5e9f0,bg+:#3b4252,hl+:#81a1c1
+  --color=info:#eacb8a,prompt:#bf6069,pointer:#b48dac
+  --color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b'
 
 # disable fish greeting
 set fish_greeting
@@ -52,7 +57,6 @@ bind \cf __fzf_reverse_isearch
 #######################################################################
 
 fundle plugin oh-my-fish/theme-bobthefish
-fundle plugin catppuccin/fish
 fundle plugin jethrokuan/fzf
 fundle plugin jorgebucaran/nvm.fish
 fundle plugin sentriz/fish-pipenv
@@ -76,53 +80,6 @@ set -g theme_title_display_user yes
 set -g theme_display_date no
 set -g theme_newline_cursor yes
 set -g theme_newline_prompt '$ '
-
-function bobthefish_colors -S -d 'Define a custom bobthefish color scheme'
-
-  # optionally include a base color scheme...
-  __bobthefish_colors default
-
-  # --> special
-  set -l foreground dadae8
-  set -l selection 3e4058
-
-  # --> palette // Catppuccin Frappé
-  set -l rosewater f2d5cf
-  set -l flamingo eebebe
-  set -l pink f4b8e4
-  set -l mauve ca9ee6
-  set -l red e78284
-  set -l maroon	ea999c
-  set -l peach ef9f76
-  set -l yellow	e5c890
-  set -l green a6d189
-  set -l teal	81c8be
-  set -l sky 99d1db
-  set -l sapphire	85c1dc
-  set -l blue	8caaee
-  set -l lavender	babbf1
-  set -l text	c6d0f5
-  set -l subtext1	b5bfe2
-  set -l subtext0	a5adce
-  set -l overlay2	949cbb
-  set -l overlay1	838ba7
-  set -l overlay0	737994
-  set -l surface2	626880
-  set -l surface1 51576d
-  set -l surface0	414559
-  set -l base 303446
-  set -l mantle 292c3c
-  set -l crust 232634
-
-  # then override everything you want! note that these must be defined with `set -x`
-  set -x color_username                 $overlay1 $blue --bold
-  set -x color_hostname                 $overlay1 $sky
-  set -x color_repo_dirty               $maroon $surface2
-  set -x color_repo                     $green $surface2
-  set -x color_repo_work_tree           $mauve $surface2 --bold
-  set -x color_repo_staged              $yellow $surface2
-  set -x color_k8s                      $sapphire $surface2 --bold
-end
 
 #######################################################################
 #                               aliases                               #

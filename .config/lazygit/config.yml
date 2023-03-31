@@ -8,24 +8,24 @@ gui:
   mainPanelSplitMode: "flexible" # one of 'horizontal' | 'flexible' | 'vertical'
   language: "auto" # one of 'auto' | 'en' | 'zh' | 'pl' | 'nl'
   theme:
-    lightTheme: false # For terminals with a light background
+    lightTheme: false
     activeBorderColor:
-      - magenta
+      - "#8fbcbb"
       - bold
     inactiveBorderColor:
-      - black
+      - "#eceff4"
     optionsTextColor:
-      - black
+      - "#2e3440"
     selectedLineBgColor:
-      - black
+      - "#5e81ac" # set to `default` to have no background color
     selectedRangeBgColor:
-      - yellow
+      - "#81a1c1"
     cherryPickedCommitBgColor:
-      - blue
+      - "#d08770"
     cherryPickedCommitFgColor:
-      - cyan
+      - "#b48ead"
     unstagedChangesColor:
-      - white
+      - "#bf616a"
   commitLength:
     show: true
   mouseEvents: true

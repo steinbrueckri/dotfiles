@@ -51,7 +51,7 @@ local function modified()
 end
 
 require("lualine").setup {
-    options = {theme = "catppuccin", component_separators = "", section_separators = {left = "", right = ""}},
+    options = {theme = "nord"},
     sections = process_sections {
         lualine_a = {"mode"},
         lualine_b = {

@@ -9,7 +9,7 @@
 # https://alacritty.org
 
 import:
-  - ~/.config/alacritty/catppuccin/catppuccin-frappe.yml
+  - ~/.config/alacritty/nord.yml
 
 env:
   TERM: xterm-256color
