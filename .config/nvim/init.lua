@@ -33,4 +33,3 @@ require("plugins/silicon")
 require("plugins/snippets")
 require("plugins/tmux")
 require("plugins/noice")
-

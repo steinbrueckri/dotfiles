@@ -21,3 +21,12 @@ require('mini.trailspace').setup({
   only_in_normal_buffers = true,
 })
 
+require('mini.move').setup({
+mappings = {
+    -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
+    left = '<C-Left>',
+    right = '<C-Right>',
+    down = '<C-Down>',
+    up = '<C-Up>',
+  }
+})

@@ -7,3 +7,4 @@ tags
 .config/fish/fundle/**
 .terraform.lock.hcl
 packer_compiled.lua
+pyrightconfig.json

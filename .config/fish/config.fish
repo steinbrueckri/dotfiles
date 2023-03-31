@@ -1,3 +1,13 @@
+
+# ███████╗██╗███████╗██╗  ██╗
+# ██╔════╝██║██╔════╝██║  ██║
+# █████╗  ██║███████╗███████║
+# ██╔══╝  ██║╚════██║██╔══██║
+# ██║     ██║███████║██║  ██║
+# ╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝
+# A smart and user-friendly command line
+# https://fishshell.com
+
 #######################################################################
 #                            main settings                            #
 #######################################################################
@@ -7,6 +17,7 @@ fish_add_path $HOME/bin
 fish_add_path $HOME/.cargo/bin
 fish_add_path /opt/homebrew/bin
 fish_add_path /opt/homebrew/sbin
+fish_add_path /opt/homebrew/opt/ruby/bin
 fish_add_path $HOME/.local/share/bob/nvim-bin
 
 # set default username to hide user@host ... see agnoster theme
@@ -133,6 +144,10 @@ alias v="nvim"
 alias nvim-switch-nightly="bob use nightly"
 alias nvim-switch-stable="bob use stable"
 
+# lazygit
+alias lg="lazygit"
+alias ld="lazygit -ucd ~/.local/share/yadm/lazygit -w ~ -g ~/.local/share/yadm/repo.git"
+
 # kubernetes stuff
 alias kx="kubectx"
 alias k="kubectl"
@@ -140,6 +155,9 @@ alias kc="kubecolor"
 alias kn='kubens'
 alias k-debug="kubectl run --namespace default -i --tty 'debug-default-$USER' --image=steinbrueckri/debug --restart=Never --rm=true -- bash"
 alias k-debug-app="kubectl run --namespace istio-apps -i --tty 'debug-$USER' --image=steinbrueckri/debug --restart=Never --rm=true -- bash"
+
+# python stuff
+alias newpyenv="PIPENV_VENV_IN_PROJECT=1 pipenv --python 3.11 && echo '{ \"venvPath\": \".\", \"venv\": \".venv\" }' > pyrightconfig.json && source .venv/bin/activate.fish"
 
 ## goole cloud stuff
 alias gcpil='gcloud compute instances list'
@@ -171,10 +189,14 @@ alias tx='tmuxinator'
 alias ls='exa --icons'
 alias top='btop'
 alias watch='viddy'
+alias myip='curl -s -H "Accept: application/json" ipinfo.io | jq -r .ip'
 
 #######################################################################
 #                               exports                               #
 #######################################################################
+
+# secrets
+export OPENAI_API_KEY="$(cat ~/.openai_token)"
 
 # general
 export EDITOR=nvim

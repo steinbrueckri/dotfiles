@@ -41,6 +41,7 @@ local plugins = {
     },
     "b0o/schemastore.nvim",
     "onsails/lspkind-nvim",
+    "simrat39/symbols-outline.nvim",
     "mhartington/formatter.nvim",
     "arouene/vim-ansible-vault",
     "nvim-lua/popup.nvim",
