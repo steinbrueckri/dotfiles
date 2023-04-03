@@ -1,70 +1,51 @@
--- lsp-zero
-local lsp = require("lsp-zero")
+local lspkind = require('lspkind')
 local cmp = require('cmp')
-lsp.preset("recommended")
+local lsp = require('lsp-zero').preset({
+  name = 'minimal',
+  manage_nvim_cmp = {
+    set_sources = false,
+    set_basic_mappings = true,
+    set_extra_mappings = true,
+    use_luasnip = true,
+    set_format = true,
+    documentation_window = true,
+  },
+})
+
+lsp.on_attach(function(client, bufnr)
+  lsp.default_keymaps({buffer = bufnr})
+end)
 
 lsp.setup_nvim_cmp({
   completion = { completeopt = "menu,menuone,noinsert,noselect" },
-  mapping = cmp.mapping.preset.insert({
-      ['<C-e>'] = cmp.mapping.complete(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-  }),
   sources = {
-    { name = "nvim_lsp_signature_help", max_item_count = 5 },
-    { name = "cmp_tabnine", max_item_count = 5 },
+    { name = "nvim_lua"},
+    { name = "cmp_tabnine"},
     { name = "buffer"},
-    { name = 'tmux', max_item_count = 5, option = { all_panes = true } },
-    { name = "path", max_item_count = 5 },
-    { name = "fish", max_item_count = 5 },
-    { name = "luasnip", max_item_count = 5 },
-    { name = "nvim_lua", max_item_count = 5 },
-    { name = "emoji", max_item_count = 5 }
+    { name = 'tmux', option = { all_panes = true } },
+    { name = "path"},
+    { name = "fish"},
+    { name = "luasnip"},
+    { name = "emoji"}
   },
 })
 
 -- add border to the completion menu
 local cmp_config = lsp.defaults.cmp_config({
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol', -- show only symbol annotations
+      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+    })
+  },
   window = {
     completion = cmp.config.window.bordered()
   }
 })
 
-cmp.setup(cmp_config)
-
-
-lsp.ensure_installed({
-  "ansiblels", "bashls", "efm", "marksman", "pyright", "dockerls", "cssls", "html", "yamlls", "jsonls", "terraformls",
-  "taplo", "sqlls", "cmake"
-})
-
-require("mason-null-ls").setup({
-  automatic_installation = true,
-  automatic_setup = true,
-})
-
-require 'mason-null-ls'.setup_handlers() -- If `automatic_setup` is true.
-
--- schemastore
-local schemastore = require("schemastore")
-local schemas = schemastore.json.schemas()
-
-lsp.configure("jsonls", {
-  settings = {
-    json = {
-      schemas = schemas,
-    },
-  },
-})
-
-lsp.configure("yamlls", {
-  settings = {
-    yaml = {
-      schemas = schemas,
-    },
-  },
-})
-
 lsp.setup()
+cmp.setup(cmp_config)
 
 -- make sure to call it after lsp-zero's setup function.
 vim.diagnostic.config({
