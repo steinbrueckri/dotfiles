@@ -153,7 +153,12 @@ alias myip='curl -s -H "Accept: application/json" ipinfo.io | jq -r .ip'
 #######################################################################
 
 # secrets
-export OPENAI_API_KEY="$(cat ~/.openai_token)"
+
+set openai_token "~/.openai_token"
+if test -e $openai_token
+  source $op
+  export OPENAI_API_KEY="$(cat ~/.openai_token)"
+end
 
 # general
 export EDITOR=nvim
