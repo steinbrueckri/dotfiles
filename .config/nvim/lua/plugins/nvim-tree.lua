@@ -2,6 +2,9 @@
 vim.g.loaded = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- set termguicolors to enable highlight groups
+vim.opt.termguicolors = true
+
 require("nvim-tree").setup {
     auto_reload_on_write = true,
     create_in_closed_folder = false,
@@ -9,9 +12,6 @@ require("nvim-tree").setup {
     hijack_cursor = false,
     hijack_netrw = true,
     hijack_unnamed_buffer_when_opening = false,
-    ignore_buffer_on_setup = false,
-    open_on_setup = false,
-    open_on_setup_file = false,
     open_on_tab = false,
     ignore_buf_on_tab_change = {},
     sort_by = "name",
@@ -93,7 +93,6 @@ require("nvim-tree").setup {
     },
     hijack_directories = {enable = true, auto_open = true},
     update_focused_file = {enable = true, update_root = true, ignore_list = {}},
-    ignore_ft_on_setup = {},
     system_open = {cmd = "", args = {}},
     diagnostics = {
         enable = false,

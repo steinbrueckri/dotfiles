@@ -13,7 +13,7 @@ local wo = vim.wo -- windows-local options
 -- General
 -----------------------------------------------------------
 wo.cursorline = true -- cursor in line
-wo.cursorcolumn = true -- cursor in column
+-- wo.cursorcolumn = true -- cursor in column
 opt.shell = "/bin/bash" -- I use fish but it slow for running internal commands
 g.mapleader = " " -- change leader to a space
 g.maplocalleader = "," -- change localleader to a comma
