@@ -285,7 +285,7 @@ end
 # Start ssh-agent, load key from 1password and added to the ssh-agent
 function loadsshkey
   eval $(op signin --account pixel-combo.1password.com)
-  op item get xo5tj3nxex65km7gdj5r4algni --fields=key | sed 's/\"//g' | ssh-add -
+  op item get xo5tj3nxex65km7gdj5r4algni --fields=Private-Key
 end
 
 function gcp-project
