@@ -21,10 +21,6 @@ vim.api.nvim_set_keymap("v", ">", ">gv", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("v", "<leader>bu", ":<c-u>call base64#v_atob()<cr>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("v", "<leader>bc", ":<c-u>call base64#v_btoa()<cr>", {noremap = true, silent = true})
 
--- screenshots
-vim.api.nvim_set_keymap("v", "<Leader>s", ":SiliconPb<cr>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("v", "<Leader>S", ":Silicon<cr>", {noremap = true, silent = true})
-
 -----------------------------------------------------------
 -- Which-key Setup
 -----------------------------------------------------------

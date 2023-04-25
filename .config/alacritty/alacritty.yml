@@ -70,7 +70,8 @@ selection:
 
 # Cursor style
 cursor:
-  style: Block
+  style:
+    shape: Block
 
 # Live config reload (changes require restart)
 live_config_reload: true
