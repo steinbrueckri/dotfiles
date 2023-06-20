@@ -27,7 +27,7 @@ lsp.setup_nvim_cmp({
     { name = "fish"},
     { name = "luasnip"},
     { name = "emoji"}
-  },
+  }
 })
 
 -- add border to the completion menu
