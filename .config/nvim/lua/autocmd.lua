@@ -38,3 +38,12 @@ vim.cmd [[
     autocmd BufRead,BufNewFile */ansible/**.yml set filetype=yaml.ansible
   augroup end
 ]]
+
+-- Autocommand set nowrap on adv360.keymap files
+vim.cmd [[
+  augroup adv360KeymapFile
+    autocmd!
+    autocmd BufRead,BufNewFile adv360.keymap set nowrap
+  augroup end
+]]
+

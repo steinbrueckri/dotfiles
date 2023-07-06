@@ -59,7 +59,7 @@ local plugins = {
     },
     {"axkirillov/easypick.nvim", dependencies = "nvim-telescope/telescope.nvim"},
     "sheerun/vim-polyglot",
-    "TimUntersberger/neogit",
+    "NeogitOrg/neogit",
     "kdheepak/lazygit.nvim",
     "lewis6991/gitsigns.nvim",
     "sindrets/diffview.nvim",
@@ -101,6 +101,7 @@ local plugins = {
     "folke/noice.nvim",
     "aserowy/tmux.nvim",
     "shaunsingh/nord.nvim",
+    "codethread/qmk.nvim",
 }
 
 local options = {}
