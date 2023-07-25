@@ -19,6 +19,7 @@ fish_add_path /opt/homebrew/bin
 fish_add_path /opt/homebrew/sbin
 fish_add_path /opt/homebrew/opt/ruby/bin
 fish_add_path $HOME/.local/share/bob/nvim-bin
+fish_add_path $HOME/Library/Python/3.11/bin
 
 # set default username to hide user@host ... see agnoster theme
 set DEFAULT_USER steinbrueckri
@@ -76,7 +77,6 @@ set -g theme_display_k8s_context no
 set -g theme_display_k8s_namespace no
 set -g theme_title_display_process yes
 set -g theme_title_display_path yes
-set -g theme_title_display_user yes
 set -g theme_display_date no
 set -g theme_newline_cursor yes
 set -g theme_newline_prompt '$ '
