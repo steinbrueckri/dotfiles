@@ -51,7 +51,6 @@
   "popup.nvim": { "branch": "master", "commit": "b7404d35d5d3548a82149238289fa71f7f6de4ac" },
   "presenting.vim": { "branch": "master", "commit": "e960e204d8e4526d2650c23eaea908317c6becb9" },
   "project.nvim": { "branch": "main", "commit": "8c6bad7d22eef1b71144b401c9f74ed01526a4fb" },
-  "qmk.nvim": { "branch": "main", "commit": "17d030ba96e0d122545cfe7205cb199bd699ca9f" },
   "rest.nvim": { "branch": "main", "commit": "22673c848768ff25517154a5aebfebc0c77d0b4f" },
   "schemastore.nvim": { "branch": "main", "commit": "f33af3051c79f084824753f9852ed4db95b43c8d" },
   "symbols-outline.nvim": { "branch": "master", "commit": "512791925d57a61c545bc303356e8a8f7869763c" },

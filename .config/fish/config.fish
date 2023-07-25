@@ -296,8 +296,8 @@ function gcp-project
 end
 
 function k-clean
-   for i in (kubectl get pods -A | grep -Ei 'OOMKilled|ContainerStatusUnknown|Shutdown|Error|Terminated|Completed' | cut -d ' ' -f1 | sort -u)
-      for p in (kubectl get pods -n $i | grep -Ei 'OOMKilled|ContainerStatusUnknown|Shutdown|Error|Terminated|Completed' | cut -d ' ' -f1 )
+   for i in (kubectl get pods -A | grep -Ei 'OOMKilled|ContainerStatusUnknown|Shutdown|Error|Terminated|Completed|Evicted' | cut -d ' ' -f1 | sort -u)
+      for p in (kubectl get pods -n $i | grep -Ei 'OOMKilled|ContainerStatusUnknown|Shutdown|Error|Terminated|Completed|Evicted' | cut -d ' ' -f1 )
         kubectl delete pod -n $i $p
       end
    end
