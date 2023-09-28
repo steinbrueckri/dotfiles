@@ -32,7 +32,9 @@ local plugins = {
         {'hrsh7th/cmp-nvim-lua'},
         {'andersevenrud/cmp-tmux'},
         {'hrsh7th/cmp-emoji'},
-        {'tzachar/cmp-tabnine'},
+        {'tzachar/cmp-tabnine',
+         build = './install.sh',
+         dependencies = 'hrsh7th/nvim-cmp',},
 
         -- Snippets
         {'L3MON4D3/LuaSnip'},
@@ -102,6 +104,13 @@ local plugins = {
     "aserowy/tmux.nvim",
     "shaunsingh/nord.nvim",
     "codethread/qmk.nvim",
+    {"steinbrueckri/nvim-devdocs",
+        dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim",
+        "nvim-treesitter/nvim-treesitter",
+        },
+    }
 }
 
 local options = {}

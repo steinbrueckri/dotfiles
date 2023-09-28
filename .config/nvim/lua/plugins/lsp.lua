@@ -1,3 +1,14 @@
+local tabnine = require('cmp_tabnine.config')
+
+tabnine:setup({
+	max_lines = 1000,
+	max_num_results = 20,
+	sort = true,
+	run_on_every_keystroke = true,
+	snippet_placeholder = '..',
+	show_prediction_strength = true
+})
+
 local lspkind = require('lspkind')
 local cmp = require('cmp')
 local lsp = require('lsp-zero').preset({
@@ -19,14 +30,12 @@ end)
 lsp.setup_nvim_cmp({
   completion = { completeopt = "menu,menuone,noinsert,noselect" },
   sources = {
-    { name = "nvim_lua"},
     { name = "cmp_tabnine"},
     { name = "buffer"},
     { name = 'tmux', option = { all_panes = true } },
     { name = "path"},
     { name = "fish"},
     { name = "luasnip"},
-    { name = "emoji"}
   }
 })
 

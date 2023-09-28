@@ -71,6 +71,8 @@ wk.register({
             o = {":Telescope oldfiles<cr>", "Show recent files"},
             b = {":Telescope buffers<cr>", "Show buffer"},
             u = {":Telescope undo<cr>", "Show Undo History"},
+            k = {":Telescope keymaps<cr>", "Show Keybindings"},
+            d = {":DevdocsOpenCurrent<cr>", "Show Docs"}
         },
         h = {
             name = "+http",
