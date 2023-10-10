@@ -1,7 +1,4 @@
 -----------------------------------------------------------
--- Neovim settings
------------------------------------------------------------
------------------------------------------------------------
 -- Neovim API aliases
 -----------------------------------------------------------
 local cmd = vim.cmd -- execute Vim commands
@@ -20,8 +17,6 @@ g.maplocalleader = "," -- change localleader to a comma
 opt.mouse = "a" -- enable mouse support
 opt.clipboard = "unnamedplus" -- copy/paste to system clipboard
 opt.swapfile = false -- don't use swapfile
-cmd("language en_US.utf-8") -- set language to english
-cmd("syntax on") -- enable syntax highlighting
 local undodir = os.getenv("HOME") .. "/tmp/undodir/" -- undofile related
 os.execute("test -d " .. undodir .. " || mkdir -p " .. undodir) -- undofile related
 opt.undodir = undodir -- undofile related
@@ -57,12 +52,6 @@ opt.autoindent = true -- convert tabs to spaces
 opt.signcolumn = "yes" -- put numbers and signs in the same column
 
 -----------------------------------------------------------
--- Commands
------------------------------------------------------------
--- remove whitespace on save
-cmd [[au BufWritePre * :%s/\s\+$//e]]
-
------------------------------------------------------------
 -- Colorscheme
 -----------------------------------------------------------
 opt.background = "dark" -- set colorschema
@@ -70,13 +59,6 @@ opt.background = "dark" -- set colorschema
 -----------------------------------------------------------
 -- Other stuff
 -----------------------------------------------------------
-
-g.smoothie_experimental_mappings = true -- enable g/G mapping for vim-smoothie
-
--- matchtag is used because treesitter is not able to do this until now. see -> https://github.com/nvim-treesitter/nvim-treesitter/issues/2565
-g.vim_matchtag_enable_by_default = 1 -- enable matchtag
-g.vim_matchtag_files = "*.html,*.xml,*.js,*.jsx,*.vue,*.svelte,*.jsp" -- set matchtag file filter
-
 g.loaded_node_provider = 0
 g.loaded_ruby_provider = 0
 g.loaded_perl_provider = 0

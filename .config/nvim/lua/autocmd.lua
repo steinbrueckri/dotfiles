@@ -47,3 +47,9 @@ vim.cmd [[
   augroup end
 ]]
 
+-- Autocommand remove whitespace on save
+vim.cmd [[
+  augroup RemoveWhiteSpaces
+  autocmd BufWritePre * :%s/\s\+$//e
+  augroup end
+]]
