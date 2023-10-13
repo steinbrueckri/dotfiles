@@ -5,6 +5,7 @@
 --   ██║██║ ╚████║██║   ██║██╗███████╗╚██████╔╝██║  ██║
 --   ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝
 -- Neovim init file
+
 require("plugins")
 require("settings")
 require("autocmd")
@@ -21,7 +22,6 @@ require("plugins/telescope")
 require("plugins/spectre")
 require("plugins/nord")
 require("plugins/mini")
-require("plugins/misc")
 require("plugins/formatter")
 require("plugins/lastplace")
 require("plugins/lualine")

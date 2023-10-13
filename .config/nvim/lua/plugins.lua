@@ -61,7 +61,9 @@ local plugins = {
     },
     {"axkirillov/easypick.nvim", dependencies = "nvim-telescope/telescope.nvim"},
     "sheerun/vim-polyglot",
-    "NeogitOrg/neogit",
+    {"NeogitOrg/neogit", config = function ()
+        require("neogit").setup()
+    end},
     "kdheepak/lazygit.nvim",
     "lewis6991/gitsigns.nvim",
     "sindrets/diffview.nvim",
@@ -84,13 +86,19 @@ local plugins = {
     },
     "goolord/alpha-nvim",
     "ethanholz/nvim-lastplace",
-    "numToStr/Comment.nvim",
-    "norcalli/nvim-colorizer.lua",
+    {"numToStr/Comment.nvim", config = function ()
+        require("Comment").setup()
+    end},
+    {"norcalli/nvim-colorizer.lua", config = function ()
+        vim.opt.termguicolors = true
+        require("colorizer").setup()
+    end},
     "ruanyl/vim-gh-line",
     "dstein64/vim-startuptime",
-    "christianrondeau/vim-base64",
     {"akinsho/bufferline.nvim", dependencies = "nvim-tree/nvim-web-devicons"},
-    {"folke/todo-comments.nvim", dependencies = "nvim-lua/plenary.nvim"},
+    {"folke/todo-comments.nvim", dependencies = "nvim-lua/plenary.nvim", config = function ()
+        require("todo-comments").setup()
+    end},
     "nvim-tree/nvim-tree.lua",
     "mzlogin/vim-markdown-toc",
     "windwp/nvim-spectre",
