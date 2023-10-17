@@ -27,20 +27,17 @@ lsp.on_attach(function(client, bufnr)
   lsp.default_keymaps({buffer = bufnr})
 end)
 
-lsp.setup_nvim_cmp({
-  completion = { completeopt = "menu,menuone,noinsert,noselect" },
+-- add border to the completion menu
+local cmp_config = lsp.defaults.cmp_config({
   sources = {
+    { name = "natdat"},
     { name = "cmp_tabnine"},
     { name = "buffer"},
     { name = 'tmux', option = { all_panes = true } },
     { name = "path"},
     { name = "fish"},
     { name = "luasnip"},
-  }
-})
-
--- add border to the completion menu
-local cmp_config = lsp.defaults.cmp_config({
+  },
   formatting = {
     format = lspkind.cmp_format({
       mode = 'symbol', -- show only symbol annotations

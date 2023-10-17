@@ -19,8 +19,6 @@ local plugins = {
         {'neovim/nvim-lspconfig'},
         {'williamboman/mason.nvim'},
         {'williamboman/mason-lspconfig.nvim'},
-        {'jay-babu/mason-null-ls.nvim'},
-        {'jose-elias-alvarez/null-ls.nvim'},
 
         -- Autocompletion
         {'hrsh7th/nvim-cmp'},
@@ -32,6 +30,7 @@ local plugins = {
         {'hrsh7th/cmp-nvim-lua'},
         {'andersevenrud/cmp-tmux'},
         {'hrsh7th/cmp-emoji'},
+        {'Gelio/cmp-natdat', config = true },
         {'tzachar/cmp-tabnine',
          build = './install.sh',
          dependencies = 'hrsh7th/nvim-cmp',},
@@ -43,7 +42,9 @@ local plugins = {
     },
     "b0o/schemastore.nvim",
     "onsails/lspkind-nvim",
-    "simrat39/symbols-outline.nvim",
+    {"simrat39/symbols-outline.nvim", config = function ()
+        require("symbols-outline").setup()
+    end},
     "mhartington/formatter.nvim",
     "arouene/vim-ansible-vault",
     "nvim-lua/popup.nvim",
@@ -62,7 +63,16 @@ local plugins = {
     {"axkirillov/easypick.nvim", dependencies = "nvim-telescope/telescope.nvim"},
     "sheerun/vim-polyglot",
     {"NeogitOrg/neogit", config = function ()
-        require("neogit").setup()
+        require("neogit").setup({
+           kind = "split", -- opens neogit in a split
+           signs = {
+            -- { CLOSED, OPENED }
+            section = { "", "" },
+            item = { "", "" },
+            hunk = { "", "" },
+           },
+           integrations = { diffview = true }, -- adds integration with diffview.nvim
+          })
     end},
     "kdheepak/lazygit.nvim",
     "lewis6991/gitsigns.nvim",
@@ -112,6 +122,14 @@ local plugins = {
     "aserowy/tmux.nvim",
     "shaunsingh/nord.nvim",
     "codethread/qmk.nvim",
+    {
+        '2kabhishek/nerdy.nvim',
+        dependencies = {
+            'stevearc/dressing.nvim',
+            'nvim-telescope/telescope.nvim',
+        },
+        cmd = 'Nerdy',
+    },
     {"steinbrueckri/nvim-devdocs",
         dependencies = {
         "nvim-lua/plenary.nvim",
