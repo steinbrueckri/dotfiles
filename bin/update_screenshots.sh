@@ -12,7 +12,7 @@ tmux split-window -t "demo:1" -v
 
 tmux send-keys -t "demo:1.1" 'cd Projects/3rd-party/prometheus/ && ls -la' Enter
 tmux send-keys -t "demo:1.2" 'clear && neofetch' Enter
-tmux send-keys -t "demo:1.3" 'top' Enter
+tmux send-keys -t "demo:1.3" 'kitty icat ~/.dotfileassets/me.jpg' Enter
 
 sh -c "sleep 4; tmux kill-session" &
 screencapture -T2 .dotfileassets/screenshot-1.png &
