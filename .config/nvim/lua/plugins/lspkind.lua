@@ -30,6 +30,7 @@ require("lspkind").init({
       Interface = "",
       Module = "",
       Property = "󰜢",
+      TabNine = "󰇄",
       Unit = "",
       Value = "󰎠",
       Enum = "",
