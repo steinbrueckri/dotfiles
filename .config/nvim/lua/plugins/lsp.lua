@@ -32,6 +32,7 @@ local cmp_config = lsp.defaults.cmp_config({
   sources = {
     {name = 'nvim_lsp'},
     { name = "natdat"},
+    { name = "rg"},
     { name = "cmp_tabnine"},
     { name = "buffer"},
     { name = 'tmux', option = { all_panes = true } },

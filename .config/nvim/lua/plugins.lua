@@ -31,6 +31,7 @@ local plugins = {
         {'andersevenrud/cmp-tmux'},
         {'hrsh7th/cmp-emoji'},
         {'Gelio/cmp-natdat', config = true },
+        {'lukas-reineke/cmp-rg'},
         {'tzachar/cmp-tabnine',
          build = './install.sh',
          dependencies = 'hrsh7th/nvim-cmp',},
