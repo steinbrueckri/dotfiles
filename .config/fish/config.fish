@@ -115,6 +115,8 @@ alias k-debug-app="kubectl run --namespace istio-apps -i --tty 'debug-$USER' --i
 
 # python stuff
 alias newpyenv="PIPENV_VENV_IN_PROJECT=1 pipenv --python 3.11 && echo '{ \"venvPath\": \".\", \"venv\": \".venv\" }' > pyrightconfig.json && source .venv/bin/activate.fish"
+alias activate_env_datacenter="source ~/Userlike/UserlikeDatacenter/.venv/bin/activate.fish"
+alias activate_env_code="source ~/Userlike/Userlike/.venv/bin/activate.fish"
 
 ## goole cloud stuff
 alias gcpil='gcloud compute instances list'
@@ -140,10 +142,9 @@ alias rm-images="docker rmi (docker images -q)"
 alias pwgen="date +%s | sha256sum | base64 | head -c 32 ; echo"
 alias lol="git log --pretty=oneline --abbrev-commit --graph --decorate"
 alias cat="bat "
-alias dig="dog "
 alias hosts="hosts --auto-sudo"
 alias tx='tmuxinator'
-alias ls='exa --icons'
+alias ls='eza --icons'
 alias top='btop'
 alias watch='viddy'
 alias myip='curl -s -H "Accept: application/json" ipinfo.io | jq -r .ip'
@@ -151,14 +152,6 @@ alias myip='curl -s -H "Accept: application/json" ipinfo.io | jq -r .ip'
 #######################################################################
 #                               exports                               #
 #######################################################################
-
-# secrets
-
-set openai_token "~/.openai_token"
-if test -e $openai_token
-  source $op
-  export OPENAI_API_KEY="$(cat ~/.openai_token)"
-end
 
 # general
 export EDITOR=nvim

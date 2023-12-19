@@ -30,15 +30,15 @@ end)
 -- add border to the completion menu
 local cmp_config = lsp.defaults.cmp_config({
   sources = {
-    {name = 'nvim_lsp'},
-    { name = "natdat"},
-    { name = "rg"},
-    { name = "cmp_tabnine"},
-    { name = "buffer"},
-    { name = 'tmux', option = { all_panes = true } },
-    { name = "path"},
-    { name = "fish"},
-    { name = "luasnip"},
+    {name = 'nvim_lsp', max_item_count = 5},
+    { name = "natdat", max_item_count = 5},
+    { name = "rg", max_item_count = 5},
+    { name = "cmp_tabnine", max_item_count = 5},
+    { name = "buffer", max_item_count = 5},
+    { name = 'tmux', max_item_count = 5, option = { all_panes = true } },
+    { name = "path", max_item_count = 5},
+    { name = "fish", max_item_count = 5},
+    { name = "luasnip", max_item_count = 5},
   },
   formatting = {
     format = lspkind.cmp_format({

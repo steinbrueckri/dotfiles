@@ -92,6 +92,7 @@ keybinding:
     quit: "q"
     quit-alt1: "<c-c>" # alternative/alias of quit
     return: "<esc>" # return to previous menu, will quit if there's nowhere to return
+    optionMenu-alt1: "h" # show help menu
   status:
     checkForUpdate: "u"
     recentRepos: "<enter>"

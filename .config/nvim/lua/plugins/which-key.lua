@@ -41,11 +41,14 @@ wk.register({
     ["U"] = {":redo<cr>", "Redo"},
     -- LEADER Mappings
     ["<leader>"] = {
-        d = {":bd<cr>", "delete buffer"},
+        d = {name = "+delete",
+            d = {":bd<cr>", "delete buffer"},
+            m = {":delmarks A-Z0-9<cr>:lua require('notify')('Delete all marks')<cr>", "delete marker"}
+        },
         q = {":bdelete<cr>", "close buffer"},
         Q = {":bd!<cr>", "delete buffer"},
         e = {":NvimTreeToggle<cr>", "Show the file in the tree"},
-        D = {":Alpha<cr>", "Open Dashboard"},
+        A = {":Alpha<cr>", "Open Dashboard"},
         v = {":vsplit<cr>", "Split right"},
         w = {":w<cr>", "Save"},
         N = {":enew<cr>", "Empty buffer"},
@@ -72,9 +75,11 @@ wk.register({
             b = {":Telescope buffers<cr>", "Show buffer"},
             u = {":Telescope undo<cr>", "Show Undo History"},
             k = {":Telescope keymaps<cr>", "Show Keybindings"},
-            d = {":DevdocsOpenCurrent<cr>", "Show Docs"}
+            d = {":DevdocsOpenCurrent<cr>", "Show Docs"},
+            h = {":Telescope harpoon marks<cr>", "Show Harpoon marks"},
+            t = {":TodoTelescope keywords=TODO,FIX,FIXME,BUG<cr>", "Show tasks"}
         },
-        h = {
+        r = {
             name = "+http",
             r = {"<Plug>RestNvim<cr>", "run the request under the cursor"},
             p = {"<Plug>RestNvimPreview<cr>", "preview the request cURL command"}
@@ -89,7 +94,7 @@ wk.register({
             g = {":GHInteractive<cr>", "show line on github"},
             Y = {":Git yolo<cr>", "yolo commit"},
             n = {":Neogit<cr>", "Open Neogit"},
-            l = {":LazyGit<cr>", "Open LazyGit"},
+            l = {':!tmux split-window -c "$PWD" lazygit<cr>', "Open LazyGit"},
             f = {":!fork status $PWD<cr><cr>", "Open Fork"}
         },
         n = {
@@ -104,12 +109,11 @@ wk.register({
         t = {
             name = "+toggle",
             c = {":ColorizerToggle<cr>", "colorizer"},
-            s = {":SymbolsOutline<cr>", "SymbolsOutline"},
+            o = {":SymbolsOutline<cr>", "SymbolsOutline"},
             S = {":set spell!<cr>", "toggle spell highlighting"},
             n = {":set relativenumber!<cr>", "relative line-numbers"},
             m = {":MarkdownPreviewToggle<cr>", "Show Markdown preview"},
             R = {":set norelativenumber!<cr>", "relative line nums"},
-            T = {":TodoTelescope<cr>", "show tasks"},
             r = {":TroubleToggle<cr>", "LSP Issue viewer"},
             t = {":TableModeToggle<cr>", "TableModeToggle"}
         },
@@ -119,6 +123,12 @@ wk.register({
             b = {":.!toilet -w 20::wq0 -f term -F border<cr>", "Ascii border"},
             f = {":.!figlet<cr>", "Ascii font - figlet"},
             t = {":.!toilet -w 200<cr>", "Ascii font - toilet"}
+        },
+        h = {name = "+harpoon",
+            a = {":lua require('harpoon.mark').add_file()<cr>:lua vim.notify('Add file to list', 'info', {title = 'Harpoon'})<cr>", "Add to harpoon list"},
+            h = {":lua require('harpoon.ui').toggle_quick_menu()<cr>", "Show harpoon list"},
+            n = {":lua require('harpoon.ui').nav_next()<cr>", "Jump to next harpoon item in the list"},
+            p = {":lua require('harpoon.ui').nav_prev()<cr>", "Jump to previous harpoon item in the list"}
         }
     }
 })

@@ -59,6 +59,7 @@ local plugins = {
         "nvim-telescope/telescope-github.nvim",
         "xiyaowong/telescope-emoji.nvim",
         "ahmedkhalf/project.nvim",
+        "ThePrimeagen/harpoon"
       },
     },
     {"axkirillov/easypick.nvim", dependencies = "nvim-telescope/telescope.nvim"},
@@ -75,7 +76,6 @@ local plugins = {
            integrations = { diffview = true }, -- adds integration with diffview.nvim
           })
     end},
-    "kdheepak/lazygit.nvim",
     "lewis6991/gitsigns.nvim",
     "sindrets/diffview.nvim",
     "oem/arachne.nvim",
