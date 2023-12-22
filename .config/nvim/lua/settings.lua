@@ -54,7 +54,7 @@ opt.signcolumn = "yes" -- put numbers and signs in the same column
 -----------------------------------------------------------
 -- Colorscheme
 -----------------------------------------------------------
-opt.background = "dark" -- set colorschema
+cmd[[colorscheme dracula]]
 
 -----------------------------------------------------------
 -- Other stuff

@@ -1,5 +1,5 @@
 require('lualine').setup {
-  options = { theme  = "nord" },
+  options = { theme  = "dracula-nvim" },
   sections = {
     lualine_c = {
       {
