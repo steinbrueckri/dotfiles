@@ -101,6 +101,7 @@ end
 alias vim="nvim"
 alias vi="nvim"
 alias v="nvim"
+alias n="nvim"
 alias nvim-switch-nightly="bob use nightly"
 alias nvim-switch-stable="bob use stable"
 

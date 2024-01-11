@@ -74,3 +74,9 @@ vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
   pattern = {'*.yml', '*.yaml'},
   callback = check_and_set_ansible_filetype,
 })
+
+-- Disable folding on alpha buffer
+vim.cmd([[
+    autocmd FileType alpha setlocal nofoldenable
+]])
+

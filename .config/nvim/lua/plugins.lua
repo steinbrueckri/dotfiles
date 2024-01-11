@@ -78,7 +78,7 @@ local plugins = {
     end},
     "lewis6991/gitsigns.nvim",
     "sindrets/diffview.nvim",
-    "oem/arachne.nvim",
+    "renerocksai/telekasten.nvim",
     {"iamcco/markdown-preview.nvim", build = "cd app && npm install"},
     "dhruvasagar/vim-table-mode",
     "lukas-reineke/indent-blankline.nvim",

@@ -1,5 +1,10 @@
 require('lualine').setup {
-  options = { theme  = "dracula-nvim" },
+  options = {
+    theme  = "dracula-nvim",
+    -- Disable sections and component separators
+    component_separators = '',
+    section_separators = '',
+  },
   sections = {
     lualine_c = {
       {
