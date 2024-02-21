@@ -94,7 +94,7 @@ wk.register({
             g = {":GHInteractive<cr>", "show line on github"},
             Y = {":Git yolo<cr>", "yolo commit"},
             n = {":Neogit<cr>", "Open Neogit"},
-            l = {':!tmux split-window -c "$PWD" lazygit<cr>', "Open LazyGit"},
+            l = {':!tmux split-window -Z -c "$PWD" lazygit<cr>', "Open LazyGit"},
             f = {":!fork status $PWD<cr><cr>", "Open Fork"}
         },
         n = {

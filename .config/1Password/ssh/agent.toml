@@ -36,5 +36,9 @@ account = "https://userlike.1password.com"
 item = "SSH Userlike Richard"
 
 [[ssh-keys]]
+account = "https://userlike.1password.com"
+item = "jumpbox-userlike-office"
+
+[[ssh-keys]]
 account = "https://pixel-combo.1password.com"
 item = "SSH-Key ssh-ed25519 (2023)"
