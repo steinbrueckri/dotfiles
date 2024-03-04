@@ -3,8 +3,29 @@
 -----------------------------------------------------------
 local cmd = vim.cmd -- execute Vim commands
 local g = vim.g -- global variables
+local b = vim.b
+local a = vim.api
 local opt = vim.opt -- global/buffer/windows-scoped options
 local wo = vim.wo -- windows-local options
+
+-----------------------------------------------------------
+-- Keybindings
+-----------------------------------------------------------
+-- set leader key to space
+g.mapleader = " "
+-- and also for the local buffer
+-- because thats what `let` does...
+b.mapleader = " "
+
+--- Set localleader to ,
+g.maplocalleader = ","
+
+-- jk to exit insert mode, very handy on my iPad :)
+a.nvim_set_keymap("i", "jk", "<esc>", {noremap = true})
+
+-- better indenting
+a.nvim_set_keymap("v", "<", "<gv", {noremap = true, silent = true})
+a.nvim_set_keymap("v", ">", ">gv", {noremap = true, silent = true})
 
 -----------------------------------------------------------
 -- General
@@ -50,11 +71,6 @@ opt.shiftwidth = 2 -- another kind of stabstop
 opt.expandtab = true -- convert tabs to spaces
 opt.autoindent = true -- convert tabs to spaces
 opt.signcolumn = "yes" -- put numbers and signs in the same column
-
------------------------------------------------------------
--- Colorscheme
------------------------------------------------------------
-cmd[[colorscheme dracula]]
 
 -----------------------------------------------------------
 -- Other stuff

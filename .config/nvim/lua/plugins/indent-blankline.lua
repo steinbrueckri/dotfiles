@@ -1,1 +1,5 @@
-require("ibl").setup({exclude = {filetypes = {"help", "terminal", "checkhealth", "man", "dashboard", "alpha"}}})
+return {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    opts = {exclude = {filetypes = {"help", "terminal", "checkhealth", "man", "dashboard", "alpha"}}}
+}

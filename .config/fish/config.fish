@@ -190,6 +190,9 @@ export ANSIBLE_FORCE_COLOR=1
 # export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES before your Ansible run should clear it up. The code that's causing issues is well below Ansible in the stack.
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
+# Teleport disable adding keys to the agent
+# https://github.com/gravitational/teleport/issues/22326
+export TELEPORT_ADD_KEYS_TO_AGENT=no
 
 ################################################################################
 # ssh-agent magic
