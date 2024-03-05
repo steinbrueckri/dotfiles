@@ -107,7 +107,7 @@ alias nvim-switch-stable="bob use stable"
 
 # lazygit
 alias lg="lazygit"
-alias ld="lazygit -ucd ~/.local/share/yadm/lazygit -w ~ -g ~/.local/share/yadm/repo.git"
+alias lazydot="lazygit -ucd ~/.local/share/yadm/lazygit -w ~ -g ~/.local/share/yadm/repo.git"
 
 # kubernetes stuff
 alias kx="kubectx"
