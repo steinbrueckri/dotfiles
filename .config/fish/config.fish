@@ -147,7 +147,6 @@ alias pwgen="date +%s | sha256sum | base64 | head -c 32 ; echo"
 alias lol="git log --pretty=oneline --abbrev-commit --graph --decorate"
 alias cat="bat "
 alias hosts="hosts --auto-sudo"
-alias tx='tmuxinator'
 alias ls='eza --icons'
 alias top='btop'
 alias watch='viddy'
