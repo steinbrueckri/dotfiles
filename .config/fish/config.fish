@@ -142,6 +142,9 @@ alias localvm='multipass launch -c 4 -m 4G -d 50G -n localvm 20.04 --cloud-init 
 alias dr="docker run -it --rm --entrypoint /bin/sh"
 alias rm-images="docker rmi (docker images -q)"
 
+## Teleport
+alias tssh="tsh ssh (tsh ls | tail --lines=+3 | fzf -e | head -n 1 | cut -d ' ' -f1)"
+
 ## Misc
 alias pwgen="date +%s | sha256sum | base64 | head -c 32 ; echo"
 alias lol="git log --pretty=oneline --abbrev-commit --graph --decorate"
@@ -323,9 +326,11 @@ direnv hook fish | source
 
 if status is-interactive
 and not set -q TMUX
-    if tmux has-session -t home
-	exec tmux attach-session -t home
-    else
-        tmux new-session -s home
+    if not tmux has-session -t home
+        tmux new-session -d -s home
     end
+    if not tmux has-session -t userlike
+        tmux new-session -d -s userlike
+    end
+    exec tmux attach-session -t home
 end

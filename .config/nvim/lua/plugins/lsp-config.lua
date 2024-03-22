@@ -6,7 +6,16 @@ return {
 		dependencies = { "williamboman/mason.nvim", "nvimtools/none-ls.nvim" },
 		config = function()
 			require("mason-null-ls").setup({
-				ensure_installed = { "stylua", "jq", "black", "yamlfmt", "ansiblelint", "markdownlint", "pylint" },
+				ensure_installed = {
+					"stylua",
+					"jq",
+					"black",
+					"isort",
+					"yamlfmt",
+					"ansiblelint",
+					"markdownlint",
+					"pylint",
+				},
 			})
 
 			local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -27,9 +36,10 @@ return {
 				sources = {
 					null_ls.builtins.formatting.stylua,
 					null_ls.builtins.formatting.black,
+					null_ls.builtins.formatting.isort,
 					null_ls.builtins.completion.spell,
-					null_ls.builtins.diagnostics.ansiblelint,
-					null_ls.builtins.diagnostics.pylint,
+					-- FIXME: pylint dont find modules in pyenv
+					-- null_ls.builtins.diagnostics.pylint,
 					null_ls.builtins.diagnostics.markdownlint,
 					null_ls.builtins.formatting.markdownlint,
 				},

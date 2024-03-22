@@ -3,6 +3,16 @@ return {
 	branch = "v3.x",
 	dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim" },
 	opts = {
+		event_handlers = {
+			{
+				event = "file_opened",
+				handler = function(file_path)
+					--auto close
+					require("neo-tree.command").execute({ action = "close" })
+				end,
+			},
+		},
+		close_if_last_window = false,
 		buffers = { follow_current_file = { enabled = true } },
 		filesystem = {
 			follow_current_file = {
@@ -19,9 +29,10 @@ return {
 					".DS_Store",
 					"thumbs.db",
 					"node_modules",
+					".mypy_cache",
+					".pytest_cache",
 					".venv",
 					"__pycache__",
-					"__init__.py",
 				},
 			},
 		},

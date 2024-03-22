@@ -38,11 +38,6 @@ return {
 				v = { ":vsplit<cr>", "Split right" },
 				w = { ":w<cr>", "Save" },
 				N = { ":enew<cr>", "Empty buffer" },
-				a = {
-					name = "+ansible",
-					v = { ":AnsibleVault<cr>", "ansible vault" },
-					u = { ":AnsibleUnvault<cr>", "ansible unvault" },
-				},
 				f = {
 					name = "+find",
 					a = { ":Telescope live_grep<cr>", "grep over all" },
@@ -55,10 +50,7 @@ return {
 						"search files",
 					},
 					r = { ":lua require('spectre').open()<cr>", "Search and Replace" },
-					p = { ":Telescope projects<cr>", "Project list" },
-					I = { ":Telescope gh issues<cr>", "github issues" },
-					P = { ":Telescope gh pull_request<cr>", "github PRs" },
-					y = { ":Telescope yank_history<cr>", "find yank history" },
+					p = { ":Telescope yank_history<cr>", "Yank list" },
 					B = { ":Telescope git_branches<cr>", "find git branches" },
 					o = { ":Telescope oldfiles<cr>", "Show recent files" },
 					b = { ":Telescope buffers<cr>", "Show buffer" },
@@ -101,13 +93,6 @@ return {
 					R = { ":set norelativenumber!<cr>", "relative line nums" },
 					r = { ":TroubleToggle<cr>", "LSP Issue viewer" },
 					t = { ":TableModeToggle<cr>", "TableModeToggle" },
-				},
-				p = {
-					name = "+presentation",
-					s = { ":PresentingStart<cr>", "PresentingStart" },
-					b = { ":.!toilet -w 20::wq0 -f term -F border<cr>", "Ascii border" },
-					f = { ":.!figlet<cr>", "Ascii font - figlet" },
-					t = { ":.!toilet -w 200<cr>", "Ascii font - toilet" },
 				},
 				h = {
 					name = "+harpoon",

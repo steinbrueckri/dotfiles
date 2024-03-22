@@ -6,7 +6,6 @@ vim.notify = require("notify")
 -- Function to set FileType to yaml.ansible
 local function set_ansible_filetype()
 	vim.bo.filetype = "yaml.ansible"
-	vim.notify("Set filetype to yaml.ansible", "info", { title = "Autocommnd" })
 end
 
 -- Function to check for the presence of "ansible.builtin" in the buffer

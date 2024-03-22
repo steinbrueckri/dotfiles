@@ -2,23 +2,30 @@ return {
 	"gbprod/yanky.nvim",
 	event = "VeryLazy",
 	dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-	opts = {
-		ring = { history_length = 15, storage = "shada", sync_with_numbered_registers = true },
-		picker = {
-			select = {
-				action = nil, -- nil to use default put action
-			},
-			telescope = {
-				mappings = nil, -- nil to use default mappings
-			},
+	keys = {
+		{
+			"y",
+			"<Plug>(YankyYank)",
+			mode = { "n", "x" },
+			desc = "Yank text",
 		},
-		system_clipboard = { sync_with_ring = true },
-		highlight = { on_put = true, on_yank = true, timer = 500 },
-		preserve_cursor_position = { enabled = true },
+		{
+			"p",
+			"<Plug>(YankyPutAfter)",
+			mode = { "n", "x" },
+			desc = "Put yanked text after cursor",
+		},
+		{
+			"P",
+			"<Plug>(YankyPutBefore)",
+			mode = { "n", "x" },
+			desc = "Put yanked text before cursor",
+		},
+		{ "<c-p>", "<Plug>(YankyCycleBackward)", desc = "Select previous entry through yank history" },
+		{ "<c-n>", "<Plug>(YankyCycleForward)", desc = "Select next entry through yank history" },
 	},
 	config = function()
-		vim.api.nvim_set_keymap("n", "<c-n>", "<Plug>(YankyCycleForward)", {})
-		vim.api.nvim_set_keymap("n", "<c-p>", "<Plug>(YankyCycleBackward)", {})
+		require("yanky").setup({})
 
 		require("telescope").load_extension("yank_history")
 	end,
