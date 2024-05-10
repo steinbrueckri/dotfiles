@@ -1,21 +1,24 @@
 return {
-    "nvim-lualine/lualine.nvim",
-    dependencies = {"nvim-tree/nvim-web-devicons"},
-    opts = {
-        options = {
-            theme = "dracula-nvim",
-            -- Disable sections and component separators
-            component_separators = "",
-            section_separators = ""
+  "nvim-lualine/lualine.nvim",
+  dependencies = { "nvim-tree/nvim-web-devicons" },
+  config = function()
+    require("lualine").setup({
+      sections = {
+        lualine_a = { "mode" },
+        lualine_b = { "diff", "diagnostics" },
+        lualine_c = { { "filename", path = 1 } },
+        lualine_x = {
+          { "fileformat", "filetype" },
+          {
+            require("noice").api.statusline.mode.get,
+            cond = require("noice").api.statusline.mode.has,
+            color = { fg = "#ff9e64" },
+          },
         },
-        sections = {
-            lualine_c = {
-                {
-                    "filename",
-                    file_status = true, -- displays file status (readonly status, modified status)
-                    path = 1 -- 0 = just filename, 1 = relative path, 2 = absolute path
-                }
-            }
-        }
-    }
+        lualine_y = { "progress" },
+        lualine_z = { "location" },
+      },
+      extensions = { "fugitive", "quickfix", "fzf", "lazy", "mason", "nvim-dap-ui", "oil", "trouble" },
+    })
+  end,
 }
