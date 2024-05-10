@@ -4,7 +4,8 @@ return {
 	{ "dhruvasagar/vim-table-mode" },
 	{ "simrat39/symbols-outline.nvim", lazy = true },
 	{ "folke/todo-comments.nvim", dependencies = "nvim-lua/plenary.nvim", config = true },
-	{ "numToStr/Comment.nvim", config = true },
+	-- Now build in to nvim -> https://github.com/neovim/neovim/pull/28176
+	-- { "numToStr/Comment.nvim", config = true },
 	{
 		"ethanholz/nvim-lastplace",
 		opts = {

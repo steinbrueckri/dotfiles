@@ -20,6 +20,7 @@ return {
 	{
 		"L3MON4D3/LuaSnip",
 		dependencies = { { "saadparwaiz1/cmp_luasnip" }, { "rafamadriz/friendly-snippets" } },
+		build = "make install_jsregexp",
 		config = function()
 			local has_ls, ls = pcall(require, "luasnip")
 
