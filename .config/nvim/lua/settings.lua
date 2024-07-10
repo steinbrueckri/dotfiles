@@ -21,11 +21,25 @@ b.mapleader = " "
 g.maplocalleader = ","
 
 -- jk to exit insert mode, very handy on my iPad :)
-a.nvim_set_keymap("i", "jk", "<esc>", {noremap = true})
+a.nvim_set_keymap("i", "jk", "<esc>", { noremap = true })
 
 -- better indenting
-a.nvim_set_keymap("v", "<", "<gv", {noremap = true, silent = true})
-a.nvim_set_keymap("v", ">", ">gv", {noremap = true, silent = true})
+a.nvim_set_keymap("v", "<", "<gv", { noremap = true, silent = true })
+a.nvim_set_keymap("v", ">", ">gv", { noremap = true, silent = true })
+
+-- better quickfix list stuff
+local function toggleQf()
+	local ft = vim.bo.filetype
+	if ft == "qf" then
+		vim.cmd.cclose()
+	else
+		vim.cmd.copen()
+	end
+end
+
+vim.keymap.set("n", "<leader>tq", toggleQf, {})
+vim.keymap.set("n", "]q", ":cnext<CR>", {})
+vim.keymap.set("n", "[q", ":cprev<CR>", {})
 
 -----------------------------------------------------------
 -- General

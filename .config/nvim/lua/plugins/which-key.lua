@@ -59,11 +59,6 @@ return {
 					h = { ":Telescope harpoon marks<cr>", "Show Harpoon marks" },
 					t = { ":TodoTelescope keywords=TODO,FIX,FIXME,BUG<cr>", "Show tasks" },
 				},
-				r = {
-					name = "+http",
-					r = { "<Plug>RestNvim<cr>", "run the request under the cursor" },
-					p = { "<Plug>RestNvimPreview<cr>", "preview the request cURL command" },
-				},
 				g = {
 					name = "+git",
 					a = { ":Git add %<cr>", "add current" },
