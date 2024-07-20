@@ -6,7 +6,7 @@ return {
 		"nvim-telescope/telescope-ui-select.nvim",
 		"nvim-telescope/telescope-github.nvim",
 		"xiyaowong/telescope-emoji.nvim",
-		"ahmedkhalf/project.nvim",
+		"DrKJeff16/project.nvim",
 		"ThePrimeagen/harpoon",
 		"nvim-telescope/telescope-ui-select.nvim",
 	},
