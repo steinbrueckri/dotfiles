@@ -12,93 +12,300 @@ return {
 
 		local wk = require("which-key")
 
-		wk.register({
-			["gW"] = { ":BrowserSearch<cr>", "Search for word on cursor" },
-			["gF"] = { ":e <cfile><cr>", "create and goto file" },
-			["<esc>"] = { ":noh<cr>", "clear search highlight" },
-			["<leader><Up>"] = { ":wincmd k<cr>", "goto split" },
-			["<leader><Down>"] = { ":wincmd j<cr>", "goto split" },
-			["<leader><Left>"] = { ":wincmd h<cr>", "goto split" },
-			["<leader><Right>"] = { ":wincmd l<cr>", "goto split" },
-			["<Tab>"] = { ":bn<cr>", "Next buffer" },
-			["<S-Tab>"] = { ":bp<cr>", "Previous buffer" },
-			["Z"] = { ":Telescope spell_suggest<cr>", "spell suggest" },
-			["U"] = { ":redo<cr>", "Redo" },
-			-- LEADER Mappings
-			["<leader>"] = {
-				d = {
-					name = "+delete",
-					d = { ":bd<cr>", "delete buffer" },
-					m = { ":delmarks A-Z0-9<cr>:lua require('notify')('Delete all marks')<cr>", "delete marker" },
-				},
-				q = { ":bdelete<cr>", "close buffer" },
-				Q = { ":bd!<cr>", "delete buffer" },
-				e = { ":Neotree toggle<cr>", "Show the file in the tree" },
-				A = { ":Alpha<cr>", "Open Dashboard" },
-				v = { ":vsplit<cr>", "Split right" },
-				w = { ":w<cr>", "Save" },
-				N = { ":enew<cr>", "Empty buffer" },
-				f = {
-					name = "+find",
-					a = { ":Telescope live_grep<cr>", "grep over all" },
-					c = {
-						":lua require('telescope.builtin').find_files({cwd = vim.fn.stdpath('config')})<cr>",
-						"search config",
-					},
-					f = {
-						":lua require'telescope.builtin'.find_files({ find_command = {'rg','--files','--hidden','-g','!.git'}})<cr>",
-						"search files",
-					},
-					r = { ":lua require('spectre').open()<cr>", "Search and Replace" },
-					p = { ":Telescope yank_history<cr>", "Yank list" },
-					B = { ":Telescope git_branches<cr>", "find git branches" },
-					o = { ":Telescope oldfiles<cr>", "Show recent files" },
-					b = { ":Telescope buffers<cr>", "Show buffer" },
-					u = { ":Telescope undo<cr>", "Show Undo History" },
-					k = { ":Telescope keymaps<cr>", "Show Keybindings" },
-					h = { ":Telescope harpoon marks<cr>", "Show Harpoon marks" },
-					t = { ":TodoTelescope keywords=TODO,FIX,FIXME,BUG<cr>", "Show tasks" },
-				},
-				g = {
-					name = "+git",
-					a = { ":Git add %<cr>", "add current" },
-					A = { ":Git add .<cr>", "add all" },
-					b = { ":Gitsigns blame_line<cr>", "blame_line" },
-					d = { ":DiffviewOpen<cr>", "diff open" },
-					D = { ":DiffviewClose<cr>", "diff close" },
-					g = { ":GHInteractive<cr>", "show line on github" },
-					Y = { ":Git yolo<cr>", "yolo commit" },
-					n = { ":Neogit<cr>", "Open Neogit" },
-					l = { ':!tmux split-window -Z -c "$PWD" lazygit<cr>', "Open LazyGit" },
-					f = { ":!fork status $PWD<cr><cr>", "Open Fork" },
-				},
-				n = {
-					name = "+Notes",
-					n = { ":Telekasten goto_thisweek<cr>", "Create new note" },
-					r = { ":Telekasten rename_note<cr>", "Rename note" },
-					f = { ":Telekasten search_notes<cr>", "Search for notes by content" },
-				},
-				t = {
-					name = "+toggle",
-					c = { ":ColorizerToggle<cr>", "colorizer" },
-					o = { ":SymbolsOutline<cr>", "SymbolsOutline" },
-					S = { ":set spell!<cr>", "toggle spell highlighting" },
-					n = { ":set relativenumber!<cr>", "relative line-numbers" },
-					m = { ":MarkdownPreviewToggle<cr>", "Show Markdown preview" },
-					R = { ":set norelativenumber!<cr>", "relative line nums" },
-					r = { ":TroubleToggle<cr>", "LSP Issue viewer" },
-					t = { ":TableModeToggle<cr>", "TableModeToggle" },
-				},
-				h = {
-					name = "+harpoon",
-					a = {
-						":lua require('harpoon.mark').add_file()<cr>:lua vim.notify('Add file to list', 'info', {title = 'Harpoon'})<cr>",
-						"Add to harpoon list",
-					},
-					h = { ":lua require('harpoon.ui').toggle_quick_menu()<cr>", "Show harpoon list" },
-					n = { ":lua require('harpoon.ui').nav_next()<cr>", "Jump to next harpoon item in the list" },
-					p = { ":lua require('harpoon.ui').nav_prev()<cr>", "Jump to previous harpoon item in the list" },
-				},
+		wk.add({
+			-- Global Mappings
+			{
+				"gW",
+				":BrowserSearch<cr>",
+				desc = "Search for word on cursor",
+			},
+			{
+				"gF",
+				":e <cfile><cr>",
+				desc = "create and goto file",
+			},
+			{
+				"<esc>",
+				":noh<cr>",
+				desc = "clear search highlight",
+			},
+			{
+				"<leader><Up>",
+				":wincmd k<cr>",
+				desc = "goto split",
+			},
+			{
+				"<leader><Down>",
+				":wincmd j<cr>",
+				desc = "goto split",
+			},
+			{
+				"<leader><Left>",
+				":wincmd h<cr>",
+				desc = "goto split",
+			},
+			{
+				"<leader><Right>",
+				":wincmd l<cr>",
+				desc = "goto split",
+			},
+			{
+				"<Tab>",
+				":bn<cr>",
+				desc = "Next buffer",
+			},
+			{
+				"<S-Tab>",
+				":bp<cr>",
+				desc = "Previous buffer",
+			},
+			{
+				"Z",
+				":Telescope spell_suggest<cr>",
+				desc = "spell suggest",
+			},
+			{
+				"U",
+				":redo<cr>",
+				desc = "Redo",
+			},
+
+			-- Leader Mappings
+			{ "<leader>d", group = "+delete" },
+			{
+				"<leader>dd",
+				":bd<cr>",
+				desc = "delete buffer",
+			},
+			{
+				"<leader>dm",
+				":delmarks A-Z0-9<cr>:lua require('notify')('Delete all marks')<cr>",
+				desc = "delete marker",
+			},
+			{
+				"<leader>q",
+				":bdelete<cr>",
+				desc = "close buffer",
+			},
+			{
+				"<leader>Q",
+				":bd!<cr>",
+				desc = "delete buffer",
+			},
+			{
+				"<leader>e",
+				":Neotree toggle<cr>",
+				desc = "Show the file in the tree",
+			},
+			{
+				"<leader>A",
+				":Alpha<cr>",
+				desc = "Open Dashboard",
+			},
+			{
+				"<leader>v",
+				":vsplit<cr>",
+				desc = "Split right",
+			},
+			{
+				"<leader>w",
+				":w<cr>",
+				desc = "Save",
+			},
+			{
+				"<leader>N",
+				":enew<cr>",
+				desc = "Empty buffer",
+			},
+			{ "<leader>f", group = "+find" },
+			{
+				"<leader>fa",
+				":Telescope live_grep<cr>",
+				desc = "grep over all",
+			},
+			{
+				"<leader>fc",
+				":lua require('telescope.builtin').find_files({cwd = vim.fn.stdpath('config')})<cr>",
+				desc = "search config",
+			},
+			{
+				"<leader>ff",
+				":lua require'telescope.builtin'.find_files({ find_command = {'rg','--files','--hidden','-g','!.git'}})<cr>",
+				desc = "search files",
+			},
+			{
+				"<leader>fr",
+				":lua require('spectre').open()<cr>",
+				desc = "Search and Replace",
+			},
+			{
+				"<leader>fp",
+				":Telescope yank_history<cr>",
+				desc = "Yank list",
+			},
+			{
+				"<leader>fB",
+				":Telescope git_branches<cr>",
+				desc = "find git branches",
+			},
+			{
+				"<leader>fo",
+				":Telescope oldfiles<cr>",
+				desc = "Show recent files",
+			},
+			{
+				"<leader>fb",
+				":Telescope buffers<cr>",
+				desc = "Show buffer",
+			},
+			{
+				"<leader>fu",
+				":Telescope undo<cr>",
+				desc = "Show Undo History",
+			},
+			{
+				"<leader>fk",
+				":Telescope keymaps<cr>",
+				desc = "Show Keybindings",
+			},
+			{
+				"<leader>fh",
+				":Telescope harpoon marks<cr>",
+				desc = "Show Harpoon marks",
+			},
+			{
+				"<leader>ft",
+				":TodoTelescope keywords=TODO,FIX,FIXME,BUG<cr>",
+				desc = "Show tasks",
+			},
+			{ "<leader>g", group = "+git" },
+			{
+				"<leader>ga",
+				":Git add %<cr>",
+				desc = "add current",
+			},
+			{
+				"<leader>gA",
+				":Git add .<cr>",
+				desc = "add all",
+			},
+			{
+				"<leader>gb",
+				":Gitsigns blame_line<cr>",
+				desc = "blame_line",
+			},
+			{
+				"<leader>gd",
+				":DiffviewOpen<cr>",
+				desc = "diff open",
+			},
+			{
+				"<leader>gD",
+				":DiffviewClose<cr>",
+				desc = "diff close",
+			},
+			{
+				"<leader>gg",
+				":GHInteractive<cr>",
+				desc = "show line on github",
+			},
+			{
+				"<leader>gY",
+				":Git yolo<cr>",
+				desc = "yolo commit",
+			},
+			{
+				"<leader>gn",
+				":Neogit<cr>",
+				desc = "Open Neogit",
+			},
+			{
+				"<leader>gl",
+				':!tmux split-window -Z -c "$PWD" lazygit<cr>',
+				desc = "Open LazyGit",
+			},
+			{
+				"<leader>gf",
+				":!fork status $PWD<cr><cr>",
+				desc = "Open Fork",
+			},
+			{ "<leader>n", group = "+Notes" },
+			{
+				"<leader>nn",
+				":Telekasten goto_thisweek<cr>",
+				desc = "Create new note",
+			},
+			{
+				"<leader>nr",
+				":Telekasten rename_note<cr>",
+				desc = "Rename note",
+			},
+			{
+				"<leader>nf",
+				":Telekasten search_notes<cr>",
+				desc = "Search for notes by content",
+			},
+			{ "<leader>t", group = "+toggle" },
+			{
+				"<leader>tc",
+				":ColorizerToggle<cr>",
+				desc = "colorizer",
+			},
+			{
+				"<leader>to",
+				":SymbolsOutline<cr>",
+				desc = "SymbolsOutline",
+			},
+			{
+				"<leader>tS",
+				":set spell!<cr>",
+				desc = "toggle spell highlighting",
+			},
+			{
+				"<leader>tn",
+				":set relativenumber!<cr>",
+				desc = "relative line-numbers",
+			},
+			{
+				"<leader>tm",
+				":MarkdownPreviewToggle<cr>",
+				desc = "Show Markdown preview",
+			},
+			{
+				"<leader>tR",
+				":set norelativenumber!<cr>",
+				desc = "relative line nums",
+			},
+			{
+				"<leader>tr",
+				":TroubleToggle<cr>",
+				desc = "LSP Issue viewer",
+			},
+			{
+				"<leader>tt",
+				":TableModeToggle<cr>",
+				desc = "TableModeToggle",
+			},
+			{ "<leader>h", group = "+harpoon" },
+			{
+				"<leader>ha",
+				":lua require('harpoon.mark').add_file()<cr>:lua vim.notify('Add file to list', 'info', {title = 'Harpoon'})<cr>",
+				desc = "Add to harpoon list",
+			},
+			{
+				"<leader>hh",
+				":lua require('harpoon.ui').toggle_quick_menu()<cr>",
+				desc = "Show harpoon list",
+			},
+			{
+				"<leader>hn",
+				":lua require('harpoon.ui').nav_next()<cr>",
+				desc = "Jump to next harpoon item in the list",
+			},
+			{
+				"<leader>hp",
+				":lua require('harpoon.ui').nav_prev()<cr>",
+				desc = "Jump to previous harpoon item in the list",
 			},
 		})
 	end,
