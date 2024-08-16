@@ -7,6 +7,7 @@
 -- Neovim init file
 
 require("settings")
+require("keymap")
 require("packagemanager")
 require("autocmd")
 require("functions")
