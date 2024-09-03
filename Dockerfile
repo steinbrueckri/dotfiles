@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y \
     nodejs \
     npm \
     python3-pip \
+    python3-venv \
     && rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/bats-core/bats-core.git /opt/bats \
@@ -30,6 +31,8 @@ RUN git clone https://github.com/bats-core/bats-core.git /opt/bats \
 RUN useradd -ms /bin/bash testuser
 USER testuser
 WORKDIR /home/testuser
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
+ENV PATH="$PATH:/home/testuser/.local/bin"
 
 # Clone your dotfiles repository using yadm with the specified branch
 # RUN yadm clone --branch $BRANCH https://github.com/steinbrueckri/dotfiles.git
