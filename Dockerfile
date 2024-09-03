@@ -18,6 +18,9 @@ RUN apt-get update && apt-get install -y \
     neovim \
     fish \
     jq \
+    nodejs \
+    npm \
+    python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/bats-core/bats-core.git /opt/bats \

@@ -27,10 +27,15 @@ clean:
 	@echo "Cleaning up..."
 	docker rmi $(IMAGE_NAME)
 
-# Open shell in the build image
+# Open shell in the build image as testuser
 .PHONY: shell
 shell: build
 	docker run -it --rm $(IMAGE_NAME) bash
+
+# Open shell in the build image as root user
+.PHONY: shell
+shell-root: build
+	docker run -it --user root --rm $(IMAGE_NAME) bash
 
 # Display help
 .PHONY: help
