@@ -1,11 +1,11 @@
 FROM ubuntu:latest
 
 # Install necessary packages
-RUN apt-get update && apt-get install -y \
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
-    zsh \
-    vim \
     yadm \
+    ssh \
     build-essential \
     libtool-bin \
     autoconf \
@@ -15,11 +15,6 @@ RUN apt-get update && apt-get install -y \
     unzip \
     gettext \
     wget \
-    neovim \
-    fish \
-    jq \
-    nodejs \
-    npm \
     sudo \
     python3-pip \
     python3-venv \
