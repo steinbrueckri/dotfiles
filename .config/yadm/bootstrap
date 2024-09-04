@@ -1,5 +1,32 @@
-#!/bin/sh
+#!/bin/bash
+set -e
 system_type=$(uname -s)
+
+################################################################################
+# general stuff
+################################################################################
+
+mkdir -p "${HOME}/tmp"
+
+if [ "$system_type" = "Linux" ]; then
+  # TODO: Add some stuff for Linux!
+  echo "# TODO: Add some stuff for Linux!"
+  sudo apt-get update && \
+  sudo apt-get -q -y -o Dpkg::Use-Pty=0 install $(cat ${HOME}/.config/yadm/packages_deb.list)
+
+  # FIXME: Install packages via apt
+  # REF: https://github.com/kleutzinger/dotfiles/blob/8cbf61cf18ce8245b0c9db6619b360ea0f7866ef/.config/yadm/bootstrap
+  #
+  # apt-get update && apt-get install -y --no-install-recommends
+    # vim \
+    # neovim \
+    # jq \
+    # fish \
+    # nodejs \
+    # npm \
+# - vivid
+# - direnv
+fi
 
 ###############################################################################
 # TODOs                                                                       #
@@ -37,17 +64,6 @@ system_type=$(uname -s)
 ###############################################################################
 # see also https://gist.github.com/vraravam/5e28ca1720c9dddacdc0e6db61e093fe
 # see also https://www.jamf.com/jamf-nation/discussions/20794/enabling-show-battery-percentage-via-script-or-policy
-
-#######################################################################
-#                            general stuff                            #
-#######################################################################
-
-mkdir "${HOME}/tmp"
-
-if [ "$system_type" = "Linux" ]; then
-  # TODO: Add some stuff for Linux!
-  echo "# TODO: Add some stuff for Linux!"
-fi
 
 if [ "$system_type" = "Darwin" ]; then
 
@@ -244,3 +260,5 @@ if [ "$system_type" = "Darwin" ]; then
   done
 
 fi
+
+touch /tmp/bootstrap-finished
