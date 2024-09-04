@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
     jq \
     nodejs \
     npm \
+    sudo \
     python3-pip \
     python3-venv \
     && rm -rf /var/lib/apt/lists/*
@@ -28,7 +29,8 @@ RUN git clone https://github.com/bats-core/bats-core.git /opt/bats \
     && /opt/bats/install.sh /usr/local
 
 # Create a new user
-RUN useradd -ms /bin/bash testuser
+RUN useradd -ms /bin/bash -G sudo testuser
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER testuser
 WORKDIR /home/testuser
 ENV PIP_BREAK_SYSTEM_PACKAGES=1

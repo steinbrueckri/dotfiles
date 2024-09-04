@@ -1,6 +1,9 @@
 # Docker image name
 IMAGE_NAME=dotfiles-test
 
+# TODO: set DOCKER_CLI_HINTS=false to disable docker rfor desktop messages
+# ref.: https://forums.docker.com/t/how-to-turn-off-the-whats-new-message/140860
+
 # Default branch and Neovim version to use
 BRANCH=feat/testing
 NVIM_VERSION=stable
@@ -27,15 +30,13 @@ clean:
 	@echo "Cleaning up..."
 	docker rmi $(IMAGE_NAME)
 
-# Open shell in the build image as testuser
+# Open shell in the build image
 .PHONY: shell
 shell: build
+	@echo "================================"
+	@echo "ℹ️ Use sudo su to get root!"
+	@echo "================================"
 	docker run -it --rm $(IMAGE_NAME) bash
-
-# Open shell in the build image as root user
-.PHONY: shell
-shell-root: build
-	docker run -it --user root --rm $(IMAGE_NAME) bash
 
 # Display help
 .PHONY: help
