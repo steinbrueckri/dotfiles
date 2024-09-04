@@ -101,3 +101,8 @@ NOTE: Picture need a update 😆
 ![Screenshot-1](./.dotfileassets/screenshot-1.png)
 
 ![Screenshot-2](./.dotfileassets/screenshot-2.png)
+
+## Testing
+
+The numbering of the test files is importend because for example yadm bootstrap
+is installing neovim.
