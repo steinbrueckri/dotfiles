@@ -102,7 +102,18 @@ NOTE: Picture need a update 😆
 
 ![Screenshot-2](./.dotfileassets/screenshot-2.png)
 
-## Testing
+## Dotfile Testing
 
-The numbering of the test files is importend because for example yadm bootstrap
-is installing neovim.
+Tests are managed using [Docker](https://docker.com) and [Bats](https://github.com/bats-core). To run tests, execute the following:
+
+- `make`
+
+The default make target will build a Docker image from the `.Dockerfile` and run test cases using Bats found in `.tests`.
+
+### Missing features
+
+Here are some planned improvements for future versions:
+
+- Testing with multiple Neovim versions
+- Testing across various Linux distributions
+- Testing on macOS
