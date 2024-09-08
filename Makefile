@@ -34,7 +34,7 @@ build:
 .PHONY: test
 test: build
 	@echo "Running tests..."
-	@docker run -it --rm $(IMAGE_NAME) bash -c "bats -x -p -T --print-output-on-failure $(TEST_PATH)"
+	@docker run -i --rm $(IMAGE_NAME) bash -c "bats -x --print-output-on-failure $(TEST_PATH)"
 
 # Run all tests
 .PHONY: test
