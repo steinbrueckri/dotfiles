@@ -59,5 +59,3 @@
 [merge "ansible-vault"]
 	name = ansible-vault merge driver
 	driver = /usr/local/bin/ansible-vault-merge -- %O %A %B %P
-[url "git@github.com:"]
-	insteadOf = https://github.com/

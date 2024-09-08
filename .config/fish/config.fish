@@ -263,8 +263,8 @@ function ssh_agent_init
     # If at this point we still haven't located an agent, it's time to
     # start a new one
     if [ $AGENTFOUND = 0 ] ;
-	echo need to start a new agent
-	eval (ssh-agent -c)
+      echo need to start a new agent
+      eval (ssh-agent -c)
     end
 
     # Finally, show what keys are currently in the agent
@@ -275,13 +275,19 @@ end
 #                              functions                              #
 #######################################################################
 
-set ssh_agent_sock ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
-if test -e $ssh_agent_sock
-  set -xg SSH_AUTH_SOCK $ssh_agent_sock
+# Check if we are in a container
+if not test -e /.dockerenv
+  set ssh_agent_sock ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+  # check if 1password socket exist
+  if test -e $ssh_agent_sock
+    set -xg SSH_AUTH_SOCK $ssh_agent_sock
+  else
+    echo "1password ssh agent.sock not found, start ssh-agent"
+    echo "Please load your ssh key with the command loadsshkey!"
+    ssh_agent_init
+  end
 else
-  echo "1password ssh agent.sock not found, start ssh-agent"
-  echo "Please load your ssh key with the command loadsshkey!"
-  ssh_agent_init
+  echo "Running inside a Docker container, skipping SSH agent setup."
 end
 
 # Start ssh-agent, load key from 1password and added to the ssh-agent

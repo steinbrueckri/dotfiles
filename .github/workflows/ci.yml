@@ -1,0 +1,15 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+    # everry day at 06:00
+    - cron: "0 6 * * *"
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: make

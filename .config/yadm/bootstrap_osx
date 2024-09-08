@@ -1,16 +1,44 @@
-#!/usr/bin/env bash
+#!/bin/bash
+set -e
+
+# TODO: #OSX howto tests this shit?
+
 ###############################################################################
-# Global Config                                                               #
+# Notes                                                                       #
 ###############################################################################
 
+# https://gist.github.com/vraravam/5e28ca1720c9dddacdc0e6db61e093fe
+# https://www.jamf.com/jamf-nation/discussions/20794/enabling-show-battery-percentage-via-script-or-policy
+
+###############################################################################
+# Brew                                                                        #
+###############################################################################
+
+# install homebrew if it's missing
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Installing homebrew"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+else
+  echo "Homebrew is already installed ..."
+fi
+
+if [ -f "$HOME/.Brewfile" ]; then
+  echo "Updating homebrew bundle"
+  brew bundle --global
+fi
+
 # Create cronjob
-if [ $(crontab -l | grep brew | wc -l) -eq 0 ]; then
+if [ "$(crontab -l | grep -c brew)" -eq 0 ]; then
   (
     crontab -l
     echo "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
     echo "0 */3 * * * brew bundle dump --force --file ~/.Brewfile"
   ) | crontab -
 fi
+
+###############################################################################
+# Global Config                                                               #
+###############################################################################
 
 # Ask for the administrator password upfront
 sudo -v
@@ -22,11 +50,12 @@ osascript -e 'tell application "System Preferences" to quit'
 ###############################################################################
 # General Settings                                                            #
 ###############################################################################
+
 echo "Apply General Settings"
 # Set Avatar Image
-sudo dscl . -delete /Users/$USER JPEGPhoto
-sudo dscl . -delete /Users/$USER Picture
-sudo dscl . -create /Users/$USER Picture "$HOME/.dotfileassets/me.jpg"
+sudo dscl . -delete "/Users/$USER" JPEGPhoto
+sudo dscl . -delete "/Users/$USER" Picture
+sudo dscl . -create "/Users/$USER" Picture "$HOME/.dotfileassets/me.jpg"
 
 # Require password immediately after sleep or screen saver begins
 defaults write com.apple.screensaver askForPassword -int 1
@@ -48,12 +77,6 @@ defaults write com.apple.dock wvous-tr-corner -int 2
 
 # Trackpad/Mouse: Fix the scrolling or disable natural scrolling ;)
 defaults write com.apple.swipescrolldirection -int 1
-
-## set hostname
-sudo scutil --set ComputerName "Anubis"
-sudo scutil --set HostName "anubis"
-sudo scutil --set LocalHostName "Anubis"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "Anubis"
 
 # Save screen shots to other location
 mkdir -p "${HOME}/tmp/screenshots"
@@ -107,29 +130,6 @@ defaults write com.apple.dock wvous-tr-modifier -int 0
 defaults write com.apple.dock wvous-br-corner -int 0
 defaults write com.apple.dock wvous-br-modifier -int 0
 
-############################################################################
-# Alfred                                                                   #
-############################################################################
-echo "Alfred Settings"
-# Disable spotlight shortcuts for Alfred
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "{ enabled = 0; value = { parameters = ( 32, 49, 1048576); type = standard; }; }"
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 "{ enabled = 0; value = { parameters = ( 32, 49, 1048576); type = standard; }; }"
-
-# Set spotline shortcut for alfred
-defaults write com.runningwithcrayons.Alfred-Preferences hotkey.default -dict-add key 49
-defaults write com.runningwithcrayons.Alfred-Preferences hotkey.default -dict-add mod 1048576
-defaults write com.runningwithcrayons.Alfred-Preferences hotkey.default -dict-add string "Space"
-
-############################################################################
-# Magnet                                                                   #
-############################################################################
-echo "Magnet Settings"
-# Set keyboard mappings for Magnet
-defaults write com.crowdcafe.windowmagnet expandWindowEastComboKey -dict keyCode 124 modifierFlags 1572864
-defaults write com.crowdcafe.windowmagnet expandWindowWestComboKey -dict keyCode 123 modifierFlags 1572864
-defaults write com.crowdcafe.windowmagnet maximizeWindowComboKey -dict keyCode 126 modifierFlags 1572864
-defaults write com.crowdcafe.windowmagnet restoreWindowComboKey -dict keyCode 125 modifierFlags 1572864
-
 ###############################################################################
 # Finder Settings                                                             #
 ###############################################################################
@@ -168,8 +168,6 @@ for app in "Activity Monitor" \
   "cfprefsd" \
   "Contacts" \
   "Dock" \
-  "Magnet" \
-  "Alfred" \
   "Finder" \
   "Google Chrome Canary" \
   "Google Chrome" \

@@ -1,0 +1,45 @@
+#!/bin/bash
+set -e
+
+#Check which Linux distribution is being used
+if [ -f /etc/os-release ]; then
+  # Load the information from /etc/os-release
+  . /etc/os-release
+  distro=$ID
+else
+  echo "Could not determine the Linux distribution"
+  exit 1
+fi
+
+# Branch based on the Linux distribution
+case "$distro" in
+  debian|ubuntu)
+    echo "Debian/Ubuntu detected"
+    sudo apt-get update && \
+    sudo apt-get -q -y -o Dpkg::Use-Pty=0 install $(cat ${HOME}/.config/yadm/packages_deb.list)
+    ;;
+
+  fedora)
+    echo "Fedora detected"
+    sudo dnf update -y && \
+    sudo dnf install -y $(cat ${HOME}/.config/yadm/packages_rpm.list)
+    ;;
+
+  arch)
+    echo "Arch Linux detected"
+    sudo pacman -Syu --noconfirm && \
+    sudo pacman -S --noconfirm $(cat ${HOME}/.config/yadm/packages_pacman.list)
+    ;;
+
+  *)
+    echo "Distribution $distro is not supported"
+    exit 1
+    ;;
+
+esac
+
+################################################################################
+# Install pip packages
+################################################################################
+pip3 install neovim
+

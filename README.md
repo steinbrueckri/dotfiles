@@ -9,9 +9,10 @@ It is managed using [yadm](https://github.com/TheLocehiliosan/yadm/), a dotfile
 manager. This makes it simple to set up a new computer with these files. In
 order to set up a new system with these dotfiles, do the following:
 
-## Use
+## Getting Started
 
-First of all you need yadm, this can be installed on macOS via homebrew or on Linux via the package manager of your choice.
+First of all you need yadm, this can be installed on macOS via homebrew or on
+Linux via the package manager of your choice.
 
 ## macOS
 
@@ -21,7 +22,7 @@ First of all you need yadm, this can be installed on macOS via homebrew or on Li
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 
-### Install tools with Homebrew on macOS
+### Install tools with Homebrew
 
 ```shell
 brew bundle install --file=.Brewfile
@@ -48,10 +49,6 @@ From https://github.com/steinbrueckri/dotfiles
  * [new branch]      master     -> origin/master
 Executing /steinbrueckri/.config/yadm/bootstrap
 ```
-
-## Apply other OS Settings
-
-My macOS settings can you apply with the [osx_settings.sh](./.dotfileassets/osx_settings.sh)
 
 ## Hardware
 
@@ -90,7 +87,8 @@ Hardware:
 ```
 
 As Keyboard i use a [Kinesis Advantage360](https://kinesis-ergo.com/keyboards/advantage360/)
-with the blank keycap set from [Kinesis kc360-bk](https://kinesis-ergo.com/shop/kc360-bk/) and my Keyboard layouts and macros
+with the blank keycap set from [Kinesis kc360-bk](https://kinesis-ergo.com/shop/kc360-bk/)
+and my Keyboard layouts and macros
 for it can be found in [steinbrueckri/Adv360-Pro-ZMK](https://github.com/steinbrueckri/Adv360-Pro-ZMK).
 
 ![Keyboard](./.dotfileassets/keyboard.jpg)
@@ -98,6 +96,24 @@ NOTE: Picture need a update 😆
 
 ## Screenshots
 
+Here’s a glimpse of my terminal and setup:
+
 ![Screenshot-1](./.dotfileassets/screenshot-1.png)
 
 ![Screenshot-2](./.dotfileassets/screenshot-2.png)
+
+## Dotfile Testing
+
+Tests are managed using [Docker](https://docker.com) and [Bats](https://github.com/bats-core). To run tests, execute the following:
+
+- `make`
+
+The default make target will build a Docker image from the `.Dockerfile` and run test cases using Bats found in `.tests`.
+
+### Missing features
+
+Here are some planned improvements for future versions:
+
+- Testing with multiple Neovim versions
+- Testing across various Linux distributions
+- Testing on macOS
