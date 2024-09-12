@@ -34,6 +34,11 @@ vim.api.nvim_set_keymap(
   ':delmarks A-Z0-9<CR>:lua require("notify")("Delete all marks")<CR>',
   { noremap = true, silent = true }
 )
+-- Find and center
+vim.api.nvim_set_keymap("n", "n", "nzzzv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "N", "Nzzzv", { noremap = true, silent = true })
+-- Keep last yanked when pasting
+vim.api.nvim_set_keymap("v", "p", '"_dP', { noremap = true, silent = true })
 -- Close buffer
 vim.api.nvim_set_keymap("n", "<leader>q", ":bdelete<CR>", { noremap = true, silent = true })
 -- Delete buffer
@@ -42,6 +47,8 @@ vim.api.nvim_set_keymap("n", "<leader>Q", ":bd!<CR>", { noremap = true, silent =
 vim.api.nvim_set_keymap("n", "<leader>e", ":Neotree toggle<CR>", { noremap = true, silent = true })
 -- Open Dashboard
 vim.api.nvim_set_keymap("n", "<leader>A", ":Alpha<CR>", { noremap = true, silent = true })
+-- Split horizontal
+vim.api.nvim_set_keymap("n", "<leader>h", ":split<CR>", { noremap = true, silent = true })
 -- Split right
 vim.api.nvim_set_keymap("n", "<leader>v", ":vsplit<CR>", { noremap = true, silent = true })
 -- Save
@@ -126,6 +133,8 @@ vim.api.nvim_set_keymap("n", "<leader>to", ":SymbolsOutline<CR>", { noremap = tr
 vim.api.nvim_set_keymap("n", "<leader>ts", ":Screenkey toggle<CR>", { noremap = true, silent = true })
 -- Toggle spell highlighting
 vim.api.nvim_set_keymap("n", "<leader>tS", ":set spell!<CR>", { noremap = true, silent = true })
+-- Toggle line wrapping
+vim.api.nvim_set_keymap("n", "<leader>tw", "<cmd>set wrap!<CR>", { noremap = true, silent = true })
 -- Relative line-numbers
 vim.api.nvim_set_keymap("n", "<leader>tn", ":set relativenumber!<CR>", { noremap = true, silent = true })
 -- Show Markdown preview

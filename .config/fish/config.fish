@@ -34,6 +34,12 @@ set theme_color_scheme "dracula"
 export CLICOLOR=1
 export LS_COLORS=(vivid generate dracula)
 
+# libs
+# ref.: https://github.com/3rd/image.nvim?tab=readme-ov-file#installing-imagemagick
+if test -e "/opt/homebrew/"
+export DYLD_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_LIBRARY_PATH"
+end
+
 # fzf theme
 set -Ux FZF_DEFAULT_OPTS "\
   --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9

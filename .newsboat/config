@@ -1,0 +1,79 @@
+################################################################################
+# Common Settings
+################################################################################
+
+# Enable reloading all feeds periodically.
+auto-reload yes
+
+# Set the browser command to use when opening an article in the browser.
+browser "open %u"
+
+# Ask for confirmation when quiting.
+confirm-exit yes
+
+# Disable reloading all feeds at start up.
+refresh-on-startup yes
+
+################################################################################
+# Nacros
+################################################################################
+
+macro i set pager "$HOME/.newsboat/kitty-img-pager.sh 2>~/err"; open; set pager internal
+
+################################################################################
+# Keybindings
+################################################################################
+
+# Vim-like keybindings.
+bind-key RIGHT open
+bind-key LEFT quit
+bind-key k up
+bind-key j down
+bind-key ^B pageup
+bind-key ^F pagedown
+bind-key d delete-article
+bind-key g home
+bind-key G end
+bind-key Esc quit
+bind-key Q quit
+
+# leader key
+unbind-key ,
+bind-key SPACE macro-prefix
+
+# open the article in browser
+macro SPACE set browser "open -g %u"; open-in-browser -- "Open in browser"
+macro w     set browser "w3m %u"; open-in-browser -- "Open in browser"
+macro b     set browser "browsh --startup-url %u"; open-in-browser -- "Open in browser"
+
+# copy url to clipboard "yank" (via tmux clipboard and pbcopy)
+macro y     set browser "echo %u | pbcopy ; tmux set-buffer %u" ; open-in-browser ; set browser "$URLPORTAL %u"
+
+################################################################################
+# Theme
+################################################################################
+
+# Dark theme based on Dracula color scheme for newsboat.
+#
+# In order to use this color scheme, you must first configure
+# your terminal emulator to use the Dracula palette.
+# See <https://draculatheme.com/> for more information.
+
+color background default default
+color listnormal color255 default
+color listfocus color238 color255 standout
+color listnormal_unread color47 default
+color listfocus_unread color238 color47 standout
+color info color141 color236
+
+# highlights
+highlight all "---.*---" yellow
+highlight feedlist ".*(0/0))" black
+highlight article "(^Feed:|^Title:|^Date:|^Link:|^Author:)" cyan default bold
+highlight article "https?://[^ ]+" yellow default
+highlight article "\\[[0-9][0-9]*\\]" magenta default bold
+highlight article "\\[image\\ [0-9]+\\]" green default bold
+highlight article "\\[embedded flash: [0-9][0-9]*\\]" green default bold
+highlight article ":.*\\(link\\)$" cyan default
+highlight article ":.*\\(image\\)$" blue default
+highlight article ":.*\\(embedded flash\\)$" magenta default
