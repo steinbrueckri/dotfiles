@@ -29,6 +29,13 @@ RUN git clone https://github.com/bats-core/bats-support.git /opt/bats-support &&
     git clone https://github.com/bats-core/bats-core.git    /opt/bats && \
     /opt/bats/install.sh /usr/local
 
+
+# Install zyedidia/eget, to install github release like nothing
+RUN cd /usr/local/bin && curl https://zyedidia.github.io/eget.sh | sh
+
+# Install rhysd/vim-startuptime
+RUN eget rhysd/vim-startuptime --to=/usr/local/bin
+
 # Create a new user
 RUN useradd -ms /bin/bash -G sudo testuser
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers

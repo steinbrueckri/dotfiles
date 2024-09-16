@@ -22,6 +22,11 @@ load '/opt/bats-file/load'
   assert_exists "$HOME/.local/share/nvim/lazy/telescope.nvim/lua/telescope/init.lua"
 }
 
+@test "bootstrap TSInstall " {
+  run nvim --headless "+TSInstallSync all" +qall!
+  assert_success
+}
+
 # NOTE: Test is a bit flary because of that the retry
 @test "Install all LSPs with Mason" {
   # Define a list of LSPs to be installed
@@ -78,4 +83,16 @@ load '/opt/bats-file/load'
   refute_line 'ERROR black: the command "black" is not executable.'
   refute_line 'ERROR isort: the command "isort" is not executable.'
   refute_line 'ERROR markdownlint: the command "markdownlint" is not executable.'
+}
+
+@test "Average startuptime is below 12 msec" {
+  LOG_FILE="vim-startuptime.log"
+  run vim-startuptime -vimpath nvim > $LOG_FILE
+  total_avg=$(grep "Total Average:" "$LOG_FILE" | awk '{print $3}')
+  total_avg_rounded=$(printf "%.0f" $total_avg)
+
+  limit=150
+
+  assert_success
+  assert [ "$total_avg_rounded" -lt "$limit" ]
 }
