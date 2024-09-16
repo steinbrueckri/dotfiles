@@ -1,7 +1,7 @@
 return {
 	"codethread/qmk.nvim",
 	ft = "keymap",
-	lazy = true,
+	event = "VeryLazy",
 	opts = {
 		name = "LAYOUT_pretty",
 		variant = "zmk",

@@ -1,5 +1,6 @@
 return {
 	"echasnovski/mini.nvim",
+	event = "VeryLazy",
 	branch = "stable",
 	config = function()
 		require("mini.pairs").setup({

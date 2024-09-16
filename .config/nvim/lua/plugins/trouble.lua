@@ -1,6 +1,8 @@
 return {
 	"folke/trouble.nvim",
-	event = "VeryLazy",
+	keys = {
+		{ "<leader>tr", "<cmd>TroubleToggle<cr>" },
+	},
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	opts = {
 		height = 7, -- height of the trouble list

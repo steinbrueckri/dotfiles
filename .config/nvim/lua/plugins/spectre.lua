@@ -1,6 +1,8 @@
 return {
 	"windwp/nvim-spectre",
-	event = "VeryLazy",
+	keys = {
+		{ "<leader>fr", '<cmd>lua require("spectre ").open()<cr>"' },
+	},
 	opts = {
 		color_devicons = true,
 		open_cmd = "vnew",

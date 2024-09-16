@@ -10,6 +10,13 @@ return {
 		"ThePrimeagen/harpoon",
 		"nvim-telescope/telescope-ui-select.nvim",
 	},
+	keys = {
+		{
+			"<leader>ff",
+			':lua require"telescope.builtin".find_files({ find_command = {"rg","--files","--hidden","-g","!.git"}})<CR>',
+		},
+		{ "<leader>fa", "<cmd>Telescope live_grep<cr>" },
+	},
 	config = function()
 		-- function to allow multi-selection in the telescope picker
 		local select_one_or_multi = function(prompt_bufnr)

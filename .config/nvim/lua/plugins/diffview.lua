@@ -1,1 +1,9 @@
-return { "sindrets/diffview.nvim", dependencies = { "nvim-lua/plenary.nvim" } }
+return {
+	"sindrets/diffview.nvim",
+	event = "VeryLazy",
+	keys = {
+		{ "<leader>gd", "<cmd>DiffviewOpen<cr>" },
+		{ "<leader>gd", "<cmd>DiffviewClose<cr>" },
+	},
+	dependencies = { "nvim-lua/plenary.nvim" },
+}
