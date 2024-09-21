@@ -1,4 +1,7 @@
 https://news.ycombinator.com/rss "Hackernews"
+https://www.heise.de/security/rss/alert-news.rdf "Heise security Alerts"
+https://www.heise.de/security/rss/news.rdf "Heise security"
+https://tldr.tech/api/rss/tech "TLDR"
 https://xkcd.com/rss.xml "xkcd"
 https://www.reddit.com/r/neovim.rss "~r/neovim"
 https://www.reddit.com/r/tmux.rss "~r/tmux" reddit linux
