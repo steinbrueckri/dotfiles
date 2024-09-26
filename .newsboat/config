@@ -15,14 +15,12 @@ confirm-exit yes
 refresh-on-startup yes
 
 ################################################################################
-# Nacros
-################################################################################
-
-macro i set pager "$HOME/.newsboat/kitty-img-pager.sh 2>~/err"; open; set pager internal
-
-################################################################################
 # Keybindings
 ################################################################################
+
+# leader key
+unbind-key ,
+bind-key SPACE macro-prefix
 
 # Vim-like keybindings.
 bind-key RIGHT open
@@ -37,17 +35,17 @@ bind-key G end
 bind-key Esc quit
 bind-key Q quit
 
-# leader key
-unbind-key ,
-bind-key SPACE macro-prefix
+bind-key ENTER open-in-browser-and-mark-read
 
 # open the article in browser
-macro SPACE set browser "open -g %u"; open-in-browser -- "Open in browser"
-macro w     set browser "w3m %u"; open-in-browser -- "Open in browser"
-macro b     set browser "browsh --startup-url %u"; open-in-browser -- "Open in browser"
+macro SPACE set browser "open -g %u"; open-in-browser-and-mark-read -- "Open in browser"
+macro w     set browser "w3m %u"; open-in-browser-and-mark-read -- "Open in w3m"
+macro b     set browser "browsh --startup-url %u"; open-in-browser-and-mark-read -- "Open in browsh"
 
 # copy url to clipboard "yank" (via tmux clipboard and pbcopy)
 macro y     set browser "echo %u | pbcopy ; tmux set-buffer %u" ; open-in-browser ; set browser "$URLPORTAL %u"
+
+macro i set pager "$HOME/.newsboat/kitty-img-pager.sh"; open; set pager internal
 
 ################################################################################
 # Theme

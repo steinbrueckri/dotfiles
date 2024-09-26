@@ -120,13 +120,15 @@ vim.api.nvim_set_keymap(
 -- Open Fork
 vim.api.nvim_set_keymap("n", "<leader>gf", ":!fork status $PWD<CR><CR>", { noremap = true, silent = true })
 -- Create new note
-vim.api.nvim_set_keymap("n", "<leader>nn", ":Telekasten goto_thisweek<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>nn", ":ObsidianToday<CR>", { noremap = true, silent = true })
 -- Rename note
-vim.api.nvim_set_keymap("n", "<leader>nr", ":Telekasten rename_note<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>nr", ":ObsidianRename<CR>", { noremap = true, silent = true })
 -- Search for notes by content
-vim.api.nvim_set_keymap("n", "<leader>nf", ":Telekasten search_notes<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>nf", ":ObsidianSearch<CR>", { noremap = true, silent = true })
 -- Colorizer
 vim.api.nvim_set_keymap("n", "<leader>tc", ":ColorizerToggle<CR>", { noremap = true, silent = true })
+-- Toggle DB browser
+vim.api.nvim_set_keymap("n", "<leader>td", ":DBUIToggle<CR>", { noremap = true, silent = true })
 -- SymbolsOutline
 vim.api.nvim_set_keymap("n", "<leader>to", ":SymbolsOutline<CR>", { noremap = true, silent = true })
 -- Toggle Screenkey

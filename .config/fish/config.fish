@@ -15,6 +15,7 @@
 fish_add_path /usr/local/sbin
 fish_add_path $HOME/bin
 fish_add_path $HOME/.cargo/bin
+fish_add_path $HOME/.yarn/bin
 fish_add_path /opt/homebrew/bin
 fish_add_path /opt/homebrew/sbin
 fish_add_path /opt/homebrew/opt/ruby/bin
@@ -160,6 +161,7 @@ alias ls='eza --icons'
 alias top='btop'
 alias watch='viddy'
 alias myip='curl -s -H "Accept: application/json" ipinfo.io | jq -r .ip'
+alias ag="rg"
 
 #######################################################################
 #                               exports                               #
