@@ -12,4 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: make
+
+      - name: Run tests
+        run: make
+
+      - name: Debug
+        run: ls -la .test_results/
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            ./test_results/*.xml

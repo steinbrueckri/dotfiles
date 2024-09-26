@@ -6,11 +6,15 @@
 # ref.: https://forums.docker.com/t/how-to-turn-off-the-whats-new-message/140860
 export DOCKER_CLI_HINTS = false
 
-# Docker image name
+# Image name
 IMAGE_NAME=dotfiles-test
+
+# Container name
+CONTAINER_NAME=dotfiles-test
 
 # Path to the tests in the container
 TEST_PATH=/home/testuser/.tests/
+TESTRESULT_PATH=/home/testuser/.test_results/
 
 ################################################################################
 # Targets
@@ -34,19 +38,22 @@ build:
 .PHONY: test
 test: build
 	@echo "Running tests..."
-	@docker run -i --rm $(IMAGE_NAME) bash -c "bats -x --print-output-on-failure $(TEST_PATH)"
+	@mkdir -p `pwd`/.test_results
+	@docker run --name $(CONTAINER_NAME) -i -v `pwd`/.test_results:$(TESTRESULT_PATH) --rm $(IMAGE_NAME) bash -c "bats --formatter junit $(TEST_PATH) | tee $(TESTRESULT_PATH)/unit-test-result.xml"
 
-# Run all tests
+# Run all tests and open shell in container for debugging
 .PHONY: test
 test-debug: build
 	@echo "Running tests..."
-	@docker run -it --rm $(IMAGE_NAME) bash -c "bats -x -p -T --print-output-on-failure $(TEST_PATH); bash"
+	@docker run --name $(CONTAINER_NAME) -it --rm $(IMAGE_NAME) bash -c "bats -x -p -T --print-output-on-failure $(TEST_PATH); bash"
 
 # Remove the Docker image
 .PHONY: clean
 clean:
 	@echo "Cleaning up..."
-	@docker rmi $(IMAGE_NAME)
+	@rm -r `pwd`/.test_results
+	@docker rm -fv $(CONTAINER_NAME)
+	@docker rmi -f $(IMAGE_NAME)
 
 # Open shell in the build image
 .PHONY: shell
