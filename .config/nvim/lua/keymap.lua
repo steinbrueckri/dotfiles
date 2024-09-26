@@ -105,7 +105,7 @@ vim.api.nvim_set_keymap("n", "<leader>gd", ":DiffviewOpen<CR>", { noremap = true
 -- Diff close
 vim.api.nvim_set_keymap("n", "<leader>gD", ":DiffviewClose<CR>", { noremap = true, silent = true })
 -- Show line on GitHub
-vim.api.nvim_set_keymap("n", "<leader>gg", ":GHInteractive<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>gg", ":OpenInGHFileLines<CR>", { noremap = true, silent = true })
 -- Yolo commit
 vim.api.nvim_set_keymap("n", "<leader>gY", ":Git yolo<CR>", { noremap = true, silent = true })
 -- Open Neogit
