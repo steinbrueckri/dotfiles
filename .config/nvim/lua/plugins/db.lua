@@ -1,6 +1,11 @@
+-- NOTE: connections are managed in .local/share/db_ui/connections.json
+-- cat .local/share/db_ui/connections.json
+-- [{"url": "ssh://jumphost:postgresql://user:pass@db_server_name/db_name", "name": "connection_name"}]
+
 return {
 	"kristijanhusak/vim-dadbod-ui",
 	dependencies = {
+		{ "pbogut/vim-dadbod-ssh", lazy = true },
 		{ "tpope/vim-dadbod", lazy = true },
 		{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
 	},

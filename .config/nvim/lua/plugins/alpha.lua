@@ -300,10 +300,10 @@ return {
 		dashboard.section.buttons.val = {
 			dashboard.button("e", " New file", ":ene <BAR> startinsert <CR>"),
 			dashboard.button("r", "󰈞 Recent files", ":Telescope oldfiles<CR>"),
+			dashboard.button("d", " Database connection", ":DBUI<CR>"),
 			dashboard.button("s", " Settings", ":e $MYVIMRC <CR>"),
 			dashboard.button("u", " Update plugins", ":Lazy update<CR>"),
 			dashboard.button("m", " Update Masons", ":Mason<CR>"),
-			dashboard.button("h", " Check Health", ":checkhealth <CR>"),
 			dashboard.button("q", " Quit", ":q <CR>"),
 		}
 
