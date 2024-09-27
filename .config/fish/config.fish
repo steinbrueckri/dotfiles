@@ -162,6 +162,7 @@ alias top='btop'
 alias watch='viddy'
 alias myip='curl -s -H "Accept: application/json" ipinfo.io | jq -r .ip'
 alias ag="rg"
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
 #######################################################################
 #                               exports                               #
