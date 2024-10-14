@@ -6,8 +6,8 @@
 --   ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝
 -- Neovim init file
 
+require("functions")
 require("settings")
 require("keymap")
 require("packagemanager")
 require("autocmd")
-require("functions")

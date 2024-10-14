@@ -1,3 +1,4 @@
+-- function to help for debugging
 function dump(o)
 	if type(o) == "table" then
 		local s = "{ "
@@ -10,5 +11,15 @@ function dump(o)
 		return s .. "} "
 	else
 		return tostring(o)
+	end
+end
+
+-- better quickfix list stuff
+function toggleQf()
+	local ft = vim.bo.filetype
+	if ft == "qf" then
+		vim.cmd.cclose()
+	else
+		vim.cmd.copen()
 	end
 end

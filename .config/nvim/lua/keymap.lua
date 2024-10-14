@@ -1,8 +1,27 @@
 -----------------------------------------------------------
--- Native Vim Keybindings Setup
+-- Keybindings
 -----------------------------------------------------------
+---
+-- set leader key to space
+vim.g.mapleader = " "
+-- and also for the local buffer
+-- because thats what `let` does...
+vim.b.mapleader = " "
 
--- Global Mappings
+--- Set localleader to ,
+vim.g.maplocalleader = ","
+
+-- jk to exit insert mode, very handy on my iPad :)
+vim.api.nvim_set_keymap("i", "jk", "<esc>", { noremap = true })
+
+-- better indenting
+vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true, silent = true })
+
+vim.keymap.set("n", "<leader>tq", toggleQf, {})
+vim.keymap.set("n", "]q", ":cnext<CR>", {})
+vim.keymap.set("n", "[q", ":cprev<CR>", {})
+
 -- Create and goto file
 vim.api.nvim_set_keymap("n", "gF", ":e <cfile><CR>", { noremap = true, silent = true })
 -- Clear search highlight
@@ -29,10 +48,10 @@ vim.api.nvim_set_keymap("n", "U", ":redo<CR>", { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "<leader>dd", ":bd<CR>", { noremap = true, silent = true })
 -- Delete marker
 vim.api.nvim_set_keymap(
-  "n",
-  "<leader>dm",
-  ':delmarks A-Z0-9<CR>:lua require("notify")("Delete all marks")<CR>',
-  { noremap = true, silent = true }
+	"n",
+	"<leader>dm",
+	':delmarks A-Z0-9<CR>:lua require("notify")("Delete all marks")<CR>',
+	{ noremap = true, silent = true }
 )
 -- Find and center
 vim.api.nvim_set_keymap("n", "n", "nzzzv", { noremap = true, silent = true })
@@ -59,18 +78,20 @@ vim.api.nvim_set_keymap("n", "<leader>N", ":enew<CR>", { noremap = true, silent 
 vim.api.nvim_set_keymap("n", "<leader>fa", ":Telescope live_grep<CR>", { noremap = true, silent = true })
 -- Search config
 vim.api.nvim_set_keymap(
-  "n",
-  "<leader>fc",
-  ':lua require("telescope.builtin").find_files({cwd = vim.fn.stdpath("config")})<CR>',
-  { noremap = true, silent = true }
+	"n",
+	"<leader>fc",
+	':lua require("telescope.builtin").find_files({cwd = vim.fn.stdpath("config")})<CR>',
+	{ noremap = true, silent = true }
 )
 -- Search files
 vim.api.nvim_set_keymap(
-  "n",
-  "<leader>ff",
-  ':lua require"telescope.builtin".find_files({ find_command = {"rg","--files","--hidden","-g","!.git"}})<CR>',
-  { noremap = true, silent = true }
+	"n",
+	"<leader>ff",
+	':lua require"telescope.builtin".find_files({ find_command = {"rg","--files","--hidden","-g","!.git"}})<CR>',
+	{ noremap = true, silent = true }
 )
+-- find emojis
+vim.api.nvim_set_keymap("n", "<leader>fe", ":Telescope emoji<CR>", { noremap = true, silent = true })
 -- Search and replace
 vim.api.nvim_set_keymap("n", "<leader>fr", ':lua require("spectre").open()<CR>', { noremap = true, silent = true })
 -- Yank list
@@ -89,10 +110,10 @@ vim.api.nvim_set_keymap("n", "<leader>fk", ":Telescope keymaps<CR>", { noremap =
 vim.api.nvim_set_keymap("n", "<leader>fh", ":Telescope harpoon marks<CR>", { noremap = true, silent = true })
 -- Show tasks
 vim.api.nvim_set_keymap(
-  "n",
-  "<leader>ft",
-  ":TodoTelescope keywords=TODO,FIX,FIXME,BUG<CR>",
-  { noremap = true, silent = true }
+	"n",
+	"<leader>ft",
+	":TodoTelescope keywords=TODO,FIX,FIXME,BUG<CR>",
+	{ noremap = true, silent = true }
 )
 -- Add current
 vim.api.nvim_set_keymap("n", "<leader>ga", ":Git add %<CR>", { noremap = true, silent = true })
@@ -112,10 +133,10 @@ vim.api.nvim_set_keymap("n", "<leader>gY", ":Git yolo<CR>", { noremap = true, si
 vim.api.nvim_set_keymap("n", "<leader>gn", ":Neogit<CR>", { noremap = true, silent = true })
 -- Open LazyGit
 vim.api.nvim_set_keymap(
-  "n",
-  "<leader>gl",
-  ':!tmux split-window -Z -c "$PWD" lazygit<CR>',
-  { noremap = true, silent = true }
+	"n",
+	"<leader>gl",
+	':!tmux split-window -Z -c "$PWD" lazygit<CR>',
+	{ noremap = true, silent = true }
 )
 -- Open Fork
 vim.api.nvim_set_keymap("n", "<leader>gf", ":!fork status $PWD<CR><CR>", { noremap = true, silent = true })
@@ -141,35 +162,44 @@ vim.api.nvim_set_keymap("n", "<leader>tw", "<cmd>set wrap!<CR>", { noremap = tru
 vim.api.nvim_set_keymap("n", "<leader>tn", ":set relativenumber!<CR>", { noremap = true, silent = true })
 -- Show Markdown preview
 vim.api.nvim_set_keymap("n", "<leader>tm", ":MarkdownPreviewToggle<CR>", { noremap = true, silent = true })
--- Relative line nums
+
+-- vim.api.nvim_set_keymap({ "n", "x" }, "<leader>d", [["_d]], { desc = "[D]elete without losing register contents" })
+
+vim.api.nvim_set_keymap(
+	"x",
+	"<leader>p",
+	[["_dP]],
+	{ desc = "[P]aste over visual selection without losing register contents", noremap = true, silent = true }
+)
+
 vim.api.nvim_set_keymap("n", "<leader>tR", ":set norelativenumber!<CR>", { noremap = true, silent = true })
 -- LSP issue viewer
 vim.api.nvim_set_keymap("n", "<leader>tr", ":TroubleToggle<CR>", { noremap = true, silent = true })
 -- Add to harpoon list
 vim.api.nvim_set_keymap(
-  "n",
-  "<leader>ha",
-  ':lua require("harpoon.mark").add_file()<CR>:lua vim.notify("Add file to list", "info", {title = "Harpoon"})<CR>',
-  { noremap = true, silent = true }
+	"n",
+	"<leader>ha",
+	':lua require("harpoon.mark").add_file()<CR>:lua vim.notify("Add file to list", "info", {title = "Harpoon"})<CR>',
+	{ noremap = true, silent = true }
 )
 -- Show harpoon list
 vim.api.nvim_set_keymap(
-  "n",
-  "<leader>hh",
-  ':lua require("harpoon.ui").toggle_quick_menu()<CR>',
-  { noremap = true, silent = true }
+	"n",
+	"<leader>hh",
+	':lua require("harpoon.ui").toggle_quick_menu()<CR>',
+	{ noremap = true, silent = true }
 )
 -- Jump to next harpoon item in the list
 vim.api.nvim_set_keymap(
-  "n",
-  "<leader>hn",
-  ':lua require("harpoon.ui").nav_next()<CR>',
-  { noremap = true, silent = true }
+	"n",
+	"<leader>hn",
+	':lua require("harpoon.ui").nav_next()<CR>',
+	{ noremap = true, silent = true }
 )
 -- Jump to previous harpoon item in the list
 vim.api.nvim_set_keymap(
-  "n",
-  "<leader>hp",
-  ':lua require("harpoon.ui").nav_prev()<CR>',
-  { noremap = true, silent = true }
+	"n",
+	"<leader>hp",
+	':lua require("harpoon.ui").nav_prev()<CR>',
+	{ noremap = true, silent = true }
 )

@@ -3,45 +3,10 @@
 -----------------------------------------------------------
 local cmd = vim.cmd -- execute Vim commands
 local g = vim.g -- global variables
-local b = vim.b
-local a = vim.api
 local opt = vim.opt -- global/buffer/windows-scoped options
 local wo = vim.wo -- windows-local options
 
------------------------------------------------------------
--- Keybindings
------------------------------------------------------------
--- set leader key to space
-g.mapleader = " "
--- and also for the local buffer
--- because thats what `let` does...
-b.mapleader = " "
-
---- Set localleader to ,
-g.maplocalleader = ","
-
--- jk to exit insert mode, very handy on my iPad :)
-a.nvim_set_keymap("i", "jk", "<esc>", { noremap = true })
-
--- better indenting
-a.nvim_set_keymap("v", "<", "<gv", { noremap = true, silent = true })
-a.nvim_set_keymap("v", ">", ">gv", { noremap = true, silent = true })
-
--- better quickfix list stuff
-local function toggleQf()
-	local ft = vim.bo.filetype
-	if ft == "qf" then
-		vim.cmd.cclose()
-	else
-		vim.cmd.copen()
-	end
-end
-
-vim.keymap.set("n", "<leader>tq", toggleQf, {})
-vim.keymap.set("n", "]q", ":cnext<CR>", {})
-vim.keymap.set("n", "[q", ":cprev<CR>", {})
-
------------------------------------------------------------
+----------------------------------------------------------
 -- General
 -----------------------------------------------------------
 wo.cursorline = true -- cursor in line

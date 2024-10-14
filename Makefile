@@ -20,6 +20,16 @@ TESTRESULT_PATH=/home/testuser/.test_results/
 # Targets
 ################################################################################
 
+# Helper
+################################################################################
+
+.PHONY: gen_keybinding_docs
+gen_keybinding_docs:
+	@`pwd`/.dotfileassets/gen_keymapping_md_table.sh
+
+# Tests
+################################################################################
+
 # Default target: build the Docker image and run the tests
 .PHONY: all
 all: test
