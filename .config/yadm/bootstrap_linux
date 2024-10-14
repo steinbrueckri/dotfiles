@@ -42,4 +42,4 @@ esac
 # Install pip packages
 ################################################################################
 pip3 install neovim
-
+curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
