@@ -3,16 +3,18 @@ return {
 	event = "VeryLazy",
 	branch = "stable",
 	config = function()
+		-- Extend and create a/i textobjects
+		require("mini.ai").setup({})
+
+		-- Autopairs
 		require("mini.pairs").setup({
-			-- -- In which modes mappings from this `config` should be created
 			modes = { insert = true, command = false, terminal = false },
 		})
 
+		-- Surround actions
 		require("mini.surround").setup({
-			-- Duration (in ms) of highlight when calling `MiniSurround.highlight()`
 			highlight_duration = 500,
 
-			-- Module mappings. Use `''` (empty string) to disable one.
 			mappings = {
 				add = "sa", -- Add surrounding
 				delete = "sd", -- Delete surrounding
@@ -20,12 +22,12 @@ return {
 			},
 		})
 
+		-- Trailspace (highlight and remove)
 		require("mini.trailspace").setup({
-			-- Highlight only in normal buffers (ones with empty 'buftype'). This is
-			-- useful to not show trailing whitespace where it usually doesn't matter.
 			only_in_normal_buffers = true,
 		})
 
+		-- Move any selection in any direction
 		require("mini.move").setup({
 			mappings = {
 				-- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
