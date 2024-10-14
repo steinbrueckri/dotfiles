@@ -163,6 +163,7 @@ alias watch='viddy'
 alias myip='curl -s -H "Accept: application/json" ipinfo.io | jq -r .ip'
 alias ag="rg"
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+alias history="_atuin_search"
 
 #######################################################################
 #                               exports                               #
@@ -334,6 +335,7 @@ if test -e $op
 end
 
 direnv hook fish | source
+atuin init fish --disable-up-arrow | source
 
 #######################################################################
 #                                tmux                                 #

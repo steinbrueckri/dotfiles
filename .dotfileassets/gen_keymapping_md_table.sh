@@ -85,3 +85,4 @@ cat "$TEMP_FILE" > "$README_PATH"
 # cleanup promt file
 echo "🗑 cleanup"
 rm prompt
+rm keymapping_table.md
