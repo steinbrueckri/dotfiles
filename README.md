@@ -89,7 +89,7 @@ Hardware:
 As Keyboard i use a [Kinesis Advantage360](https://kinesis-ergo.com/keyboards/advantage360/)
 with the blank keycap set from [Kinesis kc360-bk](https://kinesis-ergo.com/shop/kc360-bk/)
 and my Keyboard layouts and macros
-for it can be found in [steinbrueckri/Adv360-Pro-ZMK](https://github.com/steinbrueckri/Adv360-Pro-ZMK).
+for it can be found in [steinbrueckri/Adv360-Pro](https://github.com/steinbrueckri/Adv360-Pro).
 
 ![Keyboard](./.dotfileassets/keyboard.jpg)
 NOTE: Picture need a update 😆
