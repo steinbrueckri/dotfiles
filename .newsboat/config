@@ -39,8 +39,9 @@ bind-key ENTER open-in-browser-and-mark-read
 
 # open the article in browser
 macro SPACE set browser "open -g %u"; open-in-browser-and-mark-read -- "Open in browser"
-macro w     set browser "w3m %u"; open-in-browser-and-mark-read -- "Open in w3m"
+macro c     set browser "w3m %u"; open-in-browser-and-mark-read -- "Open in w3m"
 macro b     set browser "browsh --startup-url %u"; open-in-browser-and-mark-read -- "Open in browsh"
+macro w     set browser "yt-dlp --get-url %u | xargs -I {} open -a iina {}"; open-in-browser
 
 # copy url to clipboard "yank" (via tmux clipboard and pbcopy)
 macro y     set browser "echo %u | pbcopy ; tmux set-buffer %u" ; open-in-browser ; set browser "$URLPORTAL %u"

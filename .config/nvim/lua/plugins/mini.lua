@@ -3,8 +3,11 @@ return {
 	event = "VeryLazy",
 	branch = "stable",
 	config = function()
+		-- Align text interactively
+		require("mini.align").setup()
+
 		-- Extend and create a/i textobjects
-		require("mini.ai").setup({})
+		require("mini.ai").setup()
 
 		-- Autopairs
 		require("mini.pairs").setup({

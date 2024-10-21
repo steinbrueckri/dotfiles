@@ -114,6 +114,7 @@ alias nvim-switch-stable="bob use stable"
 
 # lazygit
 alias lg="lazygit"
+alias lgd="lazydot"
 alias lazydot="lazygit -ucd ~/.local/share/yadm/lazygit -w ~ -g ~/.local/share/yadm/repo.git"
 
 # kubernetes stuff
@@ -163,7 +164,8 @@ alias watch='viddy'
 alias myip='curl -s -H "Accept: application/json" ipinfo.io | jq -r .ip'
 alias ag="rg"
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
-alias history="_atuin_search"
+alias history="atuin search -i"
+# alias kamal='docker run -it --rm -v "(pwd):/workdir" -v "/run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock" -e SSH_AUTH_SOCK="/run/host-services/ssh-auth.sock" -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/basecamp/kamal:latest'
 
 #######################################################################
 #                               exports                               #
