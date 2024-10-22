@@ -54,6 +54,19 @@ Executing /steinbrueckri/.config/yadm/bootstrap
 
 ### Equipment list
 
+#### Mobile
+
+| Device Class  | Vendor      | Model                                                                                              |
+|---------------|-------------|----------------------------------------------------------------------------------------------------|
+| Keyboard      | Nuphy       | [Air60 V2](https://nuphy.com/products/air60-v2)                                                    |
+| Keyboard Case | Nuphy       | [NuFolio V3](https://nuphy.com/collections/accessories/products/nufolio-v3-for-air60-v2)           |
+| Powerbank     | Anker       | [737 Powerbank aka PowerCore 24K](https://www.anker.com/eu-de/products/a1340-250w-power-bank)      |
+| Mobile Router | GL.iNet     | [GL-XE300 (Puli)](https://www.gl-inet.com/products/gl-xe300/)                                      |
+| Backpack      | Peak Design | [Everyday Backpack](https://www.peakdesign.com/eu/products/everyday-backpack?Size=30L&Color=Black) |
+| Tech Pouch    | Peak Design | [Field Pouch V2](https://www.peakdesign.com/eu/products/field-pouch?Color=Black)                   |
+
+#### Office
+
 | Device Class | Vendor      | Model                                                                                                                                                       |
 | ------------ | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Desk         | BoHo-Moebel | [Premium Line with oak table top](https://www.boho-moebel.de/produkte/hoehenverstellbare-tischgestelle/premium-line)                                        |
