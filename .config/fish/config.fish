@@ -126,7 +126,7 @@ alias k-debug="kubectl run --namespace default -i --tty 'debug-default-$USER' --
 alias k-debug-app="kubectl run --namespace istio-apps -i --tty 'debug-$USER' --image=steinbrueckri/debug --restart=Never --rm=true -- bash"
 
 # python stuff
-alias newpyenv="PIPENV_VENV_IN_PROJECT=1 pipenv --python 3.11 && echo '{ \"venvPath\": \".\", \"venv\": \".venv\" }' > pyrightconfig.json && source .venv/bin/activate.fish"
+alias newpyenv="PIPENV_VENV_IN_PROJECT=1 pipenv --python 3.12 && echo '{ \"venvPath\": \".\", \"venv\": \".venv\" }' > pyrightconfig.json && source .venv/bin/activate.fish"
 alias activate_env_datacenter="source ~/Userlike/UserlikeDatacenter/.venv/bin/activate.fish"
 alias activate_env_code="source ~/Userlike/Userlike/.venv/bin/activate.fish"
 
