@@ -102,128 +102,139 @@ table is generate by ChatGPT so its maybe a lie. ;)
 <!-- generate-table-start -->
 ### nvim Keybindings
 
-| Mode | Shortcut        | Action                                       |
-|------|-----------------|----------------------------------------------|
-| i    | jk              | <esc>                                        |
-| v    | <               | <gv                                         |
-| v    | >               | >gv                                         |
-| n    | <leader>tq      | toggleQf                                     |
-| n    | ]q              | :cnext<CR>                                   |
-| n    | [q              | :cprev<CR>                                   |
-| n    | gF              | :e <cfile><CR>                               |
-| n    | <Esc>           | :noh<CR>                                     |
-| n    | <leader><Up>    | :wincmd k<CR>                                |
-| n    | <leader><Down>  | :wincmd j<CR>                                |
-| n    | <leader><Left>  | :wincmd h<CR>                                |
-| n    | <leader><Right> | :wincmd l<CR>                                |
-| n    | <Tab>           | :bn<CR>                                      |
-| n    | <S-Tab>         | :bp<CR>                                      |
-| n    | Z               | :Telescope spell_suggest<CR>                 |
-| n    | U               | :redo<CR>                                    |
-| n    | <leader>dd      | :bd<CR>                                      |
-| n    | n               | nzzzv                                        |
-| n    | N               | Nzzzv                                        |
-| v    | p               | "_dP                                         |
-| n    | <leader>q       | :bdelete<CR>                                 |
-| n    | <leader>Q       | :bd!<CR>                                     |
-| n    | <leader>e       | :Neotree toggle<CR>                          |
-| n    | <leader>A       | :Alpha<CR>                                   |
-| n    | <leader>h       | :split<CR>                                   |
-| n    | <leader>v       | :vsplit<CR>                                  |
-| n    | <leader>w       | :w<CR>                                       |
-| n    | <leader>N       | :enew<CR>                                    |
-| n    | <leader>fa      | :Telescope live_grep<CR>                     |
-| n    | <leader>fe      | :Telescope emoji<CR>                         |
-| n    | <leader>fr      | :lua require("spectre").open()<CR>           |
-| n    | <leader>fp      | :Telescope yank_history<CR>                  |
-| n    | <leader>fB      | :Telescope git_branches<CR>                  |
-| n    | <leader>fo      | :Telescope oldfiles<CR>                      |
-| n    | <leader>fb      | :Telescope buffers<CR>                       |
-| n    | <leader>fu      | :Telescope undo<CR>                          |
-| n    | <leader>fk      | :Telescope keymaps<CR>                       |
-| n    | <leader>fh      | :Telescope harpoon marks<CR>                 |
-| n    | <leader>ga      | :Git add %<CR>                               |
-| n    | <leader>gA      | :Git add .<CR>                               |
-| n    | <leader>gb      | :Gitsigns blame_line<CR>                     |
-| n    | <leader>gd      | :DiffviewOpen<CR>                            |
-| n    | <leader>gD      | :DiffviewClose<CR>                           |
-| n    | <leader>gg      | :OpenInGHFileLines<CR>                       |
-| n    | <leader>gY      | :Git yolo<CR>                                |
-| n    | <leader>gn      | :Neogit<CR>                                  |
-| n    | <leader>gf      | :!fork status $PWD<CR><CR>                   |
-| n    | <leader>nn      | :ObsidianToday<CR>                           |
-| n    | <leader>nr      | :ObsidianRename<CR>                          |
-| n    | <leader>nf      | :ObsidianSearch<CR>                          |
-| n    | <leader>tc      | :ColorizerToggle<CR>                         |
-| n    | <leader>td      | :DBUIToggle<CR>                              |
-| n    | <leader>to      | :SymbolsOutline<CR>                          |
-| n    | <leader>ts      | :Screenkey toggle<CR>                        |
-| n    | <leader>tS      | :set spell!<CR>                              |
-| n    | <leader>tw      | <cmd>set wrap!<CR>                           |
-| n    | <leader>tn      | :set relativenumber!<CR>                     |
-| n    | <leader>tm      | :MarkdownPreviewToggle<CR>                   |
-| n    | <leader>tR      | :set norelativenumber!<CR>                   |
-| n    | <leader>tr      | :TroubleToggle<CR>                           |
+| Keybinding    | Mode | Command                                                                                   |
+|---------------|------|-------------------------------------------------------------------------------------------|
+| `jk`          | i    | `<esc>`                                                                                   |
+| `<`           | v    | `<gv`                                                                                     |
+| `>`           | v    | `>gv`                                                                                     |
+| `<leader>tq`  | n    | `toggleQf`                                                                                |
+| `]q`          | n    | `:cnext<CR>`                                                                              |
+| `[q`          | n    | `:cprev<CR>`                                                                              |
+| `gF`          | n    | `:e <cfile><CR>`                                                                          |
+| `<Esc>`       | n    | `:noh<CR>`                                                                                |
+| `<leader><Up>`| n    | `:wincmd k<CR>`                                                                           |
+| `<leader><Down>` | n | `:wincmd j<CR>`                                                                           |
+| `<leader><Left>` | n | `:wincmd h<CR>`                                                                           |
+| `<leader><Right>` | n | `:wincmd l<CR>`                                                                          |
+| `<Tab>`       | n    | `:bn<CR>`                                                                                 |
+| `<S-Tab>`     | n    | `:bp<CR>`                                                                                 |
+| `Z`           | n    | `:Telescope spell_suggest<CR>`                                                            |
+| `U`           | n    | `:redo<CR>`                                                                               |
+| `<leader>dd`  | n    | `:bd<CR>`                                                                                 |
+| `<leader>dm`  | n    | `:delmarks A-Z0-9<CR>:lua require("notify")("Delete all marks")<CR>`                      |
+| `n`           | n    | `nzzzv`                                                                                   |
+| `N`           | n    | `Nzzzv`                                                                                   |
+| `p`           | v    | `"_dP`                                                                                    |
+| `<leader>q`   | n    | `:bdelete<CR>`                                                                            |
+| `<leader>Q`   | n    | `:bd!<CR>`                                                                                |
+| `<leader>e`   | n    | `:Neotree toggle<CR>`                                                                     |
+| `<leader>A`   | n    | `:Alpha<CR>`                                                                              |
+| `<leader>h`   | n    | `:split<CR>`                                                                              |
+| `<leader>v`   | n    | `:vsplit<CR>`                                                                             |
+| `<leader>w`   | n    | `:w<CR>`                                                                                  |
+| `<leader>N`   | n    | `:enew<CR>`                                                                               |
+| `<leader>fa`  | n    | `:Telescope live_grep<CR>`                                                                |
+| `<leader>fc`  | n    | `:lua require("telescope.builtin").find_files({cwd = vim.fn.stdpath("config")})<CR>`     |
+| `<leader>ff`  | n    | `:lua require"telescope.builtin".find_files({ find_command = {"rg","--files","--hidden","-g","!.git"}})<CR>` |
+| `<leader>fe`  | n    | `:Telescope emoji<CR>`                                                                    |
+| `<leader>fr`  | n    | `:lua require("spectre").open()<CR>`                                                      |
+| `<leader>fp`  | n    | `:Telescope yank_history<CR>`                                                             |
+| `<leader>fB`  | n    | `:Telescope git_branches<CR>`                                                             |
+| `<leader>fo`  | n    | `:Telescope oldfiles<CR>`                                                                 |
+| `<leader>fb`  | n    | `:Telescope buffers<CR>`                                                                  |
+| `<leader>fu`  | n    | `:Telescope undo<CR>`                                                                     |
+| `<leader>fk`  | n    | `:Telescope keymaps<CR>`                                                                  |
+| `<leader>fh`  | n    | `:Telescope harpoon marks<CR>`                                                            |
+| `<leader>ft`  | n    | `:TodoTelescope keywords=TODO,FIX,FIXME,BUG<CR>`                                          |
+| `<leader>ga`  | n    | `:Git add %<CR>`                                                                          |
+| `<leader>gA`  | n    | `:Git add .<CR>`                                                                          |
+| `<leader>gb`  | n    | `:Gitsigns blame_line<CR>`                                                                |
+| `<leader>gd`  | n    | `:DiffviewOpen<CR>`                                                                       |
+| `<leader>gD`  | n    | `:DiffviewClose<CR>`                                                                      |
+| `<leader>gg`  | n    | `:OpenInGHFileLines<CR>`                                                                  |
+| `<leader>gY`  | n    | `:Git yolo<CR>`                                                                           |
+| `<leader>gn`  | n    | `:Neogit<CR>`                                                                             |
+| `<leader>gl`  | n    | `:!tmux split-window -Z -c "$PWD" lazygit<CR>`                                            |
+| `<leader>gf`  | n    | `:!fork status $PWD<CR><CR>`                                                              |
+| `<leader>nn`  | n    | `:ObsidianToday<CR>`                                                                      |
+| `<leader>nr`  | n    | `:ObsidianRename<CR>`                                                                     |
+| `<leader>nf`  | n    | `:ObsidianSearch<CR>`                                                                     |
+| `<leader>tc`  | n    | `:ColorizerToggle<CR>`                                                                    |
+| `<leader>td`  | n    | `:DBUIToggle<CR>`                                                                         |
+| `<leader>to`  | n    | `:SymbolsOutline<CR>`                                                                     |
+| `<leader>ts`  | n    | `:Screenkey toggle<CR>`                                                                   |
+| `<leader>tS`  | n    | `:set spell!<CR>`                                                                         |
+| `<leader>tw`  | n    | `<cmd>set wrap!<CR>`                                                                      |
+| `<leader>tn`  | n    | `:set relativenumber!<CR>`                                                                |
+| `<leader>tm`  | n    | `:MarkdownPreviewToggle<CR>`                                                              |
+| `<leader>tR`  | n    | `:set norelativenumber!<CR>`                                                              |
+| `<leader>tr`  | n    | `:TroubleToggle<CR>`                                                                      |
+| `<leader>ha`  | n    | `:lua require("harpoon.mark").add_file()<CR>:lua vim.notify("Add file to list", "info", {title = "Harpoon"})<CR>`  |
+| `<leader>hh`  | n    | `:lua require("harpoon.ui").toggle_quick_menu()<CR>`                                      |
+| `<leader>hn`  | n    | `:lua require("harpoon.ui").nav_next()<CR>`                                               |
+| `<leader>hp`  | n    | `:lua require("harpoon.ui").nav_prev()<CR>`                                               |
 
 ### tmux Keybindings
 
-| Shortcut | Action                                                                 |
-|----------|------------------------------------------------------------------------|
-| C-a      | send-prefix                                                            |
-| _        | split-window -h -c "#{pane_current_path}"                               |
-| -        | split-window -v -c "#{pane_current_path}"                               |
-| h        | switch -t home                                                         |
-| u        | switch -t userlike                                                     |
-| C        | new                                                                    |
-| y        | set-window-option synchronize-panes\; display-message "synchronize-panes is now #{?pane_synchronized,on,off}" |
-| v        | copy-mode                                                              |
-| p        | paste-buffer                                                           |
-| r        | source-file ~/.tmux.conf\; display-message "Reload config! 🔁"          |
+| Keybinding | Command                                                                                  |
+|------------|------------------------------------------------------------------------------------------|
+| C-a        | send-prefix                                                                              |
+| _          | split-window -h -c "#{pane_current_path}"                                                |
+| -          | split-window -v -c "#{pane_current_path}"                                                |
+| h          | switch -t home                                                                           |
+| u          | switch -t userlike                                                                       |
+| C          | new                                                                                      |
+| y          | set-window-option synchronize-panes; display-message "synchronize-panes is now #{?pane_synchronized,on,off}" |
+| v          | copy-mode                                                                                |
+| p          | paste-buffer                                                                             |
+| r          | source-file ~/.tmux.conf; display-message "Reload config! 🔁"                             |
 
 ### Fish Aliases
 
-| Alias                 | Command                                                                                   |
-|-----------------------|-------------------------------------------------------------------------------------------|
-| vim                   | nvim                                                                                      |
-| vi                    | nvim                                                                                      |
-| v                     | nvim                                                                                      |
-| n                     | nvim                                                                                      |
-| nvim-switch-nightly   | bob use nightly                                                                           |
-| nvim-switch-stable    | bob use stable                                                                            |
-| lg                    | lazygit                                                                                   |
-| lazydot               | lazygit -ucd ~/.local/share/yadm/lazygit -w ~ -g ~/.local/share/yadm/repo.git             |
-| kx                    | kubectx                                                                                   |
-| k                     | kubectl                                                                                   |
-| kc                    | kubecolor                                                                                 |
-| kn                    | kubens                                                                                    |
-| k-debug               | kubectl run --namespace default -i --tty 'debug-default-$USER' --image=steinbrueckri/debug --restart=Never --rm=true -- bash  |
-| k-debug-app           | kubectl run --namespace istio-apps -i --tty 'debug-$USER' --image=steinbrueckri/debug --restart=Never --rm=true -- bash       |
-| newpyenv              | PIPENV_VENV_IN_PROJECT=1 pipenv --python 3.11 && echo '{ "venvPath": ".", "venv": ".venv" }' > pyrightconfig.json && source .venv/bin/activate.fish |
-| activate_env_datacenter | source ~/Userlike/UserlikeDatacenter/.venv/bin/activate.fish                          |
-| activate_env_code     | source ~/Userlike/Userlike/.venv/bin/activate.fish                                       |
-| gcpil                 | gcloud compute instances list                                                             |
-| gcpal                 | gcloud compute addresses list                                                             |
-| gcpssh                | gcloud compute ssh                                                                        |
-| gcpsshi               | gcloud compute ssh --internal-ip                                                          |
-| gcpsshiap             | gcloud compute ssh --tunnel-through-iap                                                   |
-| gcprdpiap             | gcloud compute start-iap-tunnel $1 3389 --local-host-port=localhost:3389 --zone=$2        |
-| do                    | doctl                                                                                     |
-| do-new                | doctl compute droplet create tmp --region ams3 --size s-2vcpu-2gb --image ubuntu-22-04-x64 --user-data-file .dotfileassets/digitalocean-cloudinit.yaml --ssh-keys "df:17:95:8d:31:56:39:27:d1:04:e3:12:52:36:ed:5b" |
-| do-new-ssh            | ssh $(doctl compute droplet list \| grep tmp \| awk "{ print $3}")                        |
-| localvm               | multipass launch -c 4 -m 4G -d 50G -n localvm 20.04 --cloud-init .dotfileassets/multipass-common.yaml  |
-| dr                    | docker run -it --rm --entrypoint /bin/sh                                                  |
-| rm-images             | docker rmi (docker images -q)                                                             |
-| tssh                  | tsh ssh (tsh ls \| tail --lines=+3 \| fzf -e \| head -n 1 \| cut -d ' ' -f1)              |
-| pwgen                 | date +%s \| sha256sum \| base64 \| head -c 32 ; echo                                      |
-| lol                   | git log --pretty=oneline --abbrev-commit --graph --decorate                               |
-| cat                   | bat                                                                                       |
-| hosts                 | hosts --auto-sudo                                                                         |
-| ls                    | eza --icons                                                                               |
-| top                   | btop                                                                                      |
-| watch                 | viddy                                                                                     |
-| myip                  | curl -s -H "Accept: application/json" ipinfo.io \| jq -r .ip                              |
-| ag                    | rg                                                                                        |
-| tailscale             | /Applications/Tailscale.app/Contents/MacOS/Tailscale                                      |
+| Alias                           | Command                                                                                      |
+|---------------------------------|----------------------------------------------------------------------------------------------|
+| vim                             | nvim                                                                                         |
+| vi                              | nvim                                                                                         |
+| v                               | nvim                                                                                         |
+| n                               | nvim                                                                                         |
+| nvim-switch-nightly             | bob use nightly                                                                             |
+| nvim-switch-stable              | bob use stable                                                                              |
+| lg                              | lazygit                                                                                     |
+| lgd                             | lazydot                                                                                     |
+| lazydot                         | lazygit -ucd ~/.local/share/yadm/lazygit -w ~ -g ~/.local/share/yadm/repo.git               |
+| kx                              | kubectx                                                                                     |
+| k                               | kubectl                                                                                     |
+| kc                              | kubecolor                                                                                   |
+| kn                              | kubens                                                                                      |
+| k-debug                         | kubectl run --namespace default -i --tty 'debug-default-$USER' --image=steinbrueckri/debug --restart=Never --rm=true -- bash |
+| k-debug-app                     | kubectl run --namespace istio-apps -i --tty 'debug-$USER' --image=steinbrueckri/debug --restart=Never --rm=true -- bash |
+| newpyenv                        | PIPENV_VENV_IN_PROJECT=1 pipenv --python 3.11 && echo '{ "venvPath": ".", "venv": ".venv" }' > pyrightconfig.json && source .venv/bin/activate.fish |
+| activate_env_datacenter         | source ~/Userlike/UserlikeDatacenter/.venv/bin/activate.fish                                 |
+| activate_env_code               | source ~/Userlike/Userlike/.venv/bin/activate.fish                                          |
+| gcpil                           | gcloud compute instances list                                                                |
+| gcpal                           | gcloud compute addresses list                                                                |
+| gcpssh                          | gcloud compute ssh                                                                           |
+| gcpsshi                         | gcloud compute ssh --internal-ip                                                             |
+| gcpsshiap                       | gcloud compute ssh --tunnel-through-iap                                                      |
+| gcprdpiap                       | gcloud compute start-iap-tunnel $1 3389 --local-host-port=localhost:3389 --zone=$2          |
+| do                              | doctl                                                                                        |
+| do-new                          | doctl compute droplet create tmp --region ams3 --size s-2vcpu-2gb --image ubuntu-22-04-x64 --user-data-file .dotfileassets/digitalocean-cloudinit.yaml --ssh-keys "df:17:95:8d:31:56:39:27:d1:04:e3:12:52:36:ed:5b" |
+| do-new-ssh                      | ssh $(doctl compute droplet list | grep tmp | awk "{ print $3}")                             |
+| localvm                         | multipass launch -c 4 -m 4G -d 50G -n localvm 20.04 --cloud-init .dotfileassets/multipass-common.yaml |
+| dr                              | docker run -it --rm --entrypoint /bin/sh                                                     |
+| rm-images                       | docker rmi (docker images -q)                                                                |
+| tssh                            | tsh ssh (tsh ls | tail --lines=+3 | fzf -e | head -n 1 | cut -d ' ' -f1)                     |
+| pwgen                           | date +%s | sha256sum | base64 | head -c 32 ; echo                                           |
+| lol                             | git log --pretty=oneline --abbrev-commit --graph --decorate                                  |
+| cat                             | bat                                                                                          |
+| hosts                           | hosts --auto-sudo                                                                            |
+| ls                              | eza --icons                                                                                  |
+| top                             | btop                                                                                         |
+| watch                           | viddy                                                                                        |
+| myip                            | curl -s -H "Accept: application/json" ipinfo.io | jq -r .ip                                  |
+| ag                              | rg                                                                                           |
+| tailscale                       | /Applications/Tailscale.app/Contents/MacOS/Tailscale                                         |
+| history                         | atuin search -i                                                                              |
 <!-- generate-table-stop -->
 
 ## Screenshots

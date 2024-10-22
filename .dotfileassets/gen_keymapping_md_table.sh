@@ -31,7 +31,7 @@ Output only the markdown tables without additional text and annotations like mar
 " > prompt
 
 add_section "nvim Keybindings"
-grep -E "keymap|vim\.api" .config/nvim/lua/keymap.lua >> prompt
+cat .config/nvim/lua/keymap.lua >> prompt
 
 add_section "tmux Keybindings"
 grep "^bind" .tmux.conf >> prompt
@@ -69,6 +69,7 @@ if [[ $newer_file == true ]]; then
   chatgpt --model $MODEL < prompt > keymapping_table.md
 else
   echo "⏸ No file is newer then the README so we dont regenerate the table to save some costs."
+  exit 0
 fi
 
 # takes the content of the original README.md from the TOP to the spot we want to insert the table
