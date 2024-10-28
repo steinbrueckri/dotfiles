@@ -337,7 +337,7 @@ if test -e $op
 end
 
 direnv hook fish | source
-atuin init fish --disable-up-arrow | source
+atuin init fish | source
 
 #######################################################################
 #                                tmux                                 #
