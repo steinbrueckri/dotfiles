@@ -112,6 +112,9 @@ NOTE: Picture need a update 😆
 My vim leader key is <space> and the tmux leader is <ctrl><a>. The following
 table is generate by ChatGPT so its maybe a lie. ;)
 
+<!-- markdownlint-capture -->
+<!-- markdownlint-disable -->
+
 <!-- generate-table-start -->
 ### nvim Keybindings
 
@@ -249,6 +252,7 @@ table is generate by ChatGPT so its maybe a lie. ;)
 | tailscale                       | /Applications/Tailscale.app/Contents/MacOS/Tailscale                                         |
 | history                         | atuin search -i                                                                              |
 <!-- generate-table-stop -->
+<!-- markdownlint-restore -->
 
 ## Screenshots
 
