@@ -1,4 +1,4 @@
 #!/bin/bash
 
 eval $(op signin)
-op item list | fzf | cut -f 1 -d ' ' | xargs -I{} op item get {} --field password | pbcopy
+op item list | fzf | cut -f 1 -d ' ' | xargs -I{} op item get {} --reveal --field password | pbcopy
