@@ -1,5 +1,9 @@
 -- TODO: Split into multiple files?
 return {
+  {
+    "sphamba/smear-cursor.nvim",
+    opts = {},
+  },
 	{
 		"Kicamon/markdown-table-mode.nvim",
 		event = "VeryLazy",
