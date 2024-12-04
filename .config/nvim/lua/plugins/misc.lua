@@ -1,6 +1,5 @@
 -- TODO: Split into multiple files?
 return {
-	{ "psliwka/vim-smoothie" },
 	{
 		"Kicamon/markdown-table-mode.nvim",
 		event = "VeryLazy",
