@@ -139,12 +139,22 @@ vim.api.nvim_set_keymap(
 )
 -- Open Fork
 vim.api.nvim_set_keymap("n", "<leader>gf", ":!fork status $PWD<CR><CR>", { noremap = true, silent = true })
--- Create new note
-vim.api.nvim_set_keymap("n", "<leader>nn", ":ObsidianToday<CR>", { noremap = true, silent = true })
--- Rename note
-vim.api.nvim_set_keymap("n", "<leader>nr", ":ObsidianRename<CR>", { noremap = true, silent = true })
--- Search for notes by content
-vim.api.nvim_set_keymap("n", "<leader>nf", ":ObsidianSearch<CR>", { noremap = true, silent = true })
+
+
+-- Open quick note
+vim.api.nvim_set_keymap("n", "<leader>nn", ":lua CreateQuickNote()<CR>", { noremap = true, silent = true })
+
+-- Search in notes folder
+vim.api.nvim_set_keymap(
+    "n",
+    "<leader>nf",
+    ":lua require('telescope.builtin').live_grep({ cwd = vim.fn.expand('$HOME/notes') })<CR>",
+    { noremap = true, silent = true }
+)
+
+-- Keybinding for <leader>no
+vim.api.nvim_set_keymap("n", "<leader>no", ":lua OpenInSilverbullet()<CR>", { noremap = true, silent = true })
+
 -- Colorizer
 vim.api.nvim_set_keymap("n", "<leader>tc", ":ColorizerToggle<CR>", { noremap = true, silent = true })
 -- Toggle DB browser
