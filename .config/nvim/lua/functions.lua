@@ -24,7 +24,10 @@ function toggleQf()
 	end
 end
 
--- Configurable variables
+-------------------------------------------------------------------------------
+-- silverbullet stuff
+-------------------------------------------------------------------------------
+
 local silverbullet_url = "http://localhost:3000/" -- Base URL for Silverbullet
 local notes_base = os.getenv("HOME") .. "/notes/" -- Base directory for notes
 
