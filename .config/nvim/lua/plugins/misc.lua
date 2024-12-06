@@ -1,9 +1,7 @@
--- TODO: Split into multiple files?
 return {
-  {
-    "sphamba/smear-cursor.nvim",
-    opts = {},
-  },
+	{
+		"sphamba/smear-cursor.nvim",
+	},
 	{
 		"Kicamon/markdown-table-mode.nvim",
 		event = "VeryLazy",
@@ -24,8 +22,6 @@ return {
 		dependencies = "nvim-lua/plenary.nvim",
 		config = true,
 	},
-	-- Now build in to nvim -> https://github.com/neovim/neovim/pull/28176
-	-- { "numToStr/Comment.nvim", config = true },
 	{
 		"ethanholz/nvim-lastplace",
 		opts = {
@@ -40,11 +36,6 @@ return {
 		config = function()
 			vim.opt.termguicolors = true
 		end,
-	}, -- remove, rename - Vim sugar for the UNIX shell commands that need it the most
-	{
-		"chrisgrieser/nvim-genghis",
-		event = "VeryLazy",
-		dependencies = { "stevearc/dressing.nvim" },
 	},
 	{ "rcarriga/nvim-notify", opts = { background_colour = "#000000" } },
 	{
