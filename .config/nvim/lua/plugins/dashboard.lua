@@ -5,7 +5,7 @@ local prerelease = ""
 if version.prerelease then
 	prerelease = "-DEV"
 end
-local nvim_version_info = "v" .. version.major .. "." .. version.minor .. "." .. version.patch .. prerelease
+local nvim_version_info = "Neovim v" .. version.major .. "." .. version.minor .. "." .. version.patch .. prerelease
 
 return {
 	{
@@ -34,7 +34,7 @@ return {
 							icon = " ",
 							key = "l",
 							desc = "Lazy",
-							action = ":Lazy",
+							action = ":Lazy sync",
 							enabled = package.loaded.lazy ~= nil,
 						},
 						{

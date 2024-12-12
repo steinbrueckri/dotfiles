@@ -9,6 +9,8 @@ return {
 		"DrKJeff16/project.nvim",
 		"ThePrimeagen/harpoon",
 		"nvim-telescope/telescope-ui-select.nvim",
+		"sopa0/telescope-makefile",
+		"akinsho/toggleterm.nvim",
 	},
 	keys = {
 		{
@@ -96,5 +98,6 @@ return {
 		require("telescope").load_extension("projects")
 		require("telescope").load_extension("undo")
 		require("telescope").load_extension("harpoon")
+		require("telescope").load_extension('make')
 	end,
 }

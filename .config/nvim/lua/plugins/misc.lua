@@ -1,6 +1,28 @@
 return {
+	{ "nmac427/guess-indent.nvim", opts = {} },
+	{
+		"otavioschwanck/arrow.nvim",
+		dependencies = {
+			{ "nvim-tree/nvim-web-devicons" },
+			-- or if using `mini.icons`
+			-- { "echasnovski/mini.icons" },
+		},
+		opts = {
+			show_icons = true,
+			leader_key = ";", -- Recommended to be a single key
+			buffer_leader_key = "m", -- Per Buffer Mappings
+		},
+	},
 	{
 		"sphamba/smear-cursor.nvim",
+		opts = {
+			cursor_color = "#50FA7B",
+		},
+	},
+	{
+		"folke/trouble.nvim",
+		opts = {},
+		cmd = "Trouble",
 	},
 	{
 		"Kicamon/markdown-table-mode.nvim",
@@ -8,13 +30,6 @@ return {
 		config = function()
 			require("markdown-table-mode").setup()
 		end,
-	},
-	{
-		"simrat39/symbols-outline.nvim",
-		keys = {
-			{ "<leader>to", "<cmd>SymbolsOutline<cr>" },
-		},
-		config = true,
 	},
 	{
 		"folke/todo-comments.nvim",
@@ -31,11 +46,10 @@ return {
 		},
 	},
 	{
-		"norcalli/nvim-colorizer.lua",
-		event = "VeryLazy",
-		config = function()
-			vim.opt.termguicolors = true
-		end,
+		"NvChad/nvim-colorizer.lua",
+		event = "BufReadPre",
+		opts = { -- set to setup table
+		},
 	},
 	{ "rcarriga/nvim-notify", opts = { background_colour = "#000000" } },
 	{

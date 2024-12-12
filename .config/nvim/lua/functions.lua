@@ -15,7 +15,7 @@ function dump(o)
 end
 
 -- better quickfix list stuff
-function toggleQf()
+function ToggleQf()
 	local ft = vim.bo.filetype
 	if ft == "qf" then
 		vim.cmd.cclose()
