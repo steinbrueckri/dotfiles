@@ -1,0 +1,65 @@
+################################################################################
+# General
+################################################################################
+shell-integration = fish
+clipboard-read = allow
+clipboard-write = allow
+link-url = true
+scrollback-limit = 10000
+
+confirm-close-surface = false
+clipboard-paste-protection = true
+clipboard-trim-trailing-spaces = true
+
+################################################################################
+# UI
+################################################################################
+
+# General UI
+
+theme = Dracula+
+fullscreen = true
+macos-titlebar-style = native
+window-colorspace = display-p3
+window-save-state = never
+minimum-contrast = 1.05
+
+# Cursor
+cursor-invert-fg-bg = true
+cursor-invert-fg-bg = true
+cursor-style = block
+copy-on-select = true
+
+# Mouse
+mouse-hide-while-typing = true
+
+# Font
+font-family = JetBrainsMono Nerd Font Mono
+font-style = Medium
+font-style-bold = Bold
+font-style-italic = Medium Italic
+font-style-bold-italic = Bold Italic
+font-size = 22
+
+################################################################################
+# tmux bindings because I'm lazy
+################################################################################
+
+# switch tabs via CMD+{num}
+keybind = cmd+one=text:\x011
+keybind = cmd+two=text:\x012
+keybind = cmd+three=text:\x013
+keybind = cmd+four=text:\x014
+keybind = cmd+five=text:\x015
+keybind = cmd+six=text:\x016
+keybind = cmd+seven=text:\x017
+keybind = cmd+eight=text:\x018
+keybind = cmd+nine=text:\x019
+
+# cmd+t open a new tmux window
+keybind = super+t=text:\x01c
+
+# just unbind to prevent mistakes
+keybind = super+shift+w=unbind
+keybind = super+q=unbind
+keybind = super+n=unbind
