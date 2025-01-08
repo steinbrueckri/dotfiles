@@ -71,6 +71,12 @@ vim.api.nvim_set_keymap("n", "n", "nzzzv", { noremap = true, silent = true, desc
 vim.api.nvim_set_keymap("n", "N", "Nzzzv", { noremap = true, silent = true, desc = "Find previous and center" })
 vim.api.nvim_set_keymap(
 	"n",
+	"<leader>fm",
+	":Telescope make<CR>",
+	{ noremap = true, silent = true, desc = "Execute make target" }
+)
+vim.api.nvim_set_keymap(
+	"n",
 	"<leader>fa",
 	":Telescope live_grep<CR>",
 	{ noremap = true, silent = true, desc = "Search in files" }
@@ -221,6 +227,12 @@ vim.api.nvim_set_keymap(
 	"<leader>ts",
 	":Screenkey toggle<CR>",
 	{ noremap = true, silent = true, desc = "Toggle Screenkey" }
+)
+vim.api.nvim_set_keymap(
+	"n",
+	"<leader>tt",
+	":ToggleTerm<CR>",
+	{ noremap = true, silent = true, desc = "Toggle Terminal" }
 )
 
 -- LSP

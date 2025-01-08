@@ -9,7 +9,7 @@ return {
 		"DrKJeff16/project.nvim",
 		"ThePrimeagen/harpoon",
 		"nvim-telescope/telescope-ui-select.nvim",
-		"sopa0/telescope-makefile",
+		"steinbrueckri/telescope-makefile",
 		"akinsho/toggleterm.nvim",
 	},
 	keys = {

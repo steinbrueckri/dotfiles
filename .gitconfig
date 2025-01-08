@@ -27,6 +27,7 @@
 [includeIf "gitdir:Projects/"]
   path = .gitconfig-pivat
 [alias]
+	branchf = !git checkout $(git branch | fzf)
   nevermind = !git reset --hard HEAD && git clean -d -f
 	plog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 	yolo = !git add -A && git commit -m \"$(curl --silent --fail http://whatthecommit.com/index.txt)\"

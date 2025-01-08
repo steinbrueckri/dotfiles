@@ -1,4 +1,13 @@
 return {
+	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		opts = {
+			direction = "float",
+			close_on_exit = true,
+			shell = "/opt/homebrew/bin/fish"
+		},
+	},
 	{ "nmac427/guess-indent.nvim", opts = {} },
 	{
 		"otavioschwanck/arrow.nvim",
@@ -48,10 +57,8 @@ return {
 	{
 		"NvChad/nvim-colorizer.lua",
 		event = "BufReadPre",
-		opts = { -- set to setup table
-		},
+		opts = {},
 	},
-	{ "rcarriga/nvim-notify", opts = { background_colour = "#000000" } },
 	{
 		"Mofiqul/dracula.nvim",
 		config = function()

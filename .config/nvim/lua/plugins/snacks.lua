@@ -13,13 +13,15 @@ return {
 		priority = 1000,
 		lazy = false,
 		opts = {
+			indent = {},
+			notifier = {},
 			quickfile = {},
 			dashboard = {
 				sections = {
 					{ section = "header", padding = 1 },
 					{ icon = " ", section = "keys", indent = 2, padding = 1 },
 					{ section = "startup" },
-					{ text = nvim_version_info, align = "center", },
+					{ text = nvim_version_info, align = "center" },
 				},
 				preset = {
 					keys = {

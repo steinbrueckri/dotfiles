@@ -343,13 +343,13 @@ atuin init fish | source
 #                                tmux                                 #
 #######################################################################
 
-if status is-interactive
-and not set -q TMUX
-    if not tmux has-session -t home
-        tmux new-session -d -s home
-    end
-    if not tmux has-session -t userlike
-        tmux new-session -d -s userlike
-    end
-    exec tmux attach-session -t home
-end
+# if status is-interactive
+# and not set -q TMUX
+#     if not tmux has-session -t home
+#         tmux new-session -d -s home
+#     end
+#     if not tmux has-session -t userlike
+#         tmux new-session -d -s userlike
+#     end
+#     exec tmux attach-session -t home
+# end
