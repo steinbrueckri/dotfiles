@@ -13,9 +13,15 @@ return {
 		priority = 1000,
 		lazy = false,
 		opts = {
+			blame_line = {
+				width = 0.9,
+				height = 0.9,
+			},
 			indent = {},
 			notifier = {},
+			gitbrowse = {},
 			quickfile = {},
+			scroll = {},
 			dashboard = {
 				sections = {
 					{ section = "header", padding = 1 },

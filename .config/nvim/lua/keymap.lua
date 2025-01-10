@@ -36,13 +36,13 @@ vim.api.nvim_set_keymap("n", "<S-Tab>", ":bp<CR>", { noremap = true, silent = tr
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>q",
-	":bdelete<CR>",
+	":lua Snacks.bufdelete()<CR>",
 	{ noremap = true, silent = true, desc = "Close current buffer" }
 )
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>Q",
-	":bd!<CR>",
+	":lua Snacks.bufdelete({force='true'})<CR>",
 	{ noremap = true, silent = true, desc = "Force close current buffer" }
 )
 vim.api.nvim_set_keymap("n", "<leader>dd", ":bd<CR>", { noremap = true, silent = true, desc = "Delete buffer" })
@@ -135,13 +135,13 @@ vim.api.nvim_set_keymap(
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>gb",
-	":Gitsigns blame_line<CR>",
+	":lua Snacks.git.blame_line()<CR>",
 	{ noremap = true, silent = true, desc = "Git blame line" }
 )
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>gg",
-	":OpenInGHFileLines<CR>",
+	":lua Snacks.gitbrowse.open()<CR>",
 	{ noremap = true, silent = true, desc = "Open line in Github" }
 )
 vim.api.nvim_set_keymap(
@@ -153,7 +153,7 @@ vim.api.nvim_set_keymap(
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>fb",
-	':Telescope git_branches<CR>',
+	":Telescope git_branches<CR>",
 	{ noremap = true, silent = true, desc = "Find git branches" }
 )
 

@@ -3,9 +3,9 @@ return {
 	event = "VeryLazy",
 	branch = "stable",
 	config = function()
-		-- Visualize and work with indent scope
-		require("mini.indentscope").setup()
-
+		-- -- Visualize and work with indent scope
+		-- require("mini.indentscope").setup()
+		--
 		-- Align text interactively
 		require("mini.align").setup()
 

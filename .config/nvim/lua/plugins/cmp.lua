@@ -135,7 +135,7 @@ return {
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
 				}),
 				sources = cmp.config.sources({
-					{ name = "nvim_lsp", max_item_count = 5 },
+					{ name = "nvim_lsp", priority = 10000000000, max_item_count = 5 },
 					{ name = "cmp_tabnine", max_item_count = 5 },
 					{ name = "rg", max_item_count = 5 },
 					{ name = "buffer", max_item_count = 5 },
