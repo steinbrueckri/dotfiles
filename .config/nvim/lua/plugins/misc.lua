@@ -5,7 +5,7 @@ return {
 		opts = {
 			direction = "float",
 			close_on_exit = true,
-			shell = "/opt/homebrew/bin/fish"
+			shell = "/opt/homebrew/bin/fish",
 		},
 	},
 	{ "nmac427/guess-indent.nvim", opts = {} },

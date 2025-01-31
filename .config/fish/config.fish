@@ -112,10 +112,12 @@ alias n="nvim"
 alias nvim-switch-nightly="bob use nightly"
 alias nvim-switch-stable="bob use stable"
 
-# lazygit
+# lazygit / git
 alias lg="lazygit"
 alias lgd="lazydot"
 alias lazydot="lazygit -ucd ~/.local/share/yadm/lazygit -w ~ -g ~/.local/share/yadm/repo.git"
+alias lol="git log --pretty=oneline --abbrev-commit --graph --decorate"
+alias gp="git pull"
 
 # kubernetes stuff
 alias kx="kubectx"
@@ -155,7 +157,6 @@ alias tssh="tsh ssh (tsh ls | tail --lines=+3 | fzf -e | head -n 1 | cut -d ' ' 
 
 ## Misc
 alias pwgen="date +%s | sha256sum | base64 | head -c 32 ; echo"
-alias lol="git log --pretty=oneline --abbrev-commit --graph --decorate"
 alias cat="bat "
 alias hosts="hosts --auto-sudo"
 alias ls='eza --icons'
@@ -165,7 +166,6 @@ alias myip='curl -s -H "Accept: application/json" ipinfo.io | jq -r .ip'
 alias ag="rg"
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 alias history="atuin search -i"
-# alias kamal='docker run -it --rm -v "(pwd):/workdir" -v "/run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock" -e SSH_AUTH_SOCK="/run/host-services/ssh-auth.sock" -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/basecamp/kamal:latest'
 
 #######################################################################
 #                               exports                               #
@@ -337,19 +337,19 @@ if test -e $op
 end
 
 direnv hook fish | source
-atuin init fish | source
+atuin init fish --disable-up-arrow | source
 
 #######################################################################
 #                                tmux                                 #
 #######################################################################
 
-# if status is-interactive
-# and not set -q TMUX
-#     if not tmux has-session -t home
-#         tmux new-session -d -s home
-#     end
-#     if not tmux has-session -t userlike
-#         tmux new-session -d -s userlike
-#     end
-#     exec tmux attach-session -t home
-# end
+if status is-interactive
+and not set -q TMUX
+    if not tmux has-session -t home
+        tmux new-session -d -s home
+    end
+    if not tmux has-session -t userlike
+        tmux new-session -d -s userlike
+    end
+    exec tmux attach-session -t home
+end

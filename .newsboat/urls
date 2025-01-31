@@ -1,6 +1,7 @@
-https://news.ycombinator.com/rss "Hackernews"
-https://www.heise.de/security/rss/alert-news.rdf "Heise security Alerts"
-https://www.heise.de/security/rss/news.rdf "Heise security"
+https://news.ycombinator.com/rss "Hackernews" Security
+https://www.bleepingcomputer.com/feed/ "Bleepingcomputer" Security
+https://www.heise.de/security/rss/alert-news.rdf "Heise security Alerts" Security
+https://www.heise.de/security/rss/news.rdf "Heise security" Security
 https://tldr.tech/api/rss/tech "TLDR"
 https://blog.fefe.de/rss.xml "Fefe Blog"
 https://world.hey.com/dhh/feed.atom "DHH Blog"
