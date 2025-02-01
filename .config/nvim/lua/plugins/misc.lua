@@ -18,14 +18,14 @@ return {
 		},
 		opts = {
 			show_icons = true,
-			leader_key = ";", -- Recommended to be a single key
+			leader_key = ";",     -- Recommended to be a single key
 			buffer_leader_key = "m", -- Per Buffer Mappings
 		},
 	},
 	{
 		"sphamba/smear-cursor.nvim",
 		opts = {
-			cursor_color = "#50FA7B",
+			cursor_color = "#ea9a97",
 		},
 	},
 	{
@@ -59,10 +59,17 @@ return {
 		event = "BufReadPre",
 		opts = {},
 	},
+	-- {
+	-- 	"Mofiqul/dracula.nvim",
+	-- 	config = function()
+	-- 		vim.cmd([[colorscheme dracula]])
+	-- 	end,
+	-- },
 	{
-		"Mofiqul/dracula.nvim",
+		"rose-pine/neovim",
+		name = "rose-pine",
 		config = function()
-			vim.cmd([[colorscheme dracula]])
+			vim.cmd("colorscheme rose-pine-moon")
 		end,
 	},
 	{

@@ -29,11 +29,11 @@ set DEFAULT_USER steinbrueckri
 set -U fish_prompt_pwd_dir_length 0
 
 # theme
-set theme_color_scheme "dracula"
+set theme_color_scheme "rose_pine_moon"
 
 # color
 export CLICOLOR=1
-export LS_COLORS=(vivid generate dracula)
+export LS_COLORS=(vivid generate rose-pine-moon)
 
 # libs
 # ref.: https://github.com/3rd/image.nvim?tab=readme-ov-file#installing-imagemagick
@@ -42,11 +42,12 @@ export DYLD_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_LIBRARY_PATH"
 end
 
 # fzf theme
-set -Ux FZF_DEFAULT_OPTS "\
-  --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9
-  --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9
-  --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6
-  --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4"
+set -Ux FZF_DEFAULT_OPTS "
+	--color=fg:#908caa,bg:#232136,hl:#ea9a97
+	--color=fg+:#e0def4,bg+:#393552,hl+:#ea9a97
+	--color=border:#44415a,header:#3e8fb0,gutter:#232136
+	--color=spinner:#f6c177,info:#9ccfd8
+	--color=pointer:#c4a7e7,marker:#eb6f92,prompt:#908caa"
 
 # disable fish greeting
 set fish_greeting
