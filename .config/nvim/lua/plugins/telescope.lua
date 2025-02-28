@@ -13,11 +13,11 @@ return {
 		"akinsho/toggleterm.nvim",
 	},
 	keys = {
-		{
-			"<leader>ff",
-			':lua require"telescope.builtin".find_files({ find_command = {"rg","--files","--hidden","-g","!.git"}})<CR>',
-		},
-		{ "<leader>fa", "<cmd>Telescope live_grep<cr>" },
+		-- {
+		-- 	"<leader>ff",
+		-- 	':lua require"telescope.builtin".find_files({ find_command = {"rg","--files","--hidden","-g","!.git"}})<CR>',
+		-- },
+		-- { "<leader>fa", "<cmd>Telescope live_grep<cr>" },
 	},
 	config = function()
 		-- function to allow multi-selection in the telescope picker
@@ -98,6 +98,6 @@ return {
 		require("telescope").load_extension("projects")
 		require("telescope").load_extension("undo")
 		require("telescope").load_extension("harpoon")
-		require("telescope").load_extension('make')
+		require("telescope").load_extension("make")
 	end,
 }

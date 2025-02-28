@@ -78,37 +78,37 @@ vim.api.nvim_set_keymap(
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>fa",
-	":Telescope live_grep<CR>",
+	":lua Snacks.picker.grep()<CR>",
 	{ noremap = true, silent = true, desc = "Search in files" }
 )
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>fc",
-	':lua require("telescope.builtin").find_files({cwd = vim.fn.stdpath("config")})<CR>',
+	':lua Snacks.picker.files({ cwd = vim.fn.stdpath("config") })<CR>',
 	{ noremap = true, silent = true, desc = "Search in config files" }
 )
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>ff",
-	':lua require"telescope.builtin".find_files({ find_command = {"rg","--files","--hidden","-g","!.git"}})<CR>',
+	":lua Snacks.picker.files()<CR>",
 	{ noremap = true, silent = true, desc = "Search all files (ignoring .git)" }
 )
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>fe",
-	":Telescope emoji<CR>",
+	":lua Snacks.picker.icons()<CR>",
 	{ noremap = true, silent = true, desc = "Find emojis" }
 )
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>fp",
-	":Telescope yank_history<CR>",
+	":lua Snacks.picker.registers()<CR>",
 	{ noremap = true, silent = true, desc = "Show yank history" }
 )
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>fo",
-	":Telescope oldfiles<CR>",
+	":lua Snacks.picker.recent()<CR>",
 	{ noremap = true, silent = true, desc = "Show recent files" }
 )
 vim.api.nvim_set_keymap(
@@ -147,7 +147,7 @@ vim.api.nvim_set_keymap(
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>gl",
-	':lua Snacks.lazygit()<CR>',
+	":lua Snacks.lazygit()<CR>",
 	{ noremap = true, silent = true, desc = "Open LazyGit" }
 )
 vim.api.nvim_set_keymap(
