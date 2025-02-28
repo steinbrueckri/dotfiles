@@ -347,10 +347,10 @@ atuin init fish --disable-up-arrow | source
 if status is-interactive
 and not set -q TMUX
     if not tmux has-session -t home
-        tmux new-session -d -s home
+        tmuxp load -d home
     end
     if not tmux has-session -t userlike
-        tmux new-session -d -s userlike
+        tmuxp load -d userlike
     end
     exec tmux attach-session -t home
 end

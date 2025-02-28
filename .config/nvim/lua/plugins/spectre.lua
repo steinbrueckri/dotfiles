@@ -1,7 +1,7 @@
 return {
 	"windwp/nvim-spectre",
 	keys = {
-		{ "<leader>fr", '<cmd>lua require("spectre ").open()<cr>"' },
+		{ "<leader>fr", '<cmd>lua require("spectre").open()<cr>"' },
 	},
 	opts = {
 		color_devicons = true,

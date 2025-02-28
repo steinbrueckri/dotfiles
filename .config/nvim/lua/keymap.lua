@@ -147,7 +147,7 @@ vim.api.nvim_set_keymap(
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>gl",
-	':!tmux split-window -Z -c "$PWD" lazygit<CR>',
+	':lua Snacks.lazygit()<CR>',
 	{ noremap = true, silent = true, desc = "Open LazyGit" }
 )
 vim.api.nvim_set_keymap(

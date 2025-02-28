@@ -81,6 +81,12 @@ return {
 			lspconfig.dockerls.setup({ capabilities = capabilities })
 			lspconfig.html.setup({ capabilities = capabilities })
 			lspconfig.gopls.setup({ capabilities = capabilities })
+			lspconfig.texlab.setup({
+				capabilities = capabilities,
+				settings = {
+					texlab = { build = { args = { "-interaction=nonstopmode", "%f" } } },
+				},
+			})
 
 			lspconfig.jsonls.setup({
 				capabilities = capabilities,
@@ -113,6 +119,55 @@ return {
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+
+			-- diagnostics config
+			vim.diagnostic.config({
+				underline = true,
+				update_in_insert = false,
+				signs = {
+					text = {
+						[vim.diagnostic.severity.ERROR] = "", -- index:0
+						[vim.diagnostic.severity.WARN] = "", -- index:1
+						[vim.diagnostic.severity.INFO] = "", -- index:2
+						[vim.diagnostic.severity.HINT] = "󰌵", -- index:3
+					},
+				},
+				severity_sort = true,
+				float = {
+					show_header = true,
+					source = "if_many",
+					border = "rounded",
+				},
+			})
+
+			-- diagnostics hover popup
+			local diagnosticHoverAutocmdId = false
+			vim.o.updatetime = 250
+			vim.api.nvim_create_user_command("ToggleDiagnosticHover", function(args)
+				if diagnosticHoverAutocmdId then
+					-- If it already exists, delete the specific autocmd
+					vim.api.nvim_del_autocmd(diagnosticHoverAutocmdId)
+					diagnosticHoverAutocmdId = nil
+				else
+					-- Create a new autocmd and save its ID
+					diagnosticHoverAutocmdId = vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+						callback = function()
+							vim.diagnostic.open_float(nil, { focus = false })
+						end,
+					})
+				end
+
+				if #args.fargs == 0 then
+					vim.notify(
+						"DiagnosticHoverEnable: " .. tostring(diagnosticHoverAutocmdId ~= nil),
+						vim.log.levels.INFO
+					)
+				end
+			end, {
+				nargs = "?",
+				desc = "Toggle diagnostic hover display",
+			})
+			vim.cmd("ToggleDiagnosticHover --quite") -- Since my default value is set to false, this is equivalent to enabling it by default
 		end,
 	},
 }

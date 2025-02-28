@@ -15,7 +15,7 @@ return {
 			})
 		end,
 	},
-	{ "Gelio/cmp-natdat", config = true },
+	{ "Gelio/cmp-natdat",     config = true },
 	{ "hrsh7th/cmp-nvim-lsp", config = true },
 	{
 		"L3MON4D3/LuaSnip",
@@ -43,7 +43,7 @@ return {
 			ls.config.set_config({
 				history = true,
 				enable_autosnippets = true,
-				store_selection_keys = "<Tab>", -- needed for TM_SELECTED_TEXT
+				store_selection_keys = "<Tab>",        -- needed for TM_SELECTED_TEXT
 				updateevents = "TextChanged,TextChangedI", -- default is InsertLeave
 				ext_opts = { [types.choiceNode] = { active = { virt_text = { { "← Choice", "Todo" } } } } },
 			})
@@ -135,20 +135,20 @@ return {
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
 				}),
 				sources = cmp.config.sources({
-					{ name = "nvim_lsp", priority = 10000000000, max_item_count = 5 },
+					{ name = "nvim_lsp",    priority = 10000000000, max_item_count = 5 },
 					{ name = "cmp_tabnine", max_item_count = 5 },
-					{ name = "rg", max_item_count = 5 },
-					{ name = "buffer", max_item_count = 5 },
-					{ name = "tmux", max_item_count = 5, option = { all_panes = true } },
-					{ name = "path", max_item_count = 5 },
-					{ name = "fish", max_item_count = 5 },
-					{ name = "luasnip", max_item_count = 5 },
-					{ name = "natdat", max_item_count = 5 },
+					{ name = "rg",          max_item_count = 5 },
+					{ name = "buffer",      max_item_count = 5 },
+					{ name = "tmux",        max_item_count = 5,     option = { all_panes = true } },
+					{ name = "path",        max_item_count = 5 },
+					{ name = "fish",        max_item_count = 5 },
+					{ name = "luasnip",     max_item_count = 5 },
+					{ name = "natdat",      max_item_count = 5 },
 				}),
 				formatting = {
 					format = lspkind.cmp_format({
 						mode = "symbol_text", -- show only symbol annotations
-						maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+						maxwidth = 50,   -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
 						ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
 					}),
 				},

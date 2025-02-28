@@ -1,64 +1,104 @@
 [core]
-	excludesfile = ~/.gitignore_global
-	pager = delta
-	editor = nvim
+    excludesfile = ~/.gitignore_global
+    pager = delta
+    editor = nvim
+
 [delta]
-	line-numbers = true
-	side-by-side = true
-[push]
-	default = current
+    line-numbers = true
+    side-by-side = true
+
+[user]
+    name = Richard Steinbrueck
+    email = richard.steinbrueck@userlike.com
+    signingkey = BE33D8C1950E31D3D2DCD6181A8D9CE1E74F05B1
+
+[credential]
+    helper = osxkeychain
+
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+
 [fetch]
-	prune = true
+    prune = true
+    pruneTags = true
+    all = true
+
+[push]
+    default = simple
+    autoSetupRemote = true
+    followTags = true
+
+[pull]
+    rebase = true
+
+[rebase]
+    autoSquash = true
+    autoStash = true
+    updateRefs = true
+
+[commit]
+    gpgsign = true
+    template = ~/.gitmessage
+    verbose = true
+
+[gpg]
+    program = gpg2
+
+[alias]
+    branchf = !git checkout $(tv git-branch)
+    switchf = !git checkout $(tv git-branch)
+    nevermind = !git reset --hard HEAD && git clean -d -f
+    plog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+    clone-for-worktrees = "!sh $HOME/bin/git-clone-bare-for-worktrees.sh"
+
+[column]
+    ui = auto
+
+[branch]
+    sort = -committerdate
+
+[tag]
+    sort = version:refname
+
+[init]
+    defaultBranch = main
+
+[diff]
+    algorithm = histogram
+    colorMoved = plain
+    mnemonicPrefix = true
+    renames = true
+
+[help]
+    autocorrect = prompt
+
 [interactive]
     diffFilter = delta --color-only
-[credential]
-	helper = osxkeychain
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-[user]
-	name = Richard Steinbrueck
-	email = richard.steinbrueck@userlike.com
-	signingkey = BE33D8C1950E31D3D2DCD6181A8D9CE1E74F05B1
-[includeIf "gitdir:Projects/pixel-combo/"]
-  path = .gitconfig-pixelcombo
-[includeIf "gitdir:Projects/"]
-  path = .gitconfig-pivat
-[alias]
-	branchf = !git checkout $(tv git-branch)
-	switchf = !git checkout $(tv git-branch)
-  nevermind = !git reset --hard HEAD && git clean -d -f
-	plog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
-	yolo = !git add -A && git commit -m \"$(curl --silent --fail http://whatthecommit.com/index.txt)\"
-	clone-for-worktrees = "!sh $HOME/bin/git-clone-bare-for-worktrees.sh"
-[fetch "origin"]
-	prune = true
-[pull]
-	rebase = true
-[commit]
-	gpgsign = true
-	template = ~/.gitmessage
-[gpg]
-	program = gpg2
-[init]
-	defaultBranch = master
-# define command which will be used when "nvim" is set as a merge tool
-[mergetool "nvim"]
-  cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
-# set "nvim" as tool for merging
+
 [merge]
-  tool = nvim
-    conflictstyle = diff3
+    tool = nvim
+    conflictstyle = zdiff3
+
 [mergetool]
-  prompt = false
-[diff]
-    colorMoved = default
+    prompt = false
+
 [diff "ansible-vault"]
-	textconv = ansible-vault view
-	# Do not cache the vault contents
-	cachetextconv = false
+    textconv = ansible-vault view
+    cachetextconv = false  # Do not cache the vault contents
+
 [merge "ansible-vault"]
-	name = ansible-vault merge driver
-	driver = /usr/local/bin/ansible-vault-merge -- %O %A %B %P
+    name = ansible-vault merge driver
+    driver = /usr/local/bin/ansible-vault-merge -- %O %A %B %P
+
+[rerere]
+    enabled = true
+    autoupdate = true
+
+[includeIf "gitdir:Projects/pixel-combo/"]
+    path = .gitconfig-pixelcombo
+
+[includeIf "gitdir:Projects/"]
+    path = .gitconfig-pivat

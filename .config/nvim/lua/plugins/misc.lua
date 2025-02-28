@@ -1,5 +1,49 @@
 return {
 	{
+		"mvllow/modes.nvim",
+		tag = "v0.2.1",
+		config = function()
+			require("modes").setup({
+				-- Disable modes highlights in specified filetypes
+				ignore_filetypes = { "neo-tree", "TelescopePrompt", "snacks_dashboard" },
+			})
+		end,
+	},
+	{
+		"lervag/vimtex",
+		lazy = true,
+		ft = { "tex", "bib" },
+		keys = {
+			{ "<leader>lc", ":w<CR>:VimtexCompile<CR>", desc = "Compile Latex Files" },
+			{ "<leader>lC", ":w<CR>:VimtexClean<CR>", desc = "Clean complie Files" },
+			{ "<leader>lv", ":VimtexView<CR>:!open -a Skim<CR>", desc = "View Latex PDF File" },
+			{ "<leader>lt", ":VimtexTocToggle<CR>", desc = "Show Toc Latex Files" },
+		},
+		init = function()
+			local g = vim.g
+			g.vimtex_mappings_enabled = false
+			g.vimtex_view_method = "skim"
+			g.vimtex_compiler_latexmk_engines = { ["_"] = "-lualatex" }
+			g.vimtex_compiler_latexmk = {
+				aux_dir = ".build",
+				options = {
+					"-shell-escape",
+					"-verbose",
+					"-file-line-error",
+					"-synctex=1",
+					"-interaction=nonstopmode",
+				},
+			}
+			g.vimtex_quickfix_mode = 0
+			g.vimtex_log_ignore = {
+				"Underfull",
+				"Overfull",
+				"specifier changed to",
+				"Token not allowed in PDF string",
+			}
+		end,
+	},
+	{
 		"akinsho/toggleterm.nvim",
 		version = "*",
 		opts = {
@@ -18,14 +62,14 @@ return {
 		},
 		opts = {
 			show_icons = true,
-			leader_key = ";",     -- Recommended to be a single key
+			leader_key = ";", -- Recommended to be a single key
 			buffer_leader_key = "m", -- Per Buffer Mappings
 		},
 	},
 	{
 		"sphamba/smear-cursor.nvim",
 		opts = {
-			cursor_color = "#ea9a97",
+			-- cursor_color = "#ea9a97",
 		},
 	},
 	{
@@ -59,12 +103,10 @@ return {
 		event = "BufReadPre",
 		opts = {},
 	},
-	-- {
-	-- 	"Mofiqul/dracula.nvim",
-	-- 	config = function()
-	-- 		vim.cmd([[colorscheme dracula]])
-	-- 	end,
-	-- },
+	{
+		"Mofiqul/dracula.nvim",
+		opts = {},
+	},
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",

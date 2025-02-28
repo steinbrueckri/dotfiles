@@ -11,7 +11,7 @@ SETUVAR Z_CMD:z
 SETUVAR Z_DATA:/Users/richardsteinbrueck/\x2elocal/share/z/data
 SETUVAR Z_DATA_DIR:/Users/richardsteinbrueck/\x2elocal/share/z
 SETUVAR Z_EXCLUDE:\x5e/Users/richardsteinbrueck\x24
-SETUVAR __fish_initialized:3400
+SETUVAR __fish_initialized:3800
 SETUVAR fish_color_autosuggestion:9ca0b0
 SETUVAR fish_color_cancel:d20f39
 SETUVAR fish_color_command:00afd7
