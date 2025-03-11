@@ -15,7 +15,6 @@ end
 -- Modules to load
 local modules = {
 	"modules.keyboard",
-	"modules.libre",
 }
 
 -- Load all modules

@@ -28,9 +28,6 @@ set DEFAULT_USER steinbrueckri
 # show full path
 set -U fish_prompt_pwd_dir_length 0
 
-# theme
-set theme_color_scheme "rose_pine_moon"
-
 # color
 export CLICOLOR=1
 export LS_COLORS=(vivid generate rose-pine-moon)
@@ -41,19 +38,9 @@ if test -e "/opt/homebrew/"
 export DYLD_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_LIBRARY_PATH"
 end
 
-# fzf theme
-set -Ux FZF_DEFAULT_OPTS "
-	--color=fg:#908caa,bg:#232136,hl:#ea9a97
-	--color=fg+:#e0def4,bg+:#393552,hl+:#ea9a97
-	--color=border:#44415a,header:#3e8fb0,gutter:#232136
-	--color=spinner:#f6c177,info:#9ccfd8
-	--color=pointer:#c4a7e7,marker:#eb6f92,prompt:#908caa"
 
 # disable fish greeting
 set fish_greeting
-
-# disable default keybindings from jethrokuan/fzf
-set -U FZF_DISABLE_KEYBINDINGS 1
 
 #######################################################################
 #                             keybindings                             #
@@ -65,32 +52,9 @@ bind \cf __fzf_reverse_isearch
 #                               plugins                               #
 #######################################################################
 
-fundle plugin oh-my-fish/theme-bobthefish
-fundle plugin jethrokuan/fzf
 fundle plugin jorgebucaran/nvm.fish
 fundle plugin sentriz/fish-pipenv
 fundle init
-
-#######################################################################
-#                               prompt                                #
-#######################################################################
-
-set -g theme_display_virtualenv no
-set -g theme_git_worktree_support no
-set -g theme_powerline_fonts yes
-set -g theme_nerd_fonts yes
-set -g theme_display_user ssh
-set -g theme_display_hostname ssh
-set -g theme_display_git_default_branch yes
-set -g theme_title_use_abbreviated_path no
-set -g theme_display_git_dirty_verbose yes
-set -g theme_display_k8s_context no
-set -g theme_display_k8s_namespace no
-set -g theme_title_display_process yes
-set -g theme_title_display_path yes
-set -g theme_display_date no
-set -g theme_newline_cursor yes
-set -g theme_newline_prompt '$ '
 
 #######################################################################
 #                               aliases                               #
@@ -339,18 +303,19 @@ end
 
 direnv hook fish | source
 atuin init fish --disable-up-arrow | source
+starship init fish | source
 
 #######################################################################
 #                                tmux                                 #
 #######################################################################
 
-if status is-interactive
-and not set -q TMUX
-    if not tmux has-session -t home
-        tmuxp load -d home
-    end
-    if not tmux has-session -t userlike
-        tmuxp load -d userlike
-    end
-    exec tmux attach-session -t home
-end
+# if status is-interactive
+# and not set -q TMUX
+#     if not tmux has-session -t home
+#         tmuxp load -d home
+#     end
+#     if not tmux has-session -t userlike
+#         tmuxp load -d userlike
+#     end
+#     exec tmux attach-session -t home
+# end

@@ -2,6 +2,7 @@
     excludesfile = ~/.gitignore_global
     pager = delta
     editor = nvim
+	ignorecase = true
 
 [delta]
     line-numbers = true
@@ -40,7 +41,7 @@
     updateRefs = true
 
 [commit]
-    gpgsign = true
+    gpgsign = false
     template = ~/.gitmessage
     verbose = true
 
@@ -94,7 +95,7 @@
     driver = /usr/local/bin/ansible-vault-merge -- %O %A %B %P
 
 [rerere]
-    enabled = true
+	enabled = true
     autoupdate = true
 
 [includeIf "gitdir:Projects/pixel-combo/"]
