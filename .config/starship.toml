@@ -22,7 +22,7 @@ $time\n  \
 """
 
 palette = "rose-pine-moon"
-# palette = "rose-pine-moon"
+command_timeout = 3600
 
 [palettes.rose-pine-dawn]
 overlay = '#f2e9e1'
