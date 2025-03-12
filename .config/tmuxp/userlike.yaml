@@ -1,0 +1,14 @@
+session_name: userlike
+windows:
+  - window_name: code
+    start_directory: "~/Userlike/Userlike/"
+    panes:
+      - shell_command:
+          - source ./.venv/bin/activate.fish
+          - clear
+  - window_name: datacenter
+    start_directory: "~/Userlike/UserlikeDatacenter/"
+    panes:
+      - shell_command:
+          - source ./.venv/bin/activate.fish
+          - clear

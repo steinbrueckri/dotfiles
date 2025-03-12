@@ -1,0 +1,7 @@
+session_name: home
+windows:
+  - window_name: main
+    start_directory: "~/"
+    panes:
+      - shell_command:
+          - clear

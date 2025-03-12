@@ -132,6 +132,9 @@ alias ag="rg"
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 alias history="atuin search -i"
 
+alias lightmode="/usr/local/bin/themr rose-pine-dawn"
+alias darkmode="/usr/local/bin/themr rose-pine-moon"
+
 #######################################################################
 #                               exports                               #
 #######################################################################
