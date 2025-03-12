@@ -304,21 +304,34 @@ if test -e $op
   source $op
 end
 
-direnv hook fish | source
-atuin init fish --disable-up-arrow | source
-starship init fish | source
+# Load direnv
+if command -v direnv >/dev/null
+    direnv hook fish | source
+end
+
+# Load atuin
+if command -v atuin >/dev/null
+    atuin init fish --disable-up-arrow | source
+end
+
+# Load starship prompt
+if command -v starship >/dev/null
+    starship init fish | source
+end
 
 #######################################################################
 #                                tmux                                 #
 #######################################################################
 
-# if status is-interactive
-# and not set -q TMUX
-#     if not tmux has-session -t home
-#         tmuxp load -d home
-#     end
-#     if not tmux has-session -t userlike
-#         tmuxp load -d userlike
-#     end
-#     exec tmux attach-session -t home
-# end
+if command -v tmuxp >/dev/null
+    if status is-interactive
+    and not set -q TMUX
+        if not tmux has-session -t home
+            tmuxp load -d home
+        end
+        if not tmux has-session -t userlike
+            tmuxp load -d userlike
+        end
+        exec tmux attach-session -t home
+    end
+end
