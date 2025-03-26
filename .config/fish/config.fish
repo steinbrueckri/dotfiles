@@ -130,10 +130,9 @@ alias watch='viddy'
 alias myip='curl -s -H "Accept: application/json" ipinfo.io | jq -r .ip'
 alias ag="rg"
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
-alias history="atuin search -i"
 
-alias lightmode="/usr/local/bin/themr rose-pine-dawn"
-alias darkmode="/usr/local/bin/themr rose-pine-moon"
+alias lightmode="themr rose-pine-dawn"
+alias darkmode="themr rose-pine-moon"
 
 #######################################################################
 #                               exports                               #
@@ -255,6 +254,14 @@ end
 #                              functions                              #
 #######################################################################
 
+function cheat
+    if test (count $argv) -eq 0
+        echo "Usage: cheat <command>"
+        return 1
+    end
+    curl -s "https://cht.sh/$argv"
+end
+
 # Check if we are in a container
 if not test -e /.dockerenv
   set ssh_agent_sock ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
@@ -323,15 +330,15 @@ end
 #                                tmux                                 #
 #######################################################################
 
-if command -v tmuxp >/dev/null
-    if status is-interactive
-    and not set -q TMUX
-        if not tmux has-session -t home
-            tmuxp load -d home
-        end
-        if not tmux has-session -t userlike
-            tmuxp load -d userlike
-        end
-        exec tmux attach-session -t home
-    end
-end
+# if command -v tmuxp >/dev/null
+#     if status is-interactive
+#     and not set -q TMUX
+#         if not tmux has-session -t home
+#             tmuxp load -d home
+#         end
+#         if not tmux has-session -t userlike
+#             tmuxp load -d userlike
+#         end
+#         exec tmux attach-session -t home
+#     end
+# end
