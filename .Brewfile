@@ -65,6 +65,7 @@ tap "xwmx/taps"
 tap "zdcthomas/tools"
 brew "act"
 brew "age"
+brew "aichat"
 brew "xz"
 brew "openssl@3"
 brew "libpcap"
@@ -403,6 +404,3 @@ cask "syncthing"
 cask "wireshark"
 cask "xca"
 cask "xquartz"
-mas "GarageBand", id: 682658836
-mas "Keynote", id: 409183694
-mas "Pages", id: 409201541

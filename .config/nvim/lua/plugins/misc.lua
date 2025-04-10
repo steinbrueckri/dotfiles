@@ -67,12 +67,6 @@ return {
 		},
 	},
 	{
-		"sphamba/smear-cursor.nvim",
-		opts = {
-			-- cursor_color = "#ea9a97",
-		},
-	},
-	{
 		"folke/trouble.nvim",
 		opts = {},
 		cmd = "Trouble",

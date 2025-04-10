@@ -53,7 +53,7 @@ spf=$(dig $dig_opts TXT "$domain" | grep 'v=spf1')
 [[ -n "$spf" ]] && spf_ok=1 || exit_code=$((exit_code + 1))
 
 # DKIM
-common_selectors=(default mail google selector1 dkim dkim1 dkim2 smtp mandrill sparkpost amazonses)
+common_selectors=(default mail google selector1 dkim dkim1 dkim2 smtp mandrill sparkpost amazonses pdk1 pdk2)
 for sel in "${common_selectors[@]}"; do
   dkim=$(dig $dig_opts TXT "${sel}._domainkey.${domain}")
   if [[ -n "$dkim" ]]; then

@@ -30,7 +30,7 @@ set -U fish_prompt_pwd_dir_length 0
 
 # color
 export CLICOLOR=1
-export LS_COLORS=(vivid generate rose-pine-moon)
+export LS_COLORS=(vivid generate rose-pine-dawn)
 
 # libs
 # ref.: https://github.com/3rd/image.nvim?tab=readme-ov-file#installing-imagemagick
@@ -130,7 +130,7 @@ alias watch='viddy'
 alias myip='curl -s -H "Accept: application/json" ipinfo.io | jq -r .ip'
 alias ag="rg"
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
-
+alias sslcheck="nmap --script ssl-cert -p 443"
 alias lightmode="themr rose-pine-dawn"
 alias darkmode="themr rose-pine-moon"
 

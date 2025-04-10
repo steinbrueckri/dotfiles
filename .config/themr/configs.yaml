@@ -1,0 +1,37 @@
+kitty:
+    type: colorscheme
+    path: "~/.config/kitty/kitty.conf"
+    regex: "include ./rose-pine-.*"
+    replace: "include ./rose-pine-{}.conf"
+    cmd: "pkill -SIGUSR1 kitty"
+
+fish:
+    type: colorscheme
+    path: "~/.config/fish/config.fish"
+    regex: "export LS_COLORS=\\(vivid generate rose-pine-.*\\)"
+    replace: "export LS_COLORS=(vivid generate rose-pine-{})"
+
+nvim:
+    type: colorscheme
+    path: "~/.config/nvim/init.lua"
+    regex: 'local flavor = ".*"'
+    replace: 'local flavor = "{}"'
+
+tmux:
+    type: colorscheme
+    path: "~/.tmux.conf"
+    regex: "set -g @rose_pine_variant '.*'"
+    replace: "set -g @rose_pine_variant '{}'"
+    cmd: "tmux source-file ~/.tmux.conf"
+
+starship:
+    type: colorscheme
+    path: "~/.config/starship.toml"
+    regex: 'palette = "rose-pine-.*'
+    replace: 'palette = "rose-pine-{}"'
+
+bat:
+    type: colorscheme
+    path: "~/.config/bat/config"
+    regex: '--theme=.*'
+    replace: '--theme="rose-pine-{}"'
