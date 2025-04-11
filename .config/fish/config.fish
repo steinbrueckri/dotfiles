@@ -30,7 +30,7 @@ set -U fish_prompt_pwd_dir_length 0
 
 # color
 export CLICOLOR=1
-export LS_COLORS=(vivid generate rose-pine-dawn)
+export LS_COLORS=(vivid generate rose-pine-moon)
 
 # libs
 # ref.: https://github.com/3rd/image.nvim?tab=readme-ov-file#installing-imagemagick
@@ -325,6 +325,9 @@ end
 if command -v starship >/dev/null
     starship init fish | source
 end
+
+# Load s3cr3ts
+source $HOME/.config/fish/s3cr3ts.fish
 
 #######################################################################
 #                                tmux                                 #

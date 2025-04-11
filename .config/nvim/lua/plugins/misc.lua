@@ -1,15 +1,5 @@
 return {
 	{
-		"mvllow/modes.nvim",
-		tag = "v0.2.1",
-		config = function()
-			require("modes").setup({
-				-- Disable modes highlights in specified filetypes
-				ignore_filetypes = { "neo-tree", "TelescopePrompt", "snacks_dashboard" },
-			})
-		end,
-	},
-	{
 		"lervag/vimtex",
 		lazy = true,
 		ft = { "tex", "bib" },
