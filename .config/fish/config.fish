@@ -30,14 +30,7 @@ set -U fish_prompt_pwd_dir_length 0
 
 # color
 export CLICOLOR=1
-export LS_COLORS=(vivid generate rose-pine-moon)
-
-# libs
-# ref.: https://github.com/3rd/image.nvim?tab=readme-ov-file#installing-imagemagick
-if test -e "/opt/homebrew/"
-export DYLD_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_LIBRARY_PATH"
-end
-
+export LS_COLORS=(vivid generate rose-pine-dawn)
 
 # disable fish greeting
 set fish_greeting

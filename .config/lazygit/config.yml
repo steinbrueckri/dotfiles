@@ -1,100 +1,82 @@
 gui:
-  # stuff relating to the UI
   showIcons: true
-  scrollHeight: 2 # how many lines you scroll by
-  scrollPastBottom: true # enable scrolling past the bottom
-  sidePanelWidth: 0.3333 # number from 0 to 1
+  scrollHeight: 2
+  scrollPastBottom: true
+  sidePanelWidth: 0.25
   expandFocusedSidePanel: false
-  mainPanelSplitMode: "flexible" # one of 'horizontal' | 'flexible' | 'vertical'
-  language: "auto" # one of 'auto' | 'en' | 'zh' | 'pl' | 'nl'
-  theme:
-    lightTheme: false
-    activeBorderColor:
-      - "#8fbcbb"
-      - bold
-    inactiveBorderColor:
-      - "#eceff4"
-    optionsTextColor:
-      - "#2e3440"
-    selectedLineBgColor:
-      - "#5e81ac" # set to `default` to have no background color
-    selectedRangeBgColor:
-      - "#81a1c1"
-    cherryPickedCommitBgColor:
-      - "#d08770"
-    cherryPickedCommitFgColor:
-      - "#b48ead"
-    unstagedChangesColor:
-      - "#bf616a"
+  mainPanelSplitMode: "flexible"
   commitLength:
     show: true
   mouseEvents: true
-  skipUnstageLineWarning: false
-  skipStashWarning: true
-  showFileTree: true # for rendering changes files in a tree format
-  showListFooter: false # for seeing the '5 of 20' message in list panels
-  showRandomTip: true
+  skipStashWarning: false
+  showFileTree: true
+  showListFooter: false
+  showRandomTip: false
   showCommandLog: false
   showBottomLine: false
   commandLogSize: 8
-  authorColors: # in case you're not happy with the randomly assigned colour
+  authorColors:
     "Richard Steinbrueck ": "#ff0000"
+  theme:
+    activeBorderColor:
+      - cyan
+      - bold
+    inactiveBorderColor:
+      - white
+    selectedLineBgColor:
+      - reverse
+    selectedRangeBgColor:
+      - reverse
+  nerdFontsVersion: "3"
+
 git:
   paging:
     colorArg: always
     useConfig: false
     pager: delta --dark --color-only --side-by-side
-  merging:
-    # only applicable to unix users
-    manualCommit: false
-    # extra args passed to `git merge`, e.g. --no-ff
-    args: ""
   skipHookPrefix: WIP
   autoFetch: true
   autoRefresh: true
   branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium {{branchName}} --"
-  allBranchesLogCmd: "git log --graph --all --color=always --abbrev-commit --decorate --date=relative  --pretty=medium"
-  overrideGpg: false # prevents lazygit from spawning a separate process when using GPG
+  allBranchesLogCmd: "git log --graph --all --color=always --abbrev-commit --decorate --date=relative --pretty=medium"
+  overrideGpg: false
   disableForcePushing: true
   parseEmoji: true
   log:
-    # one of always, never, when-maximised
-    # this determines whether the git graph is rendered in the commits panel
     showGraph: "always"
-    # displays the whole git graph by default in the commits panel (equivalent to passing the `--all` argument to `git log`)
     showWholeGraph: true
+
 os:
-  editCommand: "" # see 'Configuring File Editing' section
-  editCommandTemplate: "{{editor}} {{filename}}"
-  openCommand: ""
+  editCommand: "nvim"
+  editCommandTemplate: "{{editor}} +{{line}} {{filename}}"
+  openCommand: "tmux new-window '{{command}}'"
+
 refresher:
-  refreshInterval: 10 # file/submodule refresh interval in seconds
-  fetchInterval: 60 # re-fetch interval in seconds
-update:
-  method: prompt # can be: prompt | background | never
-  days: 14 # how often an update is checked for
-reporting: "on" # one of: 'on' | 'off' | 'undetermined'
+  refreshInterval: 10
+  fetchInterval: 60
+  refreshSubmodules: true
+
 confirmOnQuit: false
-# determines whether hitting 'esc' will quit the application when there is nothing to cancel/close
 quitOnTopLevelReturn: true
-disableStartupPopups: false
-notARepository: "prompt" # one of: 'prompt' | 'create' | 'skip'
-promptToReturnFromSubprocess: false # display confirmation when subprocess terminates
-customCommands:
-  - key: "C"
-    command: "git cz c"
-    description: "commit with commitizen"
-    context: "files"
-    loadingText: "opening commitizen commit tool"
-    subprocess: true
+disableStartupPopups: true
+notARepository: "prompt"
+promptToReturnFromSubprocess: false
+
 keybinding:
   universal:
     quit: "q"
-    quit-alt1: "<c-c>" # alternative/alias of quit
-    return: "<esc>" # return to previous menu, will quit if there's nowhere to return
-    optionMenu-alt1: "h" # show help menu
+    quit-alt1: "<c-c>"
+    return: "<esc>"
+    optionMenu-alt1: "h"
+    togglePanel: "<tab>"
+    prevItem: "k"
+    nextItem: "j"
+    prevBlock: "H"
+    nextBlock: "L"
   status:
     checkForUpdate: "u"
     recentRepos: "<enter>"
   commits:
     copyCommitMessageToClipboard: "y"
+    squashDown: "s"
+    renameCommit: "r"
