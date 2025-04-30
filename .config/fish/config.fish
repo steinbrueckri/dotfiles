@@ -25,6 +25,10 @@ fish_add_path $HOME/Library/Python/3.11/bin
 # set default username to hide user@host ... see agnoster theme
 set DEFAULT_USER steinbrueckri
 
+# XDG Directories
+set -xg XDG_CONFIG_HOME $HOME/.config
+set -xg XDG_CACHE_HOME $HOME/.cache
+
 # show full path
 set -U fish_prompt_pwd_dir_length 0
 

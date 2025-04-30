@@ -1,0 +1,14 @@
+[extensions]
+md = "neovide"
+yml = "neovide"
+json = "neovide"
+mkv = "IINA"
+mp4 = "IINA"
+webm = "IINA"
+pdf = "Skim"
+
+[schemes]
+mailto = "Mail"
+
+[types]
+plain-text = "neovide"
