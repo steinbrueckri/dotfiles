@@ -1,66 +1,27 @@
-gui:
-  showIcons: true
-  scrollHeight: 2
-  scrollPastBottom: true
-  sidePanelWidth: 0.25
-  expandFocusedSidePanel: false
-  mainPanelSplitMode: "flexible"
-  commitLength:
-    show: true
-  mouseEvents: true
-  skipStashWarning: false
-  showFileTree: true
-  showListFooter: false
-  showRandomTip: false
-  showCommandLog: false
-  showBottomLine: false
-  commandLogSize: 8
-  authorColors:
-    "Richard Steinbrueck ": "#ff0000"
-  theme:
-    activeBorderColor:
-      - cyan
-      - bold
-    inactiveBorderColor:
-      - white
-    selectedLineBgColor:
-      - reverse
-    selectedRangeBgColor:
-      - reverse
-  nerdFontsVersion: "3"
-
-git:
-  paging:
-    colorArg: always
-    useConfig: false
-    pager: delta --dark --color-only --side-by-side
-  skipHookPrefix: WIP
-  autoFetch: true
-  autoRefresh: true
-  branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium {{branchName}} --"
-  allBranchesLogCmd: "git log --graph --all --color=always --abbrev-commit --decorate --date=relative --pretty=medium"
-  overrideGpg: false
-  disableForcePushing: true
-  parseEmoji: true
-  log:
-    showGraph: "always"
-    showWholeGraph: true
-
-os:
-  editCommand: "nvim"
-  editCommandTemplate: "{{editor}} +{{line}} {{filename}}"
-  openCommand: "tmux new-window '{{command}}'"
-
-refresher:
-  refreshInterval: 10
-  fetchInterval: 60
-  refreshSubmodules: true
-
-confirmOnQuit: false
-quitOnTopLevelReturn: true
-disableStartupPopups: true
-notARepository: "prompt"
-promptToReturnFromSubprocess: false
+# git:
+#   paging:
+#     colorArg: always
+#     useConfig: false
+#     pager: delta --dark --color-only --side-by-side
+#   skipHookPrefix: WIP
+#   autoFetch: true
+#   autoRefresh: true
+#   branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium {{branchName}} --"
+#   allBranchesLogCmd: "git log --graph --all --color=always --abbrev-commit --decorate --date=relative --pretty=medium"
+#   overrideGpg: false
+#   disableForcePushing: true
+#   log:
+#     showGraph: "always"
+#     showWholeGraph: true
+#
+# os:
+#   edit: "nvim"
+#   editAtLine: "{{editor}} +{{line}} {{filename}}"
+#   open: "tmux new-window '{{command}}'"
+#
+# refresher:
+#   refreshInterval: 10
+#   fetchInterval: 60
 
 keybinding:
   universal:
@@ -69,14 +30,9 @@ keybinding:
     return: "<esc>"
     optionMenu-alt1: "h"
     togglePanel: "<tab>"
-    prevItem: "k"
-    nextItem: "j"
-    prevBlock: "H"
-    nextBlock: "L"
   status:
     checkForUpdate: "u"
     recentRepos: "<enter>"
   commits:
-    copyCommitMessageToClipboard: "y"
     squashDown: "s"
     renameCommit: "r"
