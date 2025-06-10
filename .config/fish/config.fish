@@ -18,12 +18,16 @@ fish_add_path $HOME/.cargo/bin
 fish_add_path $HOME/.yarn/bin
 fish_add_path /opt/homebrew/bin
 fish_add_path /opt/homebrew/sbin
+fish_add_path /opt/homebrew/opt/curl/bin
 fish_add_path /opt/homebrew/opt/ruby/bin
 fish_add_path $HOME/.local/share/bob/nvim-bin
 fish_add_path $HOME/Library/Python/3.11/bin
 
 # set default username to hide user@host ... see agnoster theme
 set DEFAULT_USER steinbrueckri
+
+# Fix issue with yetone/avante.nvim
+set CURL_HTTP_VERSION 1.1
 
 # XDG Directories
 set -xg XDG_CONFIG_HOME $HOME/.config
@@ -34,7 +38,7 @@ set -U fish_prompt_pwd_dir_length 0
 
 # color
 export CLICOLOR=1
-export LS_COLORS=(vivid generate rose-pine-moon)
+export LS_COLORS=(vivid generate rose-pine-dawn)
 
 # disable fish greeting
 set fish_greeting
@@ -63,6 +67,7 @@ if string match -q "Darwin" (uname)
   alias sleepon="sudo systemsetup -setcomputersleep 10"
   alias lock="pmset displaysleepnow"
   alias rm='trash '
+  alias backup="caffeinate -i autorestic backup -l home"
   export GPG_TTY=$(tty)
 end
 
@@ -342,3 +347,6 @@ source $HOME/.config/fish/s3cr3ts.fish
 #         exec tmux attach-session -t home
 #     end
 # end
+
+# uv
+fish_add_path "/Users/richardsteinbrueck/.local/bin"

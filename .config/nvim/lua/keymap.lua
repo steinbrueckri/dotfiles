@@ -4,8 +4,8 @@
 
 -- Leader Key Setup
 -----------------------------------------------------------
-vim.g.mapleader = " " -- Set leader key to space
-vim.b.mapleader = " " -- Set local buffer leader key
+vim.g.mapleader = " "      -- Set leader key to space
+vim.b.mapleader = " "      -- Set local buffer leader key
 vim.g.maplocalleader = "," -- Set localleader to ,
 
 -- General Mappings

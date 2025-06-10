@@ -1,5 +1,19 @@
 return {
 	{
+		"emmanueltouzery/apidocs.nvim",
+		dependencies = {
+			"folke/snacks.nvim",
+		},
+		cmd = { "ApidocsSearch", "ApidocsInstall", "ApidocsOpen", "ApidocsSelect", "ApidocsUninstall" },
+		config = function()
+			require("apidocs").setup()
+			require("apidocs").setup({ picker = "snacks" })
+		end,
+		keys = {
+			{ "<leader>fd", "<cmd>ApidocsOpen<cr>", desc = "Search Api Doc" },
+		},
+	},
+	{
 		"lervag/vimtex",
 		lazy = true,
 		ft = { "tex", "bib" },
