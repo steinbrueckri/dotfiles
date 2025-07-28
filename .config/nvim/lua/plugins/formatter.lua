@@ -15,12 +15,12 @@ return {
 				yaml = {
 					require("formatter.filetypes.yaml").prettier,
 				},
-        ansible = {
-          require("formatter.filetypes.yaml").yamlfmt,
-        },
-        html = {
-          require("formatter.filetypes.html").prettier,
-        },
+				ansible = {
+					require("formatter.filetypes.yaml").yamlfmt,
+				},
+				html = {
+					require("formatter.filetypes.html").prettier,
+				},
 				json = {
 					require("formatter.filetypes.json").prettier,
 				},
@@ -28,11 +28,11 @@ return {
 					require("formatter.filetypes.sh").shfmt,
 				},
 				python = {
-					require("formatter.filetypes.python").black,
+					require("formatter.filetypes.python").ruff,
 				},
-        ["*"] = {
-          require("formatter.filetypes.any").remove_trailing_whitespace,
-        },
+				["*"] = {
+					require("formatter.filetypes.any").remove_trailing_whitespace,
+				},
 			},
 		})
 	end,

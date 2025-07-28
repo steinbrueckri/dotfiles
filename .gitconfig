@@ -3,6 +3,8 @@
     pager = delta
     editor = nvim
 	ignorecase = true
+	compression = 9
+	whitespace = trailing-space
 
 [delta]
     line-numbers = true
@@ -29,7 +31,7 @@
 
 [push]
     default = simple
-    autoSetupRemote = true
+	autoSetupRemote = true
     followTags = true
 
 [pull]
@@ -43,7 +45,7 @@
 [commit]
     gpgsign = false
     template = ~/.gitmessage
-    verbose = true
+	verbose = true
 
 [gpg]
     program = gpg2
@@ -52,23 +54,25 @@
     branchf = !git checkout $(tv git-branch)
     switchf = !git checkout $(tv git-branch)
     nevermind = !git reset --hard HEAD && git clean -d -f
-    plog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+    l = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
     clone-for-worktrees = "!sh $HOME/bin/git-clone-bare-for-worktrees.sh"
+    graph = log --all --graph --decorate --oneline
+    ignore = "!gi() { local IFS=','; curl -sL https://www.toptal.com/developers/gitignore/api/\"$*\"; }; gi"
 
 [column]
-    ui = auto
+	ui = auto
 
 [branch]
-    sort = -committerdate
+	sort = -committerdate
 
 [tag]
-    sort = version:refname
+	sort = -version:refname
 
 [init]
     defaultBranch = main
 
 [diff]
-    algorithm = histogram
+	algorithm = histogram
     colorMoved = plain
     mnemonicPrefix = true
     renames = true
@@ -96,10 +100,15 @@
 
 [rerere]
 	enabled = true
-    autoupdate = true
+	autoUpdate = true
 
 [includeIf "gitdir:Projects/pixel-combo/"]
     path = .gitconfig-pixelcombo
 
 [includeIf "gitdir:Projects/"]
     path = .gitconfig-pivat
+[maintenance]
+	auto = true
+	strategy = incremental
+[status]
+	branch = true

@@ -18,10 +18,10 @@ return {
 		lazy = true,
 		ft = { "tex", "bib" },
 		keys = {
-			{ "<leader>lc", ":w<CR>:VimtexCompile<CR>", desc = "Compile Latex Files" },
-			{ "<leader>lC", ":w<CR>:VimtexClean<CR>", desc = "Clean complie Files" },
+			{ "<leader>lc", ":w<CR>:VimtexCompile<CR>",          desc = "Compile Latex Files" },
+			{ "<leader>lC", ":w<CR>:VimtexClean<CR>",            desc = "Clean complie Files" },
 			{ "<leader>lv", ":VimtexView<CR>:!open -a Skim<CR>", desc = "View Latex PDF File" },
-			{ "<leader>lt", ":VimtexTocToggle<CR>", desc = "Show Toc Latex Files" },
+			{ "<leader>lt", ":VimtexTocToggle<CR>",              desc = "Show Toc Latex Files" },
 		},
 		init = function()
 			local g = vim.g
@@ -66,7 +66,7 @@ return {
 		},
 		opts = {
 			show_icons = true,
-			leader_key = ";", -- Recommended to be a single key
+			leader_key = ";",     -- Recommended to be a single key
 			buffer_leader_key = "m", -- Per Buffer Mappings
 		},
 	},
@@ -115,5 +115,19 @@ return {
 		event = "VeryLazy",
 		dependencies = { "stevearc/dressing.nvim", "nvim-telescope/telescope.nvim" },
 		cmd = "Nerdy",
+	},
+	{
+		"Bekaboo/dropbar.nvim",
+		-- optional, but required for fuzzy finder support
+		dependencies = {
+			"nvim-telescope/telescope-fzf-native.nvim",
+			build = "make",
+		},
+		config = function()
+			local dropbar_api = require("dropbar.api")
+			vim.keymap.set("n", "<Leader>;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
+			vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
+			vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
+		end,
 	},
 }

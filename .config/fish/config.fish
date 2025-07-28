@@ -14,12 +14,14 @@
 
 fish_add_path /usr/local/sbin
 fish_add_path $HOME/bin
+fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.cargo/bin
 fish_add_path $HOME/.yarn/bin
 fish_add_path /opt/homebrew/bin
 fish_add_path /opt/homebrew/sbin
 fish_add_path /opt/homebrew/opt/curl/bin
 fish_add_path /opt/homebrew/opt/ruby/bin
+fish_add_path /opt/homebrew/lib/ruby/gems/3.4.0/bin
 fish_add_path $HOME/.local/share/bob/nvim-bin
 fish_add_path $HOME/Library/Python/3.11/bin
 
@@ -350,3 +352,7 @@ source $HOME/.config/fish/s3cr3ts.fish
 
 # uv
 fish_add_path "/Users/richardsteinbrueck/.local/bin"
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :
