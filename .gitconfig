@@ -11,9 +11,9 @@
     side-by-side = true
 
 [user]
-    name = Richard Steinbrueck
-    email = richard.steinbrueck@userlike.com
-    signingkey = BE33D8C1950E31D3D2DCD6181A8D9CE1E74F05B1
+	name = Richard Steinbrueck
+	email = richard.steinbrueck@userlike.com
+	signingkey = key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO/sst8BMRFYKTsauFOOlVNJ3kJf5oQT6nrWharQyYnh SSH Userlike Richard
 
 [credential]
     helper = osxkeychain
@@ -43,12 +43,13 @@
     updateRefs = true
 
 [commit]
-    gpgsign = false
+	gpgsign = false
     template = ~/.gitmessage
 	verbose = true
 
 [gpg]
-    program = gpg2
+	program = /opt/homebrew/bin/gpg
+	format = ssh
 
 [alias]
     branchf = !git checkout $(tv git-branch)
@@ -89,6 +90,7 @@
 
 [mergetool]
     prompt = false
+	keepBackup = true
 
 [diff "ansible-vault"]
     textconv = ansible-vault view
@@ -112,3 +114,5 @@
 	strategy = incremental
 [status]
 	branch = true
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign

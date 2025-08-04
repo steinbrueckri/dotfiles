@@ -20,7 +20,7 @@ return {
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
 		event = "VeryLazy",
-		opts = {},
+		opts = { latex = { enabled = false } },
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
 	},
 }

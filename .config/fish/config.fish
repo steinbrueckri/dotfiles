@@ -24,6 +24,7 @@ fish_add_path /opt/homebrew/opt/ruby/bin
 fish_add_path /opt/homebrew/lib/ruby/gems/3.4.0/bin
 fish_add_path $HOME/.local/share/bob/nvim-bin
 fish_add_path $HOME/Library/Python/3.11/bin
+fish_add_path /opt/homebrew/opt/gawk/libexec/gnubin
 
 # set default username to hide user@host ... see agnoster theme
 set DEFAULT_USER steinbrueckri
@@ -97,7 +98,7 @@ alias k-debug="kubectl run --namespace default -i --tty 'debug-default-$USER' --
 alias k-debug-app="kubectl run --namespace istio-apps -i --tty 'debug-$USER' --image=steinbrueckri/debug --restart=Never --rm=true -- bash"
 
 # python stuff
-alias newpyenv="PIPENV_VENV_IN_PROJECT=1 pipenv --python 3.12 && echo '{ \"venvPath\": \".\", \"venv\": \".venv\" }' > pyrightconfig.json && source .venv/bin/activate.fish"
+alias newpyenv='uv venv .venv --python 3.12 && echo "{ \"venvPath\": \".\", \"venv\": \".venv\", \"include\": [\"src\", \"tests\"], \"exclude\": [\"**/__pycache__\", \".pytest_cache\", \".ruff_cache\", \".venv\"] }" > pyrightconfig.json && mkdir -p src tests && source .venv/bin/activate.fish'
 alias activate_env_datacenter="source ~/Userlike/UserlikeDatacenter/.venv/bin/activate.fish"
 alias activate_env_code="source ~/Userlike/Userlike/.venv/bin/activate.fish"
 
