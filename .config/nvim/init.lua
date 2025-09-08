@@ -8,6 +8,7 @@
 
 require("functions")
 require("settings")
+require("filetypes")
 require("keymap")
 require("packagemanager")
 require("autocmd")

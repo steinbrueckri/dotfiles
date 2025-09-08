@@ -7,8 +7,20 @@ return {
 	lazy = false,
 
 	config = function()
+		local function djlint_fmt()
+			return { exe = "djlint", args = { "--reformat", "--quiet", "-" }, stdin = true }
+		end
+
 		require("formatter").setup({
 			filetype = {
+				-- ...
+				-- ...
+			},
+		})
+		require("formatter").setup({
+			filetype = {
+				jinja = { djlint_fmt },
+				htmldjango = { djlint_fmt },
 				lua = {
 					require("formatter.filetypes.lua").stylua,
 				},

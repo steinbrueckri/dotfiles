@@ -102,10 +102,6 @@ return {
 		opts = {},
 	},
 	{
-		"Mofiqul/dracula.nvim",
-		opts = {},
-	},
-	{
 		"rose-pine/neovim",
 		name = "rose-pine",
 		opts = {},
