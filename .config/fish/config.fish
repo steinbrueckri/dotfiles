@@ -41,7 +41,7 @@ set -U fish_prompt_pwd_dir_length 0
 
 # color
 export CLICOLOR=1
-export LS_COLORS=(vivid generate rose-pine-dawn)
+export LS_COLORS=(vivid generate rose-pine-moon)
 
 # disable fish greeting
 set fish_greeting
@@ -56,7 +56,6 @@ bind \cf __fzf_reverse_isearch
 #                               plugins                               #
 #######################################################################
 
-fundle plugin jorgebucaran/nvm.fish
 fundle plugin sentriz/fish-pipenv
 fundle init
 

@@ -97,9 +97,14 @@ return {
 		},
 	},
 	{
-		"NvChad/nvim-colorizer.lua",
+		"catgoose/nvim-colorizer.lua",
 		event = "BufReadPre",
-		opts = {},
+		opts = {
+			filetypes = { "*" },
+			user_default_options = {
+				names = false,
+			},
+		},
 	},
 	{
 		"rose-pine/neovim",
