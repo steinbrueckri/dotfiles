@@ -21,7 +21,7 @@ fish_add_path /opt/homebrew/bin
 fish_add_path /opt/homebrew/sbin
 fish_add_path /opt/homebrew/opt/curl/bin
 fish_add_path /opt/homebrew/opt/ruby/bin
-fish_add_path /opt/homebrew/lib/ruby/gems/3.4.0/bin
+fish_add_path /opt/homebrew/lib/ruby/gems/3.4.7/bin
 fish_add_path $HOME/.local/share/bob/nvim-bin
 fish_add_path $HOME/Library/Python/3.11/bin
 fish_add_path /opt/homebrew/opt/gawk/libexec/gnubin
@@ -41,10 +41,17 @@ set -U fish_prompt_pwd_dir_length 0
 
 # color
 export CLICOLOR=1
-export LS_COLORS=(vivid generate rose-pine-moon)
+export LS_COLORS=(vivid generate rose-pine-dawn)
 
 # disable fish greeting
 set fish_greeting
+
+#######################################################################
+#                                Brew                                #
+#######################################################################
+
+# Tell homebrew to not autoupdate every single time I run it (just once a week).
+export HOMEBREW_AUTO_UPDATE_SECS=604800
 
 #######################################################################
 #                             keybindings                             #
@@ -135,8 +142,10 @@ alias myip='curl -s -H "Accept: application/json" ipinfo.io | jq -r .ip'
 alias ag="rg"
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 alias sslcheck="nmap --script ssl-cert -p 443"
+alias sslyze="docker run --rm -it nablac0d3/sslyze:latest"
 alias lightmode="themr rose-pine-dawn"
 alias darkmode="themr rose-pine-moon"
+alias kill-ansible-ssh='ps aux | grep "ansible-" | grep "\[mux\]" | awk "{print \$2}" | xargs kill -9'
 
 #######################################################################
 #                               exports                               #

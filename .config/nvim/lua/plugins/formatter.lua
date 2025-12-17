@@ -1,51 +1,49 @@
 return {
-	"mhartington/formatter.nvim",
+	"stevearc/conform.nvim",
 	keys = {
-		{ "<Leader> ", "<cmd>FormatWrite<cr>", mode = { "n" }, desc = "Format" },
+		{
+			"<Leader> ",
+			function()
+				require("conform").format({ async = true, lsp_fallback = true })
+			end,
+			mode = "n",
+			desc = "Format",
+		},
 	},
-
 	lazy = false,
-
 	config = function()
-		local function djlint_fmt()
-			return { exe = "djlint", args = { "--reformat", "--quiet", "-" }, stdin = true }
-		end
+		require("conform").setup({
+			formatters_by_ft = {
+				jinja = { "djlint" },
+				htmldjango = { "djlint" },
+				lua = { "stylua" },
+				yaml = { "prettier" },
+				ansible = { "yamlfmt" },
+				html = { "prettier" },
+				json = { "prettier" },
+				sh = { "shfmt" },
+				python = { "ruff_format" },
+				["*"] = { "trim_whitespace" },
+			},
 
-		require("formatter").setup({
-			filetype = {
-				-- ...
-				-- ...
+			-- Auto-format beim Speichern
+			format_on_save = {
+				lsp_fallback = true,
+				timeout_ms = 500,
 			},
 		})
-		require("formatter").setup({
-			filetype = {
-				jinja = { djlint_fmt },
-				htmldjango = { djlint_fmt },
-				lua = {
-					require("formatter.filetypes.lua").stylua,
-				},
-				yaml = {
-					require("formatter.filetypes.yaml").prettier,
-				},
-				ansible = {
-					require("formatter.filetypes.yaml").yamlfmt,
-				},
-				html = {
-					require("formatter.filetypes.html").prettier,
-				},
-				json = {
-					require("formatter.filetypes.json").prettier,
-				},
-				sh = {
-					require("formatter.filetypes.sh").shfmt,
-				},
-				python = {
-					require("formatter.filetypes.python").ruff,
-				},
-				["*"] = {
-					require("formatter.filetypes.any").remove_trailing_whitespace,
-				},
+
+		-- Custom settings for LSPs
+		require("conform").formatters.djlint = {
+			command = "djlint",
+			args = { "--reformat", "--quiet", "-" },
+			stdin = true,
+		}
+		require("conform").formatters.yamlfmt = {
+			prepend_args = {
+				"-formatter",
+				"retain_line_breaks=true,eof_newline=true,include_document_start=true",
 			},
-		})
+		}
 	end,
 }

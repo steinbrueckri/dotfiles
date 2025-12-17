@@ -1,0 +1,273 @@
+# espanso match file
+# For a complete introduction, visit the official docs at: https://espanso.org/docs/
+# yaml-language-server: $schema=https://raw.githubusercontent.com/espanso/espanso/dev/schemas/match.schema.json
+
+matches:
+  ################################################################################
+  # misc
+  ################################################################################
+  - trigger: ":date"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%m/%d/%Y"
+
+  - trigger: ":today"
+    replace: "{{today}}"
+    vars:
+      - name: today
+        type: date
+        params: { format: "%d. %b. %Y" }
+
+  - trigger: ":lorem"
+    label: "Lorem: 10 list items"
+    replace: |
+      - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a cursus sapien.
+      - Aenean sed mollis mauris. Morbi hendrerit eros id tortor facilisis, at consectetur dui iaculis.
+      - Nullam pharetra felis sit amet velit porttitor placerat. In vel lectus ipsum. Aliquam vestibulum a erat et sollicitudin.
+      - Quisque volutpat odio finibus nisi pellentesque, a efficitur lorem aliquam. Nunc tellus est, lacinia at mattis sed, vulputate sed neque.
+      - Etiam mattis neque quis gravida scelerisque.
+      - Sed dictum risus ut lacus aliquam suscipit. Nulla facilisi.
+      - Duis sed dolor sagittis, laoreet massa nec, semper lorem.
+      - Quisque dictum eleifend condimentum. In condimentum eleifend justo a dapibus.
+      - Sed dignissim nibh pharetra tortor malesuada, nec dapibus erat viverra.
+      - Cras iaculis dignissim libero, et lobortis nisl.
+
+  ################################################################################
+  # mail
+  ################################################################################
+  - triggers: [:mfg"]
+    replace: |
+      $|$
+
+      Mit freundlichen Grüßen
+      Richard Steinbrück
+
+  ################################################################################
+  # spelling-german
+  ################################################################################
+  - { replace: Café, trigger: Cafe, propagate_case: true }
+  - { replace: Dienstag, trigger: Diesntag, propagate_case: true, word: true }
+  - { replace: Liebe, trigger: Leibe, propagate_case: true, word: true }
+  - { replace: auch, trigger: auhc, propagate_case: true, word: true }
+  - { replace: die, trigger: dei, word: true, propagate_case: true }
+  - { replace: eine, trigger: eien, word: true, propagate_case: true }
+  - { replace: einfach, trigger: einfahc, propagate_case: true, word: true }
+  - { replace: forschung, trigger: forshcung, propagate_case: true }
+  - { replace: ganz, trigger: gnaz }
+  - { replace: habe, trigger: ahbe, propagate_case: true, word: true }
+  - { replace: hast, trigger: ahst, propagate_case: true, word: true }
+  - { replace: hat, triggers: [aht, hta], propagate_case: true, word: true }
+  - { replace: ich, trigger: cih, word: true, propagate_case: true }
+  - { replace: ja, trigger: aj, word: true, propagate_case: true }
+  - { replace: jetzt, trigger: ejtzt, propagate_case: true, word: true }
+  - { replace: lich, trigger: lcih }
+  - { replace: lieber, trigger: leiber, propagate_case: true, word: true }
+  - { replace: machen, trigger: amchen, propagate_case: true, word: true }
+  - { replace: mich, trigger: mcih }
+  - { replace: mir, trigger: mri, word: true }
+  - { replace: mit, trigger: mti, word: true }
+  - { replace: morgen, trigger: mrogen, propagate_case: true }
+  - { replace: nicht, trigger: nciht }
+  - { replace: noch, trigger: ncoh }
+  - { replace: nur, trigger: nru, word: true, propagate_case: true }
+  - { replace: oder, trigger: doer, propagate_case: true, word: true }
+  - { replace: schon, trigger: shcon }
+  - { replace: sehr, trigger: serh, word: true, propagate_case: true }
+  - { replace: sind, trigger: sidn, propagate_case: true, word: true }
+  - { replace: sonst, trigger: sosnt, propagate_case: true }
+  - { replace: sowie, trigger: sowei, propagate_case: true, word: true }
+  - { replace: technisch, trigger: technsich, propagate_case: true }
+  - { replace: theorie, trigger: theorei, propagate_case: true }
+  - { replace: und, trigger: udn, word: true }
+  - { replace: wieder, trigger: weider }
+  - { replace: wir, trigger: iwr, propagate_case: true, word: true }
+
+  ################################################################################
+  # spelling-english
+  ################################################################################
+  # "…ign" -> "…ing" (but not for words like "sign", "ignore", "align", or "foreign", where it is actually correct)
+  - { regex: "(?P<letter>[a-df-km-ru-z])ign ", replace: "{{letter}}ing " }
+  - { replace: " to ", trigger: " ot " }
+  - { replace: "'d ", trigger: "#d " }
+  - { replace: "'s ", trigger: "#s " }
+  - { replace: "'ve ", trigger: "#ve " }
+  - { replace: "I'd", trigger: "I#d" }
+  - { replace: "aren't", trigger: "arent", word: true }
+  - { replace: "does not", trigger: "doe snot" }
+  - { replace: "isn't", trigger: "isnt", word: true }
+  - { replace: American, trigger: american }
+  - { replace: BibTeX, trigger: Bibtex, word: true }
+  - { replace: GitHub, trigger: Github, word: true } # only capitalized to not affect urls
+  - { replace: URL, trigger: Url, word: true }
+  - { replace: YouTube, trigger: Youtube, word: true } # only capitalized to not affect urls
+  - { replace: about, trigger: abotu, propagate_case: true }
+  - { replace: achieve, trigger: acheive, propagate_case: true, word: true }
+  - { replace: again, trigger: agian, propagate_case: true, word: true }
+  - { replace: approach, trigger: appraoch, propagate_case: true }
+  - {
+      replace: automatically,
+      trigger: autoamtically,
+      propagate_case: true,
+      word: true,
+    }
+  - { replace: auxiliary, trigger: auxilliary, propagate_case: true }
+  - { replace: being, trigger: beign, word: true }
+  - { replace: brief, trigger: breif, propagate_case: true, word: true }
+  - { replace: browse, trigger: brwose, propagate_case: true }
+  - { replace: but, trigger: btu, word: true, propagate_case: true }
+  - { replace: by, trigger: yb, word: true, propagate_case: true }
+  - { replace: calendar, trigger: calender, propagate_case: true }
+  - { replace: cause, trigger: cuase, propagate_case: true, word: true }
+  - { replace: chore, trigger: chroe, propagate_case: true, word: true }
+  - { replace: client, trigger: cleint, propagate_case: true, word: true }
+  - { replace: could, trigger: coudl, word: true }
+  - { replace: default, trigger: defualt, propagate_case: true, word: true }
+  - {
+      replace: definitely,
+      triggers: [definitly, definetly, definetely],
+      propagate_case: true,
+    }
+  - { replace: display, trigger: dispaly, propagate_case: true }
+  - { replace: don't, trigger: dont, word: true }
+  - { replace: done, trigger: doen, propagate_case: true, word: true }
+  - { replace: down, trigger: dwon }
+  - { replace: else, trigger: esle, word: true }
+  - { replace: file, trigger: fiel, word: true, propagate_case: true }
+  - { replace: find, trigger: fidn, propagate_case: true, word: true }
+  - { replace: for, trigger: fro, propagate_case: true, word: true }
+  - { replace: found, trigger: foudn }
+  - { replace: git, trigger: gti, propagate_case: true, word: true }
+  - { replace: hard, trigger: ahrd, word: true, propagate_case: true }
+  - { replace: has, trigger: ahs, propagate_case: true, word: true }
+  - { replace: have, trigger: ahve, word: true }
+  - { replace: highlight, trigger: highlgiht, propagate_case: true }
+  - { replace: hotkey, trigger: htokey, propagate_case: true, word: true }
+  - { replace: how, trigger: hwo, word: true }
+  - { replace: however, trigger: hwoever, propagate_case: true, word: true }
+  - { replace: iPad, trigger: ipad }
+  - { replace: iPhone, trigger: iphone }
+  - { replace: icon, trigger: cion, propagate_case: true, word: true }
+  - { replace: ignore, trigger: ignroe, propagate_case: true, word: true }
+  - { replace: in the, triggers: [int eh, int he] }
+  - { replace: innovation, trigger: innovaiton, propagate_case: true }
+  - { replace: install, trigger: isntall, propagate_case: true, word: true }
+  - {
+      replace: instead,
+      triggers: [isntead, instread],
+      propagate_case: true,
+      word: true,
+    }
+  - { replace: interview, trigger: itnerview, propagate_case: true, word: true }
+  - { replace: it, trigger: ti, propagate_case: true, word: true }
+  - { replace: is, trigger: si, word: true, propagate_case: true }
+  - { replace: item, trigger: tiem, propagate_case: true, word: true }
+  - { replace: its, trigger: tis, propagate_case: true, word: true }
+  - { replace: json, trigger: sjon, propagate_case: true, word: true }
+  - { replace: just, trigger: jsut, word: true }
+  - { replace: keyboard, trigger: keybaord, propagate_case: true }
+  - { replace: know, trigger: knwo, propagate_case: true }
+  - { replace: light, trigger: lgiht, propagate_case: true, word: true }
+  - { replace: like, trigger: liek, propagate_case: true }
+  - { replace: list, trigger: lsit, propagate_case: true, word: true }
+  - { replace: lower, trigger: lwoer, propagate_case: true }
+  - { replace: mails, trigger: maisl, propagate_case: true, word: true }
+  - { replace: make, trigger: amke, propagate_case: true, word: true }
+  - { replace: mode, trigger: mdoe, propagate_case: true }
+  - { replace: more, trigger: mroe, word: true }
+  - { replace: most, trigger: msot }
+  - { replace: mouse, trigger: mosue, propagate_case: true, word: true }
+  - { replace: much, triggers: [muhc, mcuh], propagate_case: true, word: true }
+  - { replace: n't, trigger: n#t }
+  - { replace: normal, trigger: nromal, propagate_case: true, word: true }
+  - { replace: not, trigger: nto, word: true }
+  - { replace: note, trigger: ntoe }
+  - { replace: now, trigger: nwo, word: true }
+  - { replace: occurred, trigger: occured, propagate_case: true, word: true }
+  - { replace: of, trigger: fo, word: true }
+  - { replace: only, trigger: onyl }
+  - { replace: open, trigger: oepn, propagate_case: true, word: true }
+  - { replace: order, trigger: roder, propagate_case: true }
+  - {
+      replace: other,
+      triggers: [toehr, ohter, toher],
+      propagate_case: true,
+      word: true,
+    }
+  - { replace: our, trigger: oru, propagate_case: true, word: true }
+  - { replace: place, trigger: palce, propagate_case: true, word: true }
+  - { replace: power, trigger: pwoer, propagate_case: true, word: true }
+  - { replace: publicly, trigger: publically, propagate_case: true, word: true }
+  - { replace: replace, trigger: repalce }
+  - { replace: research, trigger: resaerch, propagate_case: true, word: true }
+  - { replace: separate, trigger: seperate, propagate_case: true }
+  - { replace: separator, trigger: seperator, propagate_case: true, word: true }
+  - {
+      replace: should,
+      triggers: [shoudl, shuold],
+      propagate_case: true,
+      word: true,
+    }
+  - { replace: show, trigger: shwo, propagate_case: true }
+  - {
+      replace: since,
+      triggers: [sicne, isnce],
+      propagate_case: true,
+      word: true,
+    }
+  - { replace: somewhat, trigger: somewaht, propagate_case: true, word: true }
+  - {
+      replace: suppress,
+      triggers: [supress, surpress, surppress],
+      propagate_case: true,
+    }
+  - { replace: sure, trigger: srue, propagate_case: true, word: true }
+  - { replace: task, trigger: taks, propagate_case: true, word: true }
+  - { replace: template, trigger: tempalte }
+  - { replace: thanks, trigger: thansk, propagate_case: true }
+  - { replace: that, trigger: taht, propagate_case: true }
+  - { replace: the, triggers: [teh, hte], word: true, propagate_case: true }
+  - { replace: their, trigger: theri, propagate_case: true, word: true }
+  - { replace: them, trigger: tehm, propagate_case: true, word: true }
+  - { replace: theme, trigger: tehme, propagate_case: true, word: true }
+  - { replace: there, trigger: tehre, propagate_case: true, word: true }
+  - { replace: this, trigger: thsi, propagate_case: true, word: true }
+  - { replace: those, trigger: thsoe, propagate_case: true, word: true }
+  - {
+      replace: threshold,
+      trigger: threshhold,
+      propagate_case: true,
+      word: true,
+    }
+  - { replace: towards, trigger: torwards, propagate_case: true }
+  - { replace: truly, trigger: truely, propagate_case: true }
+  - { replace: useful, trigger: sueful }
+  - { replace: user, trigger: suer, propagate_case: true }
+  - { replace: version, trigger: verison, propagate_case: true }
+  - { replace: want, trigger: wnat, propagate_case: true }
+  - { replace: what, trigger: waht, propagate_case: true }
+  - { replace: which, trigger: whcih, propagate_case: true, word: true }
+  - { replace: workflow, trigger: workflwo, propagate_case: true }
+  - {
+      replace: would,
+      triggers: [woudl, wuold],
+      propagate_case: true,
+      word: true,
+    }
+  - { replace: you, triggers: [yuo, oyu], propagate_case: true }
+  - { replace: through, trigger: thruogh, propagate_case: true, word: true }
+  - { replace: line, trigger: lien, propagate_case: true, word: true }
+  - {
+      replace: campaign,
+      triggers: [campain, campagin],
+      propagate_case: true,
+      word: true,
+    }
+  - {
+      replace: campaigns,
+      triggers: [campains, campagins],
+      propagate_case: true,
+      word: true,
+    }

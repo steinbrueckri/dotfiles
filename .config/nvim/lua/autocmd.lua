@@ -38,7 +38,7 @@ vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave"
 vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 700 })
+		vim.hl.on_yank({ higroup = "IncSearch", timeout = 700 })
 	end,
 })
 

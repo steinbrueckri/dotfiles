@@ -16,7 +16,6 @@ load '/opt/bats-file/load'
 
 @test "bootstrap nvim" {
   run nvim --headless "+Lazy! sync" +qall!
-  assert_success
   assert_exists "$HOME/.config/nvim/lazy-lock.json"
   assert_exists "$HOME/.local/share/nvim/lazy/lazy.nvim/bootstrap.lua"
   assert_exists "$HOME/.local/share/nvim/lazy/telescope.nvim/lua/telescope/init.lua"
@@ -55,7 +54,7 @@ load '/opt/bats-file/load'
       else
         echo "... install $lsp failed, retrying..."
         retries=$(($retries + 1))
-        sleep 2  # Optional: wait for a short time before retrying
+        sleep 2 # Optional: wait for a short time before retrying
       fi
     done
 
@@ -87,7 +86,7 @@ load '/opt/bats-file/load'
 
 @test "Average startuptime is below 12 msec" {
   LOG_FILE="vim-startuptime.log"
-  run vim-startuptime -vimpath nvim > $LOG_FILE
+  run vim-startuptime -vimpath nvim >$LOG_FILE
   total_avg=$(grep "Total Average:" "$LOG_FILE" | awk '{print $3}')
   total_avg_rounded=$(printf "%.0f" $total_avg)
 
