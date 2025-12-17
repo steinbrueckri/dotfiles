@@ -29,7 +29,7 @@ load '/opt/bats-file/load'
   tmux kill-session -t bats-test
 
   # check if the plugin install was working
-  assert_exists "$HOME/.tmux/plugins/dracula-tmux/dracula.tmux"
+  assert_exists "$HOME/.tmux/plugins/tmux/rose-pine.tmux"
   assert_exists "$HOME/.tmux/plugins/tpm/tpm"
 }
 
@@ -37,7 +37,7 @@ load '/opt/bats-file/load'
   tmux new-session -d -s testsession
   tmux send-keys -t testsession 'echo "Hello, World!"' C-m
   sleep 1
-  tmux capture-pane -t testsession -p > /tmp/output.txt
+  tmux capture-pane -t testsession -p >/tmp/output.txt
   tmux kill-server
   run cat /tmp/output.txt
   assert_line 'Hello, World!'
