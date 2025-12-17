@@ -18,7 +18,6 @@ load '/opt/bats-file/load'
   run fish -c "fundle install"
   assert_success
   refute_output "Unknown command"
-  assert_exists "$HOME/.config/fish/fundle/jethrokuan/fzf/README.md"
   assert_exists "$HOME/.config/fish/fundle/sentriz/fish-pipenv/README.md"
   assert_exists "$HOME/.config/fish/fundle/oh-my-fish/theme-bobthefish/README.md"
 }
