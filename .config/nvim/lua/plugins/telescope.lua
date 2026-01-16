@@ -7,8 +7,6 @@ return {
 		"nvim-telescope/telescope-github.nvim",
 		"xiyaowong/telescope-emoji.nvim",
 		"DrKJeff16/project.nvim",
-		"ThePrimeagen/harpoon",
-		"nvim-telescope/telescope-ui-select.nvim",
 		"steinbrueckri/telescope-makefile",
 		"akinsho/toggleterm.nvim",
 	},
@@ -97,7 +95,6 @@ return {
 		require("telescope").load_extension("gh")
 		require("telescope").load_extension("projects")
 		require("telescope").load_extension("undo")
-		require("telescope").load_extension("harpoon")
 		require("telescope").load_extension("make")
 	end,
 }

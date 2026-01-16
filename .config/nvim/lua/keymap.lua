@@ -1,320 +1,98 @@
 -----------------------------------------------------------
 -- Keybindings
 -----------------------------------------------------------
-
--- Leader Key Setup
------------------------------------------------------------
-vim.g.mapleader = " "      -- Set leader key to space
-vim.b.mapleader = " "      -- Set local buffer leader key
-vim.g.maplocalleader = "," -- Set localleader to ,
+-- Note: Leader keys are defined in settings.lua
 
 -- General Mappings
 -----------------------------------------------------------
-vim.api.nvim_set_keymap("i", "jk", "<esc>", { noremap = true, desc = "Exit insert mode" })
-vim.api.nvim_set_keymap("n", "<Esc>", ":noh<CR>", { noremap = true, silent = true, desc = "Clear search highlight" })
-vim.api.nvim_set_keymap("n", "U", ":redo<CR>", { noremap = true, silent = true, desc = "Redo last undone change" })
+vim.keymap.set("i", "jk", "<Esc>", { desc = "Exit insert mode" })
+vim.keymap.set("n", "<Esc>", "<cmd>noh<CR>", { silent = true, desc = "Clear search highlight" })
+vim.keymap.set("n", "U", "<cmd>redo<CR>", { silent = true, desc = "Redo last undone change" })
 
 -- Indentation
 -----------------------------------------------------------
-vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true, silent = true, desc = "Indent left and reselect" })
-vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true, silent = true, desc = "Indent right and reselect" })
+vim.keymap.set("v", "<", "<gv", { silent = true, desc = "Indent left and reselect" })
+vim.keymap.set("v", ">", ">gv", { silent = true, desc = "Indent right and reselect" })
 
 -- Deleting and Pasting
 -----------------------------------------------------------
-vim.keymap.set("x", "<leader>d", [["_d]], { desc = "[D]elete without losing register contents" })
-vim.keymap.set(
-	"x",
-	"<leader>p",
-	[["_dP]],
-	{ desc = "[P]aste over visual selection without losing register contents", noremap = true, silent = true }
-)
+vim.keymap.set("x", "<leader>x", [["_d]], { desc = "Delete without losing register contents" })
+vim.keymap.set("x", "<leader>p", [["_dP]], { silent = true, desc = "Paste over visual selection without losing register contents" })
 
 -- Buffer Management
 -----------------------------------------------------------
-vim.api.nvim_set_keymap("n", "<Tab>", ":bn<CR>", { noremap = true, silent = true, desc = "Next buffer" })
-vim.api.nvim_set_keymap("n", "<S-Tab>", ":bp<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>q",
-	":lua Snacks.bufdelete()<CR>",
-	{ noremap = true, silent = true, desc = "Close current buffer" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>Q",
-	":lua Snacks.bufdelete({force='true'})<CR>",
-	{ noremap = true, silent = true, desc = "Force close current buffer" }
-)
-vim.api.nvim_set_keymap("n", "<leader>dd", ":bd<CR>", { noremap = true, silent = true, desc = "Delete buffer" })
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>dm",
-	':delmarks A-Z0-9<CR>:lua require("notify")("Delete all marks")<CR>',
-	{ noremap = true, silent = true, desc = "Delete all marks" }
-)
+vim.keymap.set("n", "<Tab>", "<cmd>bn<CR>", { silent = true, desc = "Next buffer" })
+vim.keymap.set("n", "<S-Tab>", "<cmd>bp<CR>", { silent = true, desc = "Previous buffer" })
+vim.keymap.set("n", "<leader>q", function() Snacks.bufdelete() end, { silent = true, desc = "Close current buffer" })
+vim.keymap.set("n", "<leader>Q", function() Snacks.bufdelete({ force = true }) end, { silent = true, desc = "Force close current buffer" })
+vim.keymap.set("n", "<leader>bd", "<cmd>bd<CR>", { silent = true, desc = "Delete buffer" })
+vim.keymap.set("n", "<leader>bm", function()
+	vim.cmd("delmarks A-Z0-9")
+	require("notify")("Deleted all marks")
+end, { silent = true, desc = "Delete all marks" })
 
 -- File Management
 -----------------------------------------------------------
-vim.api.nvim_set_keymap("n", "<leader>w", ":w<CR>", { noremap = true, silent = true, desc = "Save file" })
-vim.api.nvim_set_keymap("n", "<leader>N", ":enew<CR>", { noremap = true, silent = true, desc = "Create new buffer" })
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>e",
-	":Neotree toggle<CR>",
-	{ noremap = true, silent = true, desc = "Toggle file tree" }
-)
-vim.api.nvim_set_keymap("n", "gF", ":e <cfile><CR>", { noremap = true, silent = true, desc = "Create file and open" })
+vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { silent = true, desc = "Save file" })
+vim.keymap.set("n", "<leader>N", "<cmd>enew<CR>", { silent = true, desc = "Create new buffer" })
+vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", { silent = true, desc = "Toggle file tree" })
+vim.keymap.set("n", "gF", "<cmd>e <cfile><CR>", { silent = true, desc = "Create file and open" })
 
 -- Search & Navigation
 -----------------------------------------------------------
-vim.api.nvim_set_keymap("n", "n", "nzzzv", { noremap = true, silent = true, desc = "Find next and center" })
-vim.api.nvim_set_keymap("n", "N", "Nzzzv", { noremap = true, silent = true, desc = "Find previous and center" })
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>fm",
-	":Telescope make<CR>",
-	{ noremap = true, silent = true, desc = "Execute make target" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>fa",
-	":lua Snacks.picker.grep()<CR>",
-	{ noremap = true, silent = true, desc = "Search in files" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>fc",
-	':lua Snacks.picker.files({ cwd = vim.fn.stdpath("config") })<CR>',
-	{ noremap = true, silent = true, desc = "Search in config files" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>ff",
-	":lua Snacks.picker.files()<CR>",
-	{ noremap = true, silent = true, desc = "Search all files (ignoring .git)" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>fe",
-	":lua Snacks.picker.icons()<CR>",
-	{ noremap = true, silent = true, desc = "Find emojis" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>fp",
-	":lua Snacks.picker.registers()<CR>",
-	{ noremap = true, silent = true, desc = "Show yank history" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>fo",
-	":lua Snacks.picker.recent()<CR>",
-	{ noremap = true, silent = true, desc = "Show recent files" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>fr",
-	':lua require("spectre").open()<CR>',
-	{ noremap = true, silent = true, desc = "Open search and replace" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>ft",
-	":TodoTelescope keywords=TODO,FIX,FIXME,BUG<CR>",
-	{ noremap = true, silent = true, desc = "Find open TODOs" }
-)
+vim.keymap.set("n", "n", "nzzzv", { silent = true, desc = "Find next and center" })
+vim.keymap.set("n", "N", "Nzzzv", { silent = true, desc = "Find previous and center" })
+vim.keymap.set("n", "<leader>fm", "<cmd>Telescope make<CR>", { silent = true, desc = "Execute make target" })
+vim.keymap.set("n", "<leader>fa", function() Snacks.picker.grep() end, { silent = true, desc = "Search in files" })
+vim.keymap.set("n", "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, { silent = true, desc = "Search in config files" })
+vim.keymap.set("n", "<leader>ff", function() Snacks.picker.files() end, { silent = true, desc = "Search all files (ignoring .git)" })
+vim.keymap.set("n", "<leader>fe", function() Snacks.picker.icons() end, { silent = true, desc = "Find emojis" })
+vim.keymap.set("n", "<leader>fp", function() Snacks.picker.registers() end, { silent = true, desc = "Show yank history" })
+vim.keymap.set("n", "<leader>fo", function() Snacks.picker.recent() end, { silent = true, desc = "Show recent files" })
+vim.keymap.set("n", "<leader>fr", function() require("spectre").open() end, { silent = true, desc = "Open search and replace" })
+vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME,BUG<CR>", { silent = true, desc = "Find open TODOs" })
 
 -- Git
 -----------------------------------------------------------
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>gf",
-	":!fork status $PWD<CR><CR>",
-	{ noremap = true, silent = true, desc = "Open Fork and show Git status" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>gb",
-	":lua Snacks.git.blame_line()<CR>",
-	{ noremap = true, silent = true, desc = "Git blame line" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>gg",
-	":lua Snacks.gitbrowse.open()<CR>",
-	{ noremap = true, silent = true, desc = "Open line in Github" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>gl",
-	":lua Snacks.lazygit()<CR>",
-	{ noremap = true, silent = true, desc = "Open LazyGit" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>fb",
-	":Telescope git_branches<CR>",
-	{ noremap = true, silent = true, desc = "Find git branches" }
-)
-
--- Harpoon
------------------------------------------------------------
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>ha",
-	':lua require("harpoon.mark").add_file()<CR>',
-	{ noremap = true, silent = true, desc = "Add file to Harpoon" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>hh",
-	':lua require("harpoon.ui").toggle_quick_menu()<CR>',
-	{ noremap = true, silent = true, desc = "Open Harpoon menu" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>hn",
-	':lua require("harpoon.ui").nav_next()<CR>',
-	{ noremap = true, silent = true, desc = "Next Harpoon item" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>hp",
-	':lua require("harpoon.ui").nav_prev()<CR>',
-	{ noremap = true, silent = true, desc = "Previous Harpoon item" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>fh",
-	":Telescope harpoon marks<CR>",
-	{ noremap = true, silent = true, desc = "Search harpoon marks" }
-)
+vim.keymap.set("n", "<leader>gf", "<cmd>!fork status $PWD<CR><CR>", { silent = true, desc = "Open Fork and show Git status" })
+vim.keymap.set("n", "<leader>gb", function() Snacks.git.blame_line() end, { silent = true, desc = "Git blame line" })
+vim.keymap.set("n", "<leader>gg", function() Snacks.gitbrowse.open() end, { silent = true, desc = "Open line in Github" })
+vim.keymap.set("n", "<leader>gl", function() Snacks.lazygit() end, { silent = true, desc = "Open LazyGit" })
+vim.keymap.set("n", "<leader>fb", "<cmd>Telescope git_branches<CR>", { silent = true, desc = "Find git branches" })
 
 -- Utilities
 -----------------------------------------------------------
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>tw",
-	"<cmd>set wrap!<CR>",
-	{ noremap = true, silent = true, desc = "Toggle word wrap" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>d",
-	":DBUIToggle<CR>",
-	{ noremap = true, silent = true, desc = "Toggle database UI" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>tm",
-	":MarkdownPreviewToggle<CR>",
-	{ noremap = true, silent = true, desc = "Toggle Markdown preview" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"Z",
-	":Telescope spell_suggest<CR>",
-	{ noremap = true, silent = true, desc = "Show spell suggests" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"yc",
-	"yy<cmd>normal gcc<CR>p",
-	{ noremap = true, silent = true, desc = "Duplicate a line and comment out the first line" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>ts",
-	":Screenkey toggle<CR>",
-	{ noremap = true, silent = true, desc = "Toggle Screenkey" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>tt",
-	":ToggleTerm<CR>",
-	{ noremap = true, silent = true, desc = "Toggle Terminal" }
-)
+vim.keymap.set("n", "<leader>tw", "<cmd>set wrap!<CR>", { silent = true, desc = "Toggle word wrap" })
+vim.keymap.set("n", "<leader>ud", "<cmd>DBUIToggle<CR>", { silent = true, desc = "Toggle database UI" })
+vim.keymap.set("n", "<leader>tm", "<cmd>MarkdownPreviewToggle<CR>", { silent = true, desc = "Toggle Markdown preview" })
+vim.keymap.set("n", "Z", "<cmd>Telescope spell_suggest<CR>", { silent = true, desc = "Show spell suggests" })
+vim.keymap.set("n", "yc", "yy<cmd>normal gcc<CR>p", { silent = true, desc = "Duplicate a line and comment out the first line" })
+vim.keymap.set("n", "<leader>ts", "<cmd>Screenkey toggle<CR>", { silent = true, desc = "Toggle Screenkey" })
+vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { silent = true, desc = "Toggle Terminal" })
 
--- LSP
+-- LSP / Trouble
 -----------------------------------------------------------
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>to",
-	":Trouble symbols toggle focus=false<cr>",
-	{ noremap = true, silent = true, desc = "Toggle Symbols" }
-)
-
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>td",
-	":Trouble diagnostics toggle<cr>",
-	{ noremap = true, silent = true, desc = "Toggle Diagnostics" }
-)
-
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>tl",
-	":Trouble lsp toggle focus=false win.position=right<cr>",
-	{ noremap = true, silent = true, desc = "Toggle LSP Definitions" }
-)
+vim.keymap.set("n", "<leader>to", "<cmd>Trouble symbols toggle focus=false<CR>", { silent = true, desc = "Toggle Symbols" })
+vim.keymap.set("n", "<leader>td", "<cmd>Trouble diagnostics toggle<CR>", { silent = true, desc = "Toggle Diagnostics" })
+vim.keymap.set("n", "<leader>tl", "<cmd>Trouble lsp toggle focus=false win.position=right<CR>", { silent = true, desc = "Toggle LSP Definitions" })
 
 -- Notes
 -----------------------------------------------------------
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>nn",
-	":lua CreateQuickNote()<CR>",
-	{ noremap = true, silent = true, desc = "Create quick note" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>nf",
-	":lua require('telescope.builtin').live_grep({ cwd = vim.fn.expand('$HOME/notes') })<CR>",
-	{ noremap = true, silent = true, desc = "Search notes" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>no",
-	":lua OpenInSilverbullet()<CR>",
-	{ noremap = true, silent = true, desc = "Open note in Silverbullet" }
-)
+vim.keymap.set("n", "<leader>nn", CreateQuickNote, { silent = true, desc = "Create quick note" })
+vim.keymap.set("n", "<leader>nf", function() require("telescope.builtin").live_grep({ cwd = vim.fn.expand("$HOME/notes") }) end, { silent = true, desc = "Search notes" })
+vim.keymap.set("n", "<leader>no", OpenInSilverbullet, { silent = true, desc = "Open note in Silverbullet" })
 
 -- Quickfix
 -----------------------------------------------------------
-vim.api.nvim_set_keymap("n", "<leader>tq", ":lua ToggleQf()<CR>", { desc = "Open quickfix list" })
-vim.api.nvim_set_keymap("n", "]q", ":cnext<CR>", { desc = "Next item quickfix list" })
-vim.api.nvim_set_keymap("n", "[q", ":cprev<CR>", { desc = "Previous item quickfix list" })
+vim.keymap.set("n", "<leader>tq", ToggleQf, { desc = "Toggle quickfix list" })
+vim.keymap.set("n", "]q", "<cmd>cnext<CR>", { desc = "Next item quickfix list" })
+vim.keymap.set("n", "[q", "<cmd>cprev<CR>", { desc = "Previous item quickfix list" })
 
 -- Splits
 -----------------------------------------------------------
-vim.api.nvim_set_keymap("n", "<leader><Up>", ":wincmd k<CR>", { noremap = true, silent = true, desc = "Goto split up" })
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader><Down>",
-	":wincmd j<CR>",
-	{ noremap = true, silent = true, desc = "Goto split down" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader><Left>",
-	":wincmd h<CR>",
-	{ noremap = true, silent = true, desc = "Goto split left" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader><Right>",
-	":wincmd l<CR>",
-	{ noremap = true, silent = true, desc = "Goto split right" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>h",
-	":split<CR>",
-	{ noremap = true, silent = true, desc = "Create horizontal split" }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>v",
-	":vsplit<CR>",
-	{ noremap = true, silent = true, desc = "Create vertical split" }
-)
+vim.keymap.set("n", "<leader><Up>", "<cmd>wincmd k<CR>", { silent = true, desc = "Goto split up" })
+vim.keymap.set("n", "<leader><Down>", "<cmd>wincmd j<CR>", { silent = true, desc = "Goto split down" })
+vim.keymap.set("n", "<leader><Left>", "<cmd>wincmd h<CR>", { silent = true, desc = "Goto split left" })
+vim.keymap.set("n", "<leader><Right>", "<cmd>wincmd l<CR>", { silent = true, desc = "Goto split right" })
+vim.keymap.set("n", "<leader>sh", "<cmd>split<CR>", { silent = true, desc = "Create horizontal split" })
+vim.keymap.set("n", "<leader>sv", "<cmd>vsplit<CR>", { silent = true, desc = "Create vertical split" })

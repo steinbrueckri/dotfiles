@@ -38,7 +38,8 @@ return {
 		},
 	},
 
-	-- null-ls (for non-Python tools, unchanged)
+	-- null-ls (for additional sources not covered by conform.nvim)
+	-- Note: Formatting is handled by conform.nvim, not here
 	{
 		"jay-babu/mason-null-ls.nvim",
 		event = { "BufReadPre", "BufNewFile" },
@@ -46,24 +47,7 @@ return {
 		config = function()
 			local null_ls = require("null-ls")
 			null_ls.setup({
-				-- Attach formatting on save if supported by the client
-				on_attach = function(client, bufnr)
-					if client:supports_method("textDocument/formatting") then
-						local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-						vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-						vim.api.nvim_create_autocmd("BufWritePre", {
-							group = augroup,
-							buffer = bufnr,
-							callback = function()
-								vim.lsp.buf.format({ async = false })
-							end,
-						})
-					end
-				end,
 				sources = {
-					null_ls.builtins.formatting.stylua,
-					null_ls.builtins.formatting.isort,
-					null_ls.builtins.formatting.markdownlint,
 					null_ls.builtins.completion.spell,
 				},
 			})
@@ -113,27 +97,20 @@ return {
 			vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic" })
 			vim.keymap.set("n", "<leader>Q", vim.diagnostic.setloclist, { desc = "Diagnostics in loclist" })
 
-			-- LSP key mappings and formatting setup via LspAttach event
+			-- LSP key mappings via LspAttach event
+			-- Note: Formatting is handled by conform.nvim, not here
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(args)
 					local bufnr = args.buf
-					local client = vim.lsp.get_client_by_id(args.data.client_id)
 					local opts = { buffer = bufnr }
 					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+					vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+					vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+					vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 					vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-					-- Attach formatting on save if supported by the client
-					if client and client:supports_method("textDocument/formatting") then
-						local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-						vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-						vim.api.nvim_create_autocmd("BufWritePre", {
-							group = augroup,
-							buffer = bufnr,
-							callback = function()
-								vim.lsp.buf.format({ async = false })
-							end,
-						})
-					end
+					vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
 				end,
 			})
 

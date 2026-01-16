@@ -1,7 +1,6 @@
 -----------------------------------------------------------
 -- Neovim API aliases
 -----------------------------------------------------------
-local cmd = vim.cmd -- execute Vim commands
 local g = vim.g     -- global variables
 local opt = vim.opt -- global/buffer/windows-scoped options
 local wo = vim.wo   -- windows-local options
@@ -17,16 +16,14 @@ g.maplocalleader = ","                                          -- change locall
 opt.mouse = "a"                                                 -- enable mouse support
 opt.clipboard = "unnamedplus"                                   -- copy/paste to system clipboard
 opt.swapfile = false                                            -- don't use swapfile
-local undodir = os.getenv("HOME") .. "/tmp/undodir/"            -- undofile related
-os.execute("test -d " .. undodir .. " || mkdir -p " .. undodir) -- undofile related
+local undodir = vim.fn.expand("~/.local/state/nvim/undo")       -- undofile related
+vim.fn.mkdir(undodir, "p")                                      -- undofile related
 opt.undodir = undodir                                           -- undofile related
 opt.undofile = true                                             -- undofile related
 opt.undolevels = 10000                                          -- undofile related
 opt.undoreload = 10000                                          -- undofile related
 opt.number = true                                               -- show line number
 opt.relativenumber = true                                       -- relative file numbers
-opt.nu = true                                                   -- relative file numbers
-opt.rnu = true                                                  -- relative file numbers
 opt.showmatch = true                                            -- highlight matching parenthesis
 opt.foldmethod = "marker"                                       -- enable folding (default 'foldmarker')
 opt.colorcolumn = "80"                                          -- line lenght marker at 80 columns
@@ -52,10 +49,16 @@ opt.autoindent = true                                           -- convert tabs 
 opt.signcolumn = "yes"                                          -- put numbers and signs in the same column
 
 -----------------------------------------------------------
--- Other stuff
+-- Disable unused providers & built-in plugins
 -----------------------------------------------------------
 g.loaded_node_provider = 0
 g.loaded_ruby_provider = 0
 g.loaded_perl_provider = 0
+g.loaded_netrw = 1          -- disable netrw (using neo-tree instead)
+g.loaded_netrwPlugin = 1    -- disable netrw plugin
+
+-----------------------------------------------------------
+-- Other stuff
+-----------------------------------------------------------
 -- needed for obsidian, move to the plugin files?
 opt.conceallevel = 1

@@ -3,16 +3,67 @@ return {
 	build = ":TSUpdate",
 	config = function()
 		require("nvim-treesitter.configs").setup({
-			ensured_installed = "all",
-			sync_install = true,
+			ensure_installed = {
+				-- Shell & Scripting
+				"bash",
+				"fish",
+
+				-- DevOps & Infrastructure
+				"dockerfile",
+				"hcl",
+				"terraform",
+				"yaml",
+				"toml",
+				"ini",
+				"make",
+
+				-- Web & Templates
+				"html",
+				"css",
+				"javascript",
+				"jinja",
+				"htmldjango",
+
+				-- Data & Config
+				"json",
+				"jsonc",
+				"xml",
+				"csv",
+
+				-- Python
+				"python",
+				"requirements",
+
+				-- Git
+				"diff",
+				"git_config",
+				"gitcommit",
+				"gitignore",
+				"git_rebase",
+
+				-- Documentation
+				"markdown",
+				"markdown_inline",
+				"rst",           -- reStructuredText
+
+				-- Neovim config
+				"lua",
+				"luadoc",
+				"vim",
+				"vimdoc",
+				"query",
+				"regex",
+
+				-- SQL
+				"sql",
+			},
+			sync_install = false,
 			auto_install = true,
 			highlight = {
-				enable = true, -- false will disable the whole extension
-			},
-			rainbow = {
 				enable = true,
-				extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-				max_file_lines = nil, -- Do not enable for files with more than n lines, int
+			},
+			indent = {
+				enable = true,
 			},
 		})
 	end,

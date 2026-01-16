@@ -51,9 +51,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	end,
 })
 
--- Autocommand remove whitespace on save
-vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*", command = ":%s/\\s\\+$//e" })
-
 -- Autocommand for setting FileType based on the filepath
 vim.api.nvim_create_autocmd(
 	{ "BufRead", "BufNewFile" },

@@ -18,10 +18,10 @@ return {
 		lazy = true,
 		ft = { "tex", "bib" },
 		keys = {
-			{ "<leader>lc", ":w<CR>:VimtexCompile<CR>",          desc = "Compile Latex Files" },
-			{ "<leader>lC", ":w<CR>:VimtexClean<CR>",            desc = "Clean complie Files" },
+			{ "<leader>lc", ":w<CR>:VimtexCompile<CR>", desc = "Compile Latex Files" },
+			{ "<leader>lC", ":w<CR>:VimtexClean<CR>", desc = "Clean complie Files" },
 			{ "<leader>lv", ":VimtexView<CR>:!open -a Skim<CR>", desc = "View Latex PDF File" },
-			{ "<leader>lt", ":VimtexTocToggle<CR>",              desc = "Show Toc Latex Files" },
+			{ "<leader>lt", ":VimtexTocToggle<CR>", desc = "Show Toc Latex Files" },
 		},
 		init = function()
 			local g = vim.g
@@ -57,19 +57,6 @@ return {
 		},
 	},
 	{ "nmac427/guess-indent.nvim", opts = {} },
-	{
-		"otavioschwanck/arrow.nvim",
-		dependencies = {
-			{ "nvim-tree/nvim-web-devicons" },
-			-- or if using `mini.icons`
-			-- { "echasnovski/mini.icons" },
-		},
-		opts = {
-			show_icons = true,
-			leader_key = ";",     -- Recommended to be a single key
-			buffer_leader_key = "m", -- Per Buffer Mappings
-		},
-	},
 	{
 		"folke/trouble.nvim",
 		opts = {},
