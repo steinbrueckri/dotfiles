@@ -41,7 +41,7 @@ set -U fish_prompt_pwd_dir_length 0
 
 # color
 export CLICOLOR=1
-export LS_COLORS=(vivid generate rose-pine-moon)
+export LS_COLORS=(vivid generate rose-pine-dawn)
 
 # disable fish greeting
 set fish_greeting
