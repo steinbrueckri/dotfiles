@@ -4,8 +4,6 @@ return {
 	opts = {
 		manual_mode = false,
 		patterns = { ".git", "Makefile", "package.json", "init.lua" },
-		ignore_lsp = {},
-		exclude_dirs = {},
 		show_hidden = false,
 		silent_chdir = true,
 		datapath = vim.fn.stdpath("data"),
