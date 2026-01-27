@@ -1,0 +1,29 @@
+# yaml-language-server: $schema=./twm.schema.json
+search_paths:
+  - "~/Projects/"
+  - "~/Userlike/"
+  - "~/tmp/"
+workspace_definitions:
+  - name: default
+    has_any_file:
+      - .git
+      - .twm.yaml
+    has_all_files: null
+    missing_any_file: null
+    missing_all_files: null
+    default_layout: default
+max_search_depth: 3
+session_name_path_components: 2
+exclude_path_components:
+  - .cache
+  - .cargo
+  - .git
+  - __pycache__
+  - node_modules
+  - target
+  - venv
+layouts:
+  - name: default
+    inherits: null
+    commands: null
+follow_links: true
