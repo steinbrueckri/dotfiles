@@ -41,7 +41,7 @@ set -U fish_prompt_pwd_dir_length 0
 
 # color
 export CLICOLOR=1
-export LS_COLORS=(vivid generate rose-pine-dawn)
+export LS_COLORS=(vivid generate rose-pine-moon)
 
 # disable fish greeting
 set fish_greeting
@@ -147,6 +147,8 @@ alias sslyze="docker run --rm -it nablac0d3/sslyze:latest"
 alias lightmode="themr rose-pine-dawn"
 alias darkmode="themr rose-pine-moon"
 alias kill-ansible-ssh='ps aux | grep "ansible-" | grep "\[mux\]" | awk "{print \$2}" | xargs kill -9'
+
+# if running in tmux exit should call kt function
 
 #######################################################################
 #                               exports                               #
@@ -268,6 +270,13 @@ end
 #                              functions                              #
 #######################################################################
 
+function kt
+    # source: https://github.com/vinnymeller/twm/blob/master/README.md#useful-shell-aliases--functions-ive-used
+    set ORIG_SESS $TWM_NAME
+    tmux switch -l; or tmux switch -n; or tmux switch -p
+    tmux kill-session -t $ORIG_SESS
+end
+
 function cheat
     if test (count $argv) -eq 0
         echo "Usage: cheat <command>"
@@ -312,6 +321,8 @@ function k-clean
    end
 end
 
+eval (try init ~/tmp/tries | string collect)
+
 #######################################################################
 #                               source                                #
 #######################################################################
@@ -347,22 +358,27 @@ source $HOME/.config/fish/s3cr3ts.fish
 #                                tmux                                 #
 #######################################################################
 
-# if command -v tmuxp >/dev/null
-#     if status is-interactive
-#     and not set -q TMUX
-#         if not tmux has-session -t home
-#             tmuxp load -d home
-#         end
-#         if not tmux has-session -t userlike
-#             tmuxp load -d userlike
-#         end
-#         exec tmux attach-session -t home
-#     end
-# end
+set -gx TWM_DEFAULT default
 
-# uv
-fish_add_path "/Users/richardsteinbrueck/.local/bin"
+## completion for twm
+if type -q twm
+    twm --print-fish-completion | source
+end
 
-# Added by OrbStack: command-line tools and integration
-# This won't be added again if you remove it.
-source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+## autoattach to existing session if it exists
+if type -q twm
+    if tmux has-session -t $TWM_DEFAULT 2> /dev/null
+        if not set -q TMUX
+            tmux attach-session -t $TWM_DEFAULT
+        else if not set -q TWM
+            tmux switch -t $TWM_DEFAULT
+        end
+    else
+        twm -d -p $HOME -n $TWM_DEFAULT
+        if not set -q TMUX
+            tmux attach-session -t $TWM_DEFAULT
+        else if not set -q TWM
+            tmux switch -t $TWM_DEFAULT
+        end
+    end
+end
