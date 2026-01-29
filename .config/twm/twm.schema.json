@@ -19,6 +19,14 @@
         "type": "string"
       }
     },
+    "favorites": {
+      "description": "List of favorite workspace paths that can be quickly accessed with `-f/--favorites`. Shell expansion is supported (e.g., `~` will expand to your home directory).\n\nIf unset, defaults to an empty list.",
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "follow_links": {
       "description": "Whether to follow symbolic links when searching for workspaces. If unset, defaults to true.",
       "default": true,
@@ -64,6 +72,15 @@
       "format": "uint",
       "minimum": 0.0
     },
+    "session_sort_order": {
+      "description": "Sort order for existing tmux sessions when using `-e/--existing`. If unset, defaults to `last_activity` (most recently used first).\n\nPossible values: `asc`, `desc`, `last_activity`",
+      "default": "last_activity",
+      "allOf": [
+        {
+          "$ref": "#/definitions/SortOrder"
+        }
+      ]
+    },
     "workspace_definitions": {
       "description": "List of configurations for workspaces.\n\nIf unset, the default twm workspace definition is any directory containing a `.git` file/directory or a `.twm.yaml` layout file.\n\nWhen a directory is found that matches a workspace definition the first match, in order of appearance in this list, is the workspace \"type\" that will be for things like choosing which layout to apply to the session and in setting the `TWM_TYPE` environment variable",
       "default": [
@@ -83,6 +100,15 @@
       "items": {
         "$ref": "#/definitions/WorkspaceDefinitionConfig"
       }
+    },
+    "workspace_sort_order": {
+      "description": "Sort order for workspaces in the picker. If unset, defaults to `asc` (alphabetically ascending).\n\nPossible values: `asc`, `desc` Note: `last_activity` is not supported for workspaces.",
+      "default": "asc",
+      "allOf": [
+        {
+          "$ref": "#/definitions/SortOrder"
+        }
+      ]
     }
   },
   "additionalProperties": false,
@@ -119,6 +145,32 @@
         }
       },
       "additionalProperties": false
+    },
+    "SortOrder": {
+      "description": "Sort order for sessions and workspaces.",
+      "oneOf": [
+        {
+          "description": "Sort alphabetically ascending (A-Z)",
+          "type": "string",
+          "enum": [
+            "asc"
+          ]
+        },
+        {
+          "description": "Sort alphabetically descending (Z-A)",
+          "type": "string",
+          "enum": [
+            "desc"
+          ]
+        },
+        {
+          "description": "Sort by last activity (most recent first) - only applicable for sessions",
+          "type": "string",
+          "enum": [
+            "last_activity"
+          ]
+        }
+      ]
     },
     "WorkspaceDefinitionConfig": {
       "type": "object",

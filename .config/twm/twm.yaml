@@ -3,6 +3,11 @@ search_paths:
   - "~/Projects/"
   - "~/Userlike/"
   - "~/tmp/"
+session_sort_order: last_activity
+favorites:
+  - "~/Userlike/Userlike"
+  - "~/Userlike/UserlikeDatacenter"
+  - "~/Projects/process-handbook"
 workspace_definitions:
   - name: default
     has_any_file:
