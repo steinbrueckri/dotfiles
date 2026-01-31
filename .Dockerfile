@@ -22,14 +22,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install packages from yadm bootstrap to speedup the tests
 RUN apt-get update && apt-get install -y --no-install-recommends $(cat .config/yadm/packages_deb.list)
 
-# Install bats
-RUN git clone https://github.com/bats-core/bats-support.git /opt/bats-support && \
-    git clone https://github.com/bats-core/bats-assert.git  /opt/bats-assert && \
-    git clone https://github.com/bats-core/bats-file.git    /opt/bats-file && \
-    git clone https://github.com/bats-core/bats-core.git    /opt/bats && \
-    /opt/bats/install.sh /usr/local
-
-
 # Install zyedidia/eget, to install github release like nothing
 RUN cd /usr/local/bin && curl https://zyedidia.github.io/eget.sh | sh
 
@@ -44,12 +36,21 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER testuser
 WORKDIR /home/testuser
 
+# Install UV for Python dependency management
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+
 # Set env variables
+ENV PATH="$PATH:/home/testuser/.local/bin:/home/testuser/.cargo/bin"
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
-ENV PATH="$PATH:/home/testuser/.local/bin"
 
 # Fix permissions
 COPY --chown=testuser . /home/testuser/
+
+# Activate venv by updating PATH (uv sync will create it)
+ENV PATH="/home/testuser/.venv/bin:$PATH"
+
+# Install Python dependencies with UV (creates venv + lock file + installs deps)
+RUN uv sync
 
 # Start shell
 CMD ["/bin/bash"]

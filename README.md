@@ -254,15 +254,32 @@ Here’s a glimpse of my terminal and setup:
 
 ![Screenshot-2](./.dotfileassets/screenshot-2.png)
 
-## Dotfile Testing
+## Tests
 
-Tests are managed using [Docker](https://docker.com) and [Bats](https://github.com/bats-core). To run tests, execute the following:
+### Running Tests Locally
 
-- `make`
+```bash
+# All tests
+just test
 
-The default make target will build a Docker image from the `.Dockerfile` and run test cases using Bats found in `.tests`.
+# Debug mode (drops to shell on failure)
+just test-debug
 
-### Missing features
+# Open shell in test container
+just shell
+```
+
+### CI
+
+GitHub Actions runs `just test` (excludes slow markers for fast feedback).
+Scheduled daily runs execute `just test-all`.
+
+### Requirements
+
+- Docker
+- [Just](https://github.com/casey/just) command runner
+
+### Missing Features
 
 Here are some planned improvements for future versions:
 

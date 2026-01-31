@@ -1,0 +1,33 @@
+# Git
+.git/
+.github/
+
+# Test results and artifacts
+.test_results/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+*.egg-info/
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Documentation
+README.md
+.dotfileassets/
+
+# CI/CD (not needed in container)
+.github/
+
+# Backup files
+*.bak
+*.swp
+*~

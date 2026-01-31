@@ -1,2 +1,10 @@
 .test_results
 .config/fish/s3cr3ts.fish
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+*.egg-info/

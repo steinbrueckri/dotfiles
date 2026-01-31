@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
   schedule:
-    # everry day at 06:00
+    # Every day at 06:00
     - cron: "0 6 * * *"
 
 jobs:
@@ -13,8 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install Just
+        uses: extractions/setup-just@v2
+
       - name: Run tests
-        run: make lint-md && make test
+        run: just lint-md && just test
 
       - name: Debug
         run: ls -la .test_results/
