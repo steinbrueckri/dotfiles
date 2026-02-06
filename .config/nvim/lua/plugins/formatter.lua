@@ -14,17 +14,18 @@ return {
 	config = function()
 		require("conform").setup({
 			formatters_by_ft = {
-				jinja = { "djlint" },
-				htmldjango = { "djlint" },
-				lua = { "stylua" },
-				yaml = { "prettier" },
-				ansible = { "yamlfmt" },
-				html = { "prettier" },
-				json = { "prettier" },
-				sh = { "shfmt" },
-				python = { "ruff_format" },
-				["*"] = { "trim_whitespace" },
-			},
+			jinja = { "djlint" },
+			htmldjango = { "djlint" },
+			lua = { "stylua" },
+			markdown = { "rumdl" },
+			yaml = { "prettier" },
+			ansible = { "yamlfmt" },
+			html = { "prettier" },
+			json = { "prettier" },
+			sh = { "shfmt" },
+			python = { "ruff_format" },
+			["*"] = { "trim_whitespace" },
+		},
 
 			-- Auto-format beim Speichern
 			format_on_save = {
@@ -33,7 +34,12 @@ return {
 			},
 		})
 
-		-- Custom settings for LSPs
+		-- Custom settings for formatters
+		require("conform").formatters.rumdl = {
+			command = "rumdl",
+			args = { "fmt", "-", "--quiet" },
+			stdin = true,
+		}
 		require("conform").formatters.djlint = {
 			command = "djlint",
 			args = { "--reformat", "--quiet", "-" },

@@ -1,3 +1,4 @@
+import os
 import subprocess
 import pytest
 from pathlib import Path
@@ -7,6 +8,13 @@ from pathlib import Path
 def run_command():
     """Helper for subprocess calls with timeout"""
     def _run(cmd, timeout=30, check=False, capture=True, env=None):
+        # Ensure ~/.local/bin is in PATH so locally installed tools (e.g. nvim) are found
+        if env is None:
+            env = os.environ.copy()
+        local_bin = str(Path.home() / ".local" / "bin")
+        if local_bin not in env.get("PATH", ""):
+            env["PATH"] = local_bin + os.pathsep + env.get("PATH", "")
+
         kwargs = {
             "shell": True,
             "timeout": timeout,

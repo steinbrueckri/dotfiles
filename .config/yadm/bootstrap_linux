@@ -13,30 +13,39 @@ fi
 
 # Branch based on the Linux distribution
 case "$distro" in
-  debian|ubuntu)
-    echo "Debian/Ubuntu detected"
-    sudo apt-get update && \
+debian | ubuntu)
+  echo "Debian/Ubuntu detected"
+  sudo apt-get update &&
     sudo apt-get -q -y -o Dpkg::Use-Pty=0 install $(cat ${HOME}/.config/yadm/packages_deb.list)
-    ;;
+  ;;
 
-  fedora)
-    echo "Fedora detected"
-    sudo dnf update -y && \
+fedora)
+  echo "Fedora detected"
+  sudo dnf update -y &&
     sudo dnf install -y $(cat ${HOME}/.config/yadm/packages_rpm.list)
-    ;;
+  ;;
 
-  arch)
-    echo "Arch Linux detected"
-    sudo pacman -Syu --noconfirm && \
+arch)
+  echo "Arch Linux detected"
+  sudo pacman -Syu --noconfirm &&
     sudo pacman -S --noconfirm $(cat ${HOME}/.config/yadm/packages_pacman.list)
-    ;;
+  ;;
 
-  *)
-    echo "Distribution $distro is not supported"
-    exit 1
-    ;;
+*)
+  echo "Distribution $distro is not supported"
+  exit 1
+  ;;
 
 esac
+
+if [ "$(uname -m)" = "x86_64" ]; then
+  curl -sL https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz | tar -xzf - --strip-components=1 --overwrite -C ${HOME}/.local/
+elif [ "$(uname -m)" = "aarch64" ]; then
+  curl -sL https://github.com/neovim/neovim/releases/latest/download/nvim-linux-arm64.tar.gz | tar -xzf - --strip-components=1 --overwrite -C ${HOME}/.local/
+else
+  echo "Unsupported architecture"
+  exit 1
+fi
 
 ################################################################################
 # Install pip packages

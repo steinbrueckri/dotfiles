@@ -12,8 +12,8 @@ return {
 				"stylua",
 				"jq",
 				"yamlfmt",
-				"markdownlint",
 				"djlint",
+				"rumdl",
 			},
 		},
 	},
@@ -133,6 +133,12 @@ return {
 			vim.lsp.config("marksman", {
 				capabilities = capabilities,
 			})
+			vim.lsp.config("rumdl", {
+				cmd = { "rumdl", "server", "--stdio" },
+				filetypes = { "markdown" },
+				root_markers = { ".rumdl.toml", "rumdl.toml", ".markdownlint.yaml", ".markdownlint.json", ".git" },
+				capabilities = capabilities,
+			})
 			vim.lsp.config("pyright", {
 				capabilities = capabilities,
 				settings = {
@@ -181,6 +187,7 @@ return {
 				"dockerls",
 				"html",
 				"marksman",
+				"rumdl",
 				"pyright",
 				"ruff",
 				"jsonls",

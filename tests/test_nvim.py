@@ -1,7 +1,8 @@
 import pytest
 from pathlib import Path
 import re
-
+import logging
+logging.basicConfig(level=logging.INFO)
 
 @pytest.mark.bootstrap
 @pytest.mark.slow
@@ -28,7 +29,7 @@ def test_treesitter_install(run_command, artifact_dir):
 
 @pytest.mark.slow
 @pytest.mark.flaky(reruns=3, reruns_delay=2)
-@pytest.mark.parametrize("lsp", ["stylua", "jq", "black", "isort", "yamlfmt", "markdownlint", "pylint"])
+@pytest.mark.parametrize("lsp", ["stylua", "jq", "black", "isort", "yamlfmt", "rumdl", "pylint"])
 def test_mason_install(lsp, run_command, artifact_dir):
     """Parametrized tests with retry for known flaky Mason installs"""
     result = run_command(f'nvim --headless "+MasonInstall {lsp} --force" +qall!', timeout=120)
@@ -37,7 +38,6 @@ def test_mason_install(lsp, run_command, artifact_dir):
     (artifact_dir / f"mason-{lsp}.log").write_text(result.stdout + "\n" + result.stderr)
     
     assert result.returncode == 0, f"Failed to install {lsp}"
-
 
 @pytest.mark.integration
 def test_checkhealth(run_command, artifact_dir):
@@ -59,7 +59,14 @@ def test_checkhealth(run_command, artifact_dir):
         'ERROR.*stylua.*not executable',
         'ERROR.*black.*not executable',
     ]
-    
+
+    error_count = len(re.findall(r'ERROR.*', health_log))
+    warn_count = len(re.findall(r'WARN.*', health_log)) 
+
+    logging.info(f"Health check: {health_log}")
+    logging.info(f"Error count: {error_count}")
+    logging.info(f"Warn count: {warn_count}")
+
     for error_pattern in critical_errors:
         assert not re.search(error_pattern, health_log), f"Found critical error: {error_pattern}"
 
@@ -78,3 +85,26 @@ def test_startup_time(run_command, artifact_dir):
     limit = 150  # milliseconds
     
     assert total_avg < limit, f"Startup time {total_avg}ms exceeds limit {limit}ms"
+
+@pytest.mark.integration
+def test_nvim_headless_no_errors(run_command, artifact_dir):
+    """Ensure nvim starts headlessly without any errors"""
+    result = run_command('nvim --headless "+qall!"', timeout=30)
+
+    output = result.stdout + "\n" + result.stderr
+    (artifact_dir / "nvim-headless.log").write_text(output)
+
+    assert result.returncode == 0, f"nvim exited with code {result.returncode}\n{output}"
+
+    error_patterns = [
+        "Error detected",
+        "Error:",
+        "E5113",
+        "traceback",
+        "Trace",
+        "failed",
+    ]
+    for pattern in error_patterns:
+        assert pattern not in output, (
+            f"Found error in nvim startup output: {pattern}\n{output}"
+        )
