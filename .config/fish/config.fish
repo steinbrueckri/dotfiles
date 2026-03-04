@@ -89,6 +89,9 @@ alias n="nvim"
 alias nvim-switch-nightly="bob use nightly"
 alias nvim-switch-stable="bob use stable"
 
+# tmux / sesh
+alias ss="sesh picker -i"
+
 # lazygit / git
 alias lg="lazygit"
 alias lgd="lazydot"
@@ -96,34 +99,15 @@ alias lazydot="lazygit -ucd ~/.local/share/yadm/lazygit -w ~ -g ~/.local/share/y
 alias lol="git log --pretty=oneline --abbrev-commit --graph --decorate"
 alias gp="git pull"
 
-# kubernetes stuff
-alias kx="kubectx"
-alias k="kubectl"
-alias kc="kubecolor"
-alias kn='kubens'
-alias k-debug="kubectl run --namespace default -i --tty 'debug-default-$USER' --image=steinbrueckri/debug --restart=Never --rm=true -- bash"
-alias k-debug-app="kubectl run --namespace istio-apps -i --tty 'debug-$USER' --image=steinbrueckri/debug --restart=Never --rm=true -- bash"
-
 # python stuff
 alias newpyenv='uv venv .venv --python 3.12 && echo "{ \"venvPath\": \".\", \"venv\": \".venv\", \"include\": [\"src\", \"tests\"], \"exclude\": [\"**/__pycache__\", \".pytest_cache\", \".ruff_cache\", \".venv\"] }" > pyrightconfig.json && mkdir -p src tests && source .venv/bin/activate.fish'
 alias activate_env_datacenter="source ~/Userlike/UserlikeDatacenter/.venv/bin/activate.fish"
 alias activate_env_code="source ~/Userlike/Userlike/.venv/bin/activate.fish"
 
-## goole cloud stuff
-alias gcpil='gcloud compute instances list'
-alias gcpal='gcloud compute addresses list'
-alias gcpssh='gcloud compute ssh'
-alias gcpsshi='gcloud compute ssh --internal-ip'
-alias gcpsshiap='gcloud compute ssh --tunnel-through-iap'
-alias gcprdpiap='gcloud compute start-iap-tunnel $1 3389 --local-host-port=localhost:3389 --zone=$2'
-
 ## digitalocean stuff
 alias do='doctl'
 alias do-new='doctl compute droplet create tmp --region ams3 --size s-2vcpu-2gb --image ubuntu-22-04-x64 --user-data-file .dotfileassets/digitalocean-cloudinit.yaml --ssh-keys "df:17:95:8d:31:56:39:27:d1:04:e3:12:52:36:ed:5b"'
 alias do-new-ssh='ssh $(doctl compute droplet list | grep tmp | awk "{ print $3}")'
-
-## multipass
-alias localvm='multipass launch -c 4 -m 4G -d 50G -n localvm 20.04 --cloud-init .dotfileassets/multipass-common.yaml'
 
 ## docker
 alias dr="docker run -it --rm --entrypoint /bin/sh"
@@ -141,14 +125,13 @@ alias top='btop'
 alias watch='viddy'
 alias myip='curl -s -H "Accept: application/json" ipinfo.io | jq -r .ip'
 alias ag="rg"
-alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 alias sslcheck="nmap --script ssl-cert -p 443"
 alias sslyze="docker run --rm -it nablac0d3/sslyze:latest"
 alias lightmode="themr rose-pine-dawn"
 alias darkmode="themr rose-pine-moon"
 alias kill-ansible-ssh='ps aux | grep "ansible-" | grep "\[mux\]" | awk "{print \$2}" | xargs kill -9'
-
-# if running in tmux exit should call kt function
+alias mail="aerc"
+alias news="newsboat"
 
 #######################################################################
 #                               exports                               #
@@ -270,13 +253,6 @@ end
 #                              functions                              #
 #######################################################################
 
-function kt
-    # source: https://github.com/vinnymeller/twm/blob/master/README.md#useful-shell-aliases--functions-ive-used
-    set ORIG_SESS $TWM_NAME
-    tmux switch -l; or tmux switch -n; or tmux switch -p
-    tmux kill-session -t $ORIG_SESS
-end
-
 function cheat
     if test (count $argv) -eq 0
         echo "Usage: cheat <command>"
@@ -306,22 +282,6 @@ function loadsshkey
   op item get xo5tj3nxex65km7gdj5r4algni --fields=Private-Key --reveal | sed 's/\"//g' | sed '$d' | sed '1,1d' | ssh-add -
 end
 
-function gcp-project
-    set FILE "$HOME/.gcp-project-list.json"
-    # TODO: only if the file is older then 1d or if --force is set
-    gcloud projects list --format="json" >$FILE
-    gcloud config set project (cat $FILE | jq -r '.[].projectId' | fzf --print-query --preview "cat $FILE | jq -r '.[] | select( .projectId | contains(\"{1}\"))'" | tr -d '\n')
-end
-
-function k-clean
-   for i in (kubectl get pods -A | grep -Ei 'OOMKilled|ContainerStatusUnknown|Shutdown|Error|Terminated|Completed|Evicted' | cut -d ' ' -f1 | sort -u)
-      for p in (kubectl get pods -n $i | grep -Ei 'OOMKilled|ContainerStatusUnknown|Shutdown|Error|Terminated|Completed|Evicted' | cut -d ' ' -f1 )
-        kubectl delete pod -n $i $p
-      end
-   end
-end
-
-eval (try init ~/tmp/tries | string collect)
 
 #######################################################################
 #                               source                                #
@@ -335,6 +295,9 @@ set op "~/.config/op/plugins.sh"
 if test -e $op
   source $op
 end
+
+# Load try
+eval (try init ~/tmp/tries | string collect)
 
 # Load direnv
 if command -v direnv >/dev/null
@@ -351,6 +314,16 @@ if command -v starship >/dev/null
     starship init fish | source
 end
 
+# Load zoxide
+if command -v zoxide >/dev/null
+    zoxide init fish | source
+end
+
+# Load sesh
+if command -v sesh >/dev/null
+    sesh completion fish | source
+end
+
 # Load s3cr3ts
 source $HOME/.config/fish/s3cr3ts.fish
 
@@ -358,27 +331,23 @@ source $HOME/.config/fish/s3cr3ts.fish
 #                                tmux                                 #
 #######################################################################
 
-set -gx TWM_DEFAULT default
-
-## completion for twm
-if type -q twm
-    twm --print-fish-completion | source
-end
-
-## autoattach to existing session if it exists
-if type -q twm
-    if tmux has-session -t $TWM_DEFAULT 2> /dev/null
-        if not set -q TMUX
-            tmux attach-session -t $TWM_DEFAULT
-        else if not set -q TWM
-            tmux switch -t $TWM_DEFAULT
-        end
-    else
-        twm -d -p $HOME -n $TWM_DEFAULT
-        if not set -q TMUX
-            tmux attach-session -t $TWM_DEFAULT
-        else if not set -q TWM
-            tmux switch -t $TWM_DEFAULT
-        end
-    end
-end
+# set -gx SESH_DEFAULT default
+# # Auto-attach/switch to existing session (or create it)
+# if type -q sesh
+#     if tmux has-session -t $SESH_DEFAULT 2>/dev/null
+#         if not set -q TMUX
+#             tmux attach-session -t $SESH_DEFAULT
+#         else
+#             tmux switch-client -t $SESH_DEFAULT
+#         end
+#     else
+#         # Create the session (detached)
+#         tmux new-session -d -s $SESH_DEFAULT -c $HOME
+#
+#         if not set -q TMUX
+#             tmux attach-session -t $SESH_DEFAULT
+#         else
+#             tmux switch-client -t $SESH_DEFAULT
+#         end
+#     end
+# end

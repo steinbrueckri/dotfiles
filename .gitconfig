@@ -85,12 +85,12 @@
     diffFilter = delta --color-only
 
 [merge]
-    tool = nvim
+    tool = diffview
     conflictstyle = zdiff3
 
 [mergetool]
     prompt = false
-	keepBackup = true
+	keepBackup = false
 
 [diff "ansible-vault"]
     textconv = ansible-vault view
@@ -99,6 +99,9 @@
 [merge "ansible-vault"]
     name = ansible-vault merge driver
     driver = /usr/local/bin/ansible-vault-merge -- %O %A %B %P
+
+[mergetool "diffview"]
+  cmd = nvim -n -c "DiffviewOpen" "$MERGE"
 
 [rerere]
 	enabled = true
