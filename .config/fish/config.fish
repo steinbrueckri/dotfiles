@@ -53,6 +53,11 @@ set fish_greeting
 # Tell homebrew to not autoupdate every single time I run it (just once a week).
 export HOMEBREW_AUTO_UPDATE_SECS=604800
 
+# Load shell env on linux brew if it exists
+if test -f /home/linuxbrew/.linuxbrew/bin/brew
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv fish)"
+end
+
 #######################################################################
 #                             keybindings                             #
 #######################################################################
@@ -297,7 +302,9 @@ if test -e $op
 end
 
 # Load try
-eval (try init ~/tmp/tries | string collect)
+if command -v try >/dev/null
+    eval (try init ~/tmp/tries | string collect)
+end
 
 # Load direnv
 if command -v direnv >/dev/null
@@ -325,7 +332,10 @@ if command -v sesh >/dev/null
 end
 
 # Load s3cr3ts
-source $HOME/.config/fish/s3cr3ts.fish
+
+if test -f  $HOME/.config/fish/s3cr3ts.fish
+    source $HOME/.config/fish/s3cr3ts.fish
+end
 
 #######################################################################
 #                                tmux                                 #

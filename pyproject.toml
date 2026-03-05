@@ -19,8 +19,3 @@ markers = [
     "flaky: Known flaky tests (use sparingly)",
 ]
 timeout = 300
-
-[tool.uv.workspace]
-members = [
-    "Projects/numposter",
-]
