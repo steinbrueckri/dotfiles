@@ -12,19 +12,31 @@
 #                            main settings                            #
 #######################################################################
 
+# Common paths
 fish_add_path /usr/local/sbin
 fish_add_path $HOME/bin
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.cargo/bin
 fish_add_path $HOME/.yarn/bin
-fish_add_path /opt/homebrew/bin
-fish_add_path /opt/homebrew/sbin
-fish_add_path /opt/homebrew/opt/curl/bin
-fish_add_path /opt/homebrew/opt/ruby/bin
-fish_add_path /opt/homebrew/lib/ruby/gems/3.4.7/bin
+fish_add_path $HOME/.krew/bin
 fish_add_path $HOME/.local/share/bob/nvim-bin
-fish_add_path $HOME/Library/Python/3.11/bin
-fish_add_path /opt/homebrew/opt/gawk/libexec/gnubin
+
+# OS specific paths
+switch (uname)
+    case Darwin
+        fish_add_path /opt/homebrew/bin
+        fish_add_path /opt/homebrew/sbin
+        fish_add_path /opt/homebrew/opt/curl/bin
+        fish_add_path /opt/homebrew/opt/ruby/bin
+        fish_add_path /opt/homebrew/lib/ruby/gems/3.4.7/bin
+        fish_add_path /opt/homebrew/opt/gawk/libexec/gnubin
+        fish_add_path $HOME/Library/Python/3.11/bin
+
+    case Linux
+        if test -f /home/linuxbrew/.linuxbrew/bin/brew
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv fish)"
+        end
+end
 
 # set default username to hide user@host ... see agnoster theme
 set DEFAULT_USER steinbrueckri
@@ -52,11 +64,6 @@ set fish_greeting
 
 # Tell homebrew to not autoupdate every single time I run it (just once a week).
 export HOMEBREW_AUTO_UPDATE_SECS=604800
-
-# Load shell env on linux brew if it exists
-if test -f /home/linuxbrew/.linuxbrew/bin/brew
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv fish)"
-end
 
 #######################################################################
 #                             keybindings                             #
