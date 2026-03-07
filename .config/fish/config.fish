@@ -160,20 +160,11 @@ export GPG_TTY=$(tty)
 
 # kubernetes stuff
 export KUBE_EDITOR="nvim"
-export PATH="$PATH:$HOME/.krew/bin"
 
 # rust stuff
 export PATH="$HOME/.cargo/bin:$PATH"
 
-# gcloud stuff
-export CLOUDSDK_PYTHON_SITEPACKAGES=1 # pynum is installed
-
-# -> Starting in kubectl v1.25, this plugin will be required for authentication.
-# -> https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-
 # ansible stuff
-# export ANSIBLE_VAULT_PASSWORD_FILE="~/.vault-password-file"
 export PY_COLOR=1
 export ANSIBLE_FORCE_COLOR=1
 
@@ -256,9 +247,6 @@ function ssh_agent_init
       echo need to start a new agent
       eval (ssh-agent -c)
     end
-
-    # Finally, show what keys are currently in the agent
-    # ssh-add -l
 end
 
 #######################################################################
@@ -298,11 +286,6 @@ end
 #######################################################################
 #                               source                                #
 #######################################################################
-set gcloud "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc"
-if test -e $gcloud
-  source $gcloud
-end
-
 set op "~/.config/op/plugins.sh"
 if test -e $op
   source $op
@@ -339,7 +322,6 @@ if command -v sesh >/dev/null
 end
 
 # Load s3cr3ts
-
 if test -f  $HOME/.config/fish/s3cr3ts.fish
     source $HOME/.config/fish/s3cr3ts.fish
 end
@@ -348,23 +330,12 @@ end
 #                                tmux                                 #
 #######################################################################
 
-# set -gx SESH_DEFAULT default
-# # Auto-attach/switch to existing session (or create it)
-# if type -q sesh
-#     if tmux has-session -t $SESH_DEFAULT 2>/dev/null
-#         if not set -q TMUX
-#             tmux attach-session -t $SESH_DEFAULT
-#         else
-#             tmux switch-client -t $SESH_DEFAULT
-#         end
-#     else
-#         # Create the session (detached)
-#         tmux new-session -d -s $SESH_DEFAULT -c $HOME
-#
-#         if not set -q TMUX
-#             tmux attach-session -t $SESH_DEFAULT
-#         else
-#             tmux switch-client -t $SESH_DEFAULT
-#         end
-#     end
-# end
+set -gx TMUX_DEFAULT_SESSION default
+
+if status is-interactive
+    if type -q tmux
+        if not set -q TMUX
+            exec tmux new-session -A -s "$TMUX_DEFAULT_SESSION" -c "$HOME"
+        end
+    end
+end
