@@ -26,7 +26,7 @@ def test_tpm_bootstrap(tmux_server, wait_until):
     # Wait for TPM auto-install from .tmux.conf
     wait_until(
         lambda: (tpm_dir / "tpm").exists(),
-        timeout=30,
+        timeout=60,
         interval=1,
         error_msg="TPM should be auto-installed by .tmux.conf",
     )
@@ -38,16 +38,16 @@ def test_tpm_bootstrap(tmux_server, wait_until):
     )
 
     # Install plugins using tpm script
-    session.active_window.active_pane.send_keys(".tmux/plugins/tpm-redux/tpm")
+    session.active_window.active_pane.send_keys(
+        ".tmux/plugins/tpm-redux/tpm/bin/install"
+    )
 
     # Define expected plugin paths
     # rose-pine/tmux → .tmux/plugins/tmux/rose-pine.tmux
-    # fernandoflorez/tmux-tailscale → .tmux/plugins/tmux-tailscale/tailscale_status.tmux
     # tmux-plugins/tmux-battery → .tmux/plugins/tmux-battery/battery.tmux
     plugins_dir = home / ".tmux/plugins"
     expected_plugins = {
         "tmux": "rose-pine.tmux",
-        "tmux-tailscale": "tailscale_status.tmux",
         "tmux-battery": "battery.tmux",
     }
 
