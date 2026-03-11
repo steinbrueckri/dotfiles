@@ -8,27 +8,27 @@
 # https://fishshell.com
 
 #######################################################################
-#                            main settings                            #
+#                             Main Settings                           #
 #######################################################################
 
-# set default theme
+# Set default theme
 set THEME rose-pine-dawn
 
-# set default username to hide user@host ... see agnoster theme
+# Set default username to hide user@host
 set DEFAULT_USER steinbrueckri
 
-# XDG Directories
+# XDG directories
 set -xg XDG_CONFIG_HOME $HOME/.config
 set -xg XDG_CACHE_HOME $HOME/.cache
 
-# show full path
+# Show full path in prompt
 set -U fish_prompt_pwd_dir_length 0
 
-# disable fish greeting
+# Disable fish greeting
 set fish_greeting
 
 #######################################################################
-#                            Path                            #
+#                                 Path                                #
 #######################################################################
 
 fish_add_path /usr/local/sbin
@@ -42,7 +42,7 @@ fish_add_path $HOME/.local/share/bob/nvim-bin
 #                               Homebrew                              #
 #######################################################################
 
-# Prevent Homebrew from auto-updating on every command (once per week).
+# Prevent Homebrew from auto-updating on every command (once per week)
 set -gx HOMEBREW_AUTO_UPDATE_SECS 604800
 
 # Detect Homebrew installation path (macOS / Linux)
@@ -54,7 +54,7 @@ for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew
 end
 
 #######################################################################
-#                                 LS_COLORS                                 #
+#                              LS_COLORS                              #
 #######################################################################
 
 set -gx CLICOLOR 1
@@ -67,9 +67,9 @@ switch $THEME
 end
 
 #######################################################################
-#                                 FZF                                 #
+#                                  FZF                                #
 #######################################################################
-# source: https://github.com/rose-pine/fzf
+# Source: https://github.com/rose-pine/fzf
 #######################################################################
 
 switch $THEME
@@ -80,7 +80,6 @@ switch $THEME
             --color=border:#dfdad9,header:#286983,gutter:#faf4ed
             --color=spinner:#ea9d34,info:#56949f
             --color=pointer:#907aa9,marker:#b4637a,prompt:#797593"
-
     case rose-pine-moon
         set -gx FZF_DEFAULT_OPTS "
             --color=fg:#908caa,bg:#232136,hl:#ea9a97
@@ -91,13 +90,13 @@ switch $THEME
 end
 
 #######################################################################
-#                             keybindings                             #
+#                              Keybindings                            #
 #######################################################################
 
 bind \cf __fzf_reverse_isearch
 
 #######################################################################
-#                               plugins                               #
+#                                Plugins                              #
 #######################################################################
 
 fundle plugin sentriz/fish-pipenv
@@ -105,16 +104,16 @@ fundle plugin cuducos/dirvenv.fish
 fundle init
 
 #######################################################################
-#                               aliases                               #
+#                                Aliases                              #
 #######################################################################
 
-# mac stuff
+# macOS
 if test -d /Applications
-  alias sleepoff="sudo systemsetup -setcomputersleep Never"
-  alias sleepon="sudo systemsetup -setcomputersleep 10"
-  alias lock="pmset displaysleepnow"
-  alias rm='trash '
-  alias backup="caffeinate -i autorestic backup -l home"
+    alias sleepoff="sudo systemsetup -setcomputersleep Never"
+    alias sleepon="sudo systemsetup -setcomputersleep 10"
+    alias lock="pmset displaysleepnow"
+    alias rm="trash "
+    alias backup="caffeinate -i autorestic backup -l home"
 end
 
 # vim 4 the win!
@@ -135,25 +134,25 @@ alias lazydot="lazygit -ucd ~/.local/share/yadm/lazygit -w ~ -g ~/.local/share/y
 alias lol="git log --pretty=oneline --abbrev-commit --graph --decorate"
 alias gp="git pull"
 
-# python stuff
+# Python
 alias newpyenv='uv venv .venv --python 3.12 && echo "{ \"venvPath\": \".\", \"venv\": \".venv\", \"include\": [\"src\", \"tests\"], \"exclude\": [\"**/__pycache__\", \".pytest_cache\", \".ruff_cache\", \".venv\"] }" > pyrightconfig.json && mkdir -p src tests && source .venv/bin/activate.fish'
 alias activate_env_datacenter="source ~/Userlike/UserlikeDatacenter/.venv/bin/activate.fish"
 alias activate_env_code="source ~/Userlike/Userlike/.venv/bin/activate.fish"
 
-## docker
+# Docker
 alias dr="docker run -it --rm --entrypoint /bin/sh"
 alias rm-images="docker rmi (docker images -q)"
 
-## Teleport
+# Teleport
 alias tssh="tsh ssh (tsh ls | tail --lines=+3 | fzf -e | head -n 1 | cut -d ' ' -f1)"
 
-## Misc
+# Misc
 alias pwgen="date +%s | sha256sum | base64 | head -c 32 ; echo"
 alias cat="bat "
 alias hosts="hosts --auto-sudo"
-alias ls='eza --icons'
-alias top='btop'
-alias watch='viddy'
+alias ls="eza --icons"
+alias top="btop"
+alias watch="viddy"
 alias myip='curl -s -H "Accept: application/json" ipinfo.io | jq -r .ip'
 alias ag="rg"
 alias sslcheck="nmap --script ssl-cert -p 443"
@@ -165,19 +164,19 @@ alias mail="aerc"
 alias news="newsboat"
 
 #######################################################################
-#                               exports                               #
+#                                Exports                              #
 #######################################################################
 
-# general
+# General
 set -gx EDITOR nvim
 set -gx LANG "en_US.UTF-8"
 set -gx LC_ALL "en_US.UTF-8"
 set -gx LC_CTYPE "en_US.UTF-8"
 
-# gpg
+# GPG
 set -gx GPG_TTY (tty)
 
-# ansible stuff
+# Ansible
 set -gx PY_COLOR 1
 set -gx ANSIBLE_FORCE_COLOR 1
 
@@ -186,18 +185,20 @@ set -gx ANSIBLE_FORCE_COLOR 1
 # set -gx OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES before your Ansible run should clear it up. The code that's causing issues is well below Ansible in the stack.
 set -gx OBJC_DISABLE_INITIALIZE_FORK_SAFETY YES
 
-# Teleport disable adding keys to the agent
+# Teleport: disable adding keys to the agent
 # https://github.com/gravitational/teleport/issues/22326
 set -gx TELEPORT_ADD_KEYS_TO_AGENT no
 
 # Disable mise, see /opt/homebrew/share/fish/vendor_conf.d/mise-activate.fish
 set -gx MISE_FISH_AUTO_ACTIVATE 0
 
-################################################################################
-# ssh-agent magic
-################################################################################
+
+#######################################################################
+#                               Functions                             #
+#######################################################################
+
 function sshagent_findsockets
-	find /tmp -uid (id -u) -type s -name agent.\* 2>/dev/null
+    find /tmp -uid (id -u) -type s -name agent.\* 2>/dev/null
 end
 
 function sshagent_testsocket
@@ -211,13 +212,13 @@ function sshagent_testsocket
     end
 
     if [ X"$SSH_AUTH_SOCK" = X ]
-    	return 2
+        return 2
     end
 
     if [ -S $SSH_AUTH_SOCK ] ;
         ssh-add -l > /dev/null
         if [ $status = 2 ] ;
-            echo "Socket $SSH_AUTH_SOCK is dead!  Deleting!"
+            echo "Socket $SSH_AUTH_SOCK is dead! Deleting!"
             rm -f $SSH_AUTH_SOCK
             return 4
         else ;
@@ -230,74 +231,49 @@ function sshagent_testsocket
     end
 end
 
-
 function ssh_agent_init
-    # ssh agent sockets can be attached to a ssh daemon process or an
-    # ssh-agent process.
-
+    # ssh-agent sockets can be attached to a ssh daemon process
+    # or an ssh-agent process.
     set -l AGENTFOUND 0
 
-    # Attempt to find and use the ssh-agent in the current environment
+    # Try current environment first
     if sshagent_testsocket ;
         set AGENTFOUND 1
     end
 
-    # If there is no agent in the environment, search /tmp for
-    # possible agents to reuse before starting a fresh ssh-agent
-    # process.
+    # Search /tmp for reusable agents before starting a new one
     if [ $AGENTFOUND = 0 ];
         for agentsocket in (sshagent_findsockets)
             if [ $AGENTFOUND != 0 ] ;
-	            break
+                break
             end
-            if sshagent_testsocket $agentsocket ;
-	       set AGENTFOUND 1
-	    end
 
+            if sshagent_testsocket $agentsocket ;
+                set AGENTFOUND 1
+            end
         end
     end
 
-    # If at this point we still haven't located an agent, it's time to
-    # start a new one
+    # Start a new agent if none was found
     if [ $AGENTFOUND = 0 ] ;
-      echo need to start a new agent
-      eval (ssh-agent -c)
+        echo need to start a new agent
+        eval (ssh-agent -c)
     end
 end
 
-#######################################################################
-#                              functions                              #
-#######################################################################
-
-# Check if we are in a container
-if not test -e /.dockerenv
-  set ssh_agent_sock ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
-  # check if 1password socket exist
-  if test -e $ssh_agent_sock
-    set -xg SSH_AUTH_SOCK $ssh_agent_sock
-  else
-    echo "1password ssh agent.sock not found, start ssh-agent"
-    echo "Please load your ssh key with the command loadsshkey!"
-    ssh_agent_init
-  end
-else
-  echo "Running inside a Docker container, skipping SSH agent setup."
-end
-
-# Start ssh-agent, load key from 1password and added to the ssh-agent
+# Start ssh-agent, load key from 1password and add it to ssh-agent
 function loadsshkey
-  eval $(op signin --account pixel-combo.1password.com)
-  op item get xo5tj3nxex65km7gdj5r4algni --fields=Private-Key --reveal | sed 's/\"//g' | sed '$d' | sed '1,1d' | ssh-add -
+    eval $(op signin --account pixel-combo.1password.com)
+    op item get xo5tj3nxex65km7gdj5r4algni --fields=Private-Key --reveal | sed 's/\"//g' | sed '$d' | sed '1,1d' | ssh-add -
 end
 
-
 #######################################################################
-#                               source                                #
+#                                 Source                              #
 #######################################################################
 
 set op "~/.config/op/plugins.sh"
 if test -e $op
-  source $op
+    source $op
 end
 
 # Load try
@@ -326,18 +302,36 @@ if command -v zoxide >/dev/null
 end
 
 # Load s3cr3ts
-if test -f  $HOME/.config/fish/s3cr3ts.fish
+if test -f $HOME/.config/fish/s3cr3ts.fish
     source $HOME/.config/fish/s3cr3ts.fish
 end
 
 #######################################################################
-#                                tmux                                 #
+#                                  Main                               #
 #######################################################################
 
+# Auto attach to tmux session if not already attached
 if status is-interactive
     if type -q tmux
         if not set -q TMUX
             exec tmux new-session -A -s "default" -c "$HOME"
         end
     end
+end
+
+# load ssh-agent 
+# Check if we are in a container
+if not test -e /.dockerenv
+    set ssh_agent_sock ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+
+    # Check if 1Password socket exists
+    if test -e $ssh_agent_sock
+        set -xg SSH_AUTH_SOCK $ssh_agent_sock
+    else
+        echo "1password ssh agent.sock not found, start ssh-agent"
+        echo "Please load your ssh key with the command loadsshkey!"
+        ssh_agent_init
+    end
+else
+    echo "Running inside a Docker container, skipping SSH agent setup."
 end
