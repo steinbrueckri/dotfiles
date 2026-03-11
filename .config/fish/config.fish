@@ -1,4 +1,3 @@
-
 # ███████╗██╗███████╗██╗  ██╗
 # ██╔════╝██║██╔════╝██║  ██║
 # █████╗  ██║███████╗███████║
@@ -12,37 +11,11 @@
 #                            main settings                            #
 #######################################################################
 
-# Common paths
-fish_add_path /usr/local/sbin
-fish_add_path $HOME/bin
-fish_add_path $HOME/.local/bin
-fish_add_path $HOME/.cargo/bin
-fish_add_path $HOME/.yarn/bin
-fish_add_path $HOME/.krew/bin
-fish_add_path $HOME/.local/share/bob/nvim-bin
-
-# OS specific paths
-switch (uname)
-    case Darwin
-        fish_add_path /opt/homebrew/bin
-        fish_add_path /opt/homebrew/sbin
-        fish_add_path /opt/homebrew/opt/curl/bin
-        fish_add_path /opt/homebrew/opt/ruby/bin
-        fish_add_path /opt/homebrew/lib/ruby/gems/3.4.7/bin
-        fish_add_path /opt/homebrew/opt/gawk/libexec/gnubin
-        fish_add_path $HOME/Library/Python/3.11/bin
-
-    case Linux
-        if test -f /home/linuxbrew/.linuxbrew/bin/brew
-            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv fish)"
-        end
-end
+# set default theme
+set THEME rose-pine-dawn
 
 # set default username to hide user@host ... see agnoster theme
 set DEFAULT_USER steinbrueckri
-
-# Fix issue with yetone/avante.nvim
-set CURL_HTTP_VERSION 1.1
 
 # XDG Directories
 set -xg XDG_CONFIG_HOME $HOME/.config
@@ -51,19 +24,71 @@ set -xg XDG_CACHE_HOME $HOME/.cache
 # show full path
 set -U fish_prompt_pwd_dir_length 0
 
-# color
-export CLICOLOR=1
-export LS_COLORS=(vivid generate rose-pine-dawn)
-
 # disable fish greeting
 set fish_greeting
 
 #######################################################################
-#                                Brew                                #
+#                            Path                            #
 #######################################################################
 
-# Tell homebrew to not autoupdate every single time I run it (just once a week).
-export HOMEBREW_AUTO_UPDATE_SECS=604800
+fish_add_path /usr/local/sbin
+fish_add_path $HOME/bin
+fish_add_path $HOME/.local/bin
+fish_add_path $HOME/.yarn/bin
+fish_add_path $HOME/.cargo/bin
+fish_add_path $HOME/.local/share/bob/nvim-bin
+
+#######################################################################
+#                               Homebrew                              #
+#######################################################################
+
+# Prevent Homebrew from auto-updating on every command (once per week).
+set -gx HOMEBREW_AUTO_UPDATE_SECS 604800
+
+# Detect Homebrew installation path (macOS / Linux)
+for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew
+    if test -x $brew_path
+        eval ($brew_path shellenv)
+        break
+    end
+end
+
+#######################################################################
+#                                 LS_COLORS                                 #
+#######################################################################
+
+set -gx CLICOLOR 1
+
+switch $THEME
+    case rose-pine-dawn
+        set -gx LS_COLORS $rose_pine_dawn
+    case rose-pine-moon
+        set -gx LS_COLORS $rose_pine_moon
+end
+
+#######################################################################
+#                                 FZF                                 #
+#######################################################################
+# source: https://github.com/rose-pine/fzf
+#######################################################################
+
+switch $THEME
+    case rose-pine-dawn
+        set -gx FZF_DEFAULT_OPTS "
+            --color=fg:#797593,bg:#faf4ed,hl:#d7827e
+            --color=fg+:#575279,bg+:#f2e9e1,hl+:#d7827e
+            --color=border:#dfdad9,header:#286983,gutter:#faf4ed
+            --color=spinner:#ea9d34,info:#56949f
+            --color=pointer:#907aa9,marker:#b4637a,prompt:#797593"
+
+    case rose-pine-moon
+        set -gx FZF_DEFAULT_OPTS "
+            --color=fg:#908caa,bg:#232136,hl:#ea9a97
+            --color=fg+:#e0def4,bg+:#393552,hl+:#ea9a97
+            --color=border:#44415a,header:#3e8fb0,gutter:#232136
+            --color=spinner:#f6c177,info:#9ccfd8
+            --color=pointer:#c4a7e7,marker:#eb6f92,prompt:#908caa"
+end
 
 #######################################################################
 #                             keybindings                             #
@@ -84,13 +109,12 @@ fundle init
 #######################################################################
 
 # mac stuff
-if string match -q "Darwin" (uname)
+if test -d /Applications
   alias sleepoff="sudo systemsetup -setcomputersleep Never"
   alias sleepon="sudo systemsetup -setcomputersleep 10"
   alias lock="pmset displaysleepnow"
   alias rm='trash '
   alias backup="caffeinate -i autorestic backup -l home"
-  export GPG_TTY=$(tty)
 end
 
 # vim 4 the win!
@@ -115,11 +139,6 @@ alias gp="git pull"
 alias newpyenv='uv venv .venv --python 3.12 && echo "{ \"venvPath\": \".\", \"venv\": \".venv\", \"include\": [\"src\", \"tests\"], \"exclude\": [\"**/__pycache__\", \".pytest_cache\", \".ruff_cache\", \".venv\"] }" > pyrightconfig.json && mkdir -p src tests && source .venv/bin/activate.fish'
 alias activate_env_datacenter="source ~/Userlike/UserlikeDatacenter/.venv/bin/activate.fish"
 alias activate_env_code="source ~/Userlike/Userlike/.venv/bin/activate.fish"
-
-## digitalocean stuff
-alias do='doctl'
-alias do-new='doctl compute droplet create tmp --region ams3 --size s-2vcpu-2gb --image ubuntu-22-04-x64 --user-data-file .dotfileassets/digitalocean-cloudinit.yaml --ssh-keys "df:17:95:8d:31:56:39:27:d1:04:e3:12:52:36:ed:5b"'
-alias do-new-ssh='ssh $(doctl compute droplet list | grep tmp | awk "{ print $3}")'
 
 ## docker
 alias dr="docker run -it --rm --entrypoint /bin/sh"
@@ -150,32 +169,29 @@ alias news="newsboat"
 #######################################################################
 
 # general
-export EDITOR=nvim
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
-export LC_CTYPE="en_US.UTF-8"
+set -gx EDITOR nvim
+set -gx LANG "en_US.UTF-8"
+set -gx LC_ALL "en_US.UTF-8"
+set -gx LC_CTYPE "en_US.UTF-8"
 
 # gpg
-export GPG_TTY=$(tty)
-
-# kubernetes stuff
-export KUBE_EDITOR="nvim"
-
-# rust stuff
-export PATH="$HOME/.cargo/bin:$PATH"
+set -gx GPG_TTY (tty)
 
 # ansible stuff
-export PY_COLOR=1
-export ANSIBLE_FORCE_COLOR=1
+set -gx PY_COLOR 1
+set -gx ANSIBLE_FORCE_COLOR 1
 
 # Source: https://github.com/ansible/ansible/issues/32499
 # This is apparently due to some new security changes made in High Sierra that are breaking lots of Python things that use fork(). Rumor has it that adding
-# export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES before your Ansible run should clear it up. The code that's causing issues is well below Ansible in the stack.
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+# set -gx OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES before your Ansible run should clear it up. The code that's causing issues is well below Ansible in the stack.
+set -gx OBJC_DISABLE_INITIALIZE_FORK_SAFETY YES
 
 # Teleport disable adding keys to the agent
 # https://github.com/gravitational/teleport/issues/22326
-export TELEPORT_ADD_KEYS_TO_AGENT=no
+set -gx TELEPORT_ADD_KEYS_TO_AGENT no
+
+# Disable mise, see /opt/homebrew/share/fish/vendor_conf.d/mise-activate.fish
+set -gx MISE_FISH_AUTO_ACTIVATE 0
 
 ################################################################################
 # ssh-agent magic
@@ -253,14 +269,6 @@ end
 #                              functions                              #
 #######################################################################
 
-function cheat
-    if test (count $argv) -eq 0
-        echo "Usage: cheat <command>"
-        return 1
-    end
-    curl -s "https://cht.sh/$argv"
-end
-
 # Check if we are in a container
 if not test -e /.dockerenv
   set ssh_agent_sock ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
@@ -286,6 +294,7 @@ end
 #######################################################################
 #                               source                                #
 #######################################################################
+
 set op "~/.config/op/plugins.sh"
 if test -e $op
   source $op
@@ -316,11 +325,6 @@ if command -v zoxide >/dev/null
     zoxide init fish | source
 end
 
-# Load sesh
-if command -v sesh >/dev/null
-    sesh completion fish | source
-end
-
 # Load s3cr3ts
 if test -f  $HOME/.config/fish/s3cr3ts.fish
     source $HOME/.config/fish/s3cr3ts.fish
@@ -330,12 +334,10 @@ end
 #                                tmux                                 #
 #######################################################################
 
-set -gx TMUX_DEFAULT_SESSION default
-
 if status is-interactive
     if type -q tmux
         if not set -q TMUX
-            exec tmux new-session -A -s "$TMUX_DEFAULT_SESSION" -c "$HOME"
+            exec tmux new-session -A -s "default" -c "$HOME"
         end
     end
 end
