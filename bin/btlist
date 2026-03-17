@@ -1,0 +1,220 @@
+#!/usr/bin/env bash
+
+# btlist — human-readable Bluetooth summary for macOS
+#
+# https://github.com/specious/btlist
+#
+# Requires: bash 3.2+, macOS system_profiler (available on all macOS versions)
+# Compatible with: bash 3.2+, bash 4+, bash 5+, zsh
+
+set -euo pipefail
+
+#
+# Preflight check
+#
+
+if ! command -v system_profiler >/dev/null 2>&1; then
+  echo "btlist: 'system_profiler' was not found." >&2
+  echo "        This utility is for macOS only." >&2
+  echo "        system_profiler ships with every Mac and requires no installation." >&2
+  exit 1
+fi
+
+#
+# Signal quality — real-world BT/2.4 GHz engineering thresholds
+# ≥ -50 dBm : Excellent — same room, line-of-sight, max throughput
+# ≥ -60 dBm : Good      — typical desktop/couch distance, all profiles stable
+# ≥ -70 dBm : Fair      — through walls; A2DP may glitch under load
+# ≥ -80 dBm : Weak      — edge of range; HID may lag, audio will skip
+# < -80 dBm : Poor      — packet loss likely; device may drop any moment
+#
+
+bt_signal_label() {
+  local rssi=$1
+  if   [ "$rssi" -ge -50 ]; then echo "Excellent: same room, line-of-sight"
+  elif [ "$rssi" -ge -60 ]; then echo "Good: desktop/couch distance"
+  elif [ "$rssi" -ge -70 ]; then echo "Fair: through walls, audio may glitch"
+  elif [ "$rssi" -ge -80 ]; then echo "Weak: edge of range, expect dropouts"
+  else                           echo "Poor: packet loss likely"
+  fi
+}
+
+#
+# Translate service tokens to short human terms.
+# ACL is a low-level transport detail — omitted as not user-facing.
+# OPP (Object Push) = one-shot send; FTP (File Transfer Profile) = browse session.
+#
+
+bt_decode_services() {
+  local raw="$1"
+  local tokens tok l out="" seen="" already
+
+  tokens=$(echo "$raw" | grep -oE '<[^>]+>' | tr -d '<>' | tr ' ' '\n' | grep -v '^$')
+
+  while IFS= read -r tok; do
+    case "$tok" in
+      HFP)        l="Hands-Free"         ;;
+      HSP)        l="Headset"            ;;
+      A2DP)       l="Stereo Audio"       ;;
+      AVRCP)      l="Media Controls"     ;;
+      HID)        l="Keyboard/Mouse"     ;;
+      GATT)       l="BLE"                ;;
+      LEA)        l="LE Audio"           ;;
+      AACP)       l="Apple Audio"        ;;
+      Braille)    l="Braille Display"    ;;
+      SerialPort) l="Serial"             ;;
+      SPP)        l="Serial"             ;;
+      OPP)        l="File Push (OPP)"    ;;
+      FTP)        l="File Browse (FTP)"  ;;
+      PAN)        l="Network"            ;;
+      MAP)        l="Messages"           ;;
+      PBAP)       l="Contacts"           ;;
+      ACL)        continue               ;;
+      "")         continue               ;;
+      *)          l="$tok"               ;;
+    esac
+
+    # Deduplicate without arrays (bash 3 safe: use a delimited string)
+    already=false
+    case "$seen" in *"|${l}|"*) already=true ;; esac
+    if [ "$already" = false ]; then
+      seen="${seen}|${l}|"
+      [ -n "$out" ] && out="${out}, "
+      out="${out}${l}"
+    fi
+  done <<< "$tokens"
+
+  echo "$out"
+}
+
+#
+# Device section parser
+#
+# system_profiler indentation (4 spaces per level):
+#   4  spaces : "Bluetooth:"
+#   8  spaces : section headers ("Connected:", "Not Connected:")
+#   12 spaces : device names
+#   16 spaces : device fields (Address, RSSI, Battery Level, …)
+#
+# Lines at indent <= 12 that are not known field keys are device names.
+# Lines at indent > 12 are fields belonging to the current device.
+#
+
+bt_print_devices() {
+  local section="$1"
+  local show_rssi="$2"
+  local name="" address="" battery="" rssi=""
+  local found_any=false
+  local line stripped indent label
+
+  # Flush the current device to stdout
+  # Called inline (not as a subshell) so it reads the locals directly
+  _flush() {
+    [ -z "$name" ] && return
+    found_any=true
+    printf "  %s\n" "$name"
+    [ -n "$address" ] && printf "    %-12s %s\n" "Address:" "$address"
+    if [ "$show_rssi" = "yes" ] && [ -n "$rssi" ]; then
+      label=$(bt_signal_label "$rssi")
+      printf "    %-12s %s dBm  (%s)\n" "Signal:" "$rssi" "$label"
+    fi
+    [ -n "$battery" ] && printf "    %-12s %s\n" "Battery:" "$battery"
+    printf "\n"
+    name="" address="" battery="" rssi=""
+  }
+
+  # Trailing newline ensures the last device is always flushed
+  while IFS= read -r line; do
+    # Blank line — flush current device
+    if [ -z "${line// }" ]; then
+      _flush
+      continue
+    fi
+
+    # Count leading spaces portably (no ${#} arithmetic on substrings in bash 3)
+    stripped="${line#"${line%%[! ]*}"}"
+    indent=$(( ${#line} - ${#stripped} ))
+
+    if [ "$indent" -gt 12 ]; then
+      # Field line
+      case "$stripped" in
+        Address:*)         address="${stripped#Address: }"          ;;
+        "Battery Level:"*) battery="${stripped#Battery Level: }"    ;;
+        RSSI:*)            rssi="${stripped#RSSI: }"                ;;
+      esac
+    else
+      # New device name — flush previous first
+      _flush
+      name="${stripped%:}"
+    fi
+  done <<< "${section}"$'\n'
+
+  if [ "$found_any" = false ]; then
+    printf "  None\n\n"
+  fi
+}
+
+#
+# Gather data
+#
+
+output=$(system_profiler SPBluetoothDataType 2>/dev/null) || {
+  echo "btlist: Failed to retrieve Bluetooth data." >&2
+  exit 1
+}
+
+#
+# Controller info
+#
+
+ctrl_section=$(echo "$output" | awk '
+  /Bluetooth Controller:/ { f=1; next }
+  f && /^[[:space:]]{6}[^ ]/ { f=0 }
+  f')
+
+ctrl_addr=$(     echo "$ctrl_section" | awk -F': ' '/Address:/          { $1=""; sub(/^ /,""); print }')
+ctrl_state=$(    echo "$ctrl_section" | awk -F': ' '/State:/            { $1=""; sub(/^ /,""); print }')
+ctrl_chipset=$(  echo "$ctrl_section" | awk -F': ' '/Chipset:/          { $1=""; sub(/^ /,""); print }')
+ctrl_fw=$(       echo "$ctrl_section" | awk -F': ' '/Firmware Version:/ { $1=""; sub(/^ /,""); print }')
+ctrl_transport=$(echo "$ctrl_section" | awk -F': ' '/Transport:/        { $1=""; sub(/^ /,""); print }')
+ctrl_vendor=$(   echo "$ctrl_section" | awk -F': ' '/Vendor ID:/        { $1=""; sub(/^ /,""); print }')
+ctrl_disc=$(     echo "$ctrl_section" | awk -F': ' '/Discoverable:/     { $1=""; sub(/^ /,""); print }')
+ctrl_svc_raw=$(  echo "$ctrl_section" | grep 'Supported services:')
+ctrl_svc=$(bt_decode_services "$ctrl_svc_raw")
+
+printf "Bluetooth Controller\n\n"
+[ -n "$ctrl_addr"      ] && printf "  %-14s %s\n" "Address:"      "$ctrl_addr"
+[ -n "$ctrl_state"     ] && printf "  %-14s %s\n" "State:"        "$ctrl_state"
+[ -n "$ctrl_disc"      ] && printf "  %-14s %s\n" "Discoverable:" "$ctrl_disc"
+[ -n "$ctrl_chipset"   ] && printf "  %-14s %s\n" "Chipset:"      "$ctrl_chipset"
+[ -n "$ctrl_fw"        ] && printf "  %-14s %s\n" "Firmware:"     "$ctrl_fw"
+[ -n "$ctrl_transport" ] && printf "  %-14s %s\n" "Transport:"    "$ctrl_transport"
+[ -n "$ctrl_vendor"    ] && printf "  %-14s %s\n" "Vendor:"       "$ctrl_vendor"
+[ -n "$ctrl_svc"       ] && printf "  %-14s %s\n" "Services:"     "$ctrl_svc"
+printf "\n"
+
+#
+# Slice device sections
+# Anchored to exact 6-space indent of section headers so device name lines
+# (12-space indent) never accidentally trigger the stop condition.
+#
+
+connected_section=$(echo "$output" | awk '
+  /^ {6}Connected:$/    { f=1; next }
+  /^ {6}Not Connected:/ { f=0 }
+  f')
+
+disconnected_section=$(echo "$output" | awk '
+  /^ {6}Not Connected:/ { f=1; next }
+  /^ {6}[A-Z]/          { f=0 }
+  f')
+
+#
+# Output
+#
+
+printf "Connected Devices\n\n"
+bt_print_devices "$connected_section" "no"
+
+printf "Nearby (Not Connected)\n\n"
+bt_print_devices "$disconnected_section" "yes"

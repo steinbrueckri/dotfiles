@@ -12,7 +12,7 @@
 #######################################################################
 
 # Set default theme
-set THEME rose-pine-dawn
+set THEME rose-pine-moon
 
 # Set default username to hide user@host
 set DEFAULT_USER steinbrueckri
@@ -162,6 +162,7 @@ alias darkmode="themr rose-pine-moon"
 alias kill-ansible-ssh='ps aux | grep "ansible-" | grep "\[mux\]" | awk "{print \$2}" | xargs kill -9'
 alias mail="aerc"
 alias news="newsboat"
+alias whatsapp="TERM=xterm-256color nchat"
 
 #######################################################################
 #                                Exports                              #
@@ -319,7 +320,7 @@ if status is-interactive
     end
 end
 
-# load ssh-agent 
+# load ssh-agent
 # Check if we are in a container
 if not test -e /.dockerenv
     set ssh_agent_sock ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock

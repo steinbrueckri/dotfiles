@@ -35,3 +35,16 @@ bat:
   path: "~/.config/bat/config"
   regex: "--theme=.*"
   replace: '--theme="rose-pine-{}"'
+
+aerc:
+  type: colorscheme
+  path: "~/.config/aerc/aerc.conf"
+  regex: "styleset-name = rose-pine-.*"
+  replace: "styleset-name = rose-pine-{}"
+
+eilmeldung:
+  type: colorscheme
+  path: "~/.config/eilmeldung/.theme"
+  regex: "rose-pine-.*"
+  replace: "rose-pine-{}"
+  cmd: "cat ~/.config/eilmeldung/base.toml ~/.config/eilmeldung/themes/rose-pine-{}.toml > ~/.config/eilmeldung/config.toml"
