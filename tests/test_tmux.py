@@ -1,4 +1,5 @@
 import os
+import time
 from pathlib import Path
 
 import libtmux
@@ -15,16 +16,9 @@ def tmux_server():
         session.kill()
 
 
-def assert_executable_exists(path: Path, description: str) -> None:
-    """Assert that a file exists and is executable."""
-    assert path.exists(), f"Expected {description} to exist: {path}"
-    assert path.is_file(), f"Expected {description} to be a file: {path}"
-    assert os.access(path, os.X_OK), f"Expected {description} to be executable: {path}"
-
-
-@pytest.mark.integration
-def test_tpm_bootstrap(tmux_server, wait_until):
-    """TPM is bootstrapped automatically when tmux loads .tmux.conf."""
+@pytest.fixture
+def tpm_bootstrapped(tmux_server, wait_until) -> Path:
+    """Ensure TPM is bootstrapped via tmux and available on disk."""
     tpm_executable = Path.home() / ".tmux/plugins/tpm-redux/tpm"
 
     session = tmux_server.new_session(session_name="tpm-bootstrap-test", attach=False)
@@ -36,23 +30,36 @@ def test_tpm_bootstrap(tmux_server, wait_until):
             interval=1,
             error_msg="Expected TPM to be auto-installed via .tmux.conf",
         )
-
         assert_executable_exists(tpm_executable, "TPM executable")
+        return tpm_executable
     finally:
         session.kill()
 
 
+def assert_executable_exists(path: Path, description: str) -> None:
+    """Assert that a file exists and is executable."""
+    assert path.exists(), f"Expected {description} to exist: {path}"
+    assert path.is_file(), f"Expected {description} to be a file: {path}"
+    assert os.access(path, os.X_OK), f"Expected {description} to be executable: {path}"
+
+
 @pytest.mark.integration
-def test_tpm_install(run_command, wait_until, artifact_dir):
+def test_tpm_bootstrap(tpm_bootstrapped):
+    """TPM is bootstrapped automatically when tmux loads .tmux.conf."""
+    assert_executable_exists(tpm_bootstrapped, "TPM executable")
+
+
+@pytest.mark.integration
+def test_tpm_install(tpm_bootstrapped, run_command, wait_until, artifact_dir):
     """TPM install script installs the configured tmux plugins."""
-    home = Path.home()
-    plugins_dir = home / ".tmux/plugins"
-    install_script = plugins_dir / "tpm-redux/tpm/bin/install"
+    plugins_dir = Path.home() / ".tmux/plugins"
+    tpm_repo_dir = tpm_bootstrapped.parent
+    install_script = tpm_repo_dir / "bin/install"
 
     expected_plugins = {
         "tmux": "rose-pine.tmux",
         "tmux-battery": "battery.tmux",
-        "tmux-fingers": "fingers.tmux",
+        "tmux-fingers": "tmux-fingers.tmux",
     }
 
     assert_executable_exists(install_script, "TPM install script")
@@ -93,9 +100,6 @@ def test_tmux_send_keys_capture(tmux_server):
 
     try:
         pane.send_keys('echo "Hello, World!"')
-
-        import time
-
         time.sleep(0.5)
 
         output = pane.capture_pane()
