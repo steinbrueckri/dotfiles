@@ -15,7 +15,7 @@ def test_fish_installed(run_command):
 
 @pytest.mark.smoke
 def test_nvim_installed(run_command):
-    result = run_command("nvim --version")
+    result = run_command(".local/share/bob/nightly/bin/nvim --version")
     assert result.returncode == 0
 
 
