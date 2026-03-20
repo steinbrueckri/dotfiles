@@ -1,89 +1,106 @@
 import os
-import pytest
-import libtmux
 from pathlib import Path
+
+import libtmux
+import pytest
 
 
 @pytest.fixture
 def tmux_server():
-    """Managed tmux server with automatic cleanup"""
+    """Managed tmux server with automatic cleanup."""
     server = libtmux.Server()
     yield server
-    # Cleanup: Kill all sessions we created
+
     for session in server.sessions:
         session.kill()
 
 
+def assert_executable_exists(path: Path, description: str) -> None:
+    """Assert that a file exists and is executable."""
+    assert path.exists(), f"Expected {description} to exist: {path}"
+    assert path.is_file(), f"Expected {description} to be a file: {path}"
+    assert os.access(path, os.X_OK), f"Expected {description} to be executable: {path}"
+
+
 @pytest.mark.integration
 def test_tpm_bootstrap(tmux_server, wait_until):
-    """Test that TPM is installed and can install plugins"""
+    """TPM is bootstrapped automatically when tmux loads .tmux.conf."""
+    tpm_executable = Path.home() / ".tmux/plugins/tpm-redux/tpm"
+
+    session = tmux_server.new_session(session_name="tpm-bootstrap-test", attach=False)
+
+    try:
+        wait_until(
+            lambda: tpm_executable.exists(),
+            timeout=60,
+            interval=1,
+            error_msg="Expected TPM to be auto-installed via .tmux.conf",
+        )
+
+        assert_executable_exists(tpm_executable, "TPM executable")
+    finally:
+        session.kill()
+
+
+@pytest.mark.integration
+def test_tpm_install(run_command, wait_until, artifact_dir):
+    """TPM install script installs the configured tmux plugins."""
     home = Path.home()
-    tpm_dir = home / ".tmux/plugins/tpm-redux"
-
-    # Start tmux session (triggers .tmux.conf which should auto-install TPM)
-    session = tmux_server.new_session(session_name="tpm-test", attach=False)
-
-    # Wait for TPM auto-install from .tmux.conf
-    wait_until(
-        lambda: (tpm_dir / "tpm").exists(),
-        timeout=60,
-        interval=1,
-        error_msg="TPM should be auto-installed by .tmux.conf",
-    )
-
-    # Verify TPM is installed
-    assert (tpm_dir / "tpm").exists(), "TPM executable should exist"
-    assert (tpm_dir / "tpm").is_file() and os.access(tpm_dir / "tpm", os.X_OK), (
-        "TPM executable is executable"
-    )
-
-    # Install plugins using tpm script
-    session.active_window.active_pane.send_keys(
-        ".tmux/plugins/tpm-redux/tpm/bin/install"
-    )
-
-    # Define expected plugin paths
-    # rose-pine/tmux → .tmux/plugins/tmux/rose-pine.tmux
-    # tmux-plugins/tmux-battery → .tmux/plugins/tmux-battery/battery.tmux
     plugins_dir = home / ".tmux/plugins"
+    install_script = plugins_dir / "tpm-redux/tpm/bin/install"
+
     expected_plugins = {
         "tmux": "rose-pine.tmux",
         "tmux-battery": "battery.tmux",
+        "tmux-fingers": "fingers.tmux",
     }
 
-    # Wait for plugins to be installed
+    assert_executable_exists(install_script, "TPM install script")
+
+    result = run_command(str(install_script), timeout=120)
+
+    (artifact_dir / "tpm-install.log").write_text(
+        f"{result.stdout}\n\nSTDERR:\n{result.stderr}"
+    )
+
+    assert result.returncode == 0, (
+        f"TPM install script failed with exit code {result.returncode}. "
+        "See tpm-install.log for details."
+    )
+
     wait_until(
         lambda: all(
-            (plugins_dir / plugin_dir).exists()
-            for plugin_dir in expected_plugins.keys()
+            (plugins_dir / plugin_dir).exists() for plugin_dir in expected_plugins
         ),
         timeout=60,
         interval=2,
-        error_msg="Plugins should be installed by TPM",
+        error_msg="Expected TPM to install all configured plugins",
     )
 
-    # Verify that each plugin's main file exists and is executable
     for plugin_dir, main_file in expected_plugins.items():
-        plugin_path = plugins_dir / plugin_dir / main_file
-        assert plugin_path.exists(), f"{plugin_dir}/{main_file} should exist"
-        assert plugin_path.is_file() and os.access(plugin_path, os.X_OK), (
-            f"{plugin_dir}/{main_file} should be executable"
+        plugin_entrypoint = plugins_dir / plugin_dir / main_file
+        assert_executable_exists(
+            plugin_entrypoint,
+            f"plugin entrypoint {plugin_dir}/{main_file}",
         )
-
-    session.kill()
 
 
 @pytest.mark.integration
 def test_tmux_send_keys_capture(tmux_server):
+    """tmux pane input can be captured from the active pane."""
     session = tmux_server.new_session(session_name="capture-test", attach=False)
     pane = session.active_window.active_pane
 
-    pane.send_keys('echo "Hello, World!"')
+    try:
+        pane.send_keys('echo "Hello, World!"')
 
-    # Brief wait for output (libtmux manages this better than raw tmux)
-    import time
+        import time
 
-    time.sleep(0.5)
+        time.sleep(0.5)
 
-    output = pane.capture_pane()
-    assert any("Hello, World!" in line for line in output)
+        output = pane.capture_pane()
+        assert any("Hello, World!" in line for line in output), (
+            "Expected pane output to contain 'Hello, World!'"
+        )
+    finally:
+        session.kill()
