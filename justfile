@@ -1,5 +1,9 @@
 # Default recipe (runs when you type just `just`)
-default: test
+default: list
+
+################################################################################
+# Config
+################################################################################
 
 # Docker image name
 image_name := "dotfiles-test"
@@ -11,10 +15,9 @@ testresult_path := "/home/testuser/.test_results/"
 export DOCKER_CLI_HINTS := "false"
 export DOCKER_BUILDKIT := "1"
 
-# Build the Docker image
-build:
-    @echo "Building Docker image..."
-    docker build -t {{image_name}} -f .Dockerfile .
+################################################################################
+# Tests
+################################################################################
 
 # Run tests (excludes slow tests)
 test: build
@@ -40,17 +43,14 @@ test-debug: build
     docker run --name {{container_name}} -it --rm {{image_name}} bash -c \
         "pytest -vv -s --tb=short || bash"
 
-# Open interactive shell in the container
-shell: build
-    @echo "Opening shell in container..."
-    docker run -it --rm {{image_name}} bash
+# Run specific test marker
+test-marker marker: build
+    @echo "Running tests with marker: {{marker}}"
+    docker run -it --rm {{image_name}} pytest -m {{marker}} -v
 
-# Clean up Docker resources and test results
-clean:
-    @echo "Cleaning up..."
-    @rm -rf .test_results
-    @docker rm -fv {{container_name}} 2>/dev/null || true
-    @docker rmi -f {{image_name}} 2>/dev/null || true
+################################################################################
+# Lint
+################################################################################
 
 # Lint markdown files
 lint-md:
@@ -61,18 +61,28 @@ lint-md:
 lint-py:
     @echo "Linting Python files..."
     @uvx run ruff check .
-    @uvx run ruff format --check .
-    @uvx run ruff lint .
-    @uvx run ruff type check .
-    @uvx run ruff safety check .
-    @uvx run ruff security check .
-    @uvx run ruff security check .
 
-# Run specific test marker
-test-marker marker: build
-    @echo "Running tests with marker: {{marker}}"
-    docker run -it --rm {{image_name}} pytest -m {{marker}} -v
+################################################################################
+# Common
+################################################################################
 
 # List all available recipes
 list:
     @just --list
+
+# Clean up Docker resources and test results
+clean:
+    @echo "Cleaning up..."
+    @rm -rf .test_results
+    @docker rm -fv {{container_name}} 2>/dev/null || true
+    @docker rmi -f {{image_name}} 2>/dev/null || true
+
+# Open interactive shell in the container
+shell: build
+    @echo "Opening shell in container..."
+    docker run -it --rm {{image_name}} bash
+
+# Build the Docker image
+build:
+    @echo "Building Docker image..."
+    docker build -t {{image_name}} -f .Dockerfile .
