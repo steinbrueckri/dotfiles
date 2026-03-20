@@ -11,10 +11,10 @@ jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install Just
-        uses: extractions/setup-just@v2
+        uses: extractions/setup-just@v3
 
       - name: Run tests
         run: just lint-md && just test
