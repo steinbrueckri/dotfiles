@@ -38,14 +38,11 @@ arch)
 
 esac
 
-if [ "$(uname -m)" = "x86_64" ]; then
-  curl -sL https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz | tar -xzf - --strip-components=1 --overwrite -C ${HOME}/.local/
-elif [ "$(uname -m)" = "aarch64" ]; then
-  curl -sL https://github.com/neovim/neovim/releases/latest/download/nvim-linux-arm64.tar.gz | tar -xzf - --strip-components=1 --overwrite -C ${HOME}/.local/
-else
-  echo "Unsupported architecture"
-  exit 1
-fi
+################################################################################
+# Install nvim via bob
+################################################################################
+curl -fsSL https://raw.githubusercontent.com/MordechaiHadad/bob/master/scripts/install.sh | bash
+bob install nightly
 
 ################################################################################
 # Install pip packages
