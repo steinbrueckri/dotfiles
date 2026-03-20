@@ -28,3 +28,16 @@ jobs:
         with:
           files: |
             .test_results/*.xml
+
+      - name: Run tests
+        run: pytest --junit-xml=test-results.xml
+
+      - name: Surface failing tests
+        if: always()
+        uses: pmeier/pytest-results-action@main
+        with:
+          path: .test_results/*.xml
+          summary: true
+          display-options: fEX
+          fail-on-empty: true
+          title: Test results
