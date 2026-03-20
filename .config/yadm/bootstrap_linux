@@ -48,4 +48,4 @@ bob install nightly
 # Install pip packages
 ################################################################################
 pip3 install neovim
-curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh -s -- --non-interactive
