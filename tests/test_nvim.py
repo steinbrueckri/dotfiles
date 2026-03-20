@@ -93,10 +93,11 @@ def test_lazy_sync(run_command, artifact_dir, nvim_env):
 @pytest.mark.slow
 def test_treesitter_install(run_command, artifact_dir, nvim_env):
     """Tree-sitter parsers install successfully."""
+    # NOTE: Veriy slow because its install plugins and compile a few things
     result = run_logged_command(
         run_command,
         artifact_dir,
-        command='nvim --headless "+TSInstallSync all" +qall!',
+        command='nvim --headless "+TSInstallSync" +qall!',
         log_name="treesitter-install.log",
         timeout=300,
         env=nvim_env,
