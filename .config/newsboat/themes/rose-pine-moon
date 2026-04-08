@@ -1,0 +1,27 @@
+# Rosé Pine Moon for Newsboat
+# Based on the official Rosé Pine Moon palette, mapped to xterm-256 colors.
+# Best used in a terminal with 256-color support.
+
+color background            color189 color235
+color listnormal            color189 color235
+color listnormal_unread     color152 color235 bold
+
+color listfocus             color189 color239 bold
+color listfocus_unread      color152 color239 bold
+
+color article               color189 color235
+color end-of-text-marker    color60  color235
+
+color info                  color235 color152 bold
+color title                 color235 color182 bold
+
+color hint-key              color235 color152 bold
+color hint-keys-delimiter   color60  color152
+color hint-separator        color235 color152 bold
+color hint-description      color235 color152
+
+highlight article "^(Feed|Title|Author|Link|Date): .+" color67  color235 bold
+highlight article "^(Feed|Title|Author|Link|Date):"    color182 color235 bold
+highlight article "\\((link|image|video)\\)"           color60  color235
+highlight article "https?://[^ ]+"                     color67  color235 underline
+highlight article "\[[0-9]+\]"                         color168 color235 bold

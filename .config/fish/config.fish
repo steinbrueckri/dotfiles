@@ -12,7 +12,7 @@
 #######################################################################
 
 # Set default theme
-set THEME rose-pine-moon
+set THEME rose-pine-dawn
 
 # Set default username to hide user@host
 set DEFAULT_USER steinbrueckri
@@ -329,9 +329,11 @@ if not test -e /.dockerenv
     if test -e $ssh_agent_sock
         set -xg SSH_AUTH_SOCK $ssh_agent_sock
     else
-        echo "1password ssh agent.sock not found, start ssh-agent"
-        echo "Please load your ssh key with the command loadsshkey!"
-        ssh_agent_init
+        if status --is-login
+            echo "1password ssh agent.sock not found, start ssh-agent"
+            echo "Please load your ssh key with the command loadsshkey!"
+            ssh_agent_init
+        end
     end
 else
     echo "Running inside a Docker container, skipping SSH agent setup."

@@ -1,0 +1,57 @@
+[hotkeys]
+"Cmd+Shift+Space" = "hints --action left_click"
+"Home" = "hints --action left_click --bare"
+"PageUp" = "scroll"
+
+[scroll.hotkeys]
+"k" = "action scroll_up"
+"j" = "action scroll_down"
+"h" = "action scroll_left"
+"l" = "action scroll_right"
+"gg" = "action go_top"
+"Shift+G" = "action go_bottom"
+"u" = "action page_up"
+"d" = "action page_down"
+"Return" = "action left_click"
+
+[smooth_cursor]
+move_mouse_enabled = true
+steps = 10
+max_duration = 200
+duration_per_pixel = 0.1
+
+[hints.ui]
+font_family = "Fira Code NF"
+background_color_dark = "#F2F6C177"   # Rosé Pine Moon gold, ~95% opacity
+text_color_dark = "#FF232136"         # base
+matched_text_color_dark = "#FF6E6A86" # muted-ish
+border_color_dark = "#FF2A273F"       # surface
+
+background_color_light = "#F2EA9D34"  # Rosé Pine Dawn gold, ~95% opacity
+text_color_light = "#FF575279"        # dawn text
+matched_text_color_light = "#FF9893A5"
+border_color_light = "#FFF2E9E1"
+
+[grid.ui]
+background_color_dark = "#B33E8FB0"         # pine, ~70%
+text_color_dark = "#FFE0DEF4"
+matched_text_color_dark = "#FF232136"
+matched_background_color_dark = "#B3C4A7E7" # iris, ~70%
+matched_border_color_dark = "#B3C4A7E7"
+border_color_dark = "#B344415A"
+
+background_color_light = "#B3286983"
+text_color_light = "#FF575279"
+matched_text_color_light = "#FFFAF4ED"
+matched_background_color_light = "#B3907AA9"
+matched_border_color_light = "#B3907AA9"
+border_color_light = "#B3F2E9E1"
+
+[mode_indicator.ui]
+background_color_dark = "#F2C4A7E7"   # iris, ~95%
+text_color_dark = "#FF232136"
+border_color_dark = "#FF2A273F"
+
+background_color_light = "#F2907AA9"
+text_color_light = "#FFFAF4ED"
+border_color_light = "#FFF2E9E1"

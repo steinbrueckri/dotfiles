@@ -42,9 +42,8 @@ aerc:
   regex: "styleset-name = rose-pine-.*"
   replace: "styleset-name = rose-pine-{}"
 
-eilmeldung:
+newsboat:
   type: colorscheme
-  path: "~/.config/eilmeldung/.theme"
-  regex: "rose-pine-.*"
-  replace: "rose-pine-{}"
-  cmd: "cat ~/.config/eilmeldung/base.toml ~/.config/eilmeldung/themes/rose-pine-{}.toml > ~/.config/eilmeldung/config.toml"
+  path: "~/.config/newsboat/config"
+  regex: 'include ".*rose-pine-.*"'
+  replace: 'include "~/.config/newsboat/themes/rose-pine-{}"'

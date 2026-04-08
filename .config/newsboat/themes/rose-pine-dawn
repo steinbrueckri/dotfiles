@@ -1,0 +1,27 @@
+# Rosé Pine Dawn for Newsboat
+# Based on the official Rosé Pine Dawn palette, mapped to xterm-256 colors.
+# Best used in a terminal with 256-color support.
+
+color background            color60  color255
+color listnormal            color60  color255
+color listnormal_unread     color24  color255 bold
+
+color listfocus             color60  color253 bold
+color listfocus_unread      color24  color253 bold
+
+color article               color60  color255
+color end-of-text-marker    color247 color255
+
+color info                  color255 color67  bold
+color title                 color255 color103 bold
+
+color hint-key              color255 color67  bold
+color hint-keys-delimiter   color247 color67
+color hint-separator        color255 color67  bold
+color hint-description      color255 color67
+
+highlight article "^(Feed|Title|Author|Link|Date): .+" color67  color255 bold
+highlight article "^(Feed|Title|Author|Link|Date):"    color103 color255 bold
+highlight article "\\((link|image|video)\\)"           color247 color255
+highlight article "https?://[^ ]+"                     color24  color255 underline
+highlight article "\[[0-9]+\]"                         color132 color255 bold
