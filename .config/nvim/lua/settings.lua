@@ -58,6 +58,12 @@ g.loaded_perl_provider = 0
 -- g.loaded_netrwPlugin = 1    -- disable netrw plugin
 
 -----------------------------------------------------------
+-- Neovim 0.12: ui2
+-----------------------------------------------------------
+-- Eliminates "Press Enter" interruptions, adds command-line highlighting
+require("vim._core.ui2").enable({})
+
+-----------------------------------------------------------
 -- Other stuff
 -----------------------------------------------------------
 -- needed for obsidian, move to the plugin files?

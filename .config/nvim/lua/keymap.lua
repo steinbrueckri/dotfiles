@@ -28,7 +28,7 @@ vim.keymap.set("n", "<leader>Q", function() Snacks.bufdelete({ force = true }) e
 vim.keymap.set("n", "<leader>bd", "<cmd>bd<CR>", { silent = true, desc = "Delete buffer" })
 vim.keymap.set("n", "<leader>bm", function()
 	vim.cmd("delmarks A-Z0-9")
-	require("notify")("Deleted all marks")
+	Snacks.notify("Deleted all marks")
 end, { silent = true, desc = "Delete all marks" })
 
 -- File Management

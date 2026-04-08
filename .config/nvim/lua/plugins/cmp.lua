@@ -15,7 +15,6 @@ return {
 			})
 		end,
 	},
-	{ "hrsh7th/cmp-nvim-lsp", event = "InsertEnter" },
 	{
 		"L3MON4D3/LuaSnip",
 		event = "InsertEnter",
@@ -143,7 +142,6 @@ return {
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
 				}),
 				sources = cmp.config.sources({
-					{ name = "nvim_lsp", priority = 1000, max_item_count = 5 },
 					{ name = "luasnip", priority = 750, max_item_count = 5 },
 					{ name = "cmp_tabnine", priority = 500, max_item_count = 5 },
 					{ name = "buffer", priority = 250, max_item_count = 5 },

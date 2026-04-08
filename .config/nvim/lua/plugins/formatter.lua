@@ -4,7 +4,7 @@ return {
 		{
 			"<Leader> ",
 			function()
-				require("conform").format({ async = true, lsp_fallback = true })
+				require("conform").format({ async = true, lsp_format = "fallback" })
 			end,
 			mode = "n",
 			desc = "Format",
@@ -29,7 +29,7 @@ return {
 
 			-- Auto-format beim Speichern
 			format_on_save = {
-				lsp_fallback = true,
+				lsp_format = "fallback",
 				timeout_ms = 500,
 			},
 		})

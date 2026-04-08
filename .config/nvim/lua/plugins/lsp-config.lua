@@ -58,7 +58,6 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
-		dependencies = { "hrsh7th/cmp-nvim-lsp", "hrsh7th/nvim-cmp" },
 		config = function()
 			-- Global diagnostic configuration
 			vim.diagnostic.config({
@@ -111,36 +110,29 @@ return {
 					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 					vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 					vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
+
+					-- Neovim 0.12: native LSP completion (replaces cmp-nvim-lsp source)
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					if client and client:supports_method("textDocument/completion") then
+						vim.lsp.completion.enable(true, args.data.client_id, bufnr, {
+							autotrigger = true,
+						})
+					end
 				end,
 			})
 
-			-- Completion capabilities for language servers
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 			-- Language server configurations
-			vim.lsp.config("lua_ls", {
-				capabilities = capabilities,
-			})
-			vim.lsp.config("bashls", {
-				capabilities = capabilities,
-			})
-			vim.lsp.config("dockerls", {
-				capabilities = capabilities,
-			})
-			vim.lsp.config("html", {
-				capabilities = capabilities,
-			})
-			vim.lsp.config("marksman", {
-				capabilities = capabilities,
-			})
+			vim.lsp.config("lua_ls", {})
+			vim.lsp.config("bashls", {})
+			vim.lsp.config("dockerls", {})
+			vim.lsp.config("html", {})
+			vim.lsp.config("marksman", {})
 			vim.lsp.config("rumdl", {
 				cmd = { "rumdl", "server", "--stdio" },
 				filetypes = { "markdown" },
 				root_markers = { ".rumdl.toml", "rumdl.toml", ".markdownlint.yaml", ".markdownlint.json", ".git" },
-				capabilities = capabilities,
 			})
 			vim.lsp.config("pyright", {
-				capabilities = capabilities,
 				settings = {
 					python = {
 						analysis = {
@@ -150,11 +142,8 @@ return {
 					},
 				},
 			})
-			vim.lsp.config("ruff", {
-				capabilities = capabilities,
-			})
+			vim.lsp.config("ruff", {})
 			vim.lsp.config("jsonls", {
-				capabilities = capabilities,
 				settings = {
 					json = {
 						schemas = require("schemastore").json.schemas(),
@@ -163,7 +152,6 @@ return {
 				},
 			})
 			vim.lsp.config("yamlls", {
-				capabilities = capabilities,
 				settings = {
 					yaml = {
 						keyOrdering = false,
@@ -172,9 +160,8 @@ return {
 					},
 				},
 			})
-			vim.lsp.config("gopls", { capabilities = capabilities })
+			vim.lsp.config("gopls", {})
 			vim.lsp.config("texlab", {
-				capabilities = capabilities,
 				settings = {
 					texlab = { build = { args = { "-interaction=nonstopmode", "%f" } } },
 				},
@@ -185,6 +172,7 @@ return {
 				"lua_ls",
 				"bashls",
 				"dockerls",
+				"docker_compose_language_service",
 				"html",
 				"marksman",
 				"rumdl",
@@ -192,6 +180,7 @@ return {
 				"ruff",
 				"jsonls",
 				"yamlls",
+				"ansiblels",
 				"gopls",
 				"texlab",
 			})
