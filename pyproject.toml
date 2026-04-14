@@ -5,7 +5,7 @@ requires-python = ">=3.11"
 dependencies = [
     "pytest>=8.0.0",
     "pytest-timeout>=2.4.0",
-    "pytest-rerunfailures>=13.0",
+    "pytest-rerunfailures>=16.1",
     "libtmux>=0.31.0",
 ]
 
