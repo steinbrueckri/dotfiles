@@ -6,7 +6,7 @@ dependencies = [
     "pytest>=9.0.3",
     "pytest-timeout>=2.4.0",
     "pytest-rerunfailures>=16.1",
-    "libtmux>=0.31.0",
+    "libtmux>=0.55.0",
 ]
 
 [tool.pytest.ini_options]
