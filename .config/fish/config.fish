@@ -12,7 +12,7 @@
 #######################################################################
 
 # Set default theme
-set THEME rose-pine-dawn
+set THEME rose-pine-moon
 
 # Set default username to hide user@host
 set DEFAULT_USER steinbrueckri

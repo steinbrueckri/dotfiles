@@ -47,7 +47,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = "*.keymap",
 	callback = function()
 		vim.bo.filetype = "keymap"
-		vim.cmd.nowrap = true
+		vim.wo.wrap = false
 	end,
 })
 
@@ -67,13 +67,3 @@ vim.api.nvim_create_autocmd(
 vim.cmd([[
     autocmd FileType alpha setlocal nofoldenable
 ]])
-
--- Autocommand: Map <leader>q in Avante sidebar to close it cleanly
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "AvanteSelectedFiles",
-	callback = function(event)
-		vim.keymap.set("n", "<leader>q", function()
-			require("avante").close_sidebar()
-		end, { buffer = event.buf, silent = true })
-	end,
-})

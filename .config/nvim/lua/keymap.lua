@@ -68,7 +68,6 @@ vim.keymap.set("n", "<leader>tm", "<cmd>MarkdownPreviewToggle<CR>", { silent = t
 vim.keymap.set("n", "Z", "<cmd>Telescope spell_suggest<CR>", { silent = true, desc = "Show spell suggests" })
 vim.keymap.set("n", "yc", "yy<cmd>normal gcc<CR>p", { silent = true, desc = "Duplicate a line and comment out the first line" })
 vim.keymap.set("n", "<leader>ts", "<cmd>Screenkey toggle<CR>", { silent = true, desc = "Toggle Screenkey" })
-vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { silent = true, desc = "Toggle Terminal" })
 
 -- LSP / Trouble
 -----------------------------------------------------------

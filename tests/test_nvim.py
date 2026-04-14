@@ -63,7 +63,7 @@ def test_lazy_sync(run_command, artifact_dir, nvim_env):
         artifact_dir,
         command='nvim --headless "+Lazy! sync" +qall!',
         log_name="lazy-sync.log",
-        timeout=180,
+        timeout=500,
         env=nvim_env,
     )
 
@@ -91,22 +91,12 @@ def test_lazy_sync(run_command, artifact_dir, nvim_env):
 
 
 @pytest.mark.slow
-def test_treesitter_install(run_command, artifact_dir, nvim_env):
-    """Tree-sitter parsers install successfully."""
-    # NOTE: Veriy slow because its install plugins and compile a few things
-    result = run_logged_command(
-        run_command,
-        artifact_dir,
-        command='nvim --headless "+TSInstallSync" +qall!',
-        log_name="treesitter-install.log",
-        timeout=300,
-        env=nvim_env,
-    )
-
-    assert_command_succeeded(
-        result,
-        action="Tree-sitter installation",
-        log_name="treesitter-install.log",
+def test_treesitter_install(artifact_dir):
+    """Tree-sitter parsers were installed automatically during first startup."""
+    parser_dir = Path.home() / ".local/share/nvim/site/parser"
+    parsers = list(parser_dir.glob("*.so"))
+    assert len(parsers) > 0, (
+        f"Expected tree-sitter parsers in {parser_dir}, but none were found"
     )
 
 

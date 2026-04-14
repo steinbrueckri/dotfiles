@@ -2,8 +2,10 @@ return {
 	-- Schema Store for JSON & YAML schemas
 	{ "b0o/schemastore.nvim" },
 
-	-- Mason & related plugins (unchanged)
+	-- Mason: package manager for LSP servers, formatters, linters
 	{ "williamboman/mason.nvim", config = true },
+
+	-- mason-tool-installer: manages formatters/linters (non-LSP tools)
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		dependencies = { "williamboman/mason.nvim" },
@@ -17,6 +19,8 @@ return {
 			},
 		},
 	},
+
+	-- mason-lspconfig: installs LSP servers and auto-enables them
 	{
 		"williamboman/mason-lspconfig.nvim",
 		dependencies = { "williamboman/mason.nvim" },
@@ -33,13 +37,14 @@ return {
 				"pyright",
 				"ansiblels",
 				"ruff",
+				"gopls",
+				"texlab",
 			},
-			automatic_installation = true,
+			automatic_enable = true,
 		},
 	},
 
 	-- null-ls (for additional sources not covered by conform.nvim)
-	-- Note: Formatting is handled by conform.nvim, not here
 	{
 		"jay-babu/mason-null-ls.nvim",
 		event = { "BufReadPre", "BufNewFile" },
@@ -54,7 +59,7 @@ return {
 		end,
 	},
 
-	-- Main LSP config: native Neovim 0.11+ API
+	-- nvim-lspconfig: provides server defaults; only custom overrides needed here
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
@@ -82,22 +87,13 @@ return {
 				},
 			})
 
-			-- Show diagnostics in a floating window when holding cursor
-			vim.o.updatetime = 250
-			vim.api.nvim_create_autocmd("CursorHold", {
-				callback = function()
-					vim.diagnostic.open_float(nil, { focus = false, scope = "line" })
-				end,
-			})
-
-			-- Diagnostic navigation key mappings
+			-- Diagnostic navigation
 			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
 			vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic" })
 			vim.keymap.set("n", "<leader>Q", vim.diagnostic.setloclist, { desc = "Diagnostics in loclist" })
 
-			-- LSP key mappings via LspAttach event
-			-- Note: Formatting is handled by conform.nvim, not here
+			-- LSP keymaps and native completion on attach
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(args)
 					local bufnr = args.buf
@@ -111,7 +107,7 @@ return {
 					vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 					vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
 
-					-- Neovim 0.12: native LSP completion (replaces cmp-nvim-lsp source)
+					-- Neovim 0.12: native LSP completion
 					local client = vim.lsp.get_client_by_id(args.data.client_id)
 					if client and client:supports_method("textDocument/completion") then
 						vim.lsp.completion.enable(true, args.data.client_id, bufnr, {
@@ -121,17 +117,14 @@ return {
 				end,
 			})
 
-			-- Language server configurations
-			vim.lsp.config("lua_ls", {})
-			vim.lsp.config("bashls", {})
-			vim.lsp.config("dockerls", {})
-			vim.lsp.config("html", {})
-			vim.lsp.config("marksman", {})
+			-- Custom server configs (only servers that need non-default settings)
 			vim.lsp.config("rumdl", {
 				cmd = { "rumdl", "server", "--stdio" },
 				filetypes = { "markdown" },
 				root_markers = { ".rumdl.toml", "rumdl.toml", ".markdownlint.yaml", ".markdownlint.json", ".git" },
 			})
+			vim.lsp.enable("rumdl") -- installed via mason-tool-installer, not mason-lspconfig
+
 			vim.lsp.config("pyright", {
 				settings = {
 					python = {
@@ -142,7 +135,6 @@ return {
 					},
 				},
 			})
-			vim.lsp.config("ruff", {})
 			vim.lsp.config("jsonls", {
 				settings = {
 					json = {
@@ -160,29 +152,10 @@ return {
 					},
 				},
 			})
-			vim.lsp.config("gopls", {})
 			vim.lsp.config("texlab", {
 				settings = {
 					texlab = { build = { args = { "-interaction=nonstopmode", "%f" } } },
 				},
-			})
-
-			-- Enable all configured language servers at once
-			vim.lsp.enable({
-				"lua_ls",
-				"bashls",
-				"dockerls",
-				"docker_compose_language_service",
-				"html",
-				"marksman",
-				"rumdl",
-				"pyright",
-				"ruff",
-				"jsonls",
-				"yamlls",
-				"ansiblels",
-				"gopls",
-				"texlab",
 			})
 		end,
 	},

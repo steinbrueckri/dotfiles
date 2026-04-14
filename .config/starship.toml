@@ -23,7 +23,7 @@ $time\n  \
 [󱞪](fg:iris) \
 """
 
-palette = "rose-pine-dawn"
+palette = "rose-pine-moon"
 command_timeout = 3600
 
 [palettes.rose-pine-dawn]

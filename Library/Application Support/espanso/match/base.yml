@@ -246,6 +246,7 @@ matches:
   - { replace: user, trigger: suer, propagate_case: true }
   - { replace: version, trigger: verison, propagate_case: true }
   - { replace: want, trigger: wnat, propagate_case: true }
+  - { replace: available, trigger: avalible, propagate_case: true }
   - { replace: what, trigger: waht, propagate_case: true }
   - { replace: which, trigger: whcih, propagate_case: true, word: true }
   - { replace: workflow, trigger: workflwo, propagate_case: true }

@@ -7,7 +7,7 @@ return {
 			ignore_buffers = { empty = false },
 			redirect_to_clipboard = true,
 			sync_clipboard = false,
-			sync_registers = true,
+			sync_registers = false,
 			sync_deletes = true,
 			sync_unnamed = true,
 		},
