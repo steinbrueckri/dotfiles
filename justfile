@@ -49,6 +49,14 @@ test-marker marker: build
     docker run -it --rm {{image_name}} pytest -m {{marker}} -v
 
 ################################################################################
+# Docs
+################################################################################
+
+# Regenerate keymapping tables in README.md using Claude (skips if configs unchanged)
+gen-keymapping:
+    @bash .dotfileassets/gen_keymapping_md_table.sh
+
+################################################################################
 # Lint
 ################################################################################
 

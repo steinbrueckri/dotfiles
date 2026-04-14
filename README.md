@@ -116,133 +116,119 @@ table is generate by ChatGPT so its maybe a lie. ;)
 <!-- markdownlint-disable -->
 
 <!-- generate-table-start -->
-### nvim Keybindings
+## nvim Keybindings
 
-| Mode | Key         | Action                                                                     |
-|------|-------------|----------------------------------------------------------------------------|
-| i    | jk          | Exit insert mode                                                           |
-| n    | <Esc>       | Clear search highlight                                                     |
-| n    | U           | Redo last undone change                                                    |
-| v    | <           | Indent left and reselect                                                   |
-| v    | >           | Indent right and reselect                                                  |
-| x    | <leader>x   | Delete without losing register contents                                    |
-| x    | <leader>p   | Paste over visual selection without losing register contents               |
-| n    | <Tab>       | Next buffer                                                                |
-| n    | <S-Tab>     | Previous buffer                                                            |
-| n    | <leader>q   | Close current buffer                                                       |
-| n    | <leader>Q   | Force close current buffer                                                 |
-| n    | <leader>bd  | Delete buffer                                                              |
-| n    | <leader>bm  | Delete all marks                                                           |
-| n    | <leader>w   | Save file                                                                  |
-| n    | <leader>N   | Create new buffer                                                          |
-| n    | <leader>e   | Toggle file tree                                                           |
-| n    | gF          | Create file and open                                                       |
-| n    | n           | Find next and center                                                       |
-| n    | N           | Find previous and center                                                   |
-| n    | <leader>fm  | Execute make target                                                        |
-| n    | <leader>fa  | Search in files                                                            |
-| n    | <leader>fc  | Search in config files                                                     |
-| n    | <leader>ff  | Search all files (ignoring .git)                                           |
-| n    | <leader>fe  | Find emojis                                                                |
-| n    | <leader>fp  | Show yank history                                                          |
-| n    | <leader>fo  | Show recent files                                                          |
-| n    | <leader>fr  | Open search and replace                                                    |
-| n    | <leader>ft  | Find open TODOs                                                            |
-| n    | <leader>gf  | Open Fork and show Git status                                              |
-| n    | <leader>gb  | Git blame line                                                             |
-| n    | <leader>gg  | Open line in Github                                                        |
-| n    | <leader>gl  | Open LazyGit                                                               |
-| n    | <leader>fb  | Find git branches                                                          |
-| n    | <leader>tw  | Toggle word wrap                                                           |
-| n    | <leader>ud  | Toggle database UI                                                         |
-| n    | <leader>tm  | Toggle Markdown preview                                                    |
-| n    | Z           | Show spell suggests                                                        |
-| n    | yc          | Duplicate a line and comment out the first line                            |
-| n    | <leader>ts  | Toggle Screenkey                                                           |
-| n    | <leader>tt  | Toggle Terminal                                                            |
-| n    | <leader>to  | Toggle Symbols                                                             |
-| n    | <leader>td  | Toggle Diagnostics                                                         |
-| n    | <leader>tl  | Toggle LSP Definitions                                                     |
-| n    | <leader>nn  | Create quick note                                                          |
-| n    | <leader>nf  | Search notes                                                               |
-| n    | <leader>no  | Open note in Silverbullet                                                  |
-| n    | <leader>tq  | Toggle quickfix list                                                       |
-| n    | ]q          | Next item quickfix list                                                    |
-| n    | [q          | Previous item quickfix list                                                |
-| n    | <leader><Up>    | Goto split up                                                             |
-| n    | <leader><Down>  | Goto split down                                                           |
-| n    | <leader><Left>  | Goto split left                                                           |
-| n    | <leader><Right> | Goto split right                                                          |
-| n    | <leader>sh      | Create horizontal split                                                   |
-| n    | <leader>sv      | Create vertical split                                                     |
+| Mode | Key | Description |
+|------|-----|-------------|
+| Insert | `jk` | Exit insert mode |
+| Normal | `<Esc>` | Clear search highlight |
+| Normal | `U` | Redo last undone change |
+| Visual | `<` | Indent left and reselect |
+| Visual | `>` | Indent right and reselect |
+| Visual | `<leader>x` | Delete without losing register contents |
+| Visual | `<leader>p` | Paste over visual selection without losing register contents |
+| Normal | `<Tab>` | Next buffer |
+| Normal | `<S-Tab>` | Previous buffer |
+| Normal | `<leader>q` | Close current buffer |
+| Normal | `<leader>Q` | Force close current buffer |
+| Normal | `<leader>bd` | Delete buffer |
+| Normal | `<leader>bm` | Delete all marks |
+| Normal | `<leader>w` | Save file |
+| Normal | `<leader>N` | Create new buffer |
+| Normal | `<leader>e` | Toggle file tree |
+| Normal | `gF` | Create file and open |
+| Normal | `n` | Find next and center |
+| Normal | `N` | Find previous and center |
+| Normal | `<leader>fm` | Execute make target |
+| Normal | `<leader>fa` | Search in files |
+| Normal | `<leader>fc` | Search in config files |
+| Normal | `<leader>ff` | Search all files (ignoring .git) |
+| Normal | `<leader>fe` | Find emojis |
+| Normal | `<leader>fp` | Show yank history |
+| Normal | `<leader>fo` | Show recent files |
+| Normal | `<leader>fr` | Open search and replace |
+| Normal | `<leader>ft` | Find open TODOs |
+| Normal | `<leader>gf` | Open Fork and show Git status |
+| Normal | `<leader>gb` | Git blame line |
+| Normal | `<leader>gg` | Open line in GitHub |
+| Normal | `<leader>gl` | Open LazyGit |
+| Normal | `<leader>fb` | Find git branches |
+| Normal | `<leader>tw` | Toggle word wrap |
+| Normal | `<leader>ud` | Toggle database UI |
+| Normal | `<leader>tm` | Toggle Markdown preview |
+| Normal | `Z` | Show spell suggestions |
+| Normal | `yc` | Duplicate line and comment out the first line |
+| Normal | `<leader>ts` | Toggle Screenkey |
+| Normal | `<leader>to` | Toggle Symbols |
+| Normal | `<leader>td` | Toggle Diagnostics |
+| Normal | `<leader>tl` | Toggle LSP Definitions |
+| Normal | `<leader>nn` | Create quick note |
+| Normal | `<leader>nf` | Search notes |
+| Normal | `<leader>no` | Open note in Silverbullet |
+| Normal | `<leader>tq` | Toggle quickfix list |
+| Normal | `]q` | Next item in quickfix list |
+| Normal | `[q` | Previous item in quickfix list |
+| Normal | `<leader><Up>` | Go to split above |
+| Normal | `<leader><Down>` | Go to split below |
+| Normal | `<leader><Left>` | Go to split left |
+| Normal | `<leader><Right>` | Go to split right |
+| Normal | `<leader>sh` | Create horizontal split |
+| Normal | `<leader>sv` | Create vertical split |
 
-### tmux Keybindings
+## tmux Keybindings
 
-| Key          | Action                                       |
-|--------------|----------------------------------------------|
-| C-a          | Send prefix                                  |
-| _            | Split window horizontally                     |
-| -            | Split window vertically                       |
-| h            | Switch to home                               |
-| u            | Switch to userlike                           |
-| C            | New window                                   |
-| y            | Toggle synchronize-panes and display message  |
-| v            | Enter copy mode                              |
-| p            | Paste buffer                                 |
-| r            | Reload ~/.tmux.conf and display message      |
-| - (copy-mode)| Copy-pipe-and-cancel to clipboard            |
+| Key | Description |
+|-----|-------------|
+| `prefix + s` | Open sesh picker popup |
+| `prefix + h` | Switch to default session |
+| `prefix + C-a` | Send prefix key |
+| `prefix + _` | Split window horizontally |
+| `prefix + -` | Split window vertically |
+| `prefix + C` | Create new window |
+| `prefix + y` | Toggle synchronize panes |
+| `prefix + v` | Enter copy mode |
+| `prefix + p` | Paste buffer |
+| `prefix + r` | Reload tmux config |
+| Copy mode: `MouseDragEnd1Pane` | Copy selection to clipboard via pbcopy |
 
-### Fish Aliases
+## Fish Aliases
 
-| Alias                | Command                                                                                       |
-|----------------------|-----------------------------------------------------------------------------------------------|
-| vim                  | nvim                                                                                          |
-| vi                   | nvim                                                                                          |
-| v                    | nvim                                                                                          |
-| n                    | nvim                                                                                          |
-| nvim-switch-nightly  | bob use nightly                                                                              |
-| nvim-switch-stable   | bob use stable                                                                               |
-| lg                   | lazygit                                                                                      |
-| lgd                  | lazydot                                                                                      |
-| lazydot              | lazygit -ucd ~/.local/share/yadm/lazygit -w ~ -g ~/.local/share/yadm/repo.git                |
-| lol                  | git log --pretty=oneline --abbrev-commit --graph --decorate                                   |
-| gp                   | git pull                                                                                      |
-| kx                   | kubectx                                                                                      |
-| k                    | kubectl                                                                                      |
-| kc                   | kubecolor                                                                                    |
-| kn                   | kubens                                                                                       |
-| k-debug              | kubectl run --namespace default -i --tty 'debug-default-$USER' --image=steinbrueckri/debug --restart=Never --rm=true -- bash |
-| k-debug-app          | kubectl run --namespace istio-apps -i --tty 'debug-$USER' --image=steinbrueckri/debug --restart=Never --rm=true -- bash |
-| newpyenv             | uv venv .venv --python 3.12 && echo '{ "venvPath": ".", "venv": ".venv", "include": ["src", "tests"], "exclude": ["**/__pycache__", ".pytest_cache", ".ruff_cache", ".venv"] }' > pyrightconfig.json && mkdir -p src tests && source .venv/bin/activate.fish |
-| activate_env_datacenter | source ~/Userlike/UserlikeDatacenter/.venv/bin/activate.fish                               |
-| activate_env_code    | source ~/Userlike/Userlike/.venv/bin/activate.fish                                           |
-| gcpil                | gcloud compute instances list                                                                |
-| gcpal                | gcloud compute addresses list                                                                |
-| gcpssh               | gcloud compute ssh                                                                           |
-| gcpsshi              | gcloud compute ssh --internal-ip                                                             |
-| gcpsshiap            | gcloud compute ssh --tunnel-through-iap                                                      |
-| gcprdpiap            | gcloud compute start-iap-tunnel $1 3389 --local-host-port=localhost:3389 --zone=$2           |
-| do                   | doctl                                                                                        |
-| do-new               | doctl compute droplet create tmp --region ams3 --size s-2vcpu-2gb --image ubuntu-22-04-x64 --user-data-file .dotfileassets/digitalocean-cloudinit.yaml --ssh-keys "df:17:95:8d:31:56:39:27:d1:04:e3:12:52:36:ed:5b" |
-| do-new-ssh           | ssh $(doctl compute droplet list | grep tmp | awk "{ print $3}")                             |
-| localvm              | multipass launch -c 4 -m 4G -d 50G -n localvm 20.04 --cloud-init .dotfileassets/multipass-common.yaml |
-| dr                   | docker run -it --rm --entrypoint /bin/sh                                                     |
-| rm-images            | docker rmi (docker images -q)                                                                |
-| tssh                 | tsh ssh (tsh ls \| tail --lines=+3 \| fzf -e \| head -n 1 \| cut -d ' ' -f1)                  |
-| pwgen                | date +%s \| sha256sum \| base64 \| head -c 32 ; echo                                        |
-| cat                  | bat                                                                                          |
-| hosts                | hosts --auto-sudo                                                                            |
-| ls                   | eza --icons                                                                                  |
-| top                  | btop                                                                                         |
-| watch                | viddy                                                                                        |
-| myip                 | curl -s -H "Accept: application/json" ipinfo.io \| jq -r .ip                                  |
-| ag                   | rg                                                                                           |
-| tailscale            | /Applications/Tailscale.app/Contents/MacOS/Tailscale                                         |
-| sslcheck             | nmap --script ssl-cert -p 443                                                                |
-| sslyze               | docker run --rm -it nablac0d3/sslyze:latest                                                 |
-| lightmode            | themr rose-pine-dawn                                                                         |
-| darkmode             | themr rose-pine-moon                                                                         |
-| kill-ansible-ssh     | ps aux \| grep "ansible-" \| grep "\[mux\]" \| awk "{print \$2}" \| xargs kill -9            |
+| Alias | Command |
+|-------|---------|
+| `vim` | `nvim` |
+| `vi` | `nvim` |
+| `v` | `nvim` |
+| `n` | `nvim` |
+| `nvim-switch-nightly` | `bob use nightly` |
+| `nvim-switch-stable` | `bob use stable` |
+| `ss` | `sesh picker -i` |
+| `lg` | `lazygit` |
+| `lgd` | `lazydot` |
+| `lazydot` | `lazygit -ucd ~/.local/share/yadm/lazygit -w ~ -g ~/.local/share/yadm/repo.git` |
+| `lol` | `git log --pretty=oneline --abbrev-commit --graph --decorate` |
+| `gp` | `git pull` |
+| `newpyenv` | `uv venv .venv --python 3.12 && echo '...' > pyrightconfig.json && mkdir -p src tests && source .venv/bin/activate.fish` |
+| `activate_env_datacenter` | `source ~/Userlike/UserlikeDatacenter/.venv/bin/activate.fish` |
+| `activate_env_code` | `source ~/Userlike/Userlike/.venv/bin/activate.fish` |
+| `dr` | `docker run -it --rm --entrypoint /bin/sh` |
+| `rm-images` | `docker rmi (docker images -q)` |
+| `tssh` | `tsh ssh (tsh ls \| tail --lines=+3 \| fzf -e \| head -n 1 \| cut -d ' ' -f1)` |
+| `pwgen` | `date +%s \| sha256sum \| base64 \| head -c 32 ; echo` |
+| `cat` | `bat` |
+| `hosts` | `hosts --auto-sudo` |
+| `ls` | `eza --icons` |
+| `top` | `btop` |
+| `watch` | `viddy` |
+| `myip` | `curl -s -H "Accept: application/json" ipinfo.io \| jq -r .ip` |
+| `ag` | `rg` |
+| `sslcheck` | `nmap --script ssl-cert -p 443` |
+| `sslyze` | `docker run --rm -it nablac0d3/sslyze:latest` |
+| `lightmode` | `themr rose-pine-dawn` |
+| `darkmode` | `themr rose-pine-moon` |
+| `kill-ansible-ssh` | `ps aux \| grep "ansible-" \| grep "[mux]" \| awk "{print $2}" \| xargs kill -9` |
+| `mail` | `aerc` |
+| `news` | `newsboat` |
+| `whatsapp` | `TERM=xterm-256color nchat` |
 <!-- generate-table-stop -->
 <!-- markdownlint-restore -->
 

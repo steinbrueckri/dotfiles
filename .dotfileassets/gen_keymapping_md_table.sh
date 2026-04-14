@@ -2,33 +2,63 @@
 set -e
 
 ################################################################################
-# config
+# Config
 ################################################################################
-# define the chatgpt modle we want to use
-MODEL="gpt-4o"
-# create a temp file to build the up the content we will then write to the README.md
+
 TEMP_FILE=$(mktemp)
 README_PATH="$(pwd)/README.md"
+
 ################################################################################
-# functions
+# Functions
 ################################################################################
+
 add_section() {
     echo -e "\n### $1" >> prompt
 }
 
+cleanup() {
+    rm -f prompt keymapping_table.md "$TEMP_FILE"
+}
+trap cleanup EXIT
+
 ################################################################################
-# create prompt
+# Check if rebuild is needed
 ################################################################################
-echo "💫 generate prompt"
-echo "Hello ChatGPT, please generate markdown tables for my README.md based on the following configurations:
+
+files="$HOME/.config/nvim/lua/keymap.lua $HOME/.tmux.conf $HOME/.config/fish/config.fish"
+readme_mtime=$(stat -f %m "$README_PATH")
+newer_file=false
+
+for file in $files; do
+    if [[ ! -f "$file" ]]; then
+        echo "Warning: $file not found, skipping mtime check."
+        continue
+    fi
+    file_mtime=$(stat -f %m "$file")
+    if [[ $file_mtime -gt $readme_mtime ]]; then
+        newer_file=true
+        break
+    fi
+done
+
+if [[ $newer_file != true ]]; then
+    echo "No config file is newer than README.md — skipping regeneration."
+    exit 0
+fi
+
+################################################################################
+# Build prompt
+################################################################################
+
+echo "Please generate markdown tables for my README.md based on the following configurations:
 
 1. Keybindings from my nvim config
 2. Keybindings from my tmux config
 3. Aliases from my fish config
 
-Every Keybinding from tmux and nvim need to be in the table the same applies for the alias table.
-Output only the markdown tables without additional text and annotations like markdown codeblocks or something, as I will pipe your output directly into the README.md.
-" > prompt
+Include every keybinding from tmux and nvim in the respective table. The same applies for the alias table.
+Output only the markdown tables without any additional text, annotations, or markdown code blocks.
+The output will be inserted directly into README.md." > prompt
 
 add_section "nvim Keybindings"
 cat .config/nvim/lua/keymap.lua >> prompt
@@ -39,51 +69,20 @@ grep "^bind" .tmux.conf >> prompt
 add_section "Fish Aliases"
 grep "^alias" .config/fish/config.fish >> prompt
 
-# check if it makes sens to rebuild the keybinding table in the readme.
-files="$HOME/.config/nvim/lua/keymap.lua $HOME/.tmux.conf $HOME/.config/fish/config.fish"
+################################################################################
+# Generate table with Claude
+################################################################################
 
-# Get modification time of README.md
-readme_mtime=$(stat -f %m README.md)
+echo "Sending prompt to Claude..."
+claude -p "$(cat prompt)" > keymapping_table.md
 
-# Flag to indicate if any file is newer
-newer_file=false
+################################################################################
+# Inject into README.md
+################################################################################
 
-# Loop through all files
-for file in $files; do
-  # Get modification time of the current file
-  file_mtime=$(stat -f %m "$file")
-
-  # If the file is newer than README.md, set the flag
-  if [[ $file_mtime -gt $readme_mtime ]]; then
-    newer_file=true
-    break  # Exit the loop as soon as one newer file is found
-  fi
-done
-
-# If any file is newer, execute the command
-if [[ $newer_file == true ]]; then
-  echo "💸 One or more files are newer than README.md regenerate the table with ChatGPT"
-  echo "🔑 get openapi api key"
-  export OPENAI_API_KEY=$(op --account pixel-combo.1password.com item get OPENAI_API_KEY --reveal --field password)
-  echo "🤞 send prompt to ChatGPT ($MODEL)"
-  chatgpt --model $MODEL < prompt > keymapping_table.md
-else
-  echo "⏸ No file is newer then the README so we dont regenerate the table to save some costs."
-  exit 0
-fi
-
-# takes the content of the original README.md from the TOP to the spot we want to insert the table
 grep -B100000 "<!-- generate-table-start -->" "$README_PATH" > "$TEMP_FILE"
-
 cat keymapping_table.md >> "$TEMP_FILE"
-
-# takes the content of the original README.md from the BOOTOM to the spot we want to insert the table
 grep -A100000 "<!-- generate-table-stop -->" "$README_PATH" >> "$TEMP_FILE"
-
-# overview the original README.d with the temp file we have build up
 cat "$TEMP_FILE" > "$README_PATH"
 
-# cleanup promt file
-echo "🗑 cleanup"
-rm prompt
-rm keymapping_table.md
+echo "Done. README.md updated."
