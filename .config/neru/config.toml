@@ -1,6 +1,6 @@
 [hotkeys]
 "Cmd+Shift+Space" = "hints --action left_click"
-"Home" = "hints --action left_click --bare"
+"PageDown" = "hints --action left_click"
 "PageUp" = "scroll"
 
 [scroll.hotkeys]

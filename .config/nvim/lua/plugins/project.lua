@@ -6,6 +6,5 @@ return {
 		patterns = { ".git", "Makefile", "package.json", "init.lua" },
 		show_hidden = false,
 		silent_chdir = true,
-		datapath = vim.fn.stdpath("data"),
 	},
 }
