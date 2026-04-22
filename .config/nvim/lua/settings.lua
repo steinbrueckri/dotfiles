@@ -60,8 +60,12 @@ g.loaded_perl_provider = 0
 -----------------------------------------------------------
 -- Neovim 0.12: ui2
 -----------------------------------------------------------
--- Eliminates "Press Enter" interruptions, adds command-line highlighting
-require("vim._core.ui2").enable({})
+-- Eliminates "Press Enter" interruptions, adds command-line highlighting.
+-- Guard against non-interactive invocations (e.g. vim-startuptime, headless
+-- scripts) where ui2 blocks on terminal I/O and causes hangs.
+if vim.fn.has("ttyin") == 1 then
+  require("vim._core.ui2").enable({})
+end
 
 -----------------------------------------------------------
 -- Other stuff
