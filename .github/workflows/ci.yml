@@ -16,8 +16,19 @@ jobs:
       - name: Install Just
         uses: taiki-e/install-action@just
 
+      - name: Lint
+        run: just lint-md
+
       - name: Run tests
-        run: just lint-md && just test
+        run: mkdir -p .test_results && chmod 777 .test_results && just test
+
+      - name: Upload test logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-logs
+          path: .test_results/
+          if-no-files-found: ignore
 
       - name: Surface failing tests
         if: always()
