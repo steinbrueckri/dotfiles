@@ -35,6 +35,10 @@ jobs:
           path: .test_results/
           if-no-files-found: ignore
 
+      - name: Fix git safe directory for annotations
+        if: always()
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - name: Surface failing tests
         if: always()
         uses: pmeier/pytest-results-action@main
