@@ -1,0 +1,10 @@
+[tools]
+node = "lts"
+direnv = "latest"
+jq = "latest"
+ripgrep = "latest"
+fd = "latest"
+delta = "latest"
+vivid = "latest"
+tree-sitter = "latest"
+"aqua:rhysd/vim-startuptime" = "latest"

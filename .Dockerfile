@@ -22,12 +22,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install packages from yadm bootstrap to speedup the tests
 RUN apt-get update && apt-get install -y --no-install-recommends $(cat .config/yadm/packages_deb.list)
 
-# Install zyedidia/eget, to install github release like nothing
-RUN cd /usr/local/bin && curl https://zyedidia.github.io/eget.sh | sh
-
-# Install rhysd/vim-startuptime
-RUN eget rhysd/vim-startuptime --to=/usr/local/bin
-
 # Create a new user
 RUN useradd -ms /bin/bash -G sudo testuser
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
@@ -39,8 +33,11 @@ WORKDIR /home/testuser
 # Install UV for Python dependency management
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 
+# Install mise (tool version manager)
+RUN curl https://mise.run | sh
+
 # Set env variables
-ENV PATH="$PATH:/home/testuser/.local/bin:/home/testuser/.cargo/bin"
+ENV PATH="/home/testuser/.local/share/mise/shims:/home/testuser/.local/bin:/home/testuser/.cargo/bin:$PATH"
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
 # Fix permissions
@@ -51,6 +48,11 @@ ENV PATH="/home/testuser/.venv/bin:$PATH"
 
 # Install Python dependencies with UV (creates venv + lock file + installs deps)
 RUN uv sync
+
+# Install tools from mise config
+# GITHUB_TOKEN is mounted as a build secret to avoid rate limiting (never stored in image)
+RUN --mount=type=secret,id=github_token,required=false,uid=1000 \
+    bash -c 'export GITHUB_TOKEN="$(cat /run/secrets/github_token 2>/dev/null)"; mise install --yes'
 
 # Start shell
 CMD ["/bin/bash"]
