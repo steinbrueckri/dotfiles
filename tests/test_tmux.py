@@ -1,9 +1,10 @@
-import os
 import time
 from pathlib import Path
 
 import libtmux
 import pytest
+
+from conftest import assert_command_succeeded, assert_executable_exists
 
 
 @pytest.fixture
@@ -36,13 +37,6 @@ def tpm_bootstrapped(tmux_server, wait_until) -> Path:
         session.kill()
 
 
-def assert_executable_exists(path: Path, description: str) -> None:
-    """Assert that a file exists and is executable."""
-    assert path.exists(), f"Expected {description} to exist: {path}"
-    assert path.is_file(), f"Expected {description} to be a file: {path}"
-    assert os.access(path, os.X_OK), f"Expected {description} to be executable: {path}"
-
-
 @pytest.mark.integration
 def test_tpm_bootstrap(tpm_bootstrapped):
     """TPM is bootstrapped automatically when tmux loads .tmux.conf."""
@@ -50,7 +44,7 @@ def test_tpm_bootstrap(tpm_bootstrapped):
 
 
 @pytest.mark.integration
-def test_tpm_install(tpm_bootstrapped, run_command, wait_until, artifact_dir):
+def test_tpm_install(tpm_bootstrapped, run_logged_command, wait_until):
     """TPM install script installs the configured tmux plugins."""
     plugins_dir = Path.home() / ".tmux/plugins"
     tpm_repo_dir = tpm_bootstrapped.parent
@@ -64,16 +58,13 @@ def test_tpm_install(tpm_bootstrapped, run_command, wait_until, artifact_dir):
 
     assert_executable_exists(install_script, "TPM install script")
 
-    result = run_command(str(install_script), timeout=120)
-
-    (artifact_dir / "tpm-install.log").write_text(
-        f"{result.stdout}\n\nSTDERR:\n{result.stderr}"
+    result = run_logged_command(
+        command=str(install_script),
+        log_name="tpm-install.log",
+        timeout=120,
     )
 
-    assert result.returncode == 0, (
-        f"TPM install script failed with exit code {result.returncode}. "
-        "See tpm-install.log for details."
-    )
+    assert_command_succeeded(result, action="TPM install script", log_name="tpm-install.log")
 
     wait_until(
         lambda: all(

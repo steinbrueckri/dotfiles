@@ -19,18 +19,9 @@ export DOCKER_BUILDKIT := "1"
 # Tests
 ################################################################################
 
-# Run tests (excludes slow tests)
+# Run all tests
 test: build
-    @echo "Running tests (excluding slow)..."
-    @mkdir -p .test_results
-    docker run --name {{container_name}} -i \
-        -v {{justfile_directory()}}/.test_results:{{testresult_path}} \
-        --rm {{image_name}} bash -c \
-        "pytest -m 'not slow' --junitxml={{testresult_path}}/unit-test-result.xml"
-
-# Run all tests including slow ones
-test-all: build
-    @echo "Running all tests..."
+    @echo "Running tests..."
     @mkdir -p .test_results
     docker run --name {{container_name}} -i \
         -v {{justfile_directory()}}/.test_results:{{testresult_path}} \
@@ -40,7 +31,10 @@ test-all: build
 # Run tests in debug mode (drops to shell on failure)
 test-debug: build
     @echo "Running tests in debug mode..."
-    docker run --name {{container_name}} -it --rm {{image_name}} bash -c \
+    @mkdir -p .test_results
+    docker run --name {{container_name}} -it \
+        -v {{justfile_directory()}}/.test_results:{{testresult_path}} \
+        --rm {{image_name}} bash -c \
         "pytest -vv -s --tb=short || bash"
 
 # Run specific test marker
@@ -92,5 +86,8 @@ shell: build
 
 # Build the Docker image
 build:
-    @echo "Building Docker image..."
-    docker build -t {{image_name}} -f .Dockerfile .
+    #!/usr/bin/env bash
+    echo "Building Docker image..."
+    docker build \
+        ${GITHUB_TOKEN:+--secret id=github_token,env=GITHUB_TOKEN} \
+        -t {{image_name}} -f .Dockerfile .

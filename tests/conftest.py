@@ -22,7 +22,7 @@ def run_command():
         }
         if capture:
             kwargs.update({"capture_output": True, "text": True})
-        
+
         result = subprocess.run(cmd, **kwargs)
         if check and result.returncode != 0:
             raise AssertionError(f"Command failed: {cmd}\n{result.stderr}")
@@ -50,3 +50,30 @@ def wait_until():
             time.sleep(interval)
         raise TimeoutError(error_msg)
     return _wait
+
+
+@pytest.fixture
+def run_logged_command(run_command, artifact_dir):
+    """Run a shell command and write its output to a log file in artifact_dir."""
+    def _run(*, command: str, log_name: str, timeout: int, env=None):
+        result = run_command(command, timeout=timeout, env=env)
+        (artifact_dir / log_name).write_text(f"{result.stdout}\n\nSTDERR:\n{result.stderr}")
+        return result
+    return _run
+
+
+def assert_command_succeeded(result, *, action: str, log_name: str) -> None:
+    assert result.returncode == 0, (
+        f"{action} failed with exit code {result.returncode}. "
+        f"See {log_name} for details."
+    )
+
+
+def assert_file_exists(path: Path, description: str) -> None:
+    assert path.exists(), f"Expected {description} to exist: {path}"
+
+
+def assert_executable_exists(path: Path, description: str) -> None:
+    assert path.exists(), f"Expected {description} to exist: {path}"
+    assert path.is_file(), f"Expected {description} to be a file: {path}"
+    assert os.access(path, os.X_OK), f"Expected {description} to be executable: {path}"

@@ -19,8 +19,13 @@ jobs:
       - name: Lint
         run: just lint-md
 
+      - name: Create test results directory
+        run: mkdir -p .test_results && chmod 777 .test_results
+
       - name: Run tests
-        run: mkdir -p .test_results && chmod 777 .test_results && just test
+        run: just test
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload test logs
         if: failure()

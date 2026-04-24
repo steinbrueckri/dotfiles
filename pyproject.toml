@@ -19,7 +19,6 @@ markers = [
     "smoke: Quick version/binary checks",
     "bootstrap: Bootstrap and installation tests",
     "integration: Multi-step integration tests",
-    "slow: Tests taking >30s (nvim Lazy/Mason)",
     "flaky: Known flaky tests (use sparingly)",
 ]
 timeout = 300

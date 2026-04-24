@@ -4,6 +4,8 @@ from pathlib import Path
 
 import pytest
 
+from conftest import assert_command_succeeded, assert_file_exists
+
 
 BOB_NVIM_BIN = Path.home() / ".local/share/bob/nightly/bin"
 
@@ -16,62 +18,17 @@ def nvim_env() -> dict[str, str]:
     return env
 
 
-def write_command_log(
-    artifact_dir: Path,
-    filename: str,
-    stdout: str,
-    stderr: str,
-) -> None:
-    """Write command output to an artifact log for debugging."""
-    (artifact_dir / filename).write_text(f"{stdout}\n\nSTDERR:\n{stderr}")
-
-
-def run_logged_command(
-    run_command,
-    artifact_dir: Path,
-    *,
-    command: str,
-    log_name: str,
-    timeout: int,
-    env: dict[str, str] | None = None,
-):
-    """Run a command and store its output as a test artifact."""
-    result = run_command(command, timeout=timeout, env=env)
-    write_command_log(artifact_dir, log_name, result.stdout, result.stderr)
-    return result
-
-
-def assert_command_succeeded(result, *, action: str, log_name: str) -> None:
-    """Assert that a command completed successfully."""
-    assert result.returncode == 0, (
-        f"{action} failed with exit code {result.returncode}. "
-        f"See {log_name} for details."
-    )
-
-
-def assert_file_exists(path: Path, description: str) -> None:
-    """Assert that an expected file exists."""
-    assert path.exists(), f"Expected {description} to exist: {path}"
-
-
 @pytest.mark.bootstrap
-@pytest.mark.slow
-def test_lazy_sync(run_command, artifact_dir, nvim_env):
+def test_lazy_sync(run_logged_command, nvim_env):
     """Lazy sync completes successfully and bootstraps required files."""
     result = run_logged_command(
-        run_command,
-        artifact_dir,
         command='nvim --headless "+Lazy! sync" +qall!',
         log_name="lazy-sync.log",
         timeout=500,
         env=nvim_env,
     )
 
-    assert_command_succeeded(
-        result,
-        action="Lazy sync",
-        log_name="lazy-sync.log",
-    )
+    assert_command_succeeded(result, action="Lazy sync", log_name="lazy-sync.log")
 
     home = Path.home()
     expected_files = [
@@ -90,8 +47,7 @@ def test_lazy_sync(run_command, artifact_dir, nvim_env):
         assert_file_exists(path, description)
 
 
-@pytest.mark.slow
-def test_treesitter_install(artifact_dir):
+def test_treesitter_install():
     """Tree-sitter parsers were installed automatically during first startup."""
     parser_dir = Path.home() / ".local/share/nvim/site/parser"
     parsers = list(parser_dir.glob("*.so"))
@@ -100,38 +56,29 @@ def test_treesitter_install(artifact_dir):
     )
 
 
-@pytest.mark.slow
 @pytest.mark.flaky(reruns=3, reruns_delay=2)
 @pytest.mark.parametrize(
     "package",
     ["stylua", "jq", "black", "isort", "yamlfmt", "rumdl", "pylint"],
 )
-def test_mason_install(package, run_command, artifact_dir, nvim_env):
+def test_mason_install(package, run_logged_command, nvim_env):
     """Mason installs required tools successfully."""
     log_name = f"mason-{package}.log"
 
     result = run_logged_command(
-        run_command,
-        artifact_dir,
         command=f'nvim --headless "+MasonInstall {package} --force" +qall!',
         log_name=log_name,
         timeout=120,
         env=nvim_env,
     )
 
-    assert_command_succeeded(
-        result,
-        action=f"Mason install for {package}",
-        log_name=log_name,
-    )
+    assert_command_succeeded(result, action=f"Mason install for {package}", log_name=log_name)
 
 
 @pytest.mark.integration
-def test_checkhealth(run_command, artifact_dir, nvim_env):
+def test_checkhealth(run_logged_command, artifact_dir, nvim_env):
     """Neovim health check reports expected healthy components."""
     result = run_logged_command(
-        run_command,
-        artifact_dir,
         command='nvim --headless "+checkhealth" "+w! health.log" +qa',
         log_name="checkhealth-command.log",
         timeout=60,
@@ -139,9 +86,7 @@ def test_checkhealth(run_command, artifact_dir, nvim_env):
     )
 
     assert_command_succeeded(
-        result,
-        action="Neovim checkhealth",
-        log_name="checkhealth-command.log",
+        result, action="Neovim checkhealth", log_name="checkhealth-command.log"
     )
 
     health_log = Path("health.log").read_text()
@@ -167,22 +112,16 @@ def test_checkhealth(run_command, artifact_dir, nvim_env):
 
 
 @pytest.mark.integration
-def test_startup_time(run_command, artifact_dir, nvim_env):
+def test_startup_time(run_logged_command, nvim_env):
     """Neovim startup time stays below the agreed threshold."""
     result = run_logged_command(
-        run_command,
-        artifact_dir,
         command="vim-startuptime -vimpath nvim",
         log_name="vim-startuptime.log",
         timeout=60,
         env=nvim_env,
     )
 
-    assert_command_succeeded(
-        result,
-        action="vim-startuptime",
-        log_name="vim-startuptime.log",
-    )
+    assert_command_succeeded(result, action="vim-startuptime", log_name="vim-startuptime.log")
 
     match = re.search(r"Total Average:\s+([\d.]+)", result.stdout)
     assert match, (
@@ -198,11 +137,9 @@ def test_startup_time(run_command, artifact_dir, nvim_env):
 
 
 @pytest.mark.integration
-def test_nvim_headless_no_errors(run_command, artifact_dir, nvim_env):
+def test_nvim_headless_no_errors(run_logged_command, nvim_env):
     """Neovim starts in headless mode without reporting startup errors."""
     result = run_logged_command(
-        run_command,
-        artifact_dir,
         command='nvim --headless "+qall!"',
         log_name="nvim-headless.log",
         timeout=30,
@@ -210,9 +147,7 @@ def test_nvim_headless_no_errors(run_command, artifact_dir, nvim_env):
     )
 
     assert_command_succeeded(
-        result,
-        action="Neovim headless startup",
-        log_name="nvim-headless.log",
+        result, action="Neovim headless startup", log_name="nvim-headless.log"
     )
 
     output = f"{result.stdout}\n{result.stderr}"
