@@ -21,12 +21,17 @@ export DOCKER_BUILDKIT := "1"
 
 # Run all tests
 test: build
-    @echo "Running tests..."
-    @mkdir -p .test_results
-    docker run --name {{container_name}} -i \
-        -v {{justfile_directory()}}/.test_results:{{testresult_path}} \
-        --rm {{image_name}} bash -c \
+    #!/usr/bin/env bash
+    echo "Running tests..."
+    mkdir -p .test_results
+    docker rm -f {{container_name}} 2>/dev/null || true
+    docker run --name {{container_name}} \
+        {{image_name}} bash -c \
         "pytest -v --junitxml={{testresult_path}}/unit-test-result.xml"
+    EXIT_CODE=$?
+    docker cp "{{container_name}}:{{testresult_path}}." .test_results/ 2>/dev/null || true
+    docker rm {{container_name}} 2>/dev/null || true
+    exit $EXIT_CODE
 
 # Run tests in debug mode (drops to shell on failure)
 test-debug: build

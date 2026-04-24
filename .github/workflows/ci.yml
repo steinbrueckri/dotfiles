@@ -19,9 +19,6 @@ jobs:
       - name: Lint
         run: just lint-md
 
-      - name: Create test results directory
-        run: mkdir -p .test_results && chmod 777 .test_results
-
       - name: Run tests
         run: just test
         env:
