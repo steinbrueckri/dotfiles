@@ -8,7 +8,7 @@ dependencies = [
     "pytest-rerunfailures>=16.1",
     "libtmux>=0.55.1",
     "gitpython==3.1.32",
-    "pynetbox==7.4.0",
+    "pynetbox==7.6.1",
     "python-dotenv==1.0.0",
     "pyyaml==6.0.1",
 ]
