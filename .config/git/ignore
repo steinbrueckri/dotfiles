@@ -9,3 +9,4 @@ tags
 .terraform.lock.hcl
 packer_compiled.lua
 pyrightconfig.json
+.pnpm-store/

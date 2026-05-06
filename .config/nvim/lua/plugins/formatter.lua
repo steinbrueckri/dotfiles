@@ -1,5 +1,7 @@
 return {
 	"stevearc/conform.nvim",
+	event = { "BufWritePre" },
+	cmd = { "ConformInfo" },
 	keys = {
 		{
 			"<Leader> ",
@@ -10,10 +12,8 @@ return {
 			desc = "Format",
 		},
 	},
-	lazy = false,
-	config = function()
-		require("conform").setup({
-			formatters_by_ft = {
+	opts = {
+		formatters_by_ft = {
 			jinja = { "djlint" },
 			htmldjango = { "djlint" },
 			lua = { "stylua" },
@@ -26,30 +26,27 @@ return {
 			python = { "ruff_format" },
 			["*"] = { "trim_whitespace" },
 		},
-
-			-- Auto-format beim Speichern
-			format_on_save = {
-				lsp_format = "fallback",
-				timeout_ms = 500,
+		format_on_save = {
+			lsp_format = "fallback",
+			timeout_ms = 500,
+		},
+		formatters = {
+			rumdl = {
+				command = "rumdl",
+				args = { "fmt", "-", "--quiet" },
+				stdin = true,
 			},
-		})
-
-		-- Custom settings for formatters
-		require("conform").formatters.rumdl = {
-			command = "rumdl",
-			args = { "fmt", "-", "--quiet" },
-			stdin = true,
-		}
-		require("conform").formatters.djlint = {
-			command = "djlint",
-			args = { "--reformat", "--quiet", "-" },
-			stdin = true,
-		}
-		require("conform").formatters.yamlfmt = {
-			prepend_args = {
-				"-formatter",
-				"retain_line_breaks=true,eof_newline=true,include_document_start=true",
+			djlint = {
+				command = "djlint",
+				args = { "--reformat", "--quiet", "-" },
+				stdin = true,
 			},
-		}
-	end,
+			yamlfmt = {
+				prepend_args = {
+					"-formatter",
+					"retain_line_breaks=true,eof_newline=true,include_document_start=true",
+				},
+			},
+		},
+	},
 }
