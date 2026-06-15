@@ -1,1 +1,6 @@
 #:schema https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json
+
+[[session]]
+name = "home"
+path = "~"
+startup_command = "tmux rename-window shell; tmux new-window -n email 'aerc'; tmux new-window -n news 'newsboat'; tmux select-window -t home:shell"

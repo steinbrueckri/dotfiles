@@ -44,21 +44,6 @@ return {
 		},
 	},
 
-	-- null-ls (for additional sources not covered by conform.nvim)
-	{
-		"jay-babu/mason-null-ls.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = { "williamboman/mason.nvim", "nvimtools/none-ls.nvim" },
-		config = function()
-			local null_ls = require("null-ls")
-			null_ls.setup({
-				sources = {
-					null_ls.builtins.completion.spell,
-				},
-			})
-		end,
-	},
-
 	-- nvim-lspconfig: provides server defaults; only custom overrides needed here
 	{
 		"neovim/nvim-lspconfig",
@@ -107,13 +92,6 @@ return {
 					vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 					vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
 
-					-- Neovim 0.12: native LSP completion
-					local client = vim.lsp.get_client_by_id(args.data.client_id)
-					if client and client:supports_method("textDocument/completion") then
-						vim.lsp.completion.enable(true, args.data.client_id, bufnr, {
-							autotrigger = true,
-						})
-					end
 				end,
 			})
 

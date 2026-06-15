@@ -1,0 +1,7 @@
+# ringo configuration
+# See: https://github.com/davidborzek/ringo#configuration
+
+[baresip.extra]
+audio_codecs = "PCMA,PCMU"
+video_codecs = ""
+sip_trace = "yes"

@@ -1,0 +1,3 @@
+# Rendered Ringo profiles contain secrets and call history — never commit.
+# Templates (*.toml.tmpl) live directly in profiles/ and stay tracked.
+/profiles/*/

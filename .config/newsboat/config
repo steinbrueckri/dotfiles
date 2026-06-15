@@ -13,8 +13,23 @@ browser "open %u"
 # Ask for confirmation when quiting.
 confirm-exit yes
 
-# Disable reloading all feeds at start up.
+# Enable reloading all feeds at start up.
 refresh-on-startup yes
+
+# Use multiple threads for faster reloading.
+reload-threads 4
+
+# Hide feeds with no unread articles.
+show-read-feeds no
+
+# Max articles to keep per feed.
+max-items 50
+
+# Article list format: index, feed, date, tags, title.
+articlelist-format "%4i %f %D  %?T?[%-17T] ?%t"
+
+# Wrap article text at 80 characters.
+text-width 80
 
 ################################################################################
 # Keybindings
@@ -40,8 +55,9 @@ bind-key Q quit
 bind-key ENTER open-in-browser-and-mark-read
 
 # open the article in browser
-macro SPACE set browser "open -g %u"; open-in-browser-and-mark-read -- "Open in browser"
-macro c     set browser "cha %u"; open-in-browser-and-mark-read -- "Open in w3m"
+macro SPACE set browser "open -g %u"; open-in-browser-and-mark-read ; set browser "open %u" -- "Open in browser"
+macro c     set browser "cha %u"; open-in-browser-and-mark-read ; set browser "open %u" -- "Open in cha"
+macro t     set browser "docker run --rm -it termread %u"; open-in-browser-and-mark-read ; set browser "open %u" -- "Open in termread"
 macro w     set browser "yt-dlp --get-url %u | xargs -I {} open -a iina {}"; open-in-browser
 
 # copy url to clipboard "yank" (via tmux clipboard and pbcopy)
