@@ -124,8 +124,8 @@ alias n="nvim"
 alias nvim-switch-nightly="bob use nightly"
 alias nvim-switch-stable="bob use stable"
 
-# tmux / sesh
-alias ss="sesh picker -i"
+# tmux / switcher
+alias ss="switcher picker"
 
 # lazygit / git
 alias lg="lazygit"
@@ -162,6 +162,7 @@ alias darkmode="themr rose-pine-moon"
 alias kill-ansible-ssh='ps aux | grep "ansible-" | grep "\[mux\]" | awk "{print \$2}" | xargs kill -9'
 alias mail="aerc"
 alias news="newsboat"
+alias irc="weechat"
 # `phone` is provided as an autoload function in functions/phone.fish
 # (renders the SIP profile from 1Password, then starts Ringo).
 alias whatsapp="TERM=xterm-256color nchat"

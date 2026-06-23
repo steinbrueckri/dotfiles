@@ -1,30 +1,18 @@
-tap "adembc/tap"
-tap "anomalyco/tap"
+tap "anomalyco/tap", "https://github.com/anomalyco/homebrew-tap.git"
 tap "arl/arl"
 tap "atlassian/acli"
-tap "azhuchkov/tools"
 tap "boz/repo"
 tap "browsh-org/browsh"
-tap "buildpacks/tap"
 tap "charmbracelet/tap"
-tap "chojs23/tap"
 tap "comcast/opensource"
 tap "creativeprojects/tap"
-tap "d99kris/nchat"
-tap "deprecatedluar/tap"
-tap "eddieantonio/eddieantonio"
-tap "emqx/mqttx"
 tap "etopeter/tap"
 tap "github/gh"
 tap "graalvm/tap"
 tap "grafana/grafana"
 tap "hashicorp/tap"
-tap "hettysoft/tap"
 tap "jason0x43/neovim-nightly"
-tap "jaxxstorm/tap"
-tap "jesseduffield/horcrux"
 tap "k0sproject/tap"
-tap "kardolus/chatgpt-cli"
 tap "mat2cc/tap"
 tap "morantron/tmux-fingers"
 tap "nikitabobko/tap"
@@ -33,10 +21,7 @@ tap "opencode-ai/tap"
 tap "qnkhuat/tap"
 tap "ramonvermeulen/whosthere"
 tap "rootlyhq/tap"
-tap "snyk/tap"
 tap "steinbrueckri/packages"
-tap "stencilframe/autopilot"
-tap "tobi/try", "https://github.com/tobi/try"
 tap "txn2/tap"
 tap "updatecli/updatecli"
 tap "vitobotta/tap"
@@ -44,8 +29,6 @@ tap "warrensbox/tap"
 tap "xo/xo"
 tap "y3owk1n/tap"
 tap "zdcthomas/tools"
-# Run your GitHub Actions locally
-brew "act"
 # GNU Transport Layer Security (TLS) Library
 brew "gnutls"
 # Cryptography and SSL/TLS Toolkit
@@ -70,8 +53,6 @@ brew "aqbanking"
 brew "libpcap"
 # ARP scanning and fingerprinting tool
 brew "arp-scan"
-# Record and share terminal sessions
-brew "asciinema"
 # Extendable version manager with support for Ruby, Node.js, Erlang & more
 brew "asdf"
 # Spell checker with better logic than ispell
@@ -86,8 +67,6 @@ brew "restic"
 brew "autorestic"
 # Official Amazon AWS command-line interface
 brew "awscli"
-# B2 Cloud Storage Command-Line Tools
-brew "b2-tools"
 # Terminal bandwidth utilization tool
 brew "bandwhich"
 # Modular SIP useragent
@@ -122,14 +101,10 @@ brew "chawan"
 brew "choose-rust"
 # Cross-platform make
 brew "cmake"
-# Get a file from an HTTP, HTTPS or FTP server
-brew "curl", link: true
-# Libraries to talk to Microsoft SQL Server and Sybase databases
-brew "freetds"
-# Dependency Manager for PHP
-brew "composer"
 # Securely send things from one computer to another
 brew "croc"
+# Get a file from an HTTP, HTTPS or FTP server
+brew "curl", link: true
 # JSON, YAML, TOML, XML, and CSV query and modification tool
 brew "dasel"
 # Load/unload environment variables based on $PWD
@@ -184,6 +159,8 @@ brew "fish"
 brew "fortio"
 # Scriptable ping program for checking if multiple hosts are up
 brew "fping"
+# Libraries to talk to Microsoft SQL Server and Sybase databases
+brew "freetds"
 # Terminal JSON viewer
 brew "fx"
 # Command-line fuzzy finder written in Go
@@ -300,8 +277,6 @@ brew "jqp"
 brew "just"
 # Console carddav client
 brew "khard"
-# Run local Kubernetes cluster in Docker
-brew "kind"
 # Tool to move from `docker-compose` to Kubernetes
 brew "kompose"
 # Lazier way to manage everything docker
@@ -346,8 +321,6 @@ brew "msmtp"
 brew "mtr"
 # Ncurses UI for QEMU
 brew "nemu"
-# E-mail reader with support for Notmuch, NNTP and much more
-brew "neomutt"
 # No Nonsense Neovim Client in Rust
 brew "neovide"
 # TUI log viewer with timeline histogram and no central server
@@ -552,8 +525,6 @@ brew "yj"
 brew "ykman"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
-# Feature-rich command-line audio/video downloader
-brew "yt-dlp"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
 # Password manager that keeps all passwords secure behind one password
@@ -620,8 +591,6 @@ cask "font-ubuntu-nerd-font"
 cask "font-victor-mono-nerd-font"
 # GIT client
 cask "fork"
-# Web browser
-cask "google-chrome"
 # Tools to protect your emails and files
 cask "gpg-suite"
 # Keyboard shortcuts for every button on your screen
@@ -632,8 +601,6 @@ cask "iina"
 cask "karabiner-elements"
 # GPU-based terminal emulator
 cask "kitty"
-# Software for communication systems developers
-cask "linphone"
 # Full TeX Live distribution with GUI applications
 cask "mactex"
 # Open-source software for live streaming and screen recording
@@ -658,8 +625,6 @@ cask "vivid-app"
 cask "whatsapp"
 # Local network discovery tool with an interactive Terminal User Interface (TUI) written in Go.
 cask "ramonvermeulen/whosthere/whosthere"
-# Network protocol analyzer
-cask "wireshark-app"
 # Open-source version of the X.Org X Window System
 cask "xquartz"
 mas "GarageBand", id: 682658836
