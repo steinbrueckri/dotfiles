@@ -3,7 +3,7 @@ name = "dotfiles-tests"
 version = "0.1.0"
 requires-python = ">=3.11"
 dependencies = [
-    "pytest>=9.1.0",
+    "pytest>=9.1.1",
     "pytest-timeout>=2.4.0",
     "pytest-rerunfailures>=16.2",
     "libtmux>=0.58.1",
