@@ -67,3 +67,11 @@ vim.api.nvim_create_autocmd(
 vim.cmd([[
     autocmd FileType alpha setlocal nofoldenable
 ]])
+
+-- Move cursor to end of file when replying in aerc to prevent top-posting (TOFU)
+vim.api.nvim_create_autocmd("BufWinEnter", {
+	pattern = "*/aerc-*.eml",
+	callback = function()
+		vim.cmd("normal! G")
+	end,
+})

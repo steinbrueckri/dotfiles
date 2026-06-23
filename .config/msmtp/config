@@ -1,0 +1,23 @@
+# ~/.config/msmtp/config
+
+defaults
+auth           on
+tls            on
+tls_starttls   off
+logfile        ~/.local/state/msmtp/msmtp.log
+
+account pixel-combo
+host           smtp.gmail.com
+port           465
+from           r.steinbrueck@pixel-combo.de
+user           r.steinbrueck@pixel-combo.de
+passwordeval   op item get "Google (Pixel-Combo)" --field "aerc" --reveal --account pixel-combo.1password.com
+
+account private
+host           smtp.gmail.com
+port           465
+from           richard.steinbrueck@googlemail.com
+user           richard.steinbrueck@googlemail.com
+passwordeval   op item get "Google (Privat)" --field "aerc" --reveal --account pixel-combo.1password.com
+
+account default : private

@@ -1,5 +1,11 @@
 [user]
-name = Richard Steinbrueck
-email = r.steinbrueck@pixel-combo.de
-signingkey = "key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPFfUM9A7QI7EsnoZYaqCDZKHY1nuOcZb93pfsrpHsVS"
+  name = Richard Steinbrueck
+  email = r.steinbrueck@pixel-combo.de
+  signingkey = "key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPFfUM9A7QI7EsnoZYaqCDZKHY1nuOcZb93pfsrpHsVS"
 
+[sendemail]
+  sendmailCmd = /opt/homebrew/bin/msmtp --account=pixel-combo
+  from = Richard Steinbrück <r.steinbrueck@pixel-combo.de>
+  annotate = true
+  confirm = always
+  suppresscc = self

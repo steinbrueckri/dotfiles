@@ -1,21 +1,5 @@
 return {
 	{
-		"tzachar/cmp-tabnine",
-		build = "./install.sh",
-		event = "InsertEnter",
-		config = function()
-			local tabnine = require("cmp_tabnine.config")
-			tabnine:setup({
-				max_lines = 1000,
-				max_num_results = 20,
-				sort = true,
-				run_on_every_keystroke = true,
-				snippet_placeholder = "..",
-				show_prediction_strength = true,
-			})
-		end,
-	},
-	{
 		"L3MON4D3/LuaSnip",
 		event = "InsertEnter",
 		dependencies = { { "saadparwaiz1/cmp_luasnip" }, { "rafamadriz/friendly-snippets" } },
@@ -100,6 +84,7 @@ return {
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
 		dependencies = {
+			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "hrsh7th/cmp-buffer" },
 			{ "hrsh7th/cmp-path" },
 			{ "mtoohey31/cmp-fish" },
@@ -142,9 +127,9 @@ return {
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
 				}),
 				sources = cmp.config.sources({
+					{ name = "nvim_lsp", priority = 1000, max_item_count = 10 },
 					{ name = "luasnip", priority = 750, max_item_count = 5 },
-					{ name = "cmp_tabnine", priority = 500, max_item_count = 5 },
-					{ name = "buffer", priority = 250, max_item_count = 5 },
+{ name = "buffer", priority = 250, max_item_count = 5 },
 					{ name = "rg", priority = 200, max_item_count = 5 },
 					{ name = "tmux", priority = 150, max_item_count = 5, option = { all_panes = true } },
 					{ name = "path", priority = 100, max_item_count = 5 },

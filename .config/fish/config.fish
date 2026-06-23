@@ -162,7 +162,10 @@ alias darkmode="themr rose-pine-moon"
 alias kill-ansible-ssh='ps aux | grep "ansible-" | grep "\[mux\]" | awk "{print \$2}" | xargs kill -9'
 alias mail="aerc"
 alias news="newsboat"
+# `phone` is provided as an autoload function in functions/phone.fish
+# (renders the SIP profile from 1Password, then starts Ringo).
 alias whatsapp="TERM=xterm-256color nchat"
+alias weather="curl wttr.in/gotha?1pq"
 
 #######################################################################
 #                                Exports                              #
@@ -189,6 +192,7 @@ set -gx OBJC_DISABLE_INITIALIZE_FORK_SAFETY YES
 # Teleport: disable adding keys to the agent
 # https://github.com/gravitational/teleport/issues/22326
 set -gx TELEPORT_ADD_KEYS_TO_AGENT no
+set -gx OPTP_ITEM Teleport
 
 # Disable mise, see /opt/homebrew/share/fish/vendor_conf.d/mise-activate.fish
 set -gx MISE_FISH_AUTO_ACTIVATE 0
@@ -266,6 +270,105 @@ end
 function loadsshkey
     eval $(op signin --account pixel-combo.1password.com)
     op item get xo5tj3nxex65km7gdj5r4algni --fields=Private-Key --reveal | sed 's/\"//g' | sed '$d' | sed '1,1d' | ssh-add -
+end
+
+function teleport_login -d "Automate login to Teleport using 1Password credentials"
+    for arg in $argv
+        switch $arg
+            case '--help'
+                set_color cyan; echo "Teleport Login Automation Script"; set_color normal
+                echo "Usage:"
+                set_color yellow; echo "    teleport_login [--help]"; set_color normal
+                echo ""
+                set_color cyan; echo "Environment Variables:"; set_color normal
+                set_color green
+                echo "    OPTP_ITEM"
+                echo "        Description: 1Password item title or UUID. The proxy hostname is"
+                echo "                     derived from the item's primary URL automatically."
+                echo "        Example: set -gx OPTP_ITEM 'Teleport'"
+                set_color normal
+                return
+        end
+    end
+
+    if not set -q OPTP_ITEM
+        echo "OPTP_ITEM environment variable not set. Run 'teleport_login --help' for more information." >&2
+        return 1
+    end
+
+    # Teleport login logic
+    set -l teleport_status
+    tsh status 2>&1 | read -z teleport_status
+
+    if string match -q "*Logged in as*" $teleport_status
+        if not string match -q "*[EXPIRED]*" $teleport_status
+            set_color magenta
+            echo "You are already logged in to Teleport:"
+            set_color normal
+            echo ""
+
+            for line in (string split \n $teleport_status)
+                if not string match -q -r '\S' $line
+                    continue
+                end
+                echo $line
+            end
+
+            echo ""
+            set_color yellow
+            echo "To logout, use this command:"
+            set_color green
+            echo "tsh logout"
+            set_color normal
+            return 2
+        end
+    end
+
+    # Fetch credentials and proxy URL from the 1Password item
+    set -l item_json (op item get $OPTP_ITEM --format json 2>/dev/null)
+    if test $status -ne 0; or test -z "$item_json"
+        echo "Failed to get item '$OPTP_ITEM' from 1Password" >&2
+        return 1
+    end
+
+    set -l proxy (echo $item_json | jq -r '.urls[] | select(.primary) | .href' | string replace -r 'https?://' '')
+    if test -z "$proxy"
+        echo "No primary URL found in 1Password item '$OPTP_ITEM'" >&2
+        return 1
+    end
+
+    set -l username (op item get $OPTP_ITEM --fields username 2>/dev/null)
+    if test $status -ne 0; or test -z "$username"
+        echo "Failed to get username from 1Password item '$OPTP_ITEM'" >&2
+        return 1
+    end
+
+    set -l password (op item get $OPTP_ITEM --fields password --reveal 2>/dev/null)
+    if test $status -ne 0; or test -z "$password"
+        echo "Failed to get password from 1Password item '$OPTP_ITEM'" >&2
+        return 1
+    end
+
+    set -l otp (op item get $OPTP_ITEM --otp 2>/dev/null)
+    if test $status -ne 0; or test -z "$otp"
+        echo "Failed to get OTP from 1Password item '$OPTP_ITEM'" >&2
+        return 1
+    end
+
+    expect -c "
+        log_user 0
+        spawn tsh login --proxy $proxy --user $username
+        expect {
+            -re \"Enter password for Teleport user $username:\" {
+                send -- \"$password\r\"
+                exp_continue
+            }
+            -re \"Enter an OTP code from a device:\" {
+                send -- \"$otp\r\"
+            }
+        }
+        interact
+    "
 end
 
 #######################################################################
