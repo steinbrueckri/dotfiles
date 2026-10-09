@@ -33,14 +33,6 @@ return {
 		config = true,
 	},
 	{
-		"ethanholz/nvim-lastplace",
-		opts = {
-			lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
-			lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
-			lastplace_open_folds = true,
-		},
-	},
-	{
 		"catgoose/nvim-colorizer.lua",
 		event = "BufReadPre",
 		opts = {
@@ -53,17 +45,20 @@ return {
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",
-		opts = {},
+		lazy = false,
+		priority = 1000, -- load the colorscheme before all other plugins
+		config = function(_, opts)
+			require("rose-pine").setup(opts)
+			vim.cmd.colorscheme("rose-pine-moon")
+		end,
 	},
 	{
 		"2kabhishek/nerdy.nvim",
-		event = "VeryLazy",
-		dependencies = { "stevearc/dressing.nvim", "nvim-telescope/telescope.nvim" },
 		cmd = "Nerdy",
 	},
 	{
 		"Bekaboo/dropbar.nvim",
-		-- optional, but required for fuzzy finder support
+		-- optional native fzf library, used by dropbar's fuzzy finder (no telescope needed)
 		dependencies = {
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
@@ -80,8 +75,7 @@ return {
 		event = "VeryLazy",
 		priority = 1000,
 		config = function()
-			require("tiny-inline-diagnostic").setup()
-			vim.diagnostic.config({ virtual_text = false }) -- Disable Neovim's default virtual text diagnostics
+			require("tiny-inline-diagnostic").setup() -- virtual_text is disabled in lsp-config.lua
 		end,
 	},
 }

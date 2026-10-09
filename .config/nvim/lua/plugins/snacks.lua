@@ -18,6 +18,8 @@ return {
 				height = 0.9,
 			},
 			indent = {},
+			input = {}, -- replaces vim.ui.input
+			picker = {}, -- also replaces vim.ui.select
 			notifier = {},
 			gitbrowse = {},
 			quickfile = {},

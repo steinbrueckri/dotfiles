@@ -1,8 +1,8 @@
 return {
 	{
 		"L3MON4D3/LuaSnip",
-		event = "InsertEnter",
-		dependencies = { { "saadparwaiz1/cmp_luasnip" }, { "rafamadriz/friendly-snippets" } },
+		lazy = true, -- loaded by blink.cmp
+		dependencies = { "rafamadriz/friendly-snippets" },
 		build = "make install_jsregexp",
 		config = function()
 			local ls = require("luasnip")
@@ -81,68 +81,59 @@ return {
 		end,
 	},
 	{
-		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
+		"saghen/blink.cmp",
+		version = "1.*", -- release tags ship prebuilt fuzzy matcher binaries
+		-- No lazy loading: blink handles that itself and must register its LSP
+		-- capabilities before the first language server starts.
+		lazy = false,
 		dependencies = {
-			{ "hrsh7th/cmp-nvim-lsp" },
-			{ "hrsh7th/cmp-buffer" },
-			{ "hrsh7th/cmp-path" },
-			{ "mtoohey31/cmp-fish" },
-			{ "hrsh7th/cmp-nvim-lua" },
-			{ "andersevenrud/cmp-tmux" },
-			{ "hrsh7th/cmp-emoji" },
-			{ "lukas-reineke/cmp-rg" },
-			{ "onsails/lspkind-nvim" },
+			"L3MON4D3/LuaSnip",
+			"mikavilpas/blink-ripgrep.nvim",
+			"mgalliou/blink-cmp-tmux",
+			-- cmp-fish has no native blink port, so it runs through the nvim-cmp compat layer
+			{ "saghen/blink.compat", version = "2.*", lazy = true, opts = {} },
+			{ "mtoohey31/cmp-fish", lazy = true },
 		},
-		config = function()
-			local cmp = require("cmp")
-			local lspkind = require("lspkind")
-
-			cmp.setup({
-				snippet = {
-					expand = function(args)
-						require("luasnip").lsp_expand(args.body)
-					end,
+		opts = {
+			-- enter: <CR> accepts, <C-Space> shows, <C-e> hides, <C-b>/<C-f> scroll docs
+			keymap = { preset = "enter" },
+			snippets = { preset = "luasnip" },
+			completion = {
+				menu = { border = "rounded" },
+				documentation = {
+					auto_show = true,
+					window = { border = "rounded", max_width = 80, max_height = 20 },
 				},
-				window = {
-					completion = cmp.config.window.bordered({
-						border = "rounded",
-						winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
-						scrollbar = true,
-						col_offset = -3,
-						side_padding = 1,
-					}),
-					documentation = cmp.config.window.bordered({
-						border = "rounded",
-						winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
-						max_width = 80,
-						max_height = 20,
-					}),
+			},
+			-- Command-line completion stays native (ui2 / tiny-cmdline)
+			cmdline = { enabled = false },
+			sources = {
+				default = { "lsp", "snippets", "buffer", "ripgrep", "tmux", "path" },
+				per_filetype = {
+					lua = { inherit_defaults = true, "lazydev" },
+					fish = { inherit_defaults = true, "fish" },
+					sql = { inherit_defaults = true, "dadbod" },
+					mysql = { inherit_defaults = true, "dadbod" },
+					plsql = { inherit_defaults = true, "dadbod" },
 				},
-				mapping = cmp.mapping.preset.insert({
-					["<C-b>"] = cmp.mapping.scroll_docs(-4),
-					["<C-f>"] = cmp.mapping.scroll_docs(4),
-					["<C-Space>"] = cmp.mapping.complete(),
-					["<C-e>"] = cmp.mapping.abort(),
-					["<CR>"] = cmp.mapping.confirm({ select = true }),
-				}),
-				sources = cmp.config.sources({
-					{ name = "nvim_lsp", priority = 1000, max_item_count = 10 },
-					{ name = "luasnip", priority = 750, max_item_count = 5 },
-{ name = "buffer", priority = 250, max_item_count = 5 },
-					{ name = "rg", priority = 200, max_item_count = 5 },
-					{ name = "tmux", priority = 150, max_item_count = 5, option = { all_panes = true } },
-					{ name = "path", priority = 100, max_item_count = 5 },
-					{ name = "fish", priority = 50, max_item_count = 5 },
-				}),
-				formatting = {
-					format = lspkind.cmp_format({
-						mode = "symbol_text",
-						maxwidth = 50,
-						ellipsis_char = "...",
-					}),
+				providers = {
+					lsp = { max_items = 10 },
+					snippets = { max_items = 5 },
+					buffer = { max_items = 5 },
+					path = { max_items = 5 },
+					lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
+					ripgrep = { name = "Ripgrep", module = "blink-ripgrep", max_items = 5, score_offset = -5 },
+					tmux = {
+						name = "tmux",
+						module = "blink-cmp-tmux",
+						max_items = 5,
+						score_offset = -6,
+						opts = { panes = "all" },
+					},
+					fish = { name = "fish", module = "blink.compat.source", max_items = 5 },
+					dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
 				},
-			})
-		end,
+			},
+		},
 	},
 }

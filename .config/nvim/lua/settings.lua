@@ -3,25 +3,19 @@
 -----------------------------------------------------------
 local g = vim.g -- global variables
 local opt = vim.opt -- global/buffer/windows-scoped options
-local wo = vim.wo -- windows-local options
 
 ----------------------------------------------------------
 -- General
 -----------------------------------------------------------
-wo.cursorline = true -- cursor in line
+opt.cursorline = true -- cursor in line
 -- wo.cursorcolumn = true -- cursor in column
 opt.shell = "/bin/bash" -- I use fish but it slow for running internal commands
 g.mapleader = " " -- change leader to a space
 g.maplocalleader = "," -- change localleader to a comma
-opt.mouse = "a" -- enable mouse support
 opt.clipboard = "unnamedplus" -- copy/paste to system clipboard
 opt.swapfile = false -- don't use swapfile
-local undodir = vim.fn.expand("~/.local/state/nvim/undo") -- undofile related
-vim.fn.mkdir(undodir, "p") -- undofile related
-opt.undodir = undodir -- undofile related
-opt.undofile = true -- undofile related
-opt.undolevels = 10000 -- undofile related
-opt.undoreload = 10000 -- undofile related
+opt.undofile = true -- persistent undo (default undodir: stdpath("state")/undo)
+opt.undolevels = 10000 -- keep more undo steps than the default 1000
 opt.number = true -- show line number
 opt.relativenumber = true -- relative file numbers
 opt.showmatch = true -- highlight matching parenthesis
@@ -32,12 +26,10 @@ opt.splitbelow = true -- orizontal split to the bottom
 opt.ignorecase = true -- ignore case letters when search
 opt.smartcase = true -- ignore lowercase for the whole pattern
 opt.hlsearch = true -- highlight searches
-opt.termguicolors = true -- we support termguicolors
 opt.updatetime = 300 -- more responsiveness
 opt.scrolloff = 5 -- scrolling "bounding"
 opt.sidescrolloff = 5 -- scrolling "bounding"
 opt.laststatus = 3 -- global statusline enable
-opt.hidden = true -- abandon buffer when unloading
 opt.backup = false -- some language servers dont like backup files
 opt.writebackup = false -- some language servers dont like backup files
 opt.shortmess = vim.o.shortmess .. "c" -- avoid some prompts?
@@ -45,7 +37,6 @@ opt.tabstop = 2 -- buffer options
 opt.softtabstop = 2 -- implicit tab size
 opt.shiftwidth = 2 -- another kind of stabstop
 opt.expandtab = true -- convert tabs to spaces
-opt.autoindent = true -- convert tabs to spaces
 opt.signcolumn = "yes" -- put numbers and signs in the same column
 
 -----------------------------------------------------------
@@ -64,7 +55,7 @@ g.loaded_perl_provider = 0
 -- Guard against non-interactive invocations (e.g. vim-startuptime, headless
 -- scripts) where ui2 blocks on terminal I/O and causes hangs.
 if vim.fn.has("ttyin") == 1 then
-  require("vim._core.ui2").enable({})
+	require("vim._core.ui2").enable({})
 end
 
 -----------------------------------------------------------

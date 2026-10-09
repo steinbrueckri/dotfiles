@@ -3,12 +3,12 @@ return {
 	{ "b0o/schemastore.nvim" },
 
 	-- Mason: package manager for LSP servers, formatters, linters
-	{ "williamboman/mason.nvim", config = true },
+	{ "mason-org/mason.nvim", config = true },
 
 	-- mason-tool-installer: manages formatters/linters (non-LSP tools)
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		dependencies = { "williamboman/mason.nvim" },
+		dependencies = { "mason-org/mason.nvim" },
 		opts = {
 			ensure_installed = {
 				"stylua",
@@ -22,8 +22,8 @@ return {
 
 	-- mason-lspconfig: installs LSP servers and auto-enables them
 	{
-		"williamboman/mason-lspconfig.nvim",
-		dependencies = { "williamboman/mason.nvim" },
+		"mason-org/mason-lspconfig.nvim",
+		dependencies = { "mason-org/mason.nvim" },
 		opts = {
 			ensure_installed = {
 				"lua_ls",
@@ -39,6 +39,8 @@ return {
 				"ruff",
 				"gopls",
 				"texlab",
+				"tofu_ls", -- OpenTofu / Terraform
+				"helm_ls", -- Helm charts (runs yamlls with the Kubernetes schema on templates)
 			},
 			automatic_enable = true,
 		},
@@ -66,32 +68,27 @@ return {
 				severity_sort = true,
 				float = {
 					border = "rounded",
-					source = "always",
+					source = true,
 					header = "",
 					prefix = "",
 				},
 			})
 
-			-- Diagnostic navigation
-			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
-			vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
+			-- Diagnostic navigation: [d / ]d are Neovim defaults
 			vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic" })
-			vim.keymap.set("n", "<leader>Q", vim.diagnostic.setloclist, { desc = "Diagnostics in loclist" })
 
-			-- LSP keymaps and native completion on attach
+			-- LSP keymaps on attach. Neovim already provides K (hover), grr (references),
+			-- gri (implementation), grn (rename), gra (code action) and grt (type definition).
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(args)
-					local bufnr = args.buf
-					local opts = { buffer = bufnr }
-					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-					vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-					vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-					vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-					vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-					vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
-
+					local function map(mode, lhs, rhs, desc)
+						vim.keymap.set(mode, lhs, rhs, { buffer = args.buf, desc = desc })
+					end
+					map("n", "gd", vim.lsp.buf.definition, "Goto definition")
+					map("n", "gD", vim.lsp.buf.declaration, "Goto declaration")
+					map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
+					map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code action")
+					map("n", "<leader>D", vim.lsp.buf.type_definition, "Goto type definition")
 				end,
 			})
 
@@ -102,6 +99,30 @@ return {
 				root_markers = { ".rumdl.toml", "rumdl.toml", ".markdownlint.yaml", ".markdownlint.json", ".git" },
 			})
 			vim.lsp.enable("rumdl") -- installed via mason-tool-installer, not mason-lspconfig
+
+			-- tflint comes from mise (same version as CI), so it is enabled here
+			-- instead of being installed by mason-lspconfig. Projects without a
+			-- tflint version get no client instead of a failing one.
+			vim.lsp.config("tflint", {
+				root_dir = function(bufnr, on_dir)
+					local root = vim.fs.root(bufnr, { ".terraform", ".git", ".tflint.hcl" })
+					if root and require("functions").tool_runs({ "tflint", "--version" }, root) then
+						on_dir(root)
+					end
+				end,
+			})
+			vim.lsp.enable("tflint")
+
+			-- Also attach to .tfvars files; tofu-ls expects its own language ids
+			vim.lsp.config("tofu_ls", {
+				filetypes = { "opentofu", "opentofu-vars", "terraform", "terraform-vars" },
+				get_language_id = function(_, filetype)
+					return ({ ["terraform-vars"] = "opentofu-vars" })[filetype] or filetype
+				end,
+			})
+
+			-- Kubernetes manifests get their schema from the file content
+			require("kubernetes").setup()
 
 			vim.lsp.config("pyright", {
 				settings = {

@@ -1,3 +1,7 @@
+# The following lines were added by Docker Desktop to add commands to your PATH.
+export PATH="$PATH:/Users/richardsteinbrueck/.docker/bin"
+# End of Docker Desktop section.
+
 # ███████╗██╗███████╗██╗  ██╗
 # ██╔════╝██║██╔════╝██║  ██║
 # █████╗  ██║███████╗███████║
@@ -12,7 +16,7 @@
 #######################################################################
 
 # Set default theme
-set THEME rose-pine-dawn
+set THEME rose-pine-moon
 
 # Set default username to hide user@host
 set DEFAULT_USER steinbrueckri
@@ -100,6 +104,10 @@ bind \cf __fzf_reverse_isearch
 #######################################################################
 
 fundle plugin sentriz/fish-pipenv
+# UserlikeDatacenter activates its venv through direnv, so dirvenv must not
+# try to manage (and deactivate) it there.
+set -gx DIRVENV_IGNORE ~/Userlike/UserlikeDatacenter
+
 fundle plugin cuducos/dirvenv.fish
 fundle init
 
@@ -124,8 +132,8 @@ alias n="nvim"
 alias nvim-switch-nightly="bob use nightly"
 alias nvim-switch-stable="bob use stable"
 
-# tmux / switcher
-alias ss="switcher picker"
+# tmux / sesh
+alias ss="sesh connect (sesh list --icons | fzf --ansi --no-sort --prompt '⚡  ')"
 
 # lazygit / git
 alias lg="lazygit"
@@ -143,6 +151,12 @@ alias activate_env_code="source ~/Userlike/Userlike/.venv/bin/activate.fish"
 alias dr="docker run -it --rm --entrypoint /bin/sh"
 alias rm-images="docker rmi (docker images -q)"
 
+# Kubernetes
+alias k="kubectl"
+alias kx="kubectl-ctx"
+alias kn="kubectl-ns"
+alias k9s="sofka"
+
 # Teleport
 alias tssh="tsh ssh (tsh ls | tail --lines=+3 | fzf -e | head -n 1 | cut -d ' ' -f1)"
 
@@ -150,7 +164,7 @@ alias tssh="tsh ssh (tsh ls | tail --lines=+3 | fzf -e | head -n 1 | cut -d ' ' 
 alias pwgen="date +%s | sha256sum | base64 | head -c 32 ; echo"
 alias cat="bat "
 alias hosts="hosts --auto-sudo"
-alias ls="eza --icons"
+alias ls="lla --icons"
 alias top="btop"
 alias watch="viddy"
 alias myip='curl -s -H "Accept: application/json" ipinfo.io | jq -r .ip'
@@ -167,6 +181,7 @@ alias irc="weechat"
 # (renders the SIP profile from 1Password, then starts Ringo).
 alias whatsapp="TERM=xterm-256color nchat"
 alias weather="curl wttr.in/gotha?1pq"
+alias devbox="ssh steinbrueckri@devbox.services.ts.steinbrueck.io"
 
 #######################################################################
 #                                Exports                              #
@@ -384,6 +399,11 @@ end
 # Load try
 if command -v try >/dev/null
     eval (try init ~/tmp/tries | string collect)
+end
+
+# scw
+if command -v scw >/dev/null
+    eval (scw autocomplete script shell=fish)
 end
 
 # Load direnv

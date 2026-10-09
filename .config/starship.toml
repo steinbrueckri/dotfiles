@@ -2,6 +2,7 @@ format = """
 $username\
 $hostname\
 $directory\
+$kubernetes\
 $git_branch\
 $git_status\
 $status\
@@ -23,7 +24,7 @@ $time\n  \
 [󱞪](fg:iris) \
 """
 
-palette = "rose-pine-dawn"
+palette = "rose-pine-moon"
 command_timeout = 3600
 
 [palettes.rose-pine-dawn]
@@ -188,3 +189,11 @@ style = "bg:overlay fg:pine"
 format = " [](fg:overlay)[ $symbol$environment ]($style)[](fg:overlay)"
 disabled = false
 symbol = "🅒 "
+
+[kubernetes]
+disabled = false
+format = "[](fg:overlay)[ ☸ $context( :: $namespace) ]($style)[](fg:overlay) "
+style = "bg:overlay fg:gold"
+detect_extensions = []
+detect_files = []
+detect_folders = []

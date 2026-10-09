@@ -1,7 +1,6 @@
 return {
 	"gbprod/yanky.nvim",
 	event = "VeryLazy",
-	dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
 	keys = {
 		{
 			"y",
@@ -24,9 +23,5 @@ return {
 		{ "<c-p>", "<Plug>(YankyCycleBackward)", desc = "Select previous entry through yank history" },
 		{ "<c-n>", "<Plug>(YankyCycleForward)", desc = "Select next entry through yank history" },
 	},
-	config = function()
-		require("yanky").setup({})
-
-		require("telescope").load_extension("yank_history")
-	end,
+	opts = {},
 }

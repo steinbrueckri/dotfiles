@@ -47,3 +47,9 @@ newsboat:
   path: "~/.config/newsboat/config"
   regex: 'include ".*rose-pine-.*"'
   replace: 'include "~/.config/newsboat/themes/rose-pine-{}"'
+
+k9s:
+  type: colorscheme
+  path: "~/.config/k9s/config.yaml"
+  regex: "skin: rose-pine-.*"
+  replace: "skin: rose-pine-{}"

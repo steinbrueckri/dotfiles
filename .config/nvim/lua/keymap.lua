@@ -3,6 +3,11 @@
 -----------------------------------------------------------
 -- Note: Leader keys are defined in settings.lua
 
+local functions = require("functions")
+
+-- One mapping per line is easier to scan than stylua's wrapped layout
+-- stylua: ignore start
+
 -- General Mappings
 -----------------------------------------------------------
 vim.keymap.set("i", "jk", "<Esc>", { desc = "Exit insert mode" })
@@ -35,22 +40,20 @@ end, { silent = true, desc = "Delete all marks" })
 -----------------------------------------------------------
 vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { silent = true, desc = "Save file" })
 vim.keymap.set("n", "<leader>N", "<cmd>enew<CR>", { silent = true, desc = "Create new buffer" })
-vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", { silent = true, desc = "Toggle file tree" })
 vim.keymap.set("n", "gF", "<cmd>e <cfile><CR>", { silent = true, desc = "Create file and open" })
 
 -- Search & Navigation
 -----------------------------------------------------------
 vim.keymap.set("n", "n", "nzzzv", { silent = true, desc = "Find next and center" })
 vim.keymap.set("n", "N", "Nzzzv", { silent = true, desc = "Find previous and center" })
-vim.keymap.set("n", "<leader>fm", "<cmd>Telescope make<CR>", { silent = true, desc = "Execute make target" })
+vim.keymap.set("n", "<leader>fm", functions.make_targets, { silent = true, desc = "Execute make target" })
 vim.keymap.set("n", "<leader>fa", function() Snacks.picker.grep() end, { silent = true, desc = "Search in files" })
 vim.keymap.set("n", "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, { silent = true, desc = "Search in config files" })
 vim.keymap.set("n", "<leader>ff", function() Snacks.picker.files() end, { silent = true, desc = "Search all files (ignoring .git)" })
 vim.keymap.set("n", "<leader>fe", function() Snacks.picker.icons() end, { silent = true, desc = "Find emojis" })
 vim.keymap.set("n", "<leader>fp", function() Snacks.picker.registers() end, { silent = true, desc = "Show yank history" })
 vim.keymap.set("n", "<leader>fo", function() Snacks.picker.recent() end, { silent = true, desc = "Show recent files" })
-vim.keymap.set("n", "<leader>fr", function() require("spectre").open() end, { silent = true, desc = "Open search and replace" })
-vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME,BUG<CR>", { silent = true, desc = "Find open TODOs" })
+vim.keymap.set("n", "<leader>ft", function() Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME", "BUG" } }) end, { silent = true, desc = "Find open TODOs" })
 
 -- Git
 -----------------------------------------------------------
@@ -58,16 +61,15 @@ vim.keymap.set("n", "<leader>gf", "<cmd>!fork status $PWD<CR><CR>", { silent = t
 vim.keymap.set("n", "<leader>gb", function() Snacks.git.blame_line() end, { silent = true, desc = "Git blame line" })
 vim.keymap.set("n", "<leader>gg", function() Snacks.gitbrowse.open() end, { silent = true, desc = "Open line in Github" })
 vim.keymap.set("n", "<leader>gl", function() Snacks.lazygit() end, { silent = true, desc = "Open LazyGit" })
-vim.keymap.set("n", "<leader>fb", "<cmd>Telescope git_branches<CR>", { silent = true, desc = "Find git branches" })
+vim.keymap.set("n", "<leader>fb", function() Snacks.picker.git_branches() end, { silent = true, desc = "Find git branches" })
 
 -- Utilities
 -----------------------------------------------------------
 vim.keymap.set("n", "<leader>tw", "<cmd>set wrap!<CR>", { silent = true, desc = "Toggle word wrap" })
 vim.keymap.set("n", "<leader>ud", "<cmd>DBUIToggle<CR>", { silent = true, desc = "Toggle database UI" })
 vim.keymap.set("n", "<leader>tm", "<cmd>MarkdownPreviewToggle<CR>", { silent = true, desc = "Toggle Markdown preview" })
-vim.keymap.set("n", "Z", "<cmd>Telescope spell_suggest<CR>", { silent = true, desc = "Show spell suggests" })
+vim.keymap.set("n", "Z", function() Snacks.picker.spelling() end, { silent = true, desc = "Show spell suggests" })
 vim.keymap.set("n", "yc", "yy<cmd>normal gcc<CR>p", { silent = true, desc = "Duplicate a line and comment out the first line" })
-vim.keymap.set("n", "<leader>ts", "<cmd>Screenkey toggle<CR>", { silent = true, desc = "Toggle Screenkey" })
 
 -- LSP / Trouble
 -----------------------------------------------------------
@@ -77,13 +79,13 @@ vim.keymap.set("n", "<leader>tl", "<cmd>Trouble lsp toggle focus=false win.posit
 
 -- Notes
 -----------------------------------------------------------
-vim.keymap.set("n", "<leader>nn", CreateQuickNote, { silent = true, desc = "Create quick note" })
-vim.keymap.set("n", "<leader>nf", function() require("telescope.builtin").live_grep({ cwd = vim.fn.expand("$HOME/notes") }) end, { silent = true, desc = "Search notes" })
-vim.keymap.set("n", "<leader>no", OpenInSilverbullet, { silent = true, desc = "Open note in Silverbullet" })
+vim.keymap.set("n", "<leader>nn", functions.create_quick_note, { silent = true, desc = "Create quick note" })
+vim.keymap.set("n", "<leader>nf", function() Snacks.picker.grep({ cwd = vim.fn.expand("$HOME/notes") }) end, { silent = true, desc = "Search notes" })
+vim.keymap.set("n", "<leader>no", functions.open_in_silverbullet, { silent = true, desc = "Open note in Silverbullet" })
 
 -- Quickfix
 -----------------------------------------------------------
-vim.keymap.set("n", "<leader>tq", ToggleQf, { desc = "Toggle quickfix list" })
+vim.keymap.set("n", "<leader>tq", functions.toggle_qf, { desc = "Toggle quickfix list" })
 vim.keymap.set("n", "]q", "<cmd>cnext<CR>", { desc = "Next item quickfix list" })
 vim.keymap.set("n", "[q", "<cmd>cprev<CR>", { desc = "Previous item quickfix list" })
 

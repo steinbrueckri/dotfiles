@@ -2,7 +2,7 @@
 # Common Settings
 ################################################################################
 
-include "~/.config/newsboat/themes/rose-pine-dawn"
+include "~/.config/newsboat/themes/rose-pine-moon"
 
 # Enable reloading all feeds periodically.
 auto-reload yes

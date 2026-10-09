@@ -1,34 +1,15 @@
-tap "anomalyco/tap", "https://github.com/anomalyco/homebrew-tap.git"
-tap "arl/arl"
-tap "atlassian/acli"
-tap "boz/repo"
-tap "browsh-org/browsh"
-tap "charmbracelet/tap"
-tap "comcast/opensource"
-tap "creativeprojects/tap"
-tap "etopeter/tap"
-tap "github/gh"
-tap "graalvm/tap"
+tap "d-kuro/tap"
 tap "grafana/grafana"
+tap "handfish/tap", "https://github.com/Handfish/homebrew-tap"
 tap "hashicorp/tap"
-tap "jason0x43/neovim-nightly"
-tap "k0sproject/tap"
-tap "mat2cc/tap"
+tap "homebrew/brew-vulns"
+tap "kluctl/tap"
 tap "morantron/tmux-fingers"
-tap "nikitabobko/tap"
-tap "noahgorstein/tap"
-tap "opencode-ai/tap"
-tap "qnkhuat/tap"
-tap "ramonvermeulen/whosthere"
-tap "rootlyhq/tap"
+tap "nklmilojevic/sofka"
 tap "steinbrueckri/packages"
-tap "txn2/tap"
+tap "tdi/lazytilt"
 tap "updatecli/updatecli"
-tap "vitobotta/tap"
-tap "warrensbox/tap"
-tap "xo/xo"
-tap "y3owk1n/tap"
-tap "zdcthomas/tools"
+tap "xoolive/homebrew"
 # GNU Transport Layer Security (TLS) Library
 brew "gnutls"
 # Cryptography and SSL/TLS Toolkit
@@ -37,12 +18,12 @@ brew "openssl@3"
 brew "unbound"
 # General-purpose data compression with high compression ratio
 brew "xz"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.14"
 # Email client that runs in your terminal
 brew "aerc"
 # Simple, modern, secure file encryption
 brew "age"
-# All-in-one AI-Powered CLI Chat & Copilot
-brew "aichat"
 # OpenType text shaping engine
 brew "harfbuzz"
 # Package compiler and linker metadata toolkit
@@ -53,8 +34,6 @@ brew "aqbanking"
 brew "libpcap"
 # ARP scanning and fingerprinting tool
 brew "arp-scan"
-# Extendable version manager with support for Ruby, Node.js, Erlang & more
-brew "asdf"
 # Spell checker with better logic than ispell
 brew "aspell"
 # Improved shell history for zsh, bash, fish and nushell
@@ -67,16 +46,18 @@ brew "restic"
 brew "autorestic"
 # Official Amazon AWS command-line interface
 brew "awscli"
+# Microsoft Azure CLI 2.0
+brew "azure-cli"
 # Terminal bandwidth utilization tool
 brew "bandwhich"
 # Modular SIP useragent
 brew "baresip"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
-# GNU File, Shell, and Text utilities
-brew "coreutils"
 # Bash Automated Testing System
 brew "bats-core"
+# TUI for managing Homebrew, Flatpak, and Mac App Store packages
+brew "bbrew"
 # Get/set bluetooth power and discoverable state
 brew "blueutil"
 # Interface bandwidth monitor
@@ -101,6 +82,8 @@ brew "chawan"
 brew "choose-rust"
 # Cross-platform make
 brew "cmake"
+# GNU File, Shell, and Text utilities
+brew "coreutils"
 # Securely send things from one computer to another
 brew "croc"
 # Get a file from an HTTP, HTTPS or FTP server
@@ -139,8 +122,6 @@ brew "entr"
 brew "erdtree"
 # Perl lib for reading and writing EXIF metadata
 brew "exiftool"
-# Modern, maintained replacement for ls
-brew "eza"
 # Like neofetch, but much faster because written mostly in C
 brew "fastfetch"
 # Simple, fast and user-friendly alternative to find
@@ -227,12 +208,16 @@ brew "gping"
 brew "graphviz"
 # Make JSON greppable
 brew "gron"
+# Vulnerability scanner for container images and filesystems
+brew "grype"
 # Tool for glamorous shell scripts
 brew "gum"
 # Smarter Dockerfile linter to validate best practices
 brew "hadolint"
 # Command-line interface for Hetzner Cloud
 brew "hcloud"
+# Kubernetes package manager
+brew "helm"
 # CLI email client written in Rust
 brew "himalaya"
 # Easy plain text accounting with command-line, terminal and web UIs
@@ -275,10 +260,16 @@ brew "jq"
 brew "jqp"
 # Handy way to save and run project-specific commands
 brew "just"
+# Kubernetes CLI To Manage Your Clusters In Style!
+brew "k9s"
 # Console carddav client
 brew "khard"
+# Run local Kubernetes cluster in Docker
+brew "kind"
 # Tool to move from `docker-compose` to Kubernetes
 brew "kompose"
+# Tool that can switch between kubectl contexts easily and create aliases
+brew "kubectx"
 # Lazier way to manage everything docker
 brew "lazydocker"
 # Simple terminal UI for git commands
@@ -287,6 +278,10 @@ brew "lazygit"
 brew "lazyjournal"
 # Asynchronous event library
 brew "libev"
+# Use Realtek DVB-T dongles as a cheap SDR
+brew "librtlsdr"
+# High-performance, extensible alternative to ls
+brew "lla"
 # Curses-based tool for viewing and analyzing log files
 brew "lnav"
 # Rainbows and unicorns in your console!
@@ -383,6 +378,8 @@ brew "python@3.11"
 brew "qemu"
 # Cross-platform application and UI framework
 brew "qt"
+# Database management TUI for PostgreSQL/MySQL/SQLite
+brew "rainfrog"
 # Install various Ruby versions and implementations
 brew "ruby-build"
 # Ruby version manager
@@ -391,6 +388,8 @@ brew "rbenv"
 brew "rclone"
 # Command-line interface for Render
 brew "render"
+# Configuration profiles manager and scheduler for restic backup
+brew "resticprofile"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Wrapper around ripgrep that adds multiple rich file types
@@ -400,13 +399,15 @@ brew "rlwrap"
 # Utility that provides fast incremental file transfer
 brew "rsync"
 # Powerful, clean, object-oriented scripting language
-brew "ruby", link: false
+brew "ruby"
 # Rust toolchain installer
 brew "rustup"
 # Command-line tool for the Amazon S3 service
 brew "s3cmd"
 # Fast and accurate code counter with complexity and COCOMO estimates
 brew "scc"
+# Command-line Interface for Scaleway
+brew "scw"
 # Smart session manager for the terminal
 brew "sesh"
 # Static analysis and lint tool, for (ba)sh scripts
@@ -429,8 +430,6 @@ brew "sops"
 brew "spack"
 # This tool is a command-line client for the SSL Labs APIs
 brew "ssllabs-scan"
-# Test SSL/TLS enabled services to discover supported cipher suites
-brew "sslscan"
 # Cross-shell prompt for astronauts
 brew "starship"
 # Minimal, customizable and neofetch-like weather CLI based on rainy
@@ -441,14 +440,14 @@ brew "subversion"
 brew "superfile"
 # SMTP command-line test tool
 brew "swaks"
+# CLI for out-of-band management of Kubernetes nodes created by Talos
+brew "talosctl"
 # General purpose fuzzy finder TUI
 brew "television"
 # User interface to the TELNET protocol
 brew "telnet"
 # Tool which checks for the support of TLS/SSL ciphers and flaws
 brew "testssl"
-# Linter for Terraform files
-brew "tflint"
 # Code-search similar to ack
 brew "the_silver_searcher"
 # Text interface for Git repositories
@@ -488,13 +487,15 @@ brew "vifm"
 # Simple terminal image viewer written in Rust
 brew "viu"
 # Generator for LS_COLORS with support for multiple color themes
-brew "vivid", link: false
+brew "vivid"
 # Pager/text based browser
 brew "w3m"
 # Executes a program periodically, showing output fullscreen
 brew "watch"
 # Execute commands when watched files change
 brew "watchexec"
+# Display word differences between text files
+brew "wdiff"
 # Command-line client for WebSockets
 brew "websocat"
 # Extensible IRC client
@@ -505,14 +506,12 @@ brew "wget"
 brew "wimlib"
 # Tools for the WireGuard secure network tunnel
 brew "wireguard-tools"
-# Why is this running?
-brew "witr"
 # Personal information dashboard for your terminal
 brew "wtfutil"
+# Python bindings for wxWidgets
+brew "wxpython"
 # Markdown defined task runner
 brew "xc"
-# Bring your favorite shell wherever you go through the ssh
-brew "xxh"
 # Yet Another Dotfiles Manager
 brew "yadm"
 # Copy terminal output to clipboard
@@ -527,6 +526,8 @@ brew "ykman"
 brew "yq"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
+# Check Homebrew packages for known vulnerabilities via osv.dev
+brew "homebrew/brew-vulns/brew-vulns"
 # Password manager that keeps all passwords secure behind one password
 cask "1password"
 # Command-line interface for 1Password
@@ -535,10 +536,14 @@ cask "1password-cli"
 cask "anytype"
 # Menu bar icon organiser
 cask "bartender"
+# OpenAI's coding agent that runs in your terminal
+cask "codex"
 # Online diagram software
 cask "drawio"
 # Cross-platform Text Expander written in Rust
 cask "espanso"
+# Web browser
+cask "firefox"
 cask "font-3270-nerd-font"
 cask "font-agave-nerd-font"
 cask "font-anonymice-nerd-font"
@@ -591,6 +596,8 @@ cask "font-ubuntu-nerd-font"
 cask "font-victor-mono-nerd-font"
 # GIT client
 cask "fork"
+# Web browser
+cask "google-chrome"
 # Tools to protect your emails and files
 cask "gpg-suite"
 # Keyboard shortcuts for every button on your screen
@@ -611,8 +618,6 @@ cask "p4v"
 cask "prusaslicer"
 # Control your tools with a few keystrokes
 cask "raycast"
-# Terminal UI for Rootly incidents and alerts
-cask "rootlyhq/tap/rootly-tui"
 # Instant messaging application focusing on security
 cask "signal"
 # PDF reader and note-taking application
@@ -623,8 +628,8 @@ cask "syncthing-app"
 cask "vivid-app"
 # Native desktop client for WhatsApp
 cask "whatsapp"
-# Local network discovery tool with an interactive Terminal User Interface (TUI) written in Go.
-cask "ramonvermeulen/whosthere/whosthere"
+# Connect to Windows
+cask "windows-app"
 # Open-source version of the X.Org X Window System
 cask "xquartz"
 mas "GarageBand", id: 682658836

@@ -1,11 +1,8 @@
 return {
-	"echasnovski/mini.nvim",
+	"nvim-mini/mini.nvim",
 	event = "VeryLazy",
 	branch = "stable",
 	config = function()
-		-- -- Visualize and work with indent scope
-		-- require("mini.indentscope").setup()
-		--
 		-- Align text interactively
 		require("mini.align").setup()
 

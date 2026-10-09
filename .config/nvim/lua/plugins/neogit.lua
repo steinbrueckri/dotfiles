@@ -1,9 +1,9 @@
 return {
 	"NeogitOrg/neogit",
 	lazy = true,
-  cmd = "Neogit",
+	cmd = "Neogit",
 	keys = {
-		{ "<leader>gn", "<cmd>Neogit<cr>" },
+		{ "<leader>gn", "<cmd>Neogit<cr>", desc = "Open Neogit" },
 	},
 	opts = {
 		kind = "split", -- opens neogit in a split
