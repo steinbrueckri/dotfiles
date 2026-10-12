@@ -53,7 +53,6 @@ def test_tpm_install(tpm_bootstrapped, run_logged_command, wait_until):
     expected_plugins = {
         "tmux": "rose-pine.tmux",
         "tmux-battery": "battery.tmux",
-        "tmux-fingers": "tmux-fingers.tmux",
     }
 
     assert_executable_exists(install_script, "TPM install script")

@@ -20,16 +20,18 @@ def nvim_env() -> dict[str, str]:
 
 
 @pytest.mark.bootstrap
-def test_lazy_sync(run_logged_command, nvim_env):
-    """Lazy sync completes successfully and bootstraps required files."""
+def test_lazy_restore(run_logged_command, nvim_env):
+    """Lazy restore installs the plugin versions pinned in lazy-lock.json."""
+    # restore (not sync) so CI tests the locked plugin versions instead of
+    # whatever upstream HEAD happens to be on the day of the run
     result = run_logged_command(
-        command='nvim --headless "+Lazy! sync" +qall!',
-        log_name="lazy-sync.log",
+        command='nvim --headless "+Lazy! restore" +qall!',
+        log_name="lazy-restore.log",
         timeout=500,
         env=nvim_env,
     )
 
-    assert_command_succeeded(result, action="Lazy sync", log_name="lazy-sync.log")
+    assert_command_succeeded(result, action="Lazy restore", log_name="lazy-restore.log")
 
     home = Path.home()
     expected_files = [
@@ -39,8 +41,8 @@ def test_lazy_sync(run_logged_command, nvim_env):
             "lazy.nvim bootstrap file",
         ),
         (
-            home / ".local/share/nvim/lazy/telescope.nvim/lua/telescope/init.lua",
-            "telescope.nvim entrypoint",
+            home / ".local/share/nvim/lazy/snacks.nvim/lua/snacks/init.lua",
+            "snacks.nvim entrypoint",
         ),
     ]
 
@@ -80,7 +82,14 @@ def test_mason_install(package, run_logged_command, nvim_env):
 def test_checkhealth(run_logged_command, artifact_dir, nvim_env):
     """Neovim health check reports expected healthy components."""
     result = run_logged_command(
-        command='nvim --headless "+checkhealth" "+w! health.log" +qa',
+        # checkhealth runs asynchronously since Neovim 0.12; the report buffer is
+        # set nomodifiable once all checks are done, so wait for that before writing
+        command=(
+            'nvim --headless "+checkhealth" '
+            '"+lua if not vim.wait(50000, function() return not vim.bo.modifiable end, 100) '
+            'then vim.cmd.cquit(2) end" '
+            '"+w! health.log" +qa'
+        ),
         log_name="checkhealth-command.log",
         timeout=60,
         env=nvim_env,

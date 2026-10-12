@@ -31,6 +31,8 @@ jobs:
           name: test-logs
           path: .test_results/
           if-no-files-found: ignore
+          # upload-artifact skips dot-directories like .test_results by default
+          include-hidden-files: true
 
       - name: Fix git safe directory for annotations
         if: always()
