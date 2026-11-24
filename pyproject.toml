@@ -9,7 +9,7 @@ dependencies = [
     "libtmux>=0.62.0",
     "gitpython==3.2.1",
     "python-dotenv==1.2.4",
-    "pyyaml==6.0.3",
+    "pyyaml==6.0.4",
 ]
 
 [tool.pytest.ini_options]
